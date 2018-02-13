@@ -15,11 +15,6 @@ public class Patron extends User {
     public ArrayList <Document> documents; //documents checked by this user
     //DBtest data;
     public Patron(){
-    //public Patron(String name, String phoneNumber, String email, int id, String type) {
-      //  super(name, phoneNumber, email, id);
-      //  documents = new ArrayList<>();
-        //this.type = type;
-        //data = new DBtest();
         documents = new ArrayList<Document>();
     }
 
@@ -33,12 +28,7 @@ public class Patron extends User {
             System.out.println("user " + this.name + " already have this document");
             return;
         }
-        if (doc.copiesNumber() > 0) {
-            //System.out.println("patron " + this.name + " checked " + doc.getTitle());
-            if (doc.getKeys().contains("reference")){
-                System.out.println("Impossible to checkout. The document " + doc.getTitle() + " is reference book");
-                return;
-            }
+        if (doc.copiesNumber() > 1) {
             documents.add(doc);
             doc.setCopies(doc.copiesNumber() - 1);
             if (!doc.getClass().toString().equals("class Documents.Book")){

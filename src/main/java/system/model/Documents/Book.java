@@ -10,6 +10,13 @@ public class Book extends Document{
         //super(title, price, author,keys);
     }
 
+    public void setDoc(String title, int price, String authors, String keys, String press, int year, boolean bestSeller){
+        super.setDoc(title, price,authors,keys);
+        this.press = press;
+        this.year = year;
+        this.bestSeller = bestSeller;
+    }
+
     public void setPress(String p){
         press = p;
     }
