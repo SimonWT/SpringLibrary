@@ -1,6 +1,6 @@
 package system.controller;
 
-import com.sun.deploy.net.HttpResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
@@ -28,7 +28,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ModelAndView auth(HttpRequest request, HttpResponse response){
+    public ModelAndView auth(){
 
         ModelAndView modelAndView= new ModelAndView();
         modelAndView.addObject("userFromServer", new User());
