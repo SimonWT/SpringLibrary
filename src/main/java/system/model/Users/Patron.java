@@ -5,15 +5,17 @@ import system.model.Documents.Book;
 import system.model.Documents.Document;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 
 /**
  * Created by evgeniy on 21.01.18.
  */
 public class Patron extends User {
-    public String type; //faculty or student
-    public ArrayList <Document> documents; //documents checked by this user
-    //DBtest data;
+    private String type; //faculty or student
+    private ArrayList <Document> documents; //documents checked by this user
+
     public Patron(){
         documents = new ArrayList<Document>();
     }
@@ -30,19 +32,20 @@ public class Patron extends User {
         }
         if (doc.copiesNumber() > 1) {
             documents.add(doc);
+            doc.resetDate();
             doc.setCopies(doc.copiesNumber() - 1);
             if (!doc.getClass().toString().equals("class Documents.Book")){
-                doc.daysRemained = 14;
+                doc.setDue(14);
             }
             else if (this.type.equals("faculty")){
-                doc.daysRemained = 28;
+                doc.setDue(28);
             } else{
                 Book b = (Book) doc;
                 if (b.isBestSeller()){
-                    doc.daysRemained = 14;
+                    doc.setDue(14);
                 }
                 else {
-                    doc.daysRemained = 21;
+                    doc.setDue(21);
                 }
             }
             System.out.println("The book \"" + doc.getTitle() + "\" are checked out by " + name);
@@ -59,7 +62,15 @@ public class Patron extends User {
         //TODO get list of documents
         documents.remove(doc);
         doc.setCopies(doc.copiesNumber() + 1);
-        //TODO check data and fee
+        Date today = new Date();
+        long dif = doc.getCheckoutDate().getTime() - today.getTime();
+        int difDays = (int)TimeUnit.DAYS.convert(dif, TimeUnit.MILLISECONDS);
+        if (difDays > doc.getDue()){
+            if (100 * (difDays - doc.getDue()) < doc.getPrice())
+                doc.setFine(100 * (difDays - doc.getDue()));
+            else
+                doc.setFine(doc.getPrice());
+        }
         //TODO rewrite list of documents
     }
 }

@@ -1,6 +1,7 @@
 package system.model.Documents;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Document {
     private int id;
@@ -9,7 +10,10 @@ public class Document {
     private int price;
     private ArrayList<String> authors;
     private ArrayList<String> keys;
-    public int daysRemained;
+    private int daysRemained;
+    private Date checkoutDate;
+    private int fine;
+
 
     //public Document( String title, int price, ArrayList<String> authors, ArrayList<String> keys) {
     public Document(){
@@ -27,6 +31,9 @@ public class Document {
 
     public void setCopies(int n){this.copies = n;}
     public void setPrice(int newPrice){this.price = newPrice;}
+    public void resetDate(){checkoutDate = new Date();}
+    public void setDue(int days){daysRemained = days;}
+    public void setFine(int f){fine = f;}
 
     public int copiesNumber(){
         return copies;
@@ -36,4 +43,7 @@ public class Document {
     public ArrayList<String> getAuthors(){return authors;}
     public ArrayList<String> getKeys(){return keys;}
     public int getId(){return id;}
+    public Date getCheckoutDate(){return checkoutDate;}
+    public int getDue(){return daysRemained;}
+    public int getFine(){return fine;}
 }
