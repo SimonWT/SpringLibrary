@@ -19,7 +19,8 @@ Install: Java 1.8,
     And in IDEA in class src/main/java/DB/DBtest.class edit DB_URL, DB_USER, DB_PASS with access data of your local MySQL server.
 5. If Intellij propose to import new files, click on "Auto-Import". In the case,you have a problem, as, when you didn't have reference
                                                                        to click, you should open File/Settings/Maven/Importing and then you should tick on "Import Maven project Automatically"
-    
+6. You should upload Maven( to start your project), you can use this link as help "https://habrahabr.ru/post/77382/".
+7. In console you should print:   mvn jetty:run
  #### To start WEB-application compile src/main/java/Main/main.class and at Web-browser put in address line "localhost:8080"
  
  ### For check TEST CASES:
