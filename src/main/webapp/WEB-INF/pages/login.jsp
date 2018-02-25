@@ -21,20 +21,13 @@
     <!--<title> Authorization | InnoLibrary</title> -->
 
     <!-- Bootstrap -->
-    <title>DeepLib|Authorization</title>
    <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="${contextPath}/resources/css/style.css" rel="stylesheet"/>
     <link href="${contextPath}/resources/css/style2.css" rel="stylesheet"/>
 
     <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Open+Sans:600'><style>
     body{
-       background: url("${contextPath}/resources/img/14.jpg") center;
-
-        -moz-background-size: 120%; /* Firefox 3.6+ */
-        -webkit-background-size: 120%; /* Safari 3.1+ и Chrome 4.0+ */
-        -o-background-size: 120%; /* Opera 9.6+ */
-        background-size: 120%; /* Современные браузеры */
-        position:relative;
+       background: url("${contextPath}/resources/img/1.jpg") ;
     }
 </style>
 
@@ -46,21 +39,17 @@
         </div>
         <div class="col-md-6 col-md-offset-3 ">
 
-            <div class = "well span4 offset4">
-                <legend><h><label class = "text-center">DeepLib</label> </h>
+            <div class = "well span4 offset4 center">
+                <button class="collapsible"><legend><h><label class = "text-center">DeepLib</label> </h>
                     <br>
                     <h4> the most comfortable source for student and professors </h4> </legend>
 
-                <button class="collapsible">
-                    Sign in/ Sign up
                 </button>
                 <div class="content">
 
 
                 <div class="login-wrap">
-
                     <div class="login-html">
-
                         <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign In</label>
                         <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
                         <div class="login-form">
@@ -78,24 +67,22 @@
                                         <label for="myInput"><b>Password</b></label>
                                         <input type="password" class = "input" data-type="password" onfocus="this.value=''" value="Katushka_the_best" placeholder="Enter Password" name="psw" id ="myInput" required>
                                     <input type="checkbox" onclick="myFunction()">Show Password
+                                    <script>
+                                        function myFunction() {
+                                            var x = document.getElementById("myInput");
+                                            if (x.type === "password") {
+                                                x.type = "text";
+                                            } else {
+                                                x.type = "password";
+                                            }
+                                        }
+                                    </script>
                                 </div>
 
                                 <div class="group">
                                     <input type="submit" class="button" value="Sign In">
                                 </div>
                                 <div class="hr"></div>
-                                <br>
-                                <br>
-
-                                <br>
-                                <br>
-                                <br>
-                                <br>
-                                <br>
-                                <br>
-                                <br>
-
-
                             </div>
 
                             <div class="sign-up-htm">
@@ -125,7 +112,6 @@
                             </div>
                         </div>
                     </div>
-                    <legent class = "lovelynames"> by Gfycyd , SimonWT, jenamax, Qualwak</legent>
                 </div>
 
 
@@ -165,16 +151,7 @@
         });
     }
 </script>
-<script>
-    function myFunction() {
-        var x = document.getElementById("myInput");
-        if (x.type === "password") {
-            x.type = "text";
-        } else {
-            x.type = "password";
-        }
-    }
-</script>
+
 
 </body>
 </html>
