@@ -27,7 +27,7 @@
 
     <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Open+Sans:600'><style>
     body{
-       background: url("${contextPath}/resources/img/1.jpg") ;
+       background: url("${contextPath}/resources/img/14.jpg") ;
     }
 </style>
 
@@ -64,8 +64,9 @@
 
 
 
-                                        <label for="myInput"><b>Password</b></label>
-                                        <input type="password" class = "input" data-type="password" onfocus="this.value=''" value="Katushka_the_best" placeholder="Enter Password" name="psw" id ="myInput" required>
+                                    <!-- An element to toggle between password visibility -->
+                                    <input type="checkbox" onclick="myFunction()">Show Password
+                                      Password  <input type="password" class = "input"  onfocus="this.value=''" value="Katushka_the_best" placeholder="Enter Password"  id ="myInput" required>
                                     <input type="checkbox" onclick="myFunction()">Show Password
                                     <script>
                                         function myFunction() {
