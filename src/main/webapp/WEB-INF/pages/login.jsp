@@ -21,6 +21,7 @@
     <!--<title> Authorization | InnoLibrary</title> -->
 
     <!-- Bootstrap -->
+    <title>DeepLib|Authorization</title>
    <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="${contextPath}/resources/css/style.css" rel="stylesheet"/>
     <link href="${contextPath}/resources/css/style2.css" rel="stylesheet"/>
