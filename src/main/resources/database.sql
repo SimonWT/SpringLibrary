@@ -38,3 +38,35 @@ INSERT INTO roles VALUES (1, 'ROLE_USER');
 INSERT INTO roles VALUES (2, 'ROLE_ADMIN');
 
 INSERT INTO user_roles VALUES (1, 2);
+
+CREATE TABLE books (
+  id       INT          NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  title    VARCHAR(255) NOT NULL,
+  author   VARCHAR(255) NOT NULL,
+  year     VARCHAR(255) NOT NULL,
+  edition  INT          NOT NULL,
+  price    INT          NOT NULL,
+  copies   INT          NOT NULL
+)
+  ENGINE = InnoDB;
+
+CREATE TABLE journal_articles (
+  id                        INT           NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  journal_title             VARCHAR(255)  NOT NULL,
+  article_title             VARCHAR(255)  NOT NULL,
+  publication_month_year    VARCHAR(255)  NOT NULL,
+  author                    VARCHAR(255)  NOT NULL,
+  editor                    VARCHAR(255)  NOT NULL,
+  price                     INT           NOT NULL,
+  copies                    INT           NOT NULL
+)
+  ENGINE = InnoDB;
+
+CREATE TABLE audio_video(
+  id           INT          NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  author       VARCHAR(255) NOT NULL,
+  title        VARCHAR(255) NOT NULL,
+  price        INT          NOT NULL,
+  copies       INT          NOT NULL
+)
+  ENGINE = InnoDB;

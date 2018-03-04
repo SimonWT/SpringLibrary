@@ -27,8 +27,10 @@
         </h2>
     </c:if>
 </div>
-<h3><a href="/registration">Register somebody</a></h3>
-<h3><a href="/listOfUsers">View users</a></h3>
+<h3><a href="/registration">Register somebody</a><a href="/listOfUsers">View users</a></h3>
+<h3><a href="/addBook">Add Book </a><a href="/listOfBooks">View books</a></h3>
+<h3><a href="/addArticle">Add Article </a><a href="/listOfArticles">View Articles</a></h3>
+<h3><a href="/addAudioVideoMaterial">Add a new Audio or Video Material </a><a href="/listOfAudioVideoMaterial">View Audio and Video Materials</a></h3>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 
