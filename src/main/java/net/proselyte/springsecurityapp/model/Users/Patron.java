@@ -2,6 +2,7 @@ package net.proselyte.springsecurityapp.model.Users;
 
 import net.proselyte.springsecurityapp.model.Documents.Book;
 import net.proselyte.springsecurityapp.model.Documents.Document;
+import net.proselyte.springsecurityapp.model.Role;
 import net.proselyte.springsecurityapp.model.User;
 
 import java.util.ArrayList;
@@ -15,6 +16,8 @@ import java.util.concurrent.TimeUnit;
 public class Patron extends User {
     private String type; //faculty or student
     private ArrayList <Document> documents; //documents checked by this user
+
+    public Role role;
 
     public Patron(){
         documents = new ArrayList<Document>();
