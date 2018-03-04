@@ -32,7 +32,7 @@ CREATE TABLE user_roles (
 
 -- Insert data
 
-INSERT INTO users VALUES (1, 'qualwak', '$2b$10$ocVOh8A6KgOrdRfnONflveKyU7ziFmuvc3.Q9Ox7YD4SzSiatEEuy');
+INSERT INTO users VALUES (1, 'qualwak', '$2b$10$Sdhj/inHvfyXJBrAvyk/jOlViYZAoweXoniyFwhrXDAWoRX99UbI2');
 
 INSERT INTO roles VALUES (1, 'ROLE_USER');
 INSERT INTO roles VALUES (2, 'ROLE_ADMIN');
