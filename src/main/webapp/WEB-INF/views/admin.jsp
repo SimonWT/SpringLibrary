@@ -27,7 +27,7 @@
         </h2>
     </c:if>
 </div>
-<h3><a href="/registration">Register somebody</a><a href="/listOfUsers">View users</a></h3>
+<h3><a href="/registration">Register somebody </a><a href="/listOfUsers">View users</a></h3>
 <h3><a href="/addBook">Add Book </a><a href="/listOfBooks">View books</a></h3>
 <h3><a href="/addArticle">Add Article </a><a href="/listOfArticles">View Articles</a></h3>
 <h3><a href="/addAudioVideoMaterial">Add a new Audio or Video Material </a><a href="/listOfAudioVideoMaterial">View Audio and Video Materials</a></h3>
