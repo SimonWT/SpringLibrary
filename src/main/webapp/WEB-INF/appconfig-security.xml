@@ -20,6 +20,7 @@
         <intercept-url pattern="/listOfBooks" access="hasRole('ROLE_ADMIN')"/>
         <intercept-url pattern="/listOfArticles" access="hasRole('ROLE_ADMIN')"/>
         <intercept-url pattern="/listOfAudioVideoMaterial" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/editUser" access="hasRole('ROLE_ADMIN')"/>
 
 
 

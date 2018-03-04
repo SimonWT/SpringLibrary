@@ -43,7 +43,7 @@
             dataSource.setUrl("jdbc:mysql://localhost:3306/spring_library_app");
             dataSource.setUsername("root");
             dataSource.setPassword("root");
-            String query="SELECT name, surname, username, phone, email FROM users";
+            String query="SELECT id, name, surname, username, phone, email FROM users";
             Connection conn=DriverManager.getConnection(dataSource.getUrl(), dataSource.getUsername(), dataSource.getPassword());
             Statement stmt=conn.createStatement();
             ResultSet rs=stmt.executeQuery(query);
@@ -57,7 +57,7 @@
         <td><%=rs.getString("username") %></td>
         <td><%=rs.getString("phone") %></td>
         <td><%=rs.getString("email") %></td>
-        <td><a>Modify</a><a>Delete</a></td>
+        <td><a href="/">Modify</a><a>Delete</a></td>
 
 
     </tbody>

@@ -58,7 +58,7 @@
         <td><%=rs.getString("edition") %></td>
         <td><%=rs.getString("price") %></td>
         <td><%=rs.getString("copies") %></td>
-        <td><a>Modify</a><a>Delete</a></td>
+        <td><a href="/editBook/<%=rs.getString("title")%>}">Modify</a><a>Delete</a></td>
 
 
         </tbody>
@@ -77,6 +77,7 @@
         }
     %>
 </form>
+
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 </body>
 </html>
