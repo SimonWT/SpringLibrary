@@ -29,7 +29,6 @@ public class UserController {
     private UserService userService;
 
 
-
     @Autowired
     private BookService bookService;
 
@@ -191,12 +190,6 @@ public class UserController {
     public String listOfArticles() {
 
         return "listOfArticles";
-    }
-    @RequestMapping(value = "/editBook/{title}", method = RequestMethod.GET)
-    @ResponseBody
-    public String editInfo(@PathVariable("title") String title) {
-
-        return "editBook" + "wehsdjf";
     }
 
     @RequestMapping(value = "/listOfAudioVideoMaterial", method = RequestMethod.GET)
