@@ -2,6 +2,7 @@ package net.proselyte.springsecurityapp.model.Users;
 
 import net.proselyte.springsecurityapp.model.Documents.Book;
 import net.proselyte.springsecurityapp.model.Documents.Document;
+import net.proselyte.springsecurityapp.model.Role;
 import net.proselyte.springsecurityapp.model.User;
 
 import java.util.ArrayList;
@@ -16,6 +17,8 @@ public class Patron extends User {
     private String type; //faculty or student
     private ArrayList <Document> documents; //documents checked by this user
 
+    public Role role;
+
     public Patron(){
         documents = new ArrayList<Document>();
     }
@@ -25,7 +28,6 @@ public class Patron extends User {
     }
 
     public void checkout(Document doc){
-        //TODO: get list of documents from db
         if (this.documents.contains(doc)){
             System.out.println("user " + getName() + " already have this document");
             return;
@@ -54,12 +56,9 @@ public class Patron extends User {
         else{
             System.out.println("No available documents for " + getName());
         }
-
-        //TODO: rewrite list of documents
     }
 
     public void toReturn(Document doc){
-        //TODO get list of documents
         documents.remove(doc);
         doc.setCopies(doc.copiesNumber() + 1);
         Date today = new Date();
@@ -71,6 +70,5 @@ public class Patron extends User {
             else
                 doc.setFine(doc.getPrice());
         }
-        //TODO rewrite list of documents
     }
 }
