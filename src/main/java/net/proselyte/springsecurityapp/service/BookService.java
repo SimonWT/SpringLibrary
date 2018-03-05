@@ -5,4 +5,5 @@ import net.proselyte.springsecurityapp.model.Book;
 public interface BookService {
 
     void save(Book book);
+    void delete(Long id);
 }

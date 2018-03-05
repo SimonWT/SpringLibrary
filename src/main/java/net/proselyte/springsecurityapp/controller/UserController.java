@@ -13,9 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Controller for {@link net.proselyte.springsecurityapp.model.User}'s pages.
@@ -23,11 +21,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author Igor Vakhula
  */
 
+@SuppressWarnings("ALL")
 @Controller
 public class UserController {
 
     @Autowired
     private UserService userService;
+
 
     @Autowired
     private BookService bookService;
@@ -191,6 +191,7 @@ public class UserController {
 
         return "listOfArticles";
     }
+
     @RequestMapping(value = "/listOfAudioVideoMaterial", method = RequestMethod.GET)
     public String listOfAudioVideoMaterial() {
 

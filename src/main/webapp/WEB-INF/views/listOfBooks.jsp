@@ -43,7 +43,7 @@
                 dataSource.setUrl("jdbc:mysql://localhost:3306/spring_library_app");
                 dataSource.setUsername("root");
                 dataSource.setPassword("root");
-                String query="SELECT title, author, year, edition, price, copies FROM books";
+                String query="SELECT id, title, author, year, edition, price, copies FROM books";
                 Connection conn=DriverManager.getConnection(dataSource.getUrl(), dataSource.getUsername(), dataSource.getPassword());
                 Statement stmt=conn.createStatement();
                 ResultSet rs=stmt.executeQuery(query);
@@ -58,7 +58,7 @@
         <td><%=rs.getString("edition") %></td>
         <td><%=rs.getString("price") %></td>
         <td><%=rs.getString("copies") %></td>
-        <td><a>Modify</a><a>Delete</a></td>
+        <td><a href="/editBook/{<%=rs.getString("title")%>}">Modify</a><a href="/deleteBook/{<%=rs.getLong("id")%>}">Delete</a></td>
 
 
         </tbody>
@@ -77,6 +77,7 @@
         }
     %>
 </form>
+
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 </body>
 </html>
