@@ -15,11 +15,10 @@ public class BookController {
     @ResponseBody
     public String editInfo(@PathVariable("title") String title) {
 
-        return "editBook" + " edit";
+        return "editBook: " + title;
     }
 
-    @RequestMapping(value = "/deleteBook/{id}", method = RequestMethod.GET)
-    @ResponseBody
+    @RequestMapping("/deleteBook/{id}")
     public String deleteBook(@PathVariable("id") Long id){
         bookService.delete(id);
 
