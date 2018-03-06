@@ -22,6 +22,7 @@
     <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+<h3><a href="/admin">Back</a></h3>
 <form method="POST">
     <table class="table table-condensed">
         <thead>
@@ -42,7 +43,7 @@
                 dataSource.setUrl("jdbc:mysql://localhost:3306/spring_library_app");
                 dataSource.setUsername("root");
                 dataSource.setPassword("root");
-                String query="SELECT author, title, price, copies FROM audio_video";
+                String query="SELECT id, author, title, price, copies FROM audio_video";
                 Connection conn=DriverManager.getConnection(dataSource.getUrl(), dataSource.getUsername(), dataSource.getPassword());
                 Statement stmt=conn.createStatement();
                 ResultSet rs=stmt.executeQuery(query);
@@ -55,7 +56,7 @@
         <td><%=rs.getString("title") %></td>
         <td><%=rs.getString("price") %></td>
         <td><%=rs.getString("copies") %></td>
-        <td><a>Modify</a><a>Delete</a></td>
+        <td><a>Modify</a><a href="/deleteAudioVideo/<%=rs.getLong("id")%>">Delete</a></td>
 
 
         </tbody>

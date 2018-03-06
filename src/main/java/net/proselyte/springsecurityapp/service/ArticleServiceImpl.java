@@ -35,5 +35,11 @@ public class ArticleServiceImpl implements ArticleService {
         articleDao.save(article);
     }
 
+    @Override
+    public void delete(Long id) {
+        articleDao.delete(id);
+    }
+
+
 
 }

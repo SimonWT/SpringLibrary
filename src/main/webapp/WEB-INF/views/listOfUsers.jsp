@@ -22,6 +22,7 @@
     <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+<h3><a href="/admin">Back</a></h3>
 <form method="POST">
 <table class="table table-condensed">
     <thead>
@@ -57,7 +58,7 @@
         <td><%=rs.getString("username") %></td>
         <td><%=rs.getString("phone") %></td>
         <td><%=rs.getString("email") %></td>
-        <td><a href="/">Modify</a><a>Delete</a></td>
+        <td><a href="/">Modify</a><a href="/deleteUser/<%=rs.getLong("id")%>">Delete</a></td>
 
 
     </tbody>

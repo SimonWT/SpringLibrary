@@ -5,4 +5,6 @@ import net.proselyte.springsecurityapp.model.Article;
 public interface ArticleService {
 
     void save(Article article);
+
+    void delete(Long id);
 }

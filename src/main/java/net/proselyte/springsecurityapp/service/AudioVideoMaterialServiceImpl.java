@@ -29,5 +29,10 @@ public class AudioVideoMaterialServiceImpl implements AudioVideoMaterialService 
         audioVideoDao.save(audioVideo);
     }
 
+    @Override
+    public void delete(Long id) {
+        audioVideoDao.delete(id);
+    }
+
 
 }
