@@ -41,9 +41,9 @@
         {
             DriverManagerDataSource dataSource = new DriverManagerDataSource();
             dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-            dataSource.setUrl("jdbc:mysql://localhost:3306/spring_library_app");
-            dataSource.setUsername("root");
-            dataSource.setPassword("root");
+            dataSource.setUrl("jdbc:mysql://eu-cdbr-west-02.cleardb.net:3306/heroku_f76d6fb9e659782");
+            dataSource.setUsername("baff532465d8d9");
+            dataSource.setPassword("ffa9cd9f");
             String query="SELECT id, name, surname, username, phone, email FROM users";
             Connection conn=DriverManager.getConnection(dataSource.getUrl(), dataSource.getUsername(), dataSource.getPassword());
             Statement stmt=conn.createStatement();
