@@ -26,6 +26,12 @@ public class BookController {
         return "redirect:/listOfBooks";
     }
 
+    @RequestMapping(value = "/listOfBooksForPatron", method = RequestMethod.GET)
+    public String listOfBooksForPatron() {
+        return "listOfBooksForPatron";
+    }
+
+
 
 
 

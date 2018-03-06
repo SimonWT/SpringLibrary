@@ -21,6 +21,11 @@
         <intercept-url pattern="/listOfArticles" access="hasRole('ROLE_ADMIN')"/>
         <intercept-url pattern="/listOfAudioVideoMaterial" access="hasRole('ROLE_ADMIN')"/>
         <intercept-url pattern="/editUser" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/listOfBooksForPatron" access="hasRole('ROLE_USER')"/>
+        <intercept-url pattern="/listOfArticlesForPatron" access="hasRole('ROLE_USER')"/>
+        <intercept-url pattern="/listOfAudioVideoMaterialForPatron" access="hasRole('ROLE_USER')"/>
+        <intercept-url pattern="/user" access="hasRole('ROLE_USER')"/>
+
 
 
 
