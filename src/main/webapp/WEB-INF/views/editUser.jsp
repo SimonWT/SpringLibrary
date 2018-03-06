@@ -47,15 +47,15 @@
 
         <spring:bind path="password">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input value="${userForm.password}" type="password" path="password" class="form-control" placeholder="Password"></form:input>
+                <form:input  value="${userForm.password}" type="password" path="password" class="form-control" placeholder="Password" onFocus="disabled=1" ></form:input>
                 <form:errors path="password"></form:errors>
             </div>
         </spring:bind>
 
         <spring:bind path="confirmPassword">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input value="${userForm.confirmPassword}" type="password" path="confirmPassword" class="form-control"
-                            placeholder="Confirm your password"></form:input>
+                <form:input value="${userForm.password}" type="password" path="confirmPassword" class="form-control"
+                            placeholder="Confirm your password" onFocus="disabled=1"></form:input>
                 <form:errors path="confirmPassword"></form:errors>
             </div>
         </spring:bind>
