@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
-  User: Igor
-  Date: 04-Mar-18
-  Time: 6:45 AM
+  User: simon
+  Date: 3/6/2018
+  Time: 8:48 PM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
@@ -37,9 +37,10 @@
 
     <form:form method="POST" modelAttribute="articleForm" class="form-signin">
         <h2 class="form-signin-heading">Create a new Article</h2>
+
         <spring:bind path="journal_title">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="text" path="journal_title" class="form-control" placeholder="Journal's title"
+                <form:input value="${articleForm.journal_title}" type="text" path="journal_title" class="form-control" placeholder="Journal's title"
                             autofocus="true"></form:input>
                 <form:errors path="journal_title"></form:errors>
             </div>
@@ -47,7 +48,7 @@
 
         <spring:bind path="article_title">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="text" path="article_title" class="form-control" placeholder="Article's title"
+                <form:input value="${articleForm.article_title}" type="text" path="article_title" class="form-control" placeholder="Article's title"
                             autofocus="true"></form:input>
                 <form:errors path="article_title"></form:errors>
             </div>
@@ -57,21 +58,21 @@
 
         <spring:bind path="publication_month_year">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="text" path="publication_month_year" class="form-control" placeholder="Month and Year"></form:input>
+                <form:input value="${articleForm.publication_month_year}" type="text" path="publication_month_year" class="form-control" placeholder="Month and Year"></form:input>
                 <form:errors path="publication_month_year"></form:errors>
             </div>
         </spring:bind>
 
         <spring:bind path="author">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="text" path="author" class="form-control" placeholder="Author's name"></form:input>
+                <form:input value="${articleForm.author}" type="text" path="author" class="form-control" placeholder="Author's name"></form:input>
                 <form:errors path="author"></form:errors>
             </div>
         </spring:bind>
 
         <spring:bind path="editor">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="text" path="editor" class="form-control" placeholder="Editor's name"></form:input>
+                <form:input value="${articleForm.editor}" type="text" path="editor" class="form-control" placeholder="Editor's name"></form:input>
                 <form:errors path="editor"></form:errors>
             </div>
         </spring:bind>
@@ -79,14 +80,14 @@
 
         <spring:bind path="price">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="text" path="price" class="form-control" placeholder="Price"></form:input>
+                <form:input value="${articleForm.price}" type="text" path="price" class="form-control" placeholder="Price"></form:input>
                 <form:errors path="price"></form:errors>
             </div>
         </spring:bind>
 
         <spring:bind path="copies">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="text" path="copies" class="form-control" placeholder="Copies"></form:input>
+                <form:input value="${articleForm.copies}" type="text" path="copies" class="form-control" placeholder="Copies"></form:input>
                 <form:errors path="copies"></form:errors>
             </div>
         </spring:bind>

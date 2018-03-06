@@ -113,6 +113,20 @@ public class Article {
         this.copies = copies;
     }
 
+    @Override
+    public String toString() {
+        return "Article{" +
+                "id=" + id +
+                ", journal_title='" + journal_title + '\'' +
+                ", article_title='" + article_title + '\'' +
+                ", publication_month_year='" + publication_month_year + '\'' +
+                ", author='" + author + '\'' +
+                ", editor='" + editor + '\'' +
+                ", price=" + price +
+                ", copies=" + copies +
+                '}';
+    }
+
     public Article() {
 
     }

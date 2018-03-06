@@ -61,7 +61,7 @@
         <td><%=rs.getString("editor") %></td>
         <td><%=rs.getString("price") %></td>
         <td><%=rs.getString("copies") %></td>
-        <td><a>Modify</a><a href="/deleteArticle/<%=rs.getLong("id")%>">Delete</a></td>
+        <td><a href="/editArticle/<%=rs.getLong("id")%>">Edit</a><a href="/deleteArticle/<%=rs.getLong("id")%>">Delete</a></td>
 
 
         </tbody>
