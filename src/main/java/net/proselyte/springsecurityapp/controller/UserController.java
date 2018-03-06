@@ -53,6 +53,14 @@ public class UserController {
     @Autowired
     private AudioVideoValidator audioVideoValidator;
 
+
+    @RequestMapping("/deleteUser/{id}")
+    public String deleteUser(@PathVariable("id") Long id){
+        userService.delete(id);
+
+        return "redirect:/listOfUsers";
+    }
+
     @RequestMapping(value = "/addBook", method = RequestMethod.GET)
     public String addBook(Model model) {
         model.addAttribute("bookForm", new Book());
