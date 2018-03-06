@@ -56,7 +56,7 @@
         <td><%=rs.getString("title") %></td>
         <td><%=rs.getString("price") %></td>
         <td><%=rs.getString("copies") %></td>
-        <td><a>Modify</a><a href="/deleteAudioVideo/<%=rs.getLong("id")%>">Delete</a></td>
+        <td><a href="/editAudioVideo/<%=rs.getLong("id")%>">Modify</a><a href="/deleteAudioVideo/<%=rs.getLong("id")%>">Delete</a></td>
 
 
         </tbody>

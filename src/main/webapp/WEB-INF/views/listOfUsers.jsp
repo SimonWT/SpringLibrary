@@ -58,7 +58,7 @@
         <td><%=rs.getString("username") %></td>
         <td><%=rs.getString("phone") %></td>
         <td><%=rs.getString("email") %></td>
-        <td><a href="/">Modify</a><a href="/deleteUser/<%=rs.getLong("id")%>">Delete</a></td>
+        <td><a href="/editUser/<%=rs.getLong("id")%>">Modify</a><a href="/deleteUser/<%=rs.getLong("id")%>">Delete</a></td>
 
 
     </tbody>

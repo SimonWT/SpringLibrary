@@ -27,7 +27,7 @@ public class ArticleController {
         if(article!=null)
             logger.info("Article got by ID: "+article.toString());
 
-        model.addAttribute("bookForm", article);
+        model.addAttribute("articleForm", article);
 
         return "editArticle";
     }
@@ -37,7 +37,14 @@ public class ArticleController {
         articleService.update(articleForm);
 
         logger.info("Article updated: "+ articleForm.toString());
-        return "redirect:/listOfBooks";
+        return "redirect:/listOfArticles";
+    }
+
+    @RequestMapping("/deleteArticle/{id}")
+    public String deleteArticle(@PathVariable("id") Long id){
+        articleService.delete(id);
+
+        return "redirect:/listOfArticles";
     }
 
 

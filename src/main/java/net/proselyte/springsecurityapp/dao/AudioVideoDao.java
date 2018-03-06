@@ -12,4 +12,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  *
  */
 public interface AudioVideoDao extends JpaRepository<AudioVideo, Long> {
+    AudioVideo getAudioVideoById(Long id);
 }

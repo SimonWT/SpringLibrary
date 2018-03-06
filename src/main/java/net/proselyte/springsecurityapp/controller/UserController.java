@@ -9,6 +9,8 @@ import net.proselyte.springsecurityapp.validator.ArticleValidator;
 import net.proselyte.springsecurityapp.validator.AudioVideoValidator;
 import net.proselyte.springsecurityapp.validator.BookValidator;
 import net.proselyte.springsecurityapp.validator.UserValidator;
+import org.hibernate.annotations.common.util.impl.LoggerFactory;
+import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.*;
 @SuppressWarnings("ALL")
 @Controller
 public class UserController {
+    private final Logger logger = LoggerFactory.logger(UserController.class);
 
     @Autowired
     private UserService userService;
@@ -187,6 +190,26 @@ public class UserController {
     public String listOfUsers() {
 
         return "listOfUsers";
+    }
+
+    @RequestMapping(value="/editUser/{id}", method = RequestMethod.GET)
+    public String editUser(@PathVariable("id") Long id, Model model){
+        User user = userService.getUserById(id);
+
+        if(user!=null)
+            logger.info("User got by ID: " + user.toString());
+
+        model.addAttribute("userForm", user);
+
+        return "editUser";
+    }
+
+    @RequestMapping(value = "/editUser/{id}",method = RequestMethod.POST)
+    public String editUser(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model){
+        userService.update(userForm);
+
+        logger.info("User updated: "+ userForm.toString());
+        return "redirect:/listOfUsers";
     }
 
     @RequestMapping(value = "/listOfBooks", method = RequestMethod.GET)
