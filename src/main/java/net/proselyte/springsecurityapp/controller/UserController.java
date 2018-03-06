@@ -239,7 +239,4 @@ public class UserController {
         return "admin";
     }
 
-    @RequestMapping(value = "/user", method = RequestMethod.GET)
-    public String user(Model model) { return "user"; }
-
 }

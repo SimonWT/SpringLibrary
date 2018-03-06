@@ -127,7 +127,7 @@ public class User {
                 ", phone='" + phone + '\'' +
                 ", email='" + email + '\'' +
                 ", confirmPassword='" + confirmPassword + '\'' +
-                ", roles=" + roles +
+
                 '}';
     }
 }
