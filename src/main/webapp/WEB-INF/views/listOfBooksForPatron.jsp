@@ -44,7 +44,7 @@
                 dataSource.setUrl("jdbc:mysql://eu-cdbr-west-02.cleardb.net:3306/heroku_f76d6fb9e659782");
                 dataSource.setUsername("baff532465d8d9");
                 dataSource.setPassword("ffa9cd9f");
-                String query="SELECT title, author, year, edition, price, copies FROM books";
+                String query="SELECT id, title, author, year, edition, price, copies FROM books";
                 Connection conn=DriverManager.getConnection(dataSource.getUrl(), dataSource.getUsername(), dataSource.getPassword());
                 Statement stmt=conn.createStatement();
                 ResultSet rs=stmt.executeQuery(query);
@@ -59,7 +59,7 @@
         <td><%=rs.getString("edition") %></td>
         <td><%=rs.getString("price") %></td>
         <td><%=rs.getString("copies") %></td>
-        <td><a>Book</a></td>
+        <td><a href="/bookingBook/<%=rs.getLong("id") %>">Book</a></td>
 
         </tbody>
         <%
