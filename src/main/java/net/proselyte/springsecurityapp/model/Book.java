@@ -1,6 +1,9 @@
 package net.proselyte.springsecurityapp.model;
 
+import net.proselyte.springsecurityapp.model.Documents.Document;
+
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Simple JavaBean domain object that represents a Book.
@@ -10,7 +13,10 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "books")
-public class Book {
+public class Book extends Document {
+
+    private boolean bestSeller;
+    private Date checkoutDate;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -46,11 +52,15 @@ public class Book {
         return title;
     }
 
+    public boolean isBestSeller() {
+        return bestSeller;
+    }
+
     public void setTitle(String title) {
         this.title = title;
     }
 
-    public String getAuthor() {
+    public String getAuthor(String s) {
         return author;
     }
 
@@ -90,6 +100,10 @@ public class Book {
         this.copies = copies;
     }
 
+    public void setBestSeller(boolean bestSeller) {
+        this.bestSeller = bestSeller;
+    }
+
     public Book(Long id, String title, String author, String year, int edition, int price, int copies) {
         this.id = id;
         this.title = title;
@@ -99,6 +113,19 @@ public class Book {
         this.price = price;
         this.copies = copies;
     }
+
+    @Override
+    public Book toCopy(){
+        Book copy = new Book(id, title, author, year, edition, price, copies--);
+        copy.setOverdue(this.getOverdue());
+        copy.setFine(this.getFine());
+        copy.checkoutDate = checkoutDate;
+        copy.setDue(this.getDue());
+        copy.setBestSeller(bestSeller);
+        //this.copies--;
+        return copy;
+    }
+
     public Book() {
 
     }

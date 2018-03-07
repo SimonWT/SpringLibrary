@@ -12,10 +12,14 @@ import net.proselyte.springsecurityapp.validator.UserValidator;
 import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.security.Principal;
 
 /**
  * Controller for {@link net.proselyte.springsecurityapp.model.User}'s pages.
@@ -228,6 +232,16 @@ public class UserController {
 
         return "listOfAudioVideoMaterial";
     }
+
+    @RequestMapping(value = "/testId", method = RequestMethod.GET)
+    public String showResults(Principal principal) {
+         String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+         User user = userService.findByUsername(currentUser);
+         logger.info("ID: "+user.getId());
+
+         return "/welcome";
+    }
+
 
     @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
     public String welcome(Model model) {

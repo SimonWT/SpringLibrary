@@ -52,6 +52,11 @@ public class AudioVideoController {
         return "redirect:/listOfAudioVideoMaterial";
     }
 
+    @RequestMapping(value = "/listOfAudioVideoMaterialForPatron", method = RequestMethod.GET)
+    public String listOfAVForPatron() {
+        return "listOfAudioVideoMaterialForPatron";
+    }
+
 
 
 

@@ -50,13 +50,9 @@
                         <button type="submit" class="btn btn-default">Submit</button>
                     </form>
                     <ul class="nav navbar-nav navbar-right">
-                        <li>
-
-                                <a href="/listOfArticlesForPatron">
-                                    Journal Articles</a>
-                            </li>
-                        <li><a href="/listOfAudioVideoMaterialForPatron">Audio/Video File</a></li>
-                        <li><a href="/listOfBooksForPatron">Books</a></li>
+                        <li><a href="#">Audio/Video File</a></li>
+                        <li><a href="#">Journal Articles</a></li>
+                        <li><a href="#">Books</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${pageContext.request.userPrincipal.name} <span class="caret"></span></a>
                             <ul class="dropdown-menu">
