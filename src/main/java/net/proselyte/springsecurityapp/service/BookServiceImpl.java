@@ -11,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -43,6 +44,11 @@ public class BookServiceImpl implements BookService {
     @Override
     public void update(Book book) {
         bookDao.save(book);
+    }
+
+    @Override
+    public List<Book> checkOutBooksByUserId(Long id) {
+        return null;
     }
 
 

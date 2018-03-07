@@ -27,7 +27,7 @@
         </h2>
     </c:if>
 </div>
-<h3><a href="/listOfBooksForPatron">View books</a></h3>
+<h3><a href="/checkOutedBooks">View books</a></h3>
 <h3><a href="/listOfArticlesForPatron">View Articles</a></h3>
 <h3><a href="/listOfAudioVideoMaterialForPatron">View Audio and Video Materials</a></h3>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
