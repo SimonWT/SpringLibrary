@@ -92,7 +92,28 @@ public class BookController {
         return "checkOutedBooks";
     }
 
+    @RequestMapping("/bookingBook/{id}")
+    public String bookBook(@PathVariable("id") Long id, Principal principal){
+        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.findByUsername(currentUser);
+        Long user_id = user.getId();
 
+        try{
+            DriverManagerDataSource dataSource = new DriverManagerDataSource();
+            dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+            dataSource.setUrl("jdbc:mysql://eu-cdbr-west-02.cleardb.net:3306/heroku_f76d6fb9e659782");
+            dataSource.setUsername("baff532465d8d9");
+            dataSource.setPassword("ffa9cd9f");
+            String query="INSERT INTO user_books VALUES ('"+user_id+",'"+id+"', '2018-03-07')";
+            Connection conn= DriverManager.getConnection(dataSource.getUrl(), dataSource.getUsername(), dataSource.getPassword());
+            Statement stmt=conn.createStatement();
+            stmt.executeQuery(query);
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return "welcome";
+    }
 
     @RequestMapping("/deleteBook/{id}")
     public String deleteBook(@PathVariable("id") Long id){
