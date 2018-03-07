@@ -31,12 +31,14 @@
 
 </head>
 
+
 <body>
 
 <div class="container">
 
     <form:form method="POST" modelAttribute="bookForm" class="form-signin">
-        <h2 class="form-signin-heading">Create a new book</h2>
+        <h2 class="form-signin-heading">Create a new Book</h2>
+
         <spring:bind path="title">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <form:input type="text" path="title" class="form-control" placeholder="Title"

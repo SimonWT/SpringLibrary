@@ -17,21 +17,22 @@
 
 <html>
 <head>
-    <title>List of users</title>
+    <title>List of books</title>
 
     <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<h3><a href="/admin">Back</a></h3>
+<h3><a href="/welcome">Back</a></h3>
 <form method="POST">
     <table class="table table-condensed">
         <thead>
         <tr>
-            <th>Author</th>
             <th>Title</th>
+            <th>Author</th>
+            <th>Year</th>
+            <th>Edition</th>
             <th>Price</th>
             <th>Copies</th>
-            <th>View</th>
         </tr>
         </thead>
         <tbody>
@@ -43,7 +44,7 @@
                 dataSource.setUrl("jdbc:mysql://eu-cdbr-west-02.cleardb.net:3306/heroku_f76d6fb9e659782");
                 dataSource.setUsername("baff532465d8d9");
                 dataSource.setPassword("ffa9cd9f");
-                String query="SELECT id, author, title, price, copies FROM audio_video";
+                String query="SELECT title, author, year, edition, price, copies FROM books";
                 Connection conn=DriverManager.getConnection(dataSource.getUrl(), dataSource.getUsername(), dataSource.getPassword());
                 Statement stmt=conn.createStatement();
                 ResultSet rs=stmt.executeQuery(query);
@@ -52,12 +53,13 @@
         %>
 
 
-        <td><%=rs.getString("author") %></td>
         <td><%=rs.getString("title") %></td>
+        <td><%=rs.getString("author") %></td>
+        <td><%=rs.getString("year") %></td>
+        <td><%=rs.getString("edition") %></td>
         <td><%=rs.getString("price") %></td>
         <td><%=rs.getString("copies") %></td>
-        <td><a href="/editAudioVideo/<%=rs.getLong("id")%>">Modify</a><a href="/deleteAudioVideo/<%=rs.getLong("id")%>">Delete</a></td>
-
+        <td><a>Book</a></td>
 
         </tbody>
         <%
@@ -75,6 +77,7 @@
         }
     %>
 </form>
+
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 </body>
 </html>

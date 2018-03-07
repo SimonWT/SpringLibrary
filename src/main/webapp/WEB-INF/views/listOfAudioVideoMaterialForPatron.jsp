@@ -22,7 +22,7 @@
     <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<h3><a href="/admin">Back</a></h3>
+<h3><a href="/welcome">Back</a></h3>
 <form method="POST">
     <table class="table table-condensed">
         <thead>
@@ -56,8 +56,7 @@
         <td><%=rs.getString("title") %></td>
         <td><%=rs.getString("price") %></td>
         <td><%=rs.getString("copies") %></td>
-        <td><a href="/editAudioVideo/<%=rs.getLong("id")%>">Modify</a><a href="/deleteAudioVideo/<%=rs.getLong("id")%>">Delete</a></td>
-
+        <td><a>Book</a></td>
 
         </tbody>
         <%

@@ -11,7 +11,7 @@
         <intercept-url pattern="/" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')"/>
         <intercept-url pattern="/welcome" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')"/>
         <intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')"/>
-        <intercept-url pattern="/registration" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/registration" access="permitAll"/>
         <intercept-url pattern="/loginNew" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')"/>
         <intercept-url pattern="/listOfUsers" access="hasRole('ROLE_ADMIN')"/>
         <intercept-url pattern="/addBook" access="hasRole('ROLE_ADMIN')"/>
@@ -21,6 +21,11 @@
         <intercept-url pattern="/listOfArticles" access="hasRole('ROLE_ADMIN')"/>
         <intercept-url pattern="/listOfAudioVideoMaterial" access="hasRole('ROLE_ADMIN')"/>
         <intercept-url pattern="/editUser" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/listOfBooksForPatron" access="hasRole('ROLE_USER')"/>
+        <intercept-url pattern="/listOfArticlesForPatron" access="hasRole('ROLE_USER')"/>
+        <intercept-url pattern="/listOfAudioVideoMaterialForPatron" access="hasRole('ROLE_USER')"/>
+        <intercept-url pattern="/user" access="hasRole('ROLE_USER')"/>
+
 
 
 

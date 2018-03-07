@@ -129,4 +129,17 @@ public class Book extends Document {
     public Book() {
 
     }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", author='" + author + '\'' +
+                ", year='" + year + '\'' +
+                ", edition=" + edition +
+                ", price=" + price +
+                ", copies=" + copies +
+                '}';
+    }
 }

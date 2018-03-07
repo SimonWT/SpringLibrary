@@ -12,26 +12,24 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Admin</title>
+    <title>Patron</title>
 
     <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
-<h3><a href="/welcome">Back</a></h3>
 <div class="container">
     <c:if test="${pageContext.request.userPrincipal.name != null}">
         <form id="logoutForm" method="post" action="${contextPath}/logout">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </form>
-        <h2>Admin Page ${pageContext.request.userPrincipal.name} | <a onclick="document.forms['logoutForm'].submit()">Logout</a>
+        <h2>Patron Page ${pageContext.request.userPrincipal.name} | <a onclick="document.forms['logoutForm'].submit()">Logout</a>
         </h2>
     </c:if>
 </div>
-<h3><a href="/registration">Register somebody </a><a href="/listOfUsers">View users</a></h3>
-<h3><a href="/addBook">Add Book </a><a href="/listOfBooks">View books</a></h3>
-<h3><a href="/addArticle">Add Article </a><a href="/listOfArticles">View Articles</a></h3>
-<h3><a href="/addAudioVideoMaterial">Add a new Audio or Video Material </a><a href="/listOfAudioVideoMaterial">View Audio and Video Materials</a></h3>
+<h3><a href="/checkOutedBooks">View books</a></h3>
+<h3><a href="/listOfArticlesForPatron">View Articles</a></h3>
+<h3><a href="/listOfAudioVideoMaterialForPatron">View Audio and Video Materials</a></h3>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 

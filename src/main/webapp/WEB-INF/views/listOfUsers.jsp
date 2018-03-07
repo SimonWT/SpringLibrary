@@ -22,6 +22,7 @@
     <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+<h3><a href="/admin">Back</a></h3>
 <form method="POST">
 <table class="table table-condensed">
     <thead>
@@ -40,9 +41,9 @@
         {
             DriverManagerDataSource dataSource = new DriverManagerDataSource();
             dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-            dataSource.setUrl("jdbc:mysql://localhost:3306/spring_library_app");
-            dataSource.setUsername("root");
-            dataSource.setPassword("root");
+            dataSource.setUrl("jdbc:mysql://eu-cdbr-west-02.cleardb.net:3306/heroku_f76d6fb9e659782");
+            dataSource.setUsername("baff532465d8d9");
+            dataSource.setPassword("ffa9cd9f");
             String query="SELECT id, name, surname, username, phone, email FROM users";
             Connection conn=DriverManager.getConnection(dataSource.getUrl(), dataSource.getUsername(), dataSource.getPassword());
             Statement stmt=conn.createStatement();
@@ -57,7 +58,7 @@
         <td><%=rs.getString("username") %></td>
         <td><%=rs.getString("phone") %></td>
         <td><%=rs.getString("email") %></td>
-        <td><a href="/">Modify</a><a>Delete</a></td>
+        <td><a href="/editUser/<%=rs.getLong("id")%>">Modify</a><a href="/deleteUser/<%=rs.getLong("id")%>">Delete</a></td>
 
 
     </tbody>
