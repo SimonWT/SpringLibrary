@@ -8,12 +8,13 @@
 
 ### **How to install our project on your PC** 
 
-Install: Java 1.8, 
-         MySQL Server(if no internet connection)
-         Intelliji IDEA Ultimate
+Install: * Java 1.8, 
+         * Intelliji IDEA Ultimate
+         * Internet Connection
+         
 
 1. Download from this repository .zip and unarchive
-2. Open Intellij **Idea -> "Open" -> "Choose unarchived project-folder"**.
+2. Open **Intellij IDEA -> "Open" -> "Choose unarchived project-folder"**.
 3. Setup Java SDK from your location.
 4. In the lower right corner of idea windows should opens message of Maven, click on "AutoImport"
 5. If this exist skip this point, else you should do this by hands in IDEA:
