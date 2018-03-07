@@ -1,6 +1,8 @@
 package net.proselyte.springsecurityapp.model;
 
 
+import net.proselyte.springsecurityapp.model.Documents.Document;
+
 import javax.persistence.*;
 
 /**
@@ -11,7 +13,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "audio_video")
-public class AudioVideo {
+public class AudioVideo extends Document {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,45 +31,45 @@ public class AudioVideo {
     @Column(name = "copies")
     private int copies;
 
-    public Long getId() {
-        return id;
-    }
+//    public Long getId() {
+//        return id;
+//    }
+//
+//    public void setId(Long id) {
+//        this.id = id;
+//    }
+//
+//    public String getAuthor() {
+//        return author;
+//    }
+//
+//    public void setAuthor(String author) {
+//        this.author = author;
+//    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+//    public String getTitle() {
+//        return title;
+//    }
+//
+//    public void setTitle(String title) {
+//        this.title = title;
+//    }
+//
+//    public int getPrice(){
+//        return price;
+//    }
+//
+//    public void setPrice(int price) {
+//        this.price = price;
+//    }
 
-    public String getAuthor() {
-        return author;
-    }
+//    public int getCopies() {
+//        return copies;
+//    }
 
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public int getPrice(){
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
-    public int getCopies() {
-        return copies;
-    }
-
-    public void setCopies(int copies) {
-        this.copies = copies;
-    }
+//    public void setCopies(int copies) {
+//        this.copies = copies;
+//    }
 
     public AudioVideo(Long id, String author, String title, int price, int copies) {
         this.id = id;

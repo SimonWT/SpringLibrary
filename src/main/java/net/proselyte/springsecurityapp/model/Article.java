@@ -1,7 +1,10 @@
 package net.proselyte.springsecurityapp.model;
 
 
+import net.proselyte.springsecurityapp.model.Documents.Document;
+
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Simple JavaBean domain object that represents an Article.
@@ -11,7 +14,9 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "journal_articles")
-public class Article {
+public class Article extends Document{
+
+    private Date checkoutDate;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -111,6 +116,23 @@ public class Article {
         this.editor = editor;
         this.price = price;
         this.copies = copies;
+    }
+
+    @Override
+    public Article toCopy(){
+        Article copy = (Article) super.toCopy();
+        copy.setDoc(this.getArticle_title(), price, this.getAuthors(), this.getKeys());
+        copy.setId(id);
+        copy.setOverdue(this.getOverdue());
+        copy.setFine(this.getFine());
+        copy.checkoutDate = checkoutDate;
+        copy.setDue(this.getDue());
+        copy.setCopies(copies--);
+        copy.setArticle_title(article_title);
+        copy.setJournal_title(journal_title);
+        copy.setPublication_month_year(publication_month_year);
+        copy.setEditor(editor);
+        return copy;
     }
 
     public Article() {
