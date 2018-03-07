@@ -77,7 +77,7 @@
         <div style = "z-index: 2;
   background: #000;
   opacity: 0.7;">
-            <nav class="text-center" style="margin-top: 600px;z-index: 4;  background: linear-gradient(to right, #f9d423, #ff4e50);opacity: 0.47;">
+            <nav class="text-center" style="margin-top: 562px;z-index: 4;  background: linear-gradient(to right, #f9d423, #ff4e50);opacity: 0.47;">
                 <div style="color: #fff; padding-top: 20px; padding-bottom: 20px;">
                     <img src="${contextPath}/resources/imgNew/15.jpg"  style="height: 2rem; display: inline-block; margin-bottom: .3125rem;">
                     <p>2018,"DeepLib" <br>All rights reserved.</p>
