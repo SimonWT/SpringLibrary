@@ -35,7 +35,7 @@ public class AudioVideoValidator implements Validator {
 
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "author", "Required");
-        if (audioVideo.getAuthor().length() < 2 || audioVideo.getAuthor().length() > 64) {
+        if (audioVideo.getAuthors().length() < 2 || audioVideo.getAuthors().length() > 64) {
             errors.rejectValue("author", "Size.audioVideoForm.author");
         }
 

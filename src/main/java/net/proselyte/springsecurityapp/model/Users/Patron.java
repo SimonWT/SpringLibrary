@@ -1,6 +1,6 @@
 package net.proselyte.springsecurityapp.model.Users;
 
-import net.proselyte.springsecurityapp.model.Documents.Book;
+import net.proselyte.springsecurityapp.model.Book;
 import net.proselyte.springsecurityapp.model.Documents.Document;
 import net.proselyte.springsecurityapp.model.Role;
 import net.proselyte.springsecurityapp.model.User;
@@ -16,11 +16,12 @@ import java.util.concurrent.TimeUnit;
 public class Patron extends User {
     private String type; //faculty or student
     private ArrayList <Document> documents; //documents checked by this user
+    private String address;
 
     public Role role;
 
     public Patron(){
-        documents = new ArrayList<Document>();
+        documents = new ArrayList<>();
     }
 
     public void setType(String t){
@@ -32,14 +33,15 @@ public class Patron extends User {
             System.out.println("user " + getName() + " already have this document");
             return;
         }
-        if (doc.copiesNumber() > 1) {
+        if (doc.getCopies() > 1) {
             documents.add(doc);
-            doc.resetDate();
-            doc.setCopies(doc.copiesNumber() - 1);
-            if (!doc.getClass().toString().equals("class Documents.Book")){
+            //doc.patron = this;
+            //doc.resetDate();
+            //doc.setCopies(doc.getCopies() - 1);
+            if (!doc.getClass().toString().equals("class net.proselyte.springsecurityapp.model.Book")){
                 doc.setDue(14);
             }
-            else if (this.type.equals("faculty")){
+            else if (this.getType().equals("Faculty")){
                 doc.setDue(28);
             } else{
                 Book b = (Book) doc;
@@ -60,15 +62,32 @@ public class Patron extends User {
 
     public void toReturn(Document doc){
         documents.remove(doc);
-        doc.setCopies(doc.copiesNumber() + 1);
+        doc.setCopies(doc.getCopies() + 1);
         Date today = new Date();
         long dif = doc.getCheckoutDate().getTime() - today.getTime();
         int difDays = (int)TimeUnit.DAYS.convert(dif, TimeUnit.MILLISECONDS);
         if (difDays > doc.getDue()){
+            doc.setOverdue(difDays - doc.getDue());
             if (100 * (difDays - doc.getDue()) < doc.getPrice())
                 doc.setFine(100 * (difDays - doc.getDue()));
             else
                 doc.setFine(doc.getPrice());
         }
+    }
+
+    public ArrayList<Document> getDocuments() {
+        return documents;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getType() {
+        return type;
     }
 }

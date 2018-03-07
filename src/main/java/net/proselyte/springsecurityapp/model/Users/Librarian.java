@@ -4,6 +4,8 @@ import net.proselyte.springsecurityapp.model.Documents.Document;
 import net.proselyte.springsecurityapp.model.User;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by evgeniy on 21.01.18.
@@ -31,9 +33,9 @@ public class Librarian extends User {
         patrons = new ArrayList<Patron>();
         documents = new ArrayList<Document>();
     }
-    public void add(Document doc){
+    public void addDoc(Document doc){
         if (documents.contains(doc))
-            doc.setCopies(doc.copiesNumber() + 1);
+            doc.setCopies(doc.getCopies() + 1);
         else
             documents.add(doc);
     }
@@ -43,6 +45,19 @@ public class Librarian extends User {
         int price = 0;
         String authors = null, title = null, keys = null;
         doc.setDoc(title, price, authors, keys);
+    }
+
+    public ArrayList<Document> overdueDocuments(Patron p, Date today) {
+        ArrayList<Document> overdueDocuments = new ArrayList<>();
+        for (int i = 0; i < p.getDocuments().size(); i++){
+            long dif =  today.getTime() - p.getDocuments().get(i).getCheckoutDate().getTime();
+            int difDays = (int) TimeUnit.DAYS.convert(dif, TimeUnit.MILLISECONDS);
+            if (difDays > p.getDocuments().get(i).getDue()){
+                overdueDocuments.add(p.getDocuments().get(i));
+                p.getDocuments().get(i).setOverdue(difDays - p.getDocuments().get(i).getDue());
+            }
+        }
+        return overdueDocuments;
     }
 
     public void remove(Document doc){
