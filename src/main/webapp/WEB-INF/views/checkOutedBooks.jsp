@@ -29,7 +29,7 @@
             <tr>
                 <td>${book.id}</td>
                 <td>${book.title}</td>
-                <td>${book.author}</td>
+                <%--<td>${book.author}</td>--%>
                 <td>${book.price}</td>
                 <td><a href="#">Return</a></td>
             </tr>
