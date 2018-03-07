@@ -1,6 +1,6 @@
 package net.proselyte.springsecurityapp.service;
 
-import net.proselyte.springsecurityapp.model.Article;
+import net.proselyte.springsecurityapp.model.Documents.Article;
 
 public interface ArticleService {
 

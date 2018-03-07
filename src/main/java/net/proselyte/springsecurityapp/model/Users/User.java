@@ -1,4 +1,6 @@
-package net.proselyte.springsecurityapp.model;
+package net.proselyte.springsecurityapp.model.Users;
+
+import net.proselyte.springsecurityapp.model.Documents.Role;
 
 import javax.persistence.*;
 import java.util.Set;

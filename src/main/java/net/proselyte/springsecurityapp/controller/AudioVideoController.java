@@ -1,9 +1,7 @@
 package net.proselyte.springsecurityapp.controller;
 
 
-import net.proselyte.springsecurityapp.model.Article;
-import net.proselyte.springsecurityapp.model.AudioVideo;
-import net.proselyte.springsecurityapp.service.ArticleService;
+import net.proselyte.springsecurityapp.model.Documents.AudioVideo;
 import net.proselyte.springsecurityapp.service.AudioVideoMaterialService;
 import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +12,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import java.util.logging.Logger;
 
 @Controller
 public class AudioVideoController {

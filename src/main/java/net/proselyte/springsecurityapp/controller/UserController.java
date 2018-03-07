@@ -1,9 +1,9 @@
 package net.proselyte.springsecurityapp.controller;
 
-import net.proselyte.springsecurityapp.model.Article;
-import net.proselyte.springsecurityapp.model.AudioVideo;
-import net.proselyte.springsecurityapp.model.Book;
-import net.proselyte.springsecurityapp.model.User;
+import net.proselyte.springsecurityapp.model.Documents.Article;
+import net.proselyte.springsecurityapp.model.Documents.AudioVideo;
+import net.proselyte.springsecurityapp.model.Documents.Book;
+import net.proselyte.springsecurityapp.model.Users.User;
 import net.proselyte.springsecurityapp.service.*;
 import net.proselyte.springsecurityapp.validator.ArticleValidator;
 import net.proselyte.springsecurityapp.validator.AudioVideoValidator;
@@ -17,12 +17,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
 
 /**
- * Controller for {@link net.proselyte.springsecurityapp.model.User}'s pages.
+ * Controller for {@link User}'s pages.
  *
  * @author Igor Vakhula
  */

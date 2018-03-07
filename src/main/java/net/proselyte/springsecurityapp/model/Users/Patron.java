@@ -1,9 +1,9 @@
 package net.proselyte.springsecurityapp.model.Users;
 
-import net.proselyte.springsecurityapp.model.Book;
+import net.proselyte.springsecurityapp.model.Documents.Book;
 import net.proselyte.springsecurityapp.model.Documents.Document;
-import net.proselyte.springsecurityapp.model.Role;
-import net.proselyte.springsecurityapp.model.User;
+import net.proselyte.springsecurityapp.model.Documents.Role;
+import net.proselyte.springsecurityapp.model.Library.Library;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,8 +17,7 @@ public class Patron extends User {
     private String type; //faculty or student
     private ArrayList <Document> documents; //documents checked by this user
     private String address;
-
-    public Role role;
+    public Library library;
 
     public Patron(){
         documents = new ArrayList<>();
@@ -29,29 +28,35 @@ public class Patron extends User {
     }
 
     public void checkout(Document doc){
+        if (!library.patrons.contains(this)){
+            System.out.println("You have not registered in system. Ask librarian to register you in system");
+            return;
+        }
         if (this.documents.contains(doc)){
             System.out.println("user " + getName() + " already have this document");
             return;
         }
-        if (doc.getCopies() > 1) {
-            documents.add(doc);
+        if (library.documents.contains(doc) && doc.getCopies() > 0 && !doc.getKeys().equals("reference")) {
+            Document checkedDoc = doc.toCopy();
+            documents.add(checkedDoc);
             //doc.patron = this;
             //doc.resetDate();
             //doc.setCopies(doc.getCopies() - 1);
-            if (!doc.getClass().toString().equals("class net.proselyte.springsecurityapp.model.Book")){
-                doc.setDue(14);
+            if (!doc.getClass().toString().equals("class net.proselyte.springsecurityapp.model.Documents.Book")){
+                checkedDoc.setDue(14);
             }
             else if (this.getType().equals("Faculty")){
-                doc.setDue(28);
+                checkedDoc.setDue(28);
             } else{
-                Book b = (Book) doc;
+                Book b = (Book) checkedDoc;
                 if (b.isBestSeller()){
-                    doc.setDue(14);
+                    checkedDoc.setDue(14);
                 }
                 else {
-                    doc.setDue(21);
+                    checkedDoc.setDue(21);
                 }
             }
+            checkedDoc.setCheckoutDate(new Date());
             System.out.println("The book \"" + doc.getTitle() + "\" are checked out by " + getName());
         }
 

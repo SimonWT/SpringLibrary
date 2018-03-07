@@ -1,8 +1,6 @@
 package net.proselyte.springsecurityapp.validator;
 
-import net.proselyte.springsecurityapp.model.Article;
-import net.proselyte.springsecurityapp.model.AudioVideo;
-import net.proselyte.springsecurityapp.model.Book;
+import net.proselyte.springsecurityapp.model.Documents.AudioVideo;
 import net.proselyte.springsecurityapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -11,7 +9,7 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 /**
- * Validator for {@link net.proselyte.springsecurityapp.model.AudioVideo} class,
+ * Validator for {@link AudioVideo} class,
  * implements {@link Validator} interface.
  *
  * @author Igor Vakhula

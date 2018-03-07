@@ -1,6 +1,6 @@
 package net.proselyte.springsecurityapp.dao;
 
-import net.proselyte.springsecurityapp.model.User;
+import net.proselyte.springsecurityapp.model.Users.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

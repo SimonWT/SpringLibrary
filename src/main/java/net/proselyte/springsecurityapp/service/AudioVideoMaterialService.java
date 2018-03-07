@@ -1,6 +1,6 @@
 package net.proselyte.springsecurityapp.service;
 
-import net.proselyte.springsecurityapp.model.AudioVideo;
+import net.proselyte.springsecurityapp.model.Documents.AudioVideo;
 
 public interface AudioVideoMaterialService {
 

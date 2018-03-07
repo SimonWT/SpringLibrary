@@ -1,9 +1,9 @@
 package net.proselyte.springsecurityapp.service;
 
-import net.proselyte.springsecurityapp.model.User;
+import net.proselyte.springsecurityapp.model.Users.User;
 
 /**
- * Service class for {@link net.proselyte.springsecurityapp.model.User}
+ * Service class for {@link User}
  *
  * @author Igor Vakhula
  */

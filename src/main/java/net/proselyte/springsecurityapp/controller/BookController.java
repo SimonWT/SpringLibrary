@@ -1,7 +1,7 @@
 package net.proselyte.springsecurityapp.controller;
 
-import net.proselyte.springsecurityapp.model.Book;
-import net.proselyte.springsecurityapp.model.User;
+import net.proselyte.springsecurityapp.model.Documents.Book;
+import net.proselyte.springsecurityapp.model.Users.User;
 import net.proselyte.springsecurityapp.service.BookService;
 import net.proselyte.springsecurityapp.service.UserService;
 import org.hibernate.annotations.common.util.impl.LoggerFactory;
@@ -17,7 +17,6 @@ import java.security.Principal;
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Logger;
 
 @Controller
 public class BookController {
