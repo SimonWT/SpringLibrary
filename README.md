@@ -38,7 +38,6 @@
  
  1. Go to /src/main/java/net/proselyte/springsecurityapp/model/Tests/
  2. And compile and run file file with title "TestCases_<dd>_<mm>" where dd_mm is date of delivery
- 3. Test cases which are not considered in this file should work on the web site. You can them on application.
  
  
 
