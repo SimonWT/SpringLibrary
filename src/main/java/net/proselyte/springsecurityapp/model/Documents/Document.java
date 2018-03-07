@@ -3,6 +3,7 @@ package net.proselyte.springsecurityapp.model.Documents;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -45,11 +46,13 @@ public class Document {
             e.printStackTrace();
         }
     }
+    public void setCheckoutDate(Date date){ checkoutDate = date;}
     public void setFine(int f){ fine = f;}
     public void setOverdue(int overdue){ this.overdue = overdue;}
     public void setId(long id) { this.id = id; }
     public void setAuthors(String authors){ this.authors = authors;}
     public void setTitle(String title) { this.title = title; }
+    public void setKeys(String keys) { this.keys = keys; }
 
     public int getCopies(){
         return copies;
@@ -63,6 +66,13 @@ public class Document {
     public int getDue(){return daysRemained;}
     public int getFine(){return fine;}
     public int getOverdue() { return overdue; }
+
+    public Date getDueDate(){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(getCheckoutDate());
+        calendar.add(Calendar.DAY_OF_YEAR, getCheckoutDate().getDay() - 1 + getDue() - 1);
+        return calendar.getTime();
+    }
 
     public Document toCopy(){
         Document copy = new Document();

@@ -1,8 +1,6 @@
 package net.proselyte.springsecurityapp.dao;
 
-import net.proselyte.springsecurityapp.model.Article;
-import net.proselyte.springsecurityapp.model.Book;
-import net.proselyte.springsecurityapp.model.User;
+import net.proselyte.springsecurityapp.model.Documents.Article;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
