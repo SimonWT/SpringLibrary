@@ -50,15 +50,15 @@
                         <button type="submit" class="btn btn-default">Submit</button>
                     </form>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">Audio/Video File</a></li>
-                        <li><a href="#">Journal Articles</a></li>
-                        <li><a href="#">Books</a></li>
+                        <li><a href="/listOfAudioVideoMaterialForPatron">Audio/Video File</a></li>
+                        <li><a href="/listOfArticlesForPatron">Journal Articles</a></li>
+                        <li><a href="/listOfBooksForPatron">Books</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${pageContext.request.userPrincipal.name} <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="#">My Profile</a></li>
-                                <li><a href="#">Edit Information</a></li>
-                                <li><a href="#">My Documents</a></li>
+                                <li><a href="/admin">Edit Information</a></li>
+                                <li><a href="/checkOutedBooks">My Documents</a></li>
                                 <li role="separator" class="divider"></li>
                                 <c:if test="${pageContext.request.userPrincipal.name != null}">
                                     <form id="logoutForm" method="POST" action="${contextPath}/logout">
@@ -73,6 +73,9 @@
 
             </ul>
         </nav>
+
+
+
 
         <div style = "z-index: 2;
   background: #000;

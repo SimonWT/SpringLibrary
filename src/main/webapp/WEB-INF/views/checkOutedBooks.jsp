@@ -16,7 +16,7 @@
     <title>Checked Out Books</title>
 </head>
 <body>
-
+<h3><a href="/welcome">Back</a></h3>
 <c:if test="${!empty listOfbooks}">
     <table class="tg">
         <tr>
@@ -31,9 +31,13 @@
                 <td>${book.title}</td>
                 <td>${book.author}</td>
                 <td>${book.price}</td>
+                <td><a href="#">Return</a></td>
             </tr>
         </c:forEach>
     </table>
+</c:if>
+<c:if test="${empty listOfbooks}">
+    <h3> Your are free</h3>
 </c:if>
 
 </body>

@@ -22,7 +22,7 @@
     <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<h3><a href="/admin">Back</a></h3>
+<h3><a href="/welcome">Back</a></h3>
 <form method="POST">
     <table class="table table-condensed">
         <thead>
