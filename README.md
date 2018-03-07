@@ -27,7 +27,7 @@
   2. At Web-browser put in address line "[localhost:8080](http://localhost:8080)"
   3. Some account for **Sing In**:
    * Account of Librarian:
-      + username: Admin
+      + username: DamskiyUgodnik
       + password: adminadmin
     * Account of Patron:
       + username: Test
