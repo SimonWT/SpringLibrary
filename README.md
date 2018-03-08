@@ -69,7 +69,7 @@ Please if you have some problems with database, return every database changes to
     * Account of Patron:
       + username: i.vakhula
       + password: adminadmin
-   in local
+ **in local
  * Account of Librarian:
       + username: DamskiyUgodnik
       + password: adminadmin
