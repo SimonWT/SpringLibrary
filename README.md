@@ -53,7 +53,6 @@ to this
                 dataSource.setUrl("jdbc:mysql://localhost:3306/spring_security_app");
                 dataSource.setUsername("root");
                 dataSource.setPassword("root");
-
 "
 Please if you have some problems with database, return every database changes to previous and try one more time with Internet Connection.
 
