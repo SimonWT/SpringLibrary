@@ -62,13 +62,20 @@ Please if you have some problems with database, return every database changes to
   1. **View - > Tool Windows -> Maven Project - > click on "Spring SecurityApp Maven Webapp" -> Plugins -> jetty -> jetty:run**
   2. At Web-browser put in address line "[localhost:8080](http://localhost:8080)"
   3. Some account for **Sing In**:
+  in the internet
    * Account of Librarian:
       + username: DamskiyUgodnik
       + password: adminadmin
     * Account of Patron:
-      + username: Test
-      + password: 12345678
-    
+      + username: i.vakhula
+      + password: adminadmin
+   in local
+ * Account of Librarian:
+      + username: DamskiyUgodnik
+      + password: adminadmin
+    * Account of Patron:
+      + username: i.vakhula_user
+      + password: useruser
  
  ### For check TEST CASES:
  
