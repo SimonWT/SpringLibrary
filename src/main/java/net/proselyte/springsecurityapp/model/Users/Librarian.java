@@ -1,10 +1,11 @@
 package net.proselyte.springsecurityapp.model.Users;
 
 import net.proselyte.springsecurityapp.model.Documents.Document;
-import net.proselyte.springsecurityapp.model.User;
+import net.proselyte.springsecurityapp.model.Library.Library;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -12,32 +13,34 @@ import java.util.concurrent.TimeUnit;
  */
 public class Librarian extends User {
 
-    public ArrayList<Patron> patrons;
-    public ArrayList<Document> documents;
+    public Library library;
 
 
 
     public void addPatron(Patron newPatron){
-        patrons.add(newPatron);
+        library.patrons.add(newPatron);
+        newPatron.library = library;
     }
 
     public void removePatron(String name, String phoneNumber){
         int id = (name + phoneNumber).hashCode();
-        for (Patron patron : patrons){
+        for (Patron patron : library.patrons){
             if (patron.getId() == id)
-                patrons.remove(patron);
+                library.patrons.remove(patron);
         }
     }
 
     public Librarian() {
-        patrons = new ArrayList<Patron>();
-        documents = new ArrayList<Document>();
+        library = new Library();
     }
-    public void addDoc(Document doc){
-        if (documents.contains(doc))
-            doc.setCopies(doc.getCopies() + 1);
-        else
-            documents.add(doc);
+    public void addDoc(Document doc, int copiesAmount){
+        if (library.documents.contains(doc))
+            doc.setCopies(doc.getCopies() + copiesAmount);
+        else {
+            doc.setCopies(copiesAmount);
+            library.documents.add(doc);
+        }
+
     }
 
     public void modify(Document doc){
@@ -60,9 +63,27 @@ public class Librarian extends User {
         return overdueDocuments;
     }
 
-    public void remove(Document doc){
+    public void removeDoc(Document doc, int copies){
         //get list of documents
-        documents.remove(doc);
+        doc.setCopies(doc.getCopies() - copies);
+        if (doc.getCopies() < 0)
+            library.documents.remove(doc);
         //rewrite list of documents
+    }
+
+    public void removePatron(Patron p){
+        library.patrons.remove(p);
+    }
+
+    public String checkInfo(Patron p){
+        if (!library.patrons.contains(p)){
+            return "Information no available, patron does not exist.";
+        }
+        StringBuilder info = new StringBuilder("Name: " + p.getName() + "\nAddress:" + p.getAddress() + "\nPhone:" + p.getPhone() + "\nId:" + p.getId() + "\nType:" + p.getType() + "\nDocuments:\n");
+        for (int i = 0; i < p.getDocuments().size(); i++){
+            info.append("\t Title: ").append(p.getDocuments().get(i).getTitle()).append(" Due date: ").append(p.getDocuments().get(i).getDueDate()).append("\n");
+        }
+
+        return info.toString();
     }
 }

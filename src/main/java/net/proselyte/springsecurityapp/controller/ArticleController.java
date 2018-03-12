@@ -1,7 +1,6 @@
 package net.proselyte.springsecurityapp.controller;
 
-import net.proselyte.springsecurityapp.model.Article;
-import net.proselyte.springsecurityapp.model.Book;
+import net.proselyte.springsecurityapp.model.Documents.Article;
 import net.proselyte.springsecurityapp.service.ArticleService;
 import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

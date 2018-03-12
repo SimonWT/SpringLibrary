@@ -1,18 +1,24 @@
 package net.proselyte.springsecurityapp.model.Library;
 
+import net.proselyte.springsecurityapp.model.Documents.Document;
+import net.proselyte.springsecurityapp.model.Users.Librarian;
+import net.proselyte.springsecurityapp.model.Users.Patron;
+
 import java.util.ArrayList;
 
 /**
  * Created by evgeniy on 13.02.18.
  */
-/*public class Library {
-    private Librarian librarian;
-    private ArrayList<Patron> patrons;
+public class Library {
+    public ArrayList<Librarian> librarians;
+    public ArrayList<Patron> patrons;
+    public ArrayList<Document> documents;
 
     public Library(){
-        librarian = new Librarian();
+        librarians = new ArrayList<>();
         patrons = new ArrayList<Patron>();
+        documents = new ArrayList<>();
     }
 
 
-}*/
+}

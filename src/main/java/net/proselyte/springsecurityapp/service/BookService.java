@@ -1,6 +1,6 @@
 package net.proselyte.springsecurityapp.service;
 
-import net.proselyte.springsecurityapp.model.Book;
+import net.proselyte.springsecurityapp.model.Documents.Book;
 
 import java.util.List;
 

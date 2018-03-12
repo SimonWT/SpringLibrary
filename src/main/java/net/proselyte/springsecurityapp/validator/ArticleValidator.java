@@ -1,7 +1,7 @@
 package net.proselyte.springsecurityapp.validator;
 
-import net.proselyte.springsecurityapp.model.Article;
-import net.proselyte.springsecurityapp.model.Book;
+import net.proselyte.springsecurityapp.model.Documents.Article;
+import net.proselyte.springsecurityapp.model.Documents.Book;
 import net.proselyte.springsecurityapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -10,7 +10,7 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 /**
- * Validator for {@link net.proselyte.springsecurityapp.model.Book} class,
+ * Validator for {@link Book} class,
  * implements {@link Validator} interface.
  *
  * @author Igor Vakhula

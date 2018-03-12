@@ -1,6 +1,6 @@
 package net.proselyte.springsecurityapp.validator;
 
-import net.proselyte.springsecurityapp.model.User;
+import net.proselyte.springsecurityapp.model.Users.User;
 import net.proselyte.springsecurityapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -9,7 +9,7 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 /**
- * Validator for {@link net.proselyte.springsecurityapp.model.User} class,
+ * Validator for {@link User} class,
  * implements {@link Validator} interface.
  *
  * @author Igor Vakhula

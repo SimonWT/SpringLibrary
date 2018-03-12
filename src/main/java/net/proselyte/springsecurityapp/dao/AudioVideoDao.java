@@ -1,8 +1,6 @@
 package net.proselyte.springsecurityapp.dao;
 
-import net.proselyte.springsecurityapp.model.AudioVideo;
-import net.proselyte.springsecurityapp.model.Book;
-import net.proselyte.springsecurityapp.model.User;
+import net.proselyte.springsecurityapp.model.Documents.AudioVideo;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
