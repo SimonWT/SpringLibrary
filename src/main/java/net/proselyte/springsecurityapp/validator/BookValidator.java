@@ -45,7 +45,7 @@ public class BookValidator implements Validator {
          * Error if we have whitespace or number of characters lower than 8 or upper than 32 (PASSWORD)
          */
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "author", "Required");
-        if (book.getAuthor("Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest and Clifford Stein").length() < 4 || book.getAuthor("Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest and Clifford Stein").length() > 32) {
+        if (book.getAuthor(/*"Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest and Clifford Stein"*/).length() < 4 || book.getAuthor(/*"Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest and Clifford Stein"*/).length() > 32) {
             errors.rejectValue("author", "Size.bookForm.author");
         }
 

@@ -11,6 +11,7 @@ import java.util.Set;
  * @author Igor Vakhula
  */
 
+
 @Entity
 @Table(name = "users")
 public class User {

@@ -31,45 +31,45 @@ public class AudioVideo extends Document {
     @Column(name = "copies")
     private int copies;
 
-//    public Long getId() {
-//        return id;
-//    }
-//
-//    public void setId(Long id) {
-//        this.id = id;
-//    }
-//
-//    public String getAuthor() {
-//        return author;
-//    }
-//
-//    public void setAuthor(String author) {
-//        this.author = author;
-//    }
+    public Long getId() {
+        return id;
+    }
 
-//    public String getTitle() {
-//        return title;
-//    }
-//
-//    public void setTitle(String title) {
-//        this.title = title;
-//    }
-//
-//    public int getPrice(){
-//        return price;
-//    }
-//
-//    public void setPrice(int price) {
-//        this.price = price;
-//    }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-//    public int getCopies() {
-//        return copies;
-//    }
+    public String getAuthor() {
+        return author;
+    }
 
-//    public void setCopies(int copies) {
-//        this.copies = copies;
-//    }
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public int getPrice(){
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public int getCopies() {
+        return copies;
+    }
+
+    public void setCopies(int copies) {
+        this.copies = copies;
+    }
 
     public AudioVideo(Long id, String author, String title, int price, int copies) {
         this.id = id;
