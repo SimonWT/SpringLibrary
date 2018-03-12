@@ -163,6 +163,7 @@ public class UserController {
             return "registration";
         }
 
+
         userService.save(userForm);
         /*
             this action authorizate new user after addition (it is useful in our case, but let it be here)
@@ -171,7 +172,19 @@ public class UserController {
 
         return "redirect:/admin";
     }
+    @RequestMapping(value = "/ProfilePage", method = RequestMethod.GET)
+    public String ProfilePage(Model model) {
+        model.addAttribute("userForm", new User());
 
+        return "ProfilePage";
+    }
+    @RequestMapping(value = "/ProfilePage", method = RequestMethod.POST)
+    public String ProfilePage (@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
+        userValidator.validate(userForm, bindingResult);
+
+            return "ProfilePage";
+
+    }
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model, String error, String logout) {
         if (error != null) {

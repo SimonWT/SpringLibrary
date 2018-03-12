@@ -13,7 +13,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Checked Out Books</title>
+    <title>My Books | DeepLib</title>
 </head>
 <body>
 <h3><a href="/welcome">Back</a></h3>
