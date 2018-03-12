@@ -25,7 +25,6 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/bootstrap.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/font-awesome.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/styles.css">

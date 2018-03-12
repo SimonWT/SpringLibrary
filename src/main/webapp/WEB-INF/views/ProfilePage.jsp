@@ -18,7 +18,6 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>My Page | DeepLib</title>
-
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/bootstrap.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/font-awesome.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/styles.css">
@@ -73,30 +72,12 @@
 
     </ul>
 </nav>
-<h3><a href="/welcome">Back</a></h3>
-    hui love
+
 <div class="container">
-<form:form method="GET" modelAttribute="userForm" class="form-signin">
-    <h2 class="form-signin-heading">Edit a User</h2>
-        <h2>Katya</h2>
-
-
-
-    <div>
-        <h> ${pageContext.request.userPrincipal.name} </h>
-    </div>
-
-    <div>
-        <h>${pageContext.request.userPrincipal.name} </h>
-    </div>
-
-
-    <div>
-        <h>${pageContext.request.userPrincipal.name} </h>
-    </div>
-
-</form:form>
-
+    <li> <h>name: </h> </li>
+    <li><h>surname: </h> </li>
+    <li><h>phone: </h> </li>
+    <li>e-mail:<a>hateeiffel@.com</a></li>
 </div>
 <div style = "z-index: 2;
   background: #000;
