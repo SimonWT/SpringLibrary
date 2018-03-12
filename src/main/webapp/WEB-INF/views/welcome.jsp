@@ -36,7 +36,7 @@
 
     <div class="hero-bg-wrapper">
         <nav class="navbar navbar-static-top" style="background-color: #A52A2A;">
-            <a class="navbar-brand" style="background-color: #A52A2A; " >DeepLib</a>
+            <a href = "/welcome" class="navbar-brand" style="background-color: #A52A2A; " >DeepLib</a>
 
             <ul class="nav navbar-nav" >
                 <li class="divider-vertical"></li>
@@ -50,15 +50,26 @@
                         <button type="submit" class="btn btn-default">Submit</button>
                     </form>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">Audio/Video File</a></li>
-                        <li><a href="#">Journal Articles</a></li>
-                        <li><a href="#">Books</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${pageContext.request.userPrincipal.name} <span class="caret"></span></a>
+                        <li><a href="/listOfAudioVideoMaterialForPatron">Audio/Video File</a></li>
+                        <li><a href="/listOfArticlesForPatron">Journal Articles</a></li>
+                        <li><a href="/listOfBooksForPatron">Books</a></li>
+                        <li class="dropdown" style = "padding-right: 10px;">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                               role="button" aria-haspopup="true"
+                               aria-expanded="false">${pageContext.request.userPrincipal.name}
+                                <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">My Profile</a></li>
-                                <li><a href="#">Edit Information</a></li>
-                                <li><a href="#">My Documents</a></li>
+                               <li> <c:if test="${pageContext.request.userPrincipal.name != null}">
+                                    <a href="/ProfilePage">Profile</a>
+                                </c:if>
+                               </li>
+
+                                <li>
+                                    <c:if test="${pageContext.request.userPrincipal.name != null}">
+                                        <a href="/editUser">Edit Information</a>
+                                    </c:if>
+                                </li>
+                                <li><a href="/user">My Documents</a></li>
                                 <li role="separator" class="divider"></li>
                                 <c:if test="${pageContext.request.userPrincipal.name != null}">
                                     <form id="logoutForm" method="POST" action="${contextPath}/logout">
