@@ -1,3 +1,4 @@
+
 <%--
   Created by IntelliJ IDEA.
   User: Igor
@@ -47,7 +48,7 @@
             </div>
         </spring:bind>
 
-        <spring:bind path="author">
+          <spring:bind path="author">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <form:input type="text" path="author" class="form-control" placeholder="Author's name"
                             autofocus="true"></form:input>

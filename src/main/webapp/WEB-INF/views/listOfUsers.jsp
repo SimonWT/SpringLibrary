@@ -22,7 +22,56 @@
     <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<h3><a href="/admin">Back</a></h3>
+<nav class="navbar navbar-static-top" style="background-color: #A52A2A;">
+    <a href = "/welcome" class="navbar-brand" style="background-color: #A52A2A; " >DeepLib</a>
+
+    <ul class="nav navbar-nav" >
+        <li class="divider-vertical"></li>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+            <form class="navbar-form navbar-left">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search">
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/listOfAudioVideoMaterialForPatron">Audio/Video File</a></li>
+                <li><a href="/listOfArticlesForPatron">Journal Articles</a></li>
+                <li><a href="/listOfBooksForPatron">Books</a></li>
+                <li class="dropdown" style = "padding-right: 10px;">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                       role="button" aria-haspopup="true"
+                       aria-expanded="false">${pageContext.request.userPrincipal.name}
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li> <c:if test="${pageContext.request.userPrincipal.name != null}">
+                            <a href="/ProfilePage">Profile</a>
+                        </c:if>
+                        </li>
+
+                        <li>
+                            <c:if test="${pageContext.request.userPrincipal.name != null}">
+                                <a href="/editUser">Edit Information</a>
+                            </c:if>
+                        </li>
+                        <li><a href="user">My Documents</a></li>
+                        <li role="separator" class="divider"></li>
+                        <c:if test="${pageContext.request.userPrincipal.name != null}">
+                            <form id="logoutForm" method="POST" action="${contextPath}/logout">
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                            </form>
+                            <li><a onclick="document.forms['logoutForm'].submit()">Logout</a></li>
+                        </c:if>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+    </ul>
+</nav>
+
 <form method="POST">
 <table class="table table-condensed">
     <thead>

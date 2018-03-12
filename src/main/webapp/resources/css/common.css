@@ -1,7 +1,7 @@
 body {
-    padding-top: 40px;
-    padding-bottom: 40px;
-    background-color: #eee;
+    z-index: 4;
+    background: linear-gradient(to right, #f9d423, #ff4e50);
+    opacity: 0.95;
 }
 
 .form-signin {

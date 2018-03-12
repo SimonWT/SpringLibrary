@@ -152,5 +152,9 @@
         <div class="clearfix"></div>
     </nav>
 </div>
+
+<script src="${contextPath}/resources/jsNew/jquery.js"></script>
+<script src="${contextPath}/resources/jsNew/bootstrap.js"></script>
+<script src="${contextPath}/resources/jsNew/scripts.js"></script>
 </body>
 </html>
