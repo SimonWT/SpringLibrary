@@ -150,7 +150,6 @@
 
             <c:if test="${pageContext.request.userPrincipal.name != null}">
                 <a href="/admin">ADMINKA</a>
-                <a href="/user">USERKA</a>
             </c:if>
 
         </div>
