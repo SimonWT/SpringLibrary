@@ -4,7 +4,7 @@
 <%@ page import="java.sql.ResultSet" %>
 <%@ page import="org.springframework.jdbc.datasource.DriverManagerDataSource" %><%--
   Created by IntelliJ IDEA.
-  User: Igor
+  Users: Igor
   Date: 02-Mar-18
   Time: 3:14 PM
   To change this template use File | Settings | File Templates.
