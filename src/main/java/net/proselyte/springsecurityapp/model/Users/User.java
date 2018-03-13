@@ -6,10 +6,11 @@ import javax.persistence.*;
 import java.util.Set;
 
 /**
- * Simple JavaBean domain object that represents a User.
+ * Simple JavaBean domain object that represents a Users.
  *
  * @author Igor Vakhula
  */
+
 
 @Entity
 @Table(name = "users")
@@ -120,7 +121,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "Users{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", name='" + name + '\'' +

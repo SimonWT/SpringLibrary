@@ -58,7 +58,7 @@ public class Book extends Document {
         this.title = title;
     }
 
-    public String getAuthor(String s) {
+    public String getAuthor() {
         return author;
     }
 

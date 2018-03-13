@@ -3,6 +3,9 @@ package net.proselyte.springsecurityapp.controller;
 import net.proselyte.springsecurityapp.model.Documents.Article;
 import net.proselyte.springsecurityapp.model.Documents.AudioVideo;
 import net.proselyte.springsecurityapp.model.Documents.Book;
+import net.proselyte.springsecurityapp.model.Inherit.Patrons;
+import net.proselyte.springsecurityapp.model.Inherit.Users;
+import net.proselyte.springsecurityapp.model.Inherit.UsersService;
 import net.proselyte.springsecurityapp.model.Users.User;
 import net.proselyte.springsecurityapp.service.*;
 import net.proselyte.springsecurityapp.validator.ArticleValidator;
@@ -34,6 +37,11 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    /*
+    * INHERITANCE testing
+     */
+    @Autowired
+    private UsersService usersService;
 
     @Autowired
     private BookService bookService;
@@ -59,6 +67,18 @@ public class UserController {
     @Autowired
     private AudioVideoValidator audioVideoValidator;
 
+    @RequestMapping(value = "/test/inh", method = RequestMethod.GET )
+    public String testInh(Model model){
+
+        Patrons patrons = new Patrons();
+        patrons.setName("Sukka");
+        patrons.setUsername("Sukka");
+        patrons.setSurname("Sukka");
+        patrons.setId((long) 69);
+
+        usersService.save(patrons);
+        return "SUKA.";
+    }
 
     @RequestMapping("/deleteUser/{id}")
     public String deleteUser(@PathVariable("id") Long id){
@@ -213,7 +233,7 @@ public class UserController {
         User user = userService.getUserById(id);
 
         if(user!=null)
-            logger.info("User got by ID: " + user.toString());
+            logger.info("Users got by ID: " + user.toString());
 
         model.addAttribute("userForm", user);
 
@@ -224,7 +244,7 @@ public class UserController {
     public String editUser(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model){
         userService.update(userForm);
 
-        logger.info("User updated: "+ userForm.toString());
+        logger.info("Users updated: "+ userForm.toString());
         return "redirect:/listOfUsers";
     }
 
