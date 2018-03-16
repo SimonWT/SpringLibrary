@@ -39,6 +39,9 @@ public class User {
     @Column(name = "email")
     private String email;
 
+    @Column(name = "type")
+    private String type;
+
     @Transient
     private String confirmPassword;
 
@@ -123,6 +126,9 @@ public class User {
         this.email = email;
     }
 
+   // public void getType() { return type; }
+
+    public void setType(String type) { this.type = type;}
 
     public Set<Role> getRoles() {
         return roles;
