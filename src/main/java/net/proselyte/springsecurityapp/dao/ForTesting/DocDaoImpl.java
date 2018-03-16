@@ -40,10 +40,22 @@ public class DocDaoImpl implements DocDao {
     @Override
     public void addAV(AudioVideo av) {
 
-        String sql = "INSERT INTO audio_video (author, title, price, copies) VALUE ('"+av.getAuthors()+
-                "','"+av.getTitle()+"','"+av.getPrice()+"','"+av.getCopies()+"')"; //SQL Query
+        String sql = "INSERT INTO audio_video (author, title, price, copies) VALUE ('"
+                +av.getAuthors()+
+                "','"+av.getTitle()+
+                "','"+av.getPrice()+
+                "','"+av.getCopies()+
+                "')"; //SQL Query
 
         Statement stmt= null;
+
+        try {
+            stmt = connection.createStatement();
+            stmt.executeUpdate(sql);
+            stmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
 
     }
