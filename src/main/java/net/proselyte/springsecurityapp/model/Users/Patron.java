@@ -6,6 +6,7 @@ import net.proselyte.springsecurityapp.model.Documents.Role;
 import net.proselyte.springsecurityapp.model.Library.Library;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -61,6 +62,9 @@ public class Patron extends User {
         }
 
         else{
+            if (doc.getCopies() == 0){
+                doc.queue.add(this);
+            }
             System.out.println("No available documents for " + getName());
         }
     }

@@ -77,7 +77,7 @@ public class Librarian extends User {
 
     public String checkInfo(Patron p){
         if (!library.patrons.contains(p)){
-            return "Information no available, patron does not exist.";
+            return "Information not available, patron does not exist.";
         }
         StringBuilder info = new StringBuilder("Name: " + p.getName() + "\nAddress:" + p.getAddress() + "\nPhone:" + p.getPhone() + "\nId:" + p.getId() + "\nType:" + p.getType() + "\nDocuments:\n");
         for (int i = 0; i < p.getDocuments().size(); i++){
@@ -85,5 +85,13 @@ public class Librarian extends User {
         }
 
         return info.toString();
+    }
+
+    public void emptyQueues(){
+        for (int i = 0; i < library.documents.size(); i++){
+            if (library.documents.get(i).queue.size() != 0){
+                library.documents.get(i).queue.clear();
+            }
+        }
     }
 }
