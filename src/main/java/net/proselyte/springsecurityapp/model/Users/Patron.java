@@ -5,6 +5,9 @@ import net.proselyte.springsecurityapp.model.Documents.Document;
 import net.proselyte.springsecurityapp.model.Documents.Role;
 import net.proselyte.springsecurityapp.model.Library.Library;
 
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -13,14 +16,21 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by evgeniy on 21.01.18.
  */
+
 public class Patron extends User {
+
     private String type; //faculty or student
+
     private ArrayList <Document> documents; //documents checked by this user
+
     private String address;
+
     public Library library;
 
-    public Patron(){
-        documents = new ArrayList<>();
+    public Patron(){};
+
+    public Patron(String username, String password, String name, String surname, String phone, String email) {
+        super(username, password, name, surname, phone, email);
     }
 
     public void setType(String t){

@@ -5,7 +5,7 @@ import net.proselyte.springsecurityapp.model.Documents.AudioVideo;
 import net.proselyte.springsecurityapp.model.Documents.Book;
 import net.proselyte.springsecurityapp.model.Inherit.Patrons;
 import net.proselyte.springsecurityapp.model.Inherit.Users;
-import net.proselyte.springsecurityapp.model.Inherit.UsersService;
+import net.proselyte.springsecurityapp.service.UsersService;
 import net.proselyte.springsecurityapp.model.Users.User;
 import net.proselyte.springsecurityapp.service.*;
 import net.proselyte.springsecurityapp.validator.ArticleValidator;
@@ -70,11 +70,11 @@ public class UserController {
     @RequestMapping(value = "/test/inh", method = RequestMethod.GET )
     public String testInh(Model model){
 
-        Patrons patrons = new Patrons();
+        Users patrons = new Patrons();
         patrons.setName("Sukka");
         patrons.setUsername("Sukka");
         patrons.setSurname("Sukka");
-        patrons.setId((long) 69);
+        patrons.setId( 69 );
 
         usersService.save(patrons);
         return "SUKA.";

@@ -3,6 +3,8 @@ package net.proselyte.springsecurityapp.model.Users;
 import net.proselyte.springsecurityapp.model.Documents.Document;
 import net.proselyte.springsecurityapp.model.Library.Library;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -11,11 +13,11 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by evgeniy on 21.01.18.
  */
+
+
 public class Librarian extends User {
 
     public Library library;
-
-
 
     public void addPatron(Patron newPatron){
         library.patrons.add(newPatron);
@@ -83,7 +85,6 @@ public class Librarian extends User {
         for (int i = 0; i < p.getDocuments().size(); i++){
             info.append("\t Title: ").append(p.getDocuments().get(i).getTitle()).append(" Due date: ").append(p.getDocuments().get(i).getDueDate()).append("\n");
         }
-
         return info.toString();
     }
 }

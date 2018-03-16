@@ -96,6 +96,7 @@
                 dataSource.setPassword("ffa9cd9f");
                 String query="SELECT id, title, author, year, edition, price, copies FROM books";
                 Connection conn=DriverManager.getConnection(dataSource.getUrl(), dataSource.getUsername(), dataSource.getPassword());
+
                 Statement stmt=conn.createStatement();
                 ResultSet rs=stmt.executeQuery(query);
                 while(rs.next())
