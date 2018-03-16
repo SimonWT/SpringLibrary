@@ -6,7 +6,8 @@ CREATE TABLE users (
   name     VARCHAR(255) NOT NULL,
   surname  VARCHAR(255) NOT NULL,
   phone    VARCHAR(255) NOT NULL,
-  email    VARCHAR(255) NOT NULL
+  email    VARCHAR(255) NOT NULL,
+  type     VARCHAR(255) NOT NULL
 
 )
   ENGINE = InnoDB;
