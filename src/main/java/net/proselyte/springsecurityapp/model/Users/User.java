@@ -11,13 +11,15 @@ import java.util.Set;
  * @author Igor Vakhula
  */
 
-@Entity
+
 @Table(name = "users")
+@Entity
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
 
     @Column(name = "username")
     private String username;
@@ -37,6 +39,9 @@ public class User {
     @Column(name = "email")
     private String email;
 
+    @Column(name = "type")
+    private String type;
+
     @Transient
     private String confirmPassword;
 
@@ -45,7 +50,21 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
-    public Long getId() { return id; }
+    public User() {
+    }
+
+    public User(String username, String password, String name, String surname, String phone, String email) {
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.surname = surname;
+        this.phone = phone;
+        this.email = email;
+    }
+
+    public Long getId() {
+        return id;
+    }
 
     public void setId(Long id) {
         this.id = id;
@@ -88,7 +107,9 @@ public class User {
         assert (this.name.equals(this.getName()));
     }
 
-    public String getSurname() { return surname; }
+    public String getSurname() {
+        return surname;
+    }
 
     public void setSurname(String surname) {
         this.surname = surname;
@@ -113,6 +134,9 @@ public class User {
         assert (this.email.equals(this.getEmail()));
     }
 
+   // public void getType() { return type; }
+
+    public void setType(String type) { this.type = type;}
 
     public Set<Role> getRoles() {
         return roles;
@@ -125,7 +149,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "Users{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", name='" + name + '\'' +

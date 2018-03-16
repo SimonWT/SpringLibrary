@@ -13,7 +13,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Checked Out Books</title>
+    <title>My Books | DeepLib</title>
 </head>
 <body>
 <h3><a href="/welcome">Back</a></h3>
@@ -29,7 +29,7 @@
             <tr>
                 <td>${book.id}</td>
                 <td>${book.title}</td>
-                <td>${book.author}</td>
+                <%--<td>${book.author}</td>--%>
                 <td>${book.price}</td>
                 <td><a href="#">Return</a></td>
             </tr>
