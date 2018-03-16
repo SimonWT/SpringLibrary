@@ -19,44 +19,44 @@
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/styles.css">
 </head>
 <body>
-<div class="container">
 
-    <!--  <c:if test="${pageContext.request.userPrincipal.name != null}">
-        <form id="logoutForm" method="POST" action="${contextPath}/logout">
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-        </form>
-
-        <h2>Welcome ${pageContext.request.userPrincipal.name} | <a onclick="document.forms['logoutForm'].submit()">Logout</a>
-        </h2>
-        <a href="/admin">ADMINKA</a>
-        <a href="/user">USERKA</a>
-    </c:if> -->
-</div>
+</nav>
 <div class="hero">
 
     <div class="hero-bg-wrapper">
-        <nav class="navbar navbar-static-top" style="background-color: #A52A2A;">
-            <a href = "/welcome" class="navbar-brand" style="background-color: #A52A2A; " >DeepLib</a>
+        <nav class="navbar navbar-static-top" role = "navigation" style="background-color: #A52A2A;">
 
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+
+            </div>
+            <a href = "/welcome" class="navbar-brand" style="background-color: #A52A2A; " >DeepLib</a>
+            <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" style="height: 1px;">
             <ul class="nav navbar-nav" >
                 <li class="divider-vertical"></li>
 
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
                     <form class="navbar-form navbar-left">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Search">
+                            <input type="text" class="form-control" placeholder="Search..">
                         </div>
                         <button type="submit" class="btn btn-default">Submit</button>
                     </form>
-                    <ul class="nav navbar-nav navbar-right">
+                    <ul class="nav navbar-nav navbar-right" >
                         <li><a href="/listOfAudioVideoMaterialForPatron">Audio/Video File</a></li>
                         <li><a href="/listOfArticlesForPatron">Journal Articles</a></li>
                         <li><a href="/listOfBooksForPatron">Books</a></li>
-                        <li class="dropdown" style = "padding-right: 10px;">
+                        <li class="dropdown" style = "margin-left:450px">
+
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"
                                role="button" aria-haspopup="true"
-                               aria-expanded="false">${pageContext.request.userPrincipal.name}
+
+                               aria-expanded="false"><img src="${contextPath}/resources/imgNew/user2.png"  style="height: 2rem; display: inline-block; margin-bottom: .3125rem;">
+                                ${pageContext.request.userPrincipal.name}
                                 <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                <li> <c:if test="${pageContext.request.userPrincipal.name != null}">
@@ -88,7 +88,7 @@
         <div style = "z-index: 2;
   background: #000;
   opacity: 0.7;">
-            <nav class="text-center" style="margin-top: 562px;z-index: 4;  background: linear-gradient(to right, #f9d423, #ff4e50);opacity: 0.47;">
+            <nav class="text-center" style="margin-top: 559px;z-index: 4;  background: linear-gradient(to right, #f9d423, #ff4e50);opacity: 0.47;">
                 <div style="color: #fff; padding-top: 20px; padding-bottom: 20px;">
                     <img src="${contextPath}/resources/imgNew/15.jpg"  style="height: 2rem; display: inline-block; margin-bottom: .3125rem;">
                     <p>2018,"DeepLib" <br>All rights reserved.</p>
@@ -109,7 +109,7 @@
         <div class="hero-bg-gradient-mask"></div>
         <div class="hero-bg-mask"></div>
     </div>
-
+</div>
 </div>
 
 
