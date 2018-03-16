@@ -14,8 +14,7 @@ import java.util.concurrent.TimeUnit;
  * Created by evgeniy on 21.01.18.
  */
 
-@Entity
-@DiscriminatorValue("LIBRARIAN")
+
 public class Librarian extends User {
 
     public Library library;

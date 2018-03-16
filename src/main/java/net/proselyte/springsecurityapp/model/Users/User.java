@@ -13,8 +13,6 @@ import java.util.Set;
 
 
 @Table(name = "users")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "type")
 @Entity
 public class User {
 

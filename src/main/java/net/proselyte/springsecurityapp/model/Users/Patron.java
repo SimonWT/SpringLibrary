@@ -17,11 +17,8 @@ import java.util.concurrent.TimeUnit;
  * Created by evgeniy on 21.01.18.
  */
 
-@Entity
-@DiscriminatorValue("PATRON")
 public class Patron extends User {
 
-    @Column(name="type")
     private String type; //faculty or student
 
     private ArrayList <Document> documents; //documents checked by this user
