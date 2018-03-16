@@ -10,6 +10,8 @@ public interface DocDao {
     void addAV(AudioVideo av);
     void addBook(Book book);
     List<Document> getDocuments();
+    void deleteLastBook();
+    void deleteLastAV();
 
 
 }

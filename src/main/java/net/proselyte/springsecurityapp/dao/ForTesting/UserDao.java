@@ -10,4 +10,5 @@ public interface UserDao {
     void addUser(User user);
     User getUserById(Long id);
     List<Patron> getPatrons();
+    void deleteUser();
 }
