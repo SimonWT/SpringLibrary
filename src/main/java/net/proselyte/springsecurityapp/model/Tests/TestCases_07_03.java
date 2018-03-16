@@ -29,6 +29,7 @@ public class TestCases_07_03 {
 
     public static void testCase1(){
         librarian.addDoc(b1, 3);
+        System.out.println(librarian.docDao.getDocuments().get(0).getTitle());
         librarian.addDoc(b2, 2);
         librarian.addDoc(b3, 1);
 
@@ -39,12 +40,13 @@ public class TestCases_07_03 {
         librarian.addPatron(p2);
         librarian.addPatron(p3);
 
-        System.out.println(library.patrons.size() + library.librarians.size() + " users in system");
+        System.out.println(librarian.userDao.getPatrons().size() + 1 + " users in system");
 
         int docNum = 0;
 
+        librarian.library.documents = (ArrayList<Document>) librarian.library.getDocuments();
         for (int i = 0; i < librarian.library.documents.size(); i++){
-            docNum += librarian.library.documents.get(i).getCopies();
+            docNum += librarian.library.getDocuments().get(i).getCopies();
         }
 
         System.out.println(docNum + " documents in system");
@@ -179,6 +181,10 @@ public class TestCases_07_03 {
         }
     }
 
+    public static void testCase9(){
+
+    }
+
     public static void main(String[] args) {
         b1 = new Book();
         b2 = new Book();
@@ -218,11 +224,13 @@ public class TestCases_07_03 {
         b3.setYear("1995");
         b3.setEdition(2);
         b3.setCopies(1);
+        b3.setBestSeller(false);
         b3.setKeys("reference");
 
         av1.setTitle("Null References: The Billion Dollar Mistake");
         av1.setAuthors("Tony Hoare");
         av1.setKeys("NA");
+
 
         av2.setTitle("Information Entropy");
         av2.setAuthors("Claude Shannon");

@@ -1,5 +1,11 @@
 package net.proselyte.springsecurityapp.model.Users;
 
+import net.proselyte.springsecurityapp.dao.ForTesting.DocDao;
+import net.proselyte.springsecurityapp.dao.ForTesting.DocDaoImpl;
+import net.proselyte.springsecurityapp.dao.ForTesting.UserDao;
+import net.proselyte.springsecurityapp.dao.ForTesting.UserDaoImpl;
+import net.proselyte.springsecurityapp.model.Documents.AudioVideo;
+import net.proselyte.springsecurityapp.model.Documents.Book;
 import net.proselyte.springsecurityapp.model.Documents.Document;
 import net.proselyte.springsecurityapp.model.Library.Library;
 
@@ -18,10 +24,13 @@ import java.util.concurrent.TimeUnit;
 public class Librarian extends User {
 
     public Library library;
+    public UserDao userDao = new UserDaoImpl();
+    public DocDao docDao = new DocDaoImpl();
 
     public void addPatron(Patron newPatron){
         library.patrons.add(newPatron);
         newPatron.library = library;
+        userDao.addUser(newPatron);
     }
 
     public void removePatron(String name, String phoneNumber){
@@ -41,6 +50,11 @@ public class Librarian extends User {
         else {
             doc.setCopies(copiesAmount);
             library.documents.add(doc);
+            if (doc.getClass().toString().equals("class net.proselyte.springsecurityapp.model.Documents.AudioVideo")){
+                docDao.addAV((AudioVideo) doc);
+            }
+            if (doc.getClass().toString().equals("class net.proselyte.springsecurityapp.model.Documents.Book"))
+                docDao.addBook((Book) doc);
         }
 
     }

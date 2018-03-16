@@ -76,8 +76,7 @@ public class AudioVideo extends Document {
         assert (this.copies == this.getCopies());
     }
 
-    public AudioVideo(Long id, String author, String title, int price, int copies) {
-        this.id = id;
+    public AudioVideo(String author, String title, int price, int copies) {
         this.author = author;
         this.title = title;
         this.price = price;

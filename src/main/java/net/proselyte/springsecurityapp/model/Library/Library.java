@@ -5,6 +5,7 @@ import net.proselyte.springsecurityapp.model.Users.Librarian;
 import net.proselyte.springsecurityapp.model.Users.Patron;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.PriorityQueue;
 
 /**
@@ -14,6 +15,10 @@ public class Library {
     public ArrayList<Librarian> librarians;
     public ArrayList<Patron> patrons;
     public ArrayList<Document> documents;
+
+    public List<Document> getDocuments() {
+        return librarians.get(0).docDao.getDocuments();
+    }
 
     public Library(){
         librarians = new ArrayList<>();
