@@ -39,7 +39,6 @@ public class DocDaoImpl implements DocDao {
 
     @Override
     public void addAV(AudioVideo av) {
-        String type=null;
 
         String sql = "INSERT INTO audio_video (author, title, price, copies) VALUE ('"+av.getAuthors()+
                 "','"+av.getTitle()+"','"+av.getPrice()+"','"+av.getCopies()+"')"; //SQL Query
@@ -74,7 +73,6 @@ public class DocDaoImpl implements DocDao {
         }
     }
 
-
     @Override
     public List<Document> getDocuments() {
         String sql = "SELECT id, author, title, year, edition,copies,price FROM books"; //SQL Query
@@ -105,23 +103,24 @@ public class DocDaoImpl implements DocDao {
                 list.add(book);
             }
 
-            rs.close();
-            stmt.close();
+
+
 
             stmt = connection.createStatement();
             rs=stmt.executeQuery(sql2);
 
             while(rs.next()){
                 av = new AudioVideo(
-                        rs.getLong("id"),
                         rs.getString("author"),
                         rs.getString("title"),
                         rs.getInt("price"),
                         rs.getInt("copies")
                 );
+                av.setId(rs.getLong("id"));
                 list.add(av);
             }
-
+            rs.close();
+            stmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
