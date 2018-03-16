@@ -56,12 +56,12 @@
                             <span>${message}</span>
                             <label for="loginInputEmail">Email address/Login</label>
                             <i class="fa fa-at"></i>
-                            <input name="username" class = "form-control" type="text" onfocus="this.value=''"  id="loginInputEmail"  required>
+                            <input name="username" class = "form-control" type="text"  id="loginInputEmail"  required>
                         </div>
                         <div class="form-group ${error != null ? 'has-error' : ''}">
                             <label for="loginInputPwd">Password</label>
                             <i class="fa fa-lock"></i>
-                            <input name="password" type="password" class = "form-control" data-type="password" onfocus="this.value=''" id ="loginInputPwd" required>
+                            <input name="password" type="password" class = "form-control" data-type="password"  id ="loginInputPwd" required>
                             <span>${error}</span>
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                         </div>
