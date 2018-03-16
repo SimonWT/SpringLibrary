@@ -5,6 +5,7 @@ import net.proselyte.springsecurityapp.model.Documents.Document;
 import net.proselyte.springsecurityapp.model.Documents.Role;
 import net.proselyte.springsecurityapp.model.Library.Library;
 
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import java.util.ArrayList;
@@ -19,9 +20,14 @@ import java.util.concurrent.TimeUnit;
 @Entity
 @DiscriminatorValue("PATRON")
 public class Patron extends User {
+
+    @Column(name="type")
     private String type; //faculty or student
+
     private ArrayList <Document> documents; //documents checked by this user
+
     private String address;
+
     public Library library;
 
     public Patron(){
