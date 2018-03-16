@@ -27,8 +27,10 @@ public class Patron extends User {
 
     public Library library;
 
-    public Patron(){
-        documents = new ArrayList<>();
+    public Patron(){};
+
+    public Patron(String username, String password, String name, String surname, String phone, String email) {
+        super(username, password, name, surname, phone, email);
     }
 
     public void setType(String t){
