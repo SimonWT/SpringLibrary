@@ -12,10 +12,7 @@ import net.proselyte.springsecurityapp.service.UserService;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
-import java.util.Scanner;
+import java.util.*;
 
 public class TestCases_07_03 {
 
@@ -29,7 +26,6 @@ public class TestCases_07_03 {
 
     public static void testCase1(){
         librarian.addDoc(b1, 3);
-        System.out.println(librarian.docDao.getDocuments().get(0).getTitle());
         librarian.addDoc(b2, 2);
         librarian.addDoc(b3, 1);
 
@@ -40,13 +36,12 @@ public class TestCases_07_03 {
         librarian.addPatron(p2);
         librarian.addPatron(p3);
 
-        System.out.println(librarian.userDao.getPatrons().size() + 1 + " users in system");
+        System.out.println(librarian.library.patrons.size() + 1 + " users in system");
 
         int docNum = 0;
 
-        librarian.library.documents = (ArrayList<Document>) librarian.library.getDocuments();
         for (int i = 0; i < librarian.library.documents.size(); i++){
-            docNum += librarian.library.getDocuments().get(i).getCopies();
+            docNum += librarian.library.documents.get(i).getCopies();
         }
 
         System.out.println(docNum + " documents in system");
@@ -182,8 +177,27 @@ public class TestCases_07_03 {
     }
 
     public static void testCase9(){
+        List<Patron> patrons = librarian.userDao.getPatrons();
+        System.out.println("Patrons:");
+        for (int i = patrons.size() - 3; i < patrons.size(); i++){
+            System.out.println(patrons.get(i).getName());
+        }
 
+        List<Document> docs = librarian.docDao.getDocuments();
+        System.out.println("Books:");
+        for (int i = docs.size() - 5; i < docs.size(); i++) {
+            if (docs.get(i).getClass().toString().equals("class net.proselyte.springsecurityapp.model.Documents.Book")) {
+                System.out.println(docs.get(i).getTitle() + " " + docs.get(i).getCopies() + " copies");
+            }
+        }
+        System.out.println("AVs:");
+        for (int i = docs.size() - 5; i < docs.size(); i++) {
+            if (docs.get(i).getClass().toString().equals("class net.proselyte.springsecurityapp.model.Documents.AudioVideo")) {
+                System.out.println(docs.get(i).getTitle() + " " + docs.get(i).getCopies() + " copies");
+            }
+        }
     }
+
 
     public static void main(String[] args) {
         b1 = new Book();
@@ -255,17 +269,18 @@ public class TestCases_07_03 {
         p3.setType("Student");
 
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Input number from 1 to 8 (number of test case which you want to run). Input 0 for exit");
-        int num = scanner.nextInt();
+        System.out.println("Input number from 1 to 9 (number of test case which you want to run). If you want to run test case #9 at first run tets case 1 re-run program and run test case 9");
+        String num = scanner.next();
         switch (num) {
-            case 1: testCase1(); break;
-            case 2: testCase2(); break;
-            case 3: testCase3(); break;
-            case 4: testCase4(); break;
-            case 5: testCase5(); break;
-            case 6: testCase6(); break;
-            case 7: testCase7(); break;
-            case 8: testCase8(); break;
+            case "1": testCase1(); break;
+            case "2": testCase2(); break;
+            case "3": testCase3(); break;
+            case "4": testCase4(); break;
+            case "5": testCase5(); break;
+            case "6": testCase6(); break;
+            case "7": testCase7(); break;
+            case "8": testCase8(); break;
+            case "9": testCase9(); break;
             default:
                 System.out.println("Invalid number");
         }
