@@ -71,3 +71,24 @@ CREATE TABLE audio_video(
   copies       INT          NOT NULL
 )
   ENGINE = InnoDB;
+CREATE TABLE history(
+  id           INT          NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  type         VARCHAR(255) NOT NULL,
+  doc_id       INT          NOT NULL,
+  user_id      INT          NOT NULL,
+  status       BOOLEAN      NOT NULL,
+  co_date      DATE         NOT NULL,
+  ret_date     DATE         NOT NULL,
+  days_penalty INT          NOT NULL
+)
+  ENGINE = InnoDB;
+
+
+CREATE TABLE queue(
+  id           INT          NOT NULL,
+  type         VARCHAR(255) NOT NULL,
+  doc_id       INT          NOT NULL,
+  user_id      INT          NOT NULL,
+  date         DATE         NOT NULL
+)
+  ENGINE = InnoDB;
