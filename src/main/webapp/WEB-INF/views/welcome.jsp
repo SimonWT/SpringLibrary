@@ -20,7 +20,7 @@
 </head>
 <body>
 
-</nav>
+
 <div class="hero">
 
     <div class="hero-bg-wrapper">
@@ -40,12 +40,7 @@
                 <li class="divider-vertical"></li>
 
 
-                    <form class="navbar-form navbar-left">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Search..">
-                        </div>
-                        <button type="submit" class="btn btn-default">Submit</button>
-                    </form>
+
                     <ul class="nav navbar-nav navbar-right" >
                         <li><a href="/listOfAudioVideoMaterialForPatron">Audio/Video File</a></li>
                         <li><a href="/listOfArticlesForPatron">Journal Articles</a></li>
@@ -80,9 +75,9 @@
                             </ul>
                         </li>
                     </ul>
+            </ul>
                 </div>
 
-            </ul>
         </nav>
 
         <div style = "z-index: 2;
@@ -111,7 +106,6 @@
     </div>
 </div>
 </div>
-
 
 
 

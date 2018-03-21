@@ -9,7 +9,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
 <head>
@@ -19,16 +18,17 @@
     <link href="${contextPath}/resources/cssNew/bootstrap.css" rel="stylesheet">
     <link href="${contextPath}/resources/cssNew/font-awesome.css" rel="stylesheet">
     <link href="${contextPath}/resources/cssNew/styles.css" rel="stylesheet">
-
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel = "stylesheet">
 
 </head>
 <body>
 <div class="hero">
+
     <div class="hero-content col-md-9">
         <div class="hero-bg-wrapper">
             <div class="hero-bg-mask"></div>
             <div class="hero-bg-gradient-mask"></div>
-
+            <div class="hero-bg-video" id="youtube-video" data-video-id="jv2ATV8Ff_A"></div>
         </div>
         <div class="hero-caption">
             <h1 class="hero-caption-title">Welcome to DeepLib</h1>
@@ -104,6 +104,7 @@
 <script src="${contextPath}/resources/jsNew/jquery.js"></script>
 <script src="${contextPath}/resources/jsNew/bootstrap.js"></script>
 <script src="${contextPath}/resources/jsNew/scripts.js"></script>
+<script src="${contextPath}/resources/jsNew/video.js"></script>
 
 </body>
 </html>
