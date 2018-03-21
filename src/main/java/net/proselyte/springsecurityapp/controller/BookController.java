@@ -1,6 +1,7 @@
 package net.proselyte.springsecurityapp.controller;
 
 import net.proselyte.springsecurityapp.model.Documents.Book;
+import net.proselyte.springsecurityapp.model.Users.Patron;
 import net.proselyte.springsecurityapp.model.Users.User;
 import net.proselyte.springsecurityapp.service.BookService;
 import net.proselyte.springsecurityapp.service.UserService;
@@ -122,5 +123,11 @@ public class BookController {
         return "redirect:/listOfBooks";
     }
 
+    @RequestMapping("/reg/Pat")
+    public String regPat(){
+        User user = new Patron("TestInh","TestInh","TestInh","TestInh","TestInh","TestInh");
+        userService.save(user);
+        return "SUCCESS";
+    }
 
 }

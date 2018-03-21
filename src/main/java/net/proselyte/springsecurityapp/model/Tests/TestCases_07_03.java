@@ -27,163 +27,163 @@ public class TestCases_07_03 {
     static Patron p1, p2, p3;
     static Librarian librarian;
 
-    public static void testCase1(){
-        librarian.addDoc(b1, 3);
-        System.out.println(librarian.docDao.getDocuments().get(0).getTitle());
-        librarian.addDoc(b2, 2);
-        librarian.addDoc(b3, 1);
-
-        librarian.addDoc(av1, 1);
-        librarian.addDoc(av2, 1);
-
-        librarian.addPatron(p1);
-        librarian.addPatron(p2);
-        librarian.addPatron(p3);
-
-        System.out.println(librarian.userDao.getPatrons().size() + 1 + " users in system");
-
-        int docNum = 0;
-
-        librarian.library.documents = (ArrayList<Document>) librarian.library.getDocuments();
-        for (int i = 0; i < librarian.library.documents.size(); i++){
-            docNum += librarian.library.getDocuments().get(i).getCopies();
-        }
-
-        System.out.println(docNum + " documents in system");
-
-    }
-
-    public static void testCase2(){
-        testCase1();
-        librarian.removePatron(p2);
-        librarian.removeDoc(b1, 2);
-        librarian.removeDoc(b3, 1);
-
-        System.out.println(library.patrons.size() + library.librarians.size() + " users in system");
-
-        int docNum = 0;
-
-        for (int i = 0; i < librarian.library.documents.size(); i++){
-            docNum += librarian.library.documents.get(i).getCopies();
-        }
-
-        System.out.println(docNum + " documents in system");
-
-    }
-
-    public static void testCase3(){
-        testCase1();
-        System.out.println(librarian.checkInfo(p1));
-        System.out.println(librarian.checkInfo(p3));
-    }
-
-    public static void testCase4(){
-        testCase2();
-        System.out.println(librarian.checkInfo(p2));
-        System.out.println(librarian.checkInfo(p3));
-    }
-
-    public static void testCase5(){
-        testCase2();
-        p2.checkout(b1);
-    }
-
-    public static void testCase6(){
-        testCase2();
-        p1.checkout(b1);
-        String today = "March 5, 2018";
-        if (p1.getDocuments().size() != 0 && p1.getDocuments().get(p1.getDocuments().size() - 1) != null )
-            p1.getDocuments().get(p1.getDocuments().size() - 1).setCheckoutDate(today);
-        p3.checkout(b2);
-        if (p3.getDocuments().size() != 0 && p3.getDocuments().get(p3.getDocuments().size() - 1) != null )
-            p3.getDocuments().get(p3.getDocuments().size() - 1).setCheckoutDate(today);
-        p1.checkout(b1);
-        if (p1.getDocuments().size() != 0 && p1.getDocuments().get(p1.getDocuments().size() - 1) != null )
-            p1.getDocuments().get(p1.getDocuments().size() - 1).setCheckoutDate(today);
-
-        System.out.println();
-        System.out.println();
-
-        System.out.println(librarian.checkInfo(p1));
-        System.out.println(librarian.checkInfo(p3));
-    }
-
-    public static void testCase7(){
-        testCase1();
-
-        p1.checkout(b1);
-        String today = "March 5, 2018";
-        if (p1.getDocuments().size() != 0 && p1.getDocuments().get(p1.getDocuments().size() - 1) != null )
-            p1.getDocuments().get(p1.getDocuments().size() - 1).setCheckoutDate(today);
-        p1.checkout(b2);
-        if (p1.getDocuments().size() != 0 && p1.getDocuments().get(p1.getDocuments().size() - 1) != null )
-            p1.getDocuments().get(p1.getDocuments().size() - 1).setCheckoutDate(today);
-        p1.checkout(b3);
-        if (p1.getDocuments().size() != 0 && p1.getDocuments().get(p1.getDocuments().size() - 1) != null )
-            p1.getDocuments().get(p1.getDocuments().size() - 1).setCheckoutDate(today);
-        p1.checkout(av1);
-        if (p1.getDocuments().size() != 0 && p1.getDocuments().get(p1.getDocuments().size() - 1) != null )
-            p1.getDocuments().get(p1.getDocuments().size() - 1).setCheckoutDate(today);
-
-        p2.checkout(b1);
-        if (p2.getDocuments().size() != 0 && p2.getDocuments().get(p2.getDocuments().size() - 1) != null )
-            p2.getDocuments().get(p2.getDocuments().size() - 1).setCheckoutDate(today);
-        p2.checkout(b2);
-        if (p2.getDocuments().size() != 0 && p2.getDocuments().get(p2.getDocuments().size() - 1) != null )
-            p2.getDocuments().get(p2.getDocuments().size() - 1).setCheckoutDate(today);
-        p2.checkout(av2);
-        if (p2.getDocuments().size() != 0 && p2.getDocuments().get(p2.getDocuments().size() - 1) != null )
-            p2.getDocuments().get(p2.getDocuments().size() - 1).setCheckoutDate(today);
-
-        System.out.println(librarian.checkInfo(p1));
-        System.out.println(librarian.checkInfo(p2));
-    }
-
-    public static void testCase8(){
-        librarian.addPatron(p1);
-        librarian.addPatron(p2);
-
-        librarian.addDoc(b1, 3);
-        librarian.addDoc(b2, 2);
-        librarian.addDoc(av1, 2);
-
-        b1.setCopies(3);
-        b2.setCopies(2);
-        av1.setCopies(2);
-
-        p1.checkout(b1);
-        p1.getDocuments().get(0).setCheckoutDate("February 9, 2018");
-        p1.checkout(b2);
-        p1.getDocuments().get(1).setCheckoutDate("February 2, 2018");
-
-        p2.checkout(b1);
-        p2.getDocuments().get(0).setCheckoutDate("February 5, 2018");
-        p2.checkout(av1);
-        p2.getDocuments().get(1).setCheckoutDate("February 17, 2018");
-
-        System.out.println();
-        String string = "March 5, 2018";
-        DateFormat format = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);
-        try {
-            Date date = format.parse(string);
-            ArrayList<Document> overdue1 = librarian.overdueDocuments(p1, date);
-            System.out.println(p1.getName() + " overdue: ");
-            for (int i = 0; i < overdue1.size(); i++){
-                System.out.println("\"" + overdue1.get(i).getTitle() + "\"" + " " + overdue1.get(i).getOverdue() + " days");
-            }
-            ArrayList<Document> overdue2 = librarian.overdueDocuments(p2, date);
-            System.out.println(p2.getName() + " overdue: ");
-            for (int i = 0; i < overdue2.size(); i++){
-                System.out.println("\"" + overdue2.get(i).getTitle() + "\"" + " " + overdue2.get(i).getOverdue() + " days");
-            }
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void testCase9(){
-
-    }
+//    public static void testCase1(){
+//        librarian.addDoc(b1, 3);
+//        System.out.println(librarian.docDao.getDocuments().get(0).getTitle());
+//        librarian.addDoc(b2, 2);
+//        librarian.addDoc(b3, 1);
+//
+//        librarian.addDoc(av1, 1);
+//        librarian.addDoc(av2, 1);
+//
+//        librarian.addPatron(p1);
+//        librarian.addPatron(p2);
+//        librarian.addPatron(p3);
+//
+//        System.out.println(librarian.userDao.getPatrons().size() + 1 + " users in system");
+//
+//        int docNum = 0;
+//
+//        librarian.library.documents = (ArrayList<Document>) librarian.library.getDocuments();
+//        for (int i = 0; i < librarian.library.documents.size(); i++){
+//            docNum += librarian.library.getDocuments().get(i).getCopies();
+//        }
+//
+//        System.out.println(docNum + " documents in system");
+//
+//    }
+//
+//    public static void testCase2(){
+//        testCase1();
+//        librarian.removePatron(p2);
+//        librarian.removeDoc(b1, 2);
+//        librarian.removeDoc(b3, 1);
+//
+//        System.out.println(library.patrons.size() + library.librarians.size() + " users in system");
+//
+//        int docNum = 0;
+//
+//        for (int i = 0; i < librarian.library.documents.size(); i++){
+//            docNum += librarian.library.documents.get(i).getCopies();
+//        }
+//
+//        System.out.println(docNum + " documents in system");
+//
+//    }
+//
+//    public static void testCase3(){
+//        testCase1();
+//        System.out.println(librarian.checkInfo(p1));
+//        System.out.println(librarian.checkInfo(p3));
+//    }
+//
+//    public static void testCase4(){
+//        testCase2();
+//        System.out.println(librarian.checkInfo(p2));
+//        System.out.println(librarian.checkInfo(p3));
+//    }
+//
+//    public static void testCase5(){
+//        testCase2();
+//        p2.checkout(b1);
+//    }
+//
+//    public static void testCase6(){
+//        testCase2();
+//        p1.checkout(b1);
+//        String today = "March 5, 2018";
+//        if (p1.getDocuments().size() != 0 && p1.getDocuments().get(p1.getDocuments().size() - 1) != null )
+//            p1.getDocuments().get(p1.getDocuments().size() - 1).setCheckoutDate(today);
+//        p3.checkout(b2);
+//        if (p3.getDocuments().size() != 0 && p3.getDocuments().get(p3.getDocuments().size() - 1) != null )
+//            p3.getDocuments().get(p3.getDocuments().size() - 1).setCheckoutDate(today);
+//        p1.checkout(b1);
+//        if (p1.getDocuments().size() != 0 && p1.getDocuments().get(p1.getDocuments().size() - 1) != null )
+//            p1.getDocuments().get(p1.getDocuments().size() - 1).setCheckoutDate(today);
+//
+//        System.out.println();
+//        System.out.println();
+//
+//        System.out.println(librarian.checkInfo(p1));
+//        System.out.println(librarian.checkInfo(p3));
+//    }
+//
+//    public static void testCase7(){
+//        testCase1();
+//
+//        p1.checkout(b1);
+//        String today = "March 5, 2018";
+//        if (p1.getDocuments().size() != 0 && p1.getDocuments().get(p1.getDocuments().size() - 1) != null )
+//            p1.getDocuments().get(p1.getDocuments().size() - 1).setCheckoutDate(today);
+//        p1.checkout(b2);
+//        if (p1.getDocuments().size() != 0 && p1.getDocuments().get(p1.getDocuments().size() - 1) != null )
+//            p1.getDocuments().get(p1.getDocuments().size() - 1).setCheckoutDate(today);
+//        p1.checkout(b3);
+//        if (p1.getDocuments().size() != 0 && p1.getDocuments().get(p1.getDocuments().size() - 1) != null )
+//            p1.getDocuments().get(p1.getDocuments().size() - 1).setCheckoutDate(today);
+//        p1.checkout(av1);
+//        if (p1.getDocuments().size() != 0 && p1.getDocuments().get(p1.getDocuments().size() - 1) != null )
+//            p1.getDocuments().get(p1.getDocuments().size() - 1).setCheckoutDate(today);
+//
+//        p2.checkout(b1);
+//        if (p2.getDocuments().size() != 0 && p2.getDocuments().get(p2.getDocuments().size() - 1) != null )
+//            p2.getDocuments().get(p2.getDocuments().size() - 1).setCheckoutDate(today);
+//        p2.checkout(b2);
+//        if (p2.getDocuments().size() != 0 && p2.getDocuments().get(p2.getDocuments().size() - 1) != null )
+//            p2.getDocuments().get(p2.getDocuments().size() - 1).setCheckoutDate(today);
+//        p2.checkout(av2);
+//        if (p2.getDocuments().size() != 0 && p2.getDocuments().get(p2.getDocuments().size() - 1) != null )
+//            p2.getDocuments().get(p2.getDocuments().size() - 1).setCheckoutDate(today);
+//
+//        System.out.println(librarian.checkInfo(p1));
+//        System.out.println(librarian.checkInfo(p2));
+//    }
+//
+//    public static void testCase8(){
+//        librarian.addPatron(p1);
+//        librarian.addPatron(p2);
+//
+//        librarian.addDoc(b1, 3);
+//        librarian.addDoc(b2, 2);
+//        librarian.addDoc(av1, 2);
+//
+//        b1.setCopies(3);
+//        b2.setCopies(2);
+//        av1.setCopies(2);
+//
+//        p1.checkout(b1);
+//        p1.getDocuments().get(0).setCheckoutDate("February 9, 2018");
+//        p1.checkout(b2);
+//        p1.getDocuments().get(1).setCheckoutDate("February 2, 2018");
+//
+//        p2.checkout(b1);
+//        p2.getDocuments().get(0).setCheckoutDate("February 5, 2018");
+//        p2.checkout(av1);
+//        p2.getDocuments().get(1).setCheckoutDate("February 17, 2018");
+//
+//        System.out.println();
+//        String string = "March 5, 2018";
+//        DateFormat format = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);
+//        try {
+//            Date date = format.parse(string);
+//            ArrayList<Document> overdue1 = librarian.overdueDocuments(p1, date);
+//            System.out.println(p1.getName() + " overdue: ");
+//            for (int i = 0; i < overdue1.size(); i++){
+//                System.out.println("\"" + overdue1.get(i).getTitle() + "\"" + " " + overdue1.get(i).getOverdue() + " days");
+//            }
+//            ArrayList<Document> overdue2 = librarian.overdueDocuments(p2, date);
+//            System.out.println(p2.getName() + " overdue: ");
+//            for (int i = 0; i < overdue2.size(); i++){
+//                System.out.println("\"" + overdue2.get(i).getTitle() + "\"" + " " + overdue2.get(i).getOverdue() + " days");
+//            }
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//    }
+//
+//    public static void testCase9(){
+//
+//    }
 
     public static void main(String[] args) {
         b1 = new Book();
@@ -258,14 +258,14 @@ public class TestCases_07_03 {
         System.out.println("Input number from 1 to 8 (number of test case which you want to run). Input 0 for exit");
         int num = scanner.nextInt();
         switch (num) {
-            case 1: testCase1(); break;
-            case 2: testCase2(); break;
-            case 3: testCase3(); break;
-            case 4: testCase4(); break;
-            case 5: testCase5(); break;
-            case 6: testCase6(); break;
-            case 7: testCase7(); break;
-            case 8: testCase8(); break;
+//            case 1: testCase1(); break;
+//            case 2: testCase2(); break;
+//            case 3: testCase3(); break;
+//            case 4: testCase4(); break;
+//            case 5: testCase5(); break;
+//            case 6: testCase6(); break;
+//            case 7: testCase7(); break;
+//            case 8: testCase8(); break;
             default:
                 System.out.println("Invalid number");
         }
