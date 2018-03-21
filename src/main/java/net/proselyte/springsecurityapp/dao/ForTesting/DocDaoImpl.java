@@ -40,8 +40,12 @@ public class DocDaoImpl implements DocDao {
     @Override
     public void addAV(AudioVideo av) {
 
-        String sql = "INSERT INTO audio_video (author, title, price, copies) VALUE ('"+av.getAuthors()+
-                "','"+av.getTitle()+"','"+av.getPrice()+"','"+av.getCopies()+"')"; //SQL Query
+        String sql = "INSERT INTO audio_video (author, title, price, copies) VALUE ('"
+                +av.getAuthors()+
+                "','"+av.getTitle()+
+                "','"+av.getPrice()+
+                "','"+av.getCopies()+
+                "')"; //SQL Query
 
         Statement stmt= null;
 
@@ -52,13 +56,15 @@ public class DocDaoImpl implements DocDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+
     }
 
     @Override
     public void addBook(Book book) {
-        String type=null;
 
-        String sql = "INSERT INTO books (title, author, year, edition, price, copies) VALUE ('"+book.getTitle()+
+        String sql = "INSERT INTO books (title, author, year, edition, price, copies) VALUE ('"
+               +book.getTitle()+
                 "','"+book.getAuthor()+"','"+book.getYear()+"','"+book.getEdition()+ "','"+book.getPrice()+
                 "','"+book.getCopies()+"')"; //SQL Query
 
@@ -116,7 +122,7 @@ public class DocDaoImpl implements DocDao {
                         rs.getInt("price"),
                         rs.getInt("copies")
                 );
-                av.setId(rs.getLong("id"));
+                av.setId( rs.getLong("id"));
                 list.add(av);
             }
             rs.close();
@@ -130,5 +136,39 @@ public class DocDaoImpl implements DocDao {
 
 
         return list;
+    }
+
+    @Override
+    public void deleteLastBook() {
+        //String sql = "with x(dummy) as (select top (1) null from books order by id desc) DELETE from x";
+        String sql = "DELETE FROM books WHERE id = (SELECT x.id FROM (SELECT MAX(t.id) AS id FROM `books` t) x)";
+
+        Statement stmt=null;
+        try {
+
+            stmt = connection.createStatement();
+            stmt.executeUpdate(sql);
+            stmt.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void deleteLastAV() {
+        String sql = "DELETE FROM audio_video WHERE id = (SELECT x.id FROM (SELECT MAX(t.id) AS id FROM `audio_video` t) x)";
+
+        Statement stmt=null;
+        try {
+
+            stmt = connection.createStatement();
+            stmt.executeUpdate(sql);
+            stmt.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 }

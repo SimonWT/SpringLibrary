@@ -44,6 +44,7 @@ public class Book extends Document {
 
     public void setId(Long id) {
         this.id = id;
+        assert(this.id.equals(this.getId()));
     }
 
     public String getTitle() {
@@ -56,6 +57,7 @@ public class Book extends Document {
 
     public void setTitle(String title) {
         this.title = title;
+        assert(this.title.equals(this.getTitle()));
     }
 
     public String getAuthor() {
@@ -64,6 +66,7 @@ public class Book extends Document {
 
     public void setAuthor(String author) {
         this.author = author;
+        assert(this.author.equals(this.getAuthor()));
     }
 
     public String getYear() {
@@ -72,6 +75,7 @@ public class Book extends Document {
 
     public void setYear(String year) {
         this.year = year;
+        assert(this.year.equals(this.getYear()));
     }
 
     public int getEdition() {
@@ -80,6 +84,7 @@ public class Book extends Document {
 
     public void setEdition(int edition) {
         this.edition = edition;
+        assert(this.edition == this.getEdition());
     }
 
     public int getPrice() {
@@ -88,6 +93,7 @@ public class Book extends Document {
 
     public void setPrice(int price) {
         this.price = price;
+        assert(this.price == this.getPrice());
     }
 
     public int getCopies() {
@@ -96,10 +102,12 @@ public class Book extends Document {
 
     public void setCopies(int copies) {
         this.copies = copies;
+        assert(this.copies == this.getCopies());
     }
 
     public void setBestSeller(boolean bestSeller) {
         this.bestSeller = bestSeller;
+        assert(this.bestSeller == this.isBestSeller());
     }
 
     public Book(Long id, String title, String author, String year, int edition, int price, int copies) {

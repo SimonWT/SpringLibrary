@@ -8,7 +8,9 @@ import net.proselyte.springsecurityapp.model.Library.Library;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -17,15 +19,20 @@ import java.util.concurrent.TimeUnit;
  * Created by evgeniy on 21.01.18.
  */
 
+@Entity
+@DiscriminatorValue("Patron")
 public class Patron extends User {
 
+
+    @Transient
     private String type; //faculty or student
 
     private ArrayList <Document> documents; //documents checked by this user
 
     private String address;
 
-    public Library library;
+    @Transient
+    private Library library;
 
     public Patron(){};
 
@@ -71,6 +78,9 @@ public class Patron extends User {
         }
 
         else{
+            if (doc.getCopies() == 0){
+                doc.queue.add(this);
+            }
             System.out.println("No available documents for " + getName());
         }
     }

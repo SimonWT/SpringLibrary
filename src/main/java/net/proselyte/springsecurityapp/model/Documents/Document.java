@@ -1,11 +1,15 @@
 package net.proselyte.springsecurityapp.model.Documents;
 
+import net.proselyte.springsecurityapp.model.Users.Patron;
+import net.proselyte.springsecurityapp.model.Users.PatronComparator;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.PriorityQueue;
 
 public class Document {
     private long id;
@@ -18,12 +22,14 @@ public class Document {
     private Date checkoutDate;
     private int fine;
     private int overdue;
+    public PriorityQueue<Patron> queue;
 
 
     //public Document( String title, int price, ArrayList<String> authors, ArrayList<String> keys) {
     public Document(){
         //authors = new ArrayList<String>();
         //keys = new ArrayList<String >();
+        queue = new PriorityQueue<>(1, new PatronComparator());
     }
 
     public void setDoc(String title, int price, String authors, String keys){
@@ -34,10 +40,21 @@ public class Document {
         this.id = (authors + title).hashCode();
     }
 
-    public void setCopies(int n){this.copies = n;}
-    public void setPrice(int newPrice){this.price = newPrice;}
-    public void resetDate(){checkoutDate = new Date();}
-    public void setDue(int days){daysRemained = days;}
+    public void setCopies(int n){
+        this.copies = n;
+        assert(this.copies == this.getCopies());
+    }
+    public void setPrice(int newPrice){
+        this.price = newPrice;
+        assert(this.price == this.getPrice());
+    }
+    public void resetDate(){
+        checkoutDate = new Date();
+    }
+    public void setDue(int days){
+        daysRemained = days;
+        assert(this.daysRemained == this.getDue());
+    }
     public void setCheckoutDate(String date){
         DateFormat format = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);
         try {
@@ -45,14 +62,36 @@ public class Document {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        assert(this.checkoutDate.equals(this.getCheckoutDate()));
     }
-    public void setCheckoutDate(Date date){ checkoutDate = date;}
-    public void setFine(int f){ fine = f;}
-    public void setOverdue(int overdue){ this.overdue = overdue;}
-    public void setId(long id) { this.id = id; }
-    public void setAuthors(String authors){ this.authors = authors;}
-    public void setTitle(String title) { this.title = title; }
-    public void setKeys(String keys) { this.keys = keys; }
+    public void setCheckoutDate(Date date){
+        checkoutDate = date;
+        assert(this.checkoutDate.equals(this.getCheckoutDate()));
+    }
+    public void setFine(int f){
+        fine = f;
+        assert(this.fine == this.getFine());
+    }
+    public void setOverdue(int overdue){
+        this.overdue = overdue;
+        assert(this.overdue == this.getOverdue());
+    }
+    public void setId(long id) {
+        this.id = id;
+        assert(this.id == this.getId());
+    }
+    public void setAuthors(String authors){
+        this.authors = authors;
+        assert(this.authors.equals(this.getAuthors()));
+    }
+    public void setTitle(String title) {
+        this.title = title;
+        assert(this.title.equals(this.getTitle()));
+    }
+    public void setKeys(String keys) {
+        this.keys = keys;
+        assert(this.keys.equals(this.getKeys()));
+    }
 
     public int getCopies(){
         return copies;

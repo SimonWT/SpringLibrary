@@ -44,6 +44,7 @@ public class Article extends Document{
 
     public void setId(Long id) {
         this.id = id;
+        assert(this.id.equals(this.getId()));
     }
 
     public String getJournal_title() {
@@ -52,6 +53,7 @@ public class Article extends Document{
 
     public void setJournal_title(String journal_title) {
         this.journal_title = journal_title;
+        assert (this.journal_title.equals(this.getJournal_title()));
     }
 
     public String getArticle_title() {
@@ -60,6 +62,7 @@ public class Article extends Document{
 
     public void setArticle_title(String article_title) {
         this.article_title = article_title;
+        assert (this.article_title.equals(this.getArticle_title()));
     }
 
     public String getPublication_month_year() {
@@ -68,6 +71,7 @@ public class Article extends Document{
 
     public void setPublication_month_year(String publication_month_year) {
         this.publication_month_year = publication_month_year;
+        assert (this.publication_month_year.equals(this.getPublication_month_year()));
     }
 
     public String getAuthor() {
@@ -76,6 +80,7 @@ public class Article extends Document{
 
     public void setAuthor(String author) {
         this.author = author;
+        assert (this.author.equals(this.getAuthor()));
     }
 
     public String getEditor() {
@@ -84,6 +89,7 @@ public class Article extends Document{
 
     public void setEditor(String editor) {
         this.editor = editor;
+        assert (this.editor.equals(this.getEditor()));
     }
 
     public int getPrice() {
@@ -92,6 +98,7 @@ public class Article extends Document{
 
     public void setPrice(int price) {
         this.price = price;
+        assert (this.price == this.getPrice());
     }
 
     public int getCopies() {
@@ -100,6 +107,7 @@ public class Article extends Document{
 
     public void setCopies(int copies) {
         this.copies = copies;
+        assert (this.copies == this.getCopies());
     }
 
     @Column(name = "copies")

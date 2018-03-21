@@ -6,20 +6,21 @@ import javax.persistence.*;
 import java.util.Set;
 
 /**
- * Simple JavaBean domain object that represents a Users.
+ * Simple JavaBean domain object that represents a User.
  *
  * @author Igor Vakhula
  */
 
 
-@Table(name = "users")
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "type")
+@Table(name = "users")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
 
     @Column(name = "username")
     private String username;
@@ -39,7 +40,7 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "type")
+    @Column(name = "type", insertable = false, updatable = false)
     private String type;
 
     @Transient
@@ -68,6 +69,7 @@ public class User {
 
     public void setId(Long id) {
         this.id = id;
+        assert (this.id.equals(this.getId()));
     }
 
     public String getUsername() {
@@ -76,6 +78,7 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+        assert (this.username.equals(this.getUsername()));
     }
 
     public String getPassword() {
@@ -84,6 +87,7 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+        assert (this.password.equals(this.getPassword()));
     }
 
     public String getConfirmPassword() {
@@ -92,6 +96,7 @@ public class User {
 
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
+        assert (this.confirmPassword.equals(this.getConfirmPassword()));
     }
 
     public String getName() {
@@ -100,6 +105,7 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+        assert (this.name.equals(this.getName()));
     }
 
     public String getSurname() {
@@ -108,6 +114,7 @@ public class User {
 
     public void setSurname(String surname) {
         this.surname = surname;
+        assert (this.surname.equals(this.getSurname()));
     }
 
     public String getPhone() {
@@ -116,6 +123,7 @@ public class User {
 
     public void setPhone(String phone) {
         this.phone = phone;
+        assert (this.phone.equals(this.getPhone()));
     }
 
     public String getEmail() {
@@ -124,6 +132,7 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+        assert (this.email.equals(this.getEmail()));
     }
 
    // public void getType() { return type; }
@@ -136,6 +145,7 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+        assert (this.roles.equals(this.getRoles()));
     }
 
     @Override

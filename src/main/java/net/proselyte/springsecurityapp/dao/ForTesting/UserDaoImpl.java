@@ -1,7 +1,6 @@
 package net.proselyte.springsecurityapp.dao.ForTesting;
 
 import javassist.bytecode.analysis.Executor;
-import net.proselyte.springsecurityapp.model.Inherit.Users;
 import net.proselyte.springsecurityapp.model.Users.Librarian;
 import net.proselyte.springsecurityapp.model.Users.Patron;
 import net.proselyte.springsecurityapp.model.Users.User;
@@ -120,6 +119,22 @@ public class UserDaoImpl implements UserDao {
             e.printStackTrace();
         }
         return list;
+    }
+
+    @Override
+    public void deleteUser() {
+        String sql = "DELETE FROM users WHERE id = (SELECT x.id FROM (SELECT MAX(t.id) AS id FROM `users` t) x)";
+
+        Statement stmt=null;
+        try {
+
+            stmt = connection.createStatement();
+            stmt.executeUpdate(sql);
+            stmt.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 

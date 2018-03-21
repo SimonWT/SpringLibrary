@@ -37,6 +37,7 @@ public class AudioVideo extends Document {
 
     public void setId(Long id) {
         this.id = id;
+        assert(this.id.equals(this.getId()));
     }
 
     public String getAuthor() {
@@ -45,6 +46,7 @@ public class AudioVideo extends Document {
 
     public void setAuthor(String author) {
         this.author = author;
+        assert(this.author.equals(this.getAuthor()));
     }
 
     public String getTitle() {
@@ -53,6 +55,7 @@ public class AudioVideo extends Document {
 
     public void setTitle(String title) {
         this.title = title;
+        assert(this.title.equals(this.getTitle()));
     }
 
     public int getPrice(){
@@ -61,6 +64,7 @@ public class AudioVideo extends Document {
 
     public void setPrice(int price) {
         this.price = price;
+        assert (this.price == this.getPrice());
     }
 
     public int getCopies() {
@@ -69,6 +73,7 @@ public class AudioVideo extends Document {
 
     public void setCopies(int copies) {
         this.copies = copies;
+        assert (this.copies == this.getCopies());
     }
 
     public AudioVideo(String author, String title, int price, int copies) {
