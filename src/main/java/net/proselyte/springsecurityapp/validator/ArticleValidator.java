@@ -34,7 +34,7 @@ public class ArticleValidator implements Validator {
 
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "journal_title", "Required");
-        if (article.getJournal_title().length() < 2 || article.getJournal_title().length() > 64) {
+        if (article.getJournal().length() < 2 || article.getJournal().length() > 64) {
             errors.rejectValue("journal_title", "Size.articleForm.journal_title");
         }
 
@@ -48,7 +48,7 @@ public class ArticleValidator implements Validator {
 
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "article_title", "Required");
-        if (article.getArticle_title().length() < 2 || article.getArticle_title().length() > 64) {
+        if (article.getTitle().length() < 2 || article.getTitle().length() > 64) {
             errors.rejectValue("article_title", "Size.articleForm.article_title");
         }
 
@@ -57,18 +57,19 @@ public class ArticleValidator implements Validator {
             errors.rejectValue("copies", "Size.articleForm.copies");
         }
 
+        //TODO: Разобраться с Date
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "publication_month_year", "Required");
-        if (article.getPublication_month_year().length() < 4) {
+        if (article.getDate().toString().length() < 4) {
             errors.rejectValue("publication_month_year", "Size.articleForm.publication_month_year");
         }
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "author", "Required");
-        if (article.getAuthor().length() < 2 || article.getAuthor().length() > 64) {
+        if (article.getAuthors().length() < 2 || article.getAuthors().length() > 64) {
             errors.rejectValue("author", "Size.articleForm.author");
         }
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "editor", "Required");
-        if (article.getEditor().length() < 2 || article.getEditor().length() > 64) {
+        if (article.getEditors().length() < 2 || article.getEditors().length() > 64) {
             errors.rejectValue("editor", "Size.articleForm.editor");
         }
 

@@ -4,14 +4,13 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
-@DiscriminatorValue("Student")
-public class Student extends Patron {
+@DiscriminatorValue("Professor")
+public class Professor extends Faculty {
 
-    public Student() {
+    public Professor() {
     }
 
-    public Student(String username, String password, String name, String surname, String phone, String email) {
+    public Professor(String username, String password, String name, String surname, String phone, String email) {
         super(username, password, name, surname, phone, email);
     }
 }
-

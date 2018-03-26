@@ -12,14 +12,15 @@ import java.util.Set;
  */
 
 
-@Table(name = "users")
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "type")
+@Table(name = "users")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
 
     @Column(name = "username")
     private String username;
@@ -39,7 +40,7 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "type")
+    @Column(name = "type", insertable = false, updatable = false)
     private String type;
 
     @Transient

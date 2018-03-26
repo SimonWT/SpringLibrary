@@ -65,7 +65,7 @@ public class DocDaoImpl implements DocDao {
 
         String sql = "INSERT INTO books (title, author, year, edition, price, copies) VALUE ('"
                +book.getTitle()+
-                "','"+book.getAuthor()+"','"+book.getYear()+"','"+book.getEdition()+ "','"+book.getPrice()+
+                "','"+book.getAuthors()+"','"+book.getYear()+"','"+book.getEdition()+ "','"+book.getPrice()+
                 "','"+book.getCopies()+"')"; //SQL Query
 
         Statement stmt= null;
@@ -96,13 +96,12 @@ public class DocDaoImpl implements DocDao {
             while(rs.next()) {
                 //rs.next();
                 book = new Book(
-                        rs.getLong("id"),
-                        rs.getString("title"),
-                        rs.getString("author"),
-                        rs.getString("year"),
-                        rs.getInt("edition"),
-                        rs.getInt("price"),
-                        rs.getInt("copies")
+//                        rs.getString("title"),
+//                        rs.getString("author"),
+//                        rs.getString("year"),
+//                        rs.getInt("edition"),
+//                        rs.getInt("price"),
+//                        rs.getInt("copies")
                 );
 
                 //TODO: GetDocument to Every Patron
@@ -117,10 +116,10 @@ public class DocDaoImpl implements DocDao {
 
             while(rs.next()){
                 av = new AudioVideo(
-                        rs.getString("author"),
-                        rs.getString("title"),
-                        rs.getInt("price"),
-                        rs.getInt("copies")
+//                        rs.getString("author"),
+//                        rs.getString("title"),
+//                        rs.getInt("price"),
+//                        rs.getInt("copies")
                 );
                 av.setId( rs.getLong("id"));
                 list.add(av);

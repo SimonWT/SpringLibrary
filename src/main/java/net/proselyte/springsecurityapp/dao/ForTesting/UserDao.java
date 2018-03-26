@@ -1,6 +1,6 @@
 package net.proselyte.springsecurityapp.dao.ForTesting;
 
-import net.proselyte.springsecurityapp.model.Inherit.Users;
+
 import net.proselyte.springsecurityapp.model.Users.Patron;
 import net.proselyte.springsecurityapp.model.Users.User;
 

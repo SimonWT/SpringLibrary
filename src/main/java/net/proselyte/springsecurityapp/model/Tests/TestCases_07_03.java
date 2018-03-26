@@ -19,7 +19,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-@RunWith(SpringJUnit4ClassRunner.class)
 public class TestCases_07_03 {
 
     static Library library;

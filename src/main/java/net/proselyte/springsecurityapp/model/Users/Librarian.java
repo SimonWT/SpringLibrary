@@ -1,5 +1,6 @@
 package net.proselyte.springsecurityapp.model.Users;
 
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import net.proselyte.springsecurityapp.dao.ForTesting.DocDao;
 import net.proselyte.springsecurityapp.dao.ForTesting.DocDaoImpl;
 import net.proselyte.springsecurityapp.dao.ForTesting.UserDao;
@@ -11,6 +12,7 @@ import net.proselyte.springsecurityapp.model.Library.Library;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,36 +22,47 @@ import java.util.concurrent.TimeUnit;
  * Created by evgeniy on 21.01.18.
  */
 
-
+@Entity
+@DiscriminatorValue("Librarian")
 public class Librarian extends User {
 
+    @Transient
     public Library library;
-    public UserDao userDao = new UserDaoImpl();
+
+    @Transient
+    private UserDao userDao = new UserDaoImpl();
+
+    @Transient
     public DocDao docDao = new DocDaoImpl();
 
     public void addPatron(Patron newPatron){
-        library.getPatrons().add(newPatron);
-        newPatron.library = library;
+        library.patrons.add(newPatron);
+        //newPatron.library = library;
         userDao.addUser(newPatron);
     }
 
     public void removePatron(String name, String phoneNumber){
         int id = (name + phoneNumber).hashCode();
-        for (Patron patron : library.getPatrons()){
+        for (Patron patron : library.patrons){
             if (patron.getId() == id)
-                library.getPatrons().remove(patron);
+                library.patrons.remove(patron);
         }
     }
 
     public Librarian() {
         library = new Library();
     }
+
+    public Librarian(String username, String password, String name, String surname, String phone, String email) {
+        super(username, password, name, surname, phone, email);
+    }
+
     public void addDoc(Document doc, int copiesAmount){
-        if (library.getDocuments().contains(doc))
+        if (library.documents.contains(doc))
             doc.setCopies(doc.getCopies() + copiesAmount);
         else {
             doc.setCopies(copiesAmount);
-            //library.getDocuments().add(doc);
+            library.documents.add(doc);
             if (doc.getClass().toString().equals("class net.proselyte.springsecurityapp.model.Documents.AudioVideo")){
                 docDao.addAV((AudioVideo) doc);
             }
@@ -82,21 +95,20 @@ public class Librarian extends User {
     public void removeDoc(Document doc, int copies){
         //get list of documents
         doc.setCopies(doc.getCopies() - copies);
-        //if (doc.getCopies() < 0)
-         //   library.getDocuments().remove(doc);
+        if (doc.getCopies() < 0)
+            library.documents.remove(doc);
         //rewrite list of documents
     }
 
     public void removePatron(Patron p){
-     //   library.getPatrons().remove(p);
+        library.patrons.remove(p);
     }
 
     public String checkInfo(Patron p){
-        if (!library.getPatrons().contains(p)){
+        if (!library.patrons.contains(p)){
             return "Information not available, patron does not exist.";
         }
-        StringBuilder info = new StringBuilder("Name: " + p.getName() + "\nAddress:" + p.getAddress() + "\nPhone:" + p.getPhone() + "\nId:" + p.getId() + "\nType:" + p.getType() + "\nDocuments:\n");
-
+        StringBuilder info = new StringBuilder("Name: " + p.getName() + "\nAddress:" + p.getAddress() + "\nPhone:" + p.getPhone() + "\nId:" + p.getId() + /*"\nType:" + p.getType() +*/ "\nDocuments:\n");
         for (int i = 0; i < p.getDocuments().size(); i++){
             info.append("\t Title: ").append(p.getDocuments().get(i).getTitle()).append(" Due date: ").append(p.getDocuments().get(i).getDueDate()).append("\n");
         }
@@ -104,10 +116,9 @@ public class Librarian extends User {
     }
 
     public void emptyQueues(){
-        List <Document> docs = library.getDocuments();
-        for (int i = 0; i < docs.size(); i++){
-            if (docs.get(i).queue.size() != 0){
-                docs.get(i).queue.clear();
+        for (int i = 0; i < library.documents.size(); i++){
+            if (library.documents.get(i).queue.size() != 0){
+                library.documents.get(i).queue.clear();
             }
         }
     }

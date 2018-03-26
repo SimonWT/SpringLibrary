@@ -3,9 +3,7 @@ package net.proselyte.springsecurityapp.controller;
 import net.proselyte.springsecurityapp.model.Documents.Article;
 import net.proselyte.springsecurityapp.model.Documents.AudioVideo;
 import net.proselyte.springsecurityapp.model.Documents.Book;
-import net.proselyte.springsecurityapp.model.Inherit.Patrons;
-import net.proselyte.springsecurityapp.model.Inherit.Users;
-import net.proselyte.springsecurityapp.service.UsersService;
+import net.proselyte.springsecurityapp.model.Users.Patron;
 import net.proselyte.springsecurityapp.model.Users.User;
 import net.proselyte.springsecurityapp.service.*;
 import net.proselyte.springsecurityapp.validator.ArticleValidator;
@@ -29,6 +27,7 @@ import java.security.Principal;
  * @author Igor Vakhula
  */
 
+
 @SuppressWarnings("ALL")
 @Controller
 public class UserController {
@@ -40,9 +39,6 @@ public class UserController {
     /*
     * INHERITANCE testing
      */
-    @Autowired
-    private UsersService usersService;
-
     @Autowired
     private BookService bookService;
 
@@ -70,13 +66,8 @@ public class UserController {
     @RequestMapping(value = "/test/inh", method = RequestMethod.GET )
     public String testInh(Model model){
 
-        Users patrons = new Patrons();
-        patrons.setName("Sukka");
-        patrons.setUsername("Sukka");
-        patrons.setSurname("Sukka");
-        patrons.setId( 69 );
 
-        usersService.save(patrons);
+
         return "SUKA.";
     }
 
@@ -176,7 +167,7 @@ public class UserController {
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
-        userValidator.validate(userForm, bindingResult);
+        //userValidator.validate(userForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
             return "registration";

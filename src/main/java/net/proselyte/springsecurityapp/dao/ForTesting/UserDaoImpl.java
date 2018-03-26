@@ -1,7 +1,6 @@
 package net.proselyte.springsecurityapp.dao.ForTesting;
 
 import javassist.bytecode.analysis.Executor;
-import net.proselyte.springsecurityapp.model.Inherit.Users;
 import net.proselyte.springsecurityapp.model.Users.Librarian;
 import net.proselyte.springsecurityapp.model.Users.Patron;
 import net.proselyte.springsecurityapp.model.Users.User;
