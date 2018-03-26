@@ -1,21 +1,27 @@
 package net.proselyte.springsecurityapp.controller;
 
+import net.proselyte.springsecurityapp.model.Documents.Article;
+import net.proselyte.springsecurityapp.model.Documents.AudioVideo;
 import net.proselyte.springsecurityapp.model.Documents.Book;
 import net.proselyte.springsecurityapp.model.Users.Patron;
 import net.proselyte.springsecurityapp.model.Users.User;
 import net.proselyte.springsecurityapp.service.BookService;
+import net.proselyte.springsecurityapp.service.DocumentService;
 import net.proselyte.springsecurityapp.service.UserService;
 import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.convert.ReadingConverter;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import sun.util.calendar.BaseCalendar;
 
 import java.security.Principal;
 import java.sql.*;
+import java.time.Year;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -28,6 +34,9 @@ public class BookController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private DocumentService docService;
 
     @RequestMapping(value = "/editBook/{id}", method = RequestMethod.GET)
     public String editInfo(@PathVariable("id") Long id , Model model) {
@@ -79,7 +88,7 @@ public class BookController {
 
                 //Assuming you have a user object
                 Book book = new Book();
-                book.setAuthor(author);
+                book.setAuthors(author);
                 book.setTitle(title);
                 book.setPrice(price);
 
@@ -130,4 +139,24 @@ public class BookController {
         return "SUCCESS";
     }
 
+    @RequestMapping("/test/addBook")
+    public String testAddBook(){
+        Book book = new Book(2,"Test", 155,"Author", "Ya", false, new java.sql.Date(System.currentTimeMillis()) ,1 );
+        docService.save(book);
+        return "Success adding Book";
+    }
+
+    @RequestMapping("/test/addAV")
+    public String testAddAV(){
+        AudioVideo audioVideo = new AudioVideo(2, "KIdK", 166, "Yarik");
+        docService.save(audioVideo);
+        return "Success addong AV";
+    }
+
+    @RequestMapping("/test/addAtricle")
+    public String testAddArticle(){
+        Article article = new Article(2, "ART", 159, "Yarik", "Zhenya", new Date(System.currentTimeMillis()), "ELLO" );
+        docService.save(article);
+        return "Success adding Article";
+    }
 }

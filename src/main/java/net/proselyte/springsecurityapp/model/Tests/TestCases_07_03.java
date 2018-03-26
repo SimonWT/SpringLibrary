@@ -12,6 +12,7 @@ import net.proselyte.springsecurityapp.service.UserService;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
@@ -204,24 +205,24 @@ public class TestCases_07_03 {
         librarian.library = library;
 
         b1.setTitle("Introduction to Algorithms");
-        b1.setAuthor("Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest and Clifford Stein");
-        b1.setYear("2009");
+        b1.setAuthors("Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest and Clifford Stein");
+        //b1.setYear(Year.of(2006));
         b1.setEdition(3);
         b1.setBestSeller(false);
         b1.setCopies(3);
         b1.setKeys("NA");
 
         b2.setTitle("Design Patterns: Elements of Reusable Object-Oriented Software");
-        b2.setAuthor("Erich Gamma, Ralph Johnson, John Vlissides, Richard Helm");
-        b2.setYear("2003");
+        b2.setAuthors("Erich Gamma, Ralph Johnson, John Vlissides, Richard Helm");
+        //b2.setYear(Year.of(2003));
         b2.setEdition(1);
         b2.setBestSeller(true);
         b2.setCopies(2);
         b2.setKeys("NA");
 
         b3.setTitle("The Mythical Man-month");
-        b3.setAuthor("Brooks,Jr., Frederick P.");
-        b3.setYear("1995");
+        b3.setAuthors("Brooks,Jr., Frederick P.");
+        //b3.setYear(Year.of(1995));
         b3.setEdition(2);
         b3.setCopies(1);
         b3.setBestSeller(false);
