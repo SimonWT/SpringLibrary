@@ -8,12 +8,18 @@ import net.proselyte.springsecurityapp.model.Users.Librarian;
 import net.proselyte.springsecurityapp.model.Users.Patron;
 import net.proselyte.springsecurityapp.model.Users.User;
 import net.proselyte.springsecurityapp.service.UserService;
+import org.junit.runner.RunWith;
+import org.junit.Test;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+@RunWith(SpringJUnit4ClassRunner.class)
 public class TestCases_07_03 {
 
     static Library library;
@@ -24,6 +30,7 @@ public class TestCases_07_03 {
     static Patron p1, p2, p3;
     static Librarian librarian;
 
+    @Test
     public static void testCase1(){
         librarian.addDoc(b1, 3);
         librarian.addDoc(b2, 2);
@@ -36,53 +43,61 @@ public class TestCases_07_03 {
         librarian.addPatron(p2);
         librarian.addPatron(p3);
 
-        System.out.println(librarian.library.patrons.size() + 1 + " users in system");
+        System.out.println(librarian.library.getPatrons().size() + 1 + " users in system");
 
         int docNum = 0;
 
-        for (int i = 0; i < librarian.library.documents.size(); i++){
-            docNum += librarian.library.documents.get(i).getCopies();
+        ArrayList<Document> docs = (ArrayList<Document>) librarian.library.getDocuments();
+        for (int i = 0; i < docs.size(); i++){
+            docNum += docs.get(i).getCopies();
         }
 
         System.out.println(docNum + " documents in system");
 
     }
 
+    @Test
     public static void testCase2(){
         testCase1();
         librarian.removePatron(p2);
         librarian.removeDoc(b1, 2);
         librarian.removeDoc(b3, 1);
+        System.out.println(b1.getClass());
 
-        System.out.println(library.patrons.size() + library.librarians.size() + " users in system");
+        System.out.println(library.getPatrons().size() + library.librarians.size() + " users in system");
 
         int docNum = 0;
 
-        for (int i = 0; i < librarian.library.documents.size(); i++){
-            docNum += librarian.library.documents.get(i).getCopies();
+        ArrayList<Document> docs = (ArrayList<Document>) librarian.library.getDocuments();
+        for (int i = 0; i < docs.size(); i++){
+            docNum += docs.get(i).getCopies();
         }
 
         System.out.println(docNum + " documents in system");
 
     }
 
+    @Test
     public static void testCase3(){
         testCase1();
         System.out.println(librarian.checkInfo(p1));
         System.out.println(librarian.checkInfo(p3));
     }
 
+    @Test
     public static void testCase4(){
         testCase2();
         System.out.println(librarian.checkInfo(p2));
         System.out.println(librarian.checkInfo(p3));
     }
 
+    @Test
     public static void testCase5(){
         testCase2();
         p2.checkout(b1);
     }
 
+    @Test
     public static void testCase6(){
         testCase2();
         p1.checkout(b1);
@@ -103,6 +118,7 @@ public class TestCases_07_03 {
         System.out.println(librarian.checkInfo(p3));
     }
 
+    @Test
     public static void testCase7(){
         testCase1();
 
@@ -134,6 +150,7 @@ public class TestCases_07_03 {
         System.out.println(librarian.checkInfo(p2));
     }
 
+    @Test
     public static void testCase8(){
         librarian.addPatron(p1);
         librarian.addPatron(p2);
@@ -176,6 +193,7 @@ public class TestCases_07_03 {
         }
     }
 
+    @Test
     public static void testCase9(){
         List<Patron> patrons = librarian.userDao.getPatrons();
         System.out.println("Patrons:");
@@ -185,7 +203,7 @@ public class TestCases_07_03 {
 
         List<Document> docs = librarian.docDao.getDocuments();
         System.out.println("Books:");
-        for (int i = docs.size() - 5; i < docs.size(); i++) {
+        for (int i = 0; i < docs.size(); i++) {
             if (docs.get(i).getClass().toString().equals("class net.proselyte.springsecurityapp.model.Documents.Book")) {
                 System.out.println(docs.get(i).getTitle() + " " + docs.get(i).getCopies() + " copies");
             }
@@ -198,6 +216,10 @@ public class TestCases_07_03 {
         }
     }
 
+//    @Test
+//    public static void clearDB(){
+//        librarian.docDao.deleteLastBook();
+//    }
 
     public static void main(String[] args) {
         b1 = new Book();

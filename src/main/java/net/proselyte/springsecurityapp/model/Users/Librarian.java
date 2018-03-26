@@ -28,16 +28,16 @@ public class Librarian extends User {
     public DocDao docDao = new DocDaoImpl();
 
     public void addPatron(Patron newPatron){
-        library.patrons.add(newPatron);
+        library.getPatrons().add(newPatron);
         newPatron.library = library;
         userDao.addUser(newPatron);
     }
 
     public void removePatron(String name, String phoneNumber){
         int id = (name + phoneNumber).hashCode();
-        for (Patron patron : library.patrons){
+        for (Patron patron : library.getPatrons()){
             if (patron.getId() == id)
-                library.patrons.remove(patron);
+                library.getPatrons().remove(patron);
         }
     }
 
@@ -45,11 +45,11 @@ public class Librarian extends User {
         library = new Library();
     }
     public void addDoc(Document doc, int copiesAmount){
-        if (library.documents.contains(doc))
+        if (library.getDocuments().contains(doc))
             doc.setCopies(doc.getCopies() + copiesAmount);
         else {
             doc.setCopies(copiesAmount);
-            library.documents.add(doc);
+            //library.getDocuments().add(doc);
             if (doc.getClass().toString().equals("class net.proselyte.springsecurityapp.model.Documents.AudioVideo")){
                 docDao.addAV((AudioVideo) doc);
             }
@@ -82,20 +82,21 @@ public class Librarian extends User {
     public void removeDoc(Document doc, int copies){
         //get list of documents
         doc.setCopies(doc.getCopies() - copies);
-        if (doc.getCopies() < 0)
-            library.documents.remove(doc);
+        //if (doc.getCopies() < 0)
+         //   library.getDocuments().remove(doc);
         //rewrite list of documents
     }
 
     public void removePatron(Patron p){
-        library.patrons.remove(p);
+     //   library.getPatrons().remove(p);
     }
 
     public String checkInfo(Patron p){
-        if (!library.patrons.contains(p)){
+        if (!library.getPatrons().contains(p)){
             return "Information not available, patron does not exist.";
         }
         StringBuilder info = new StringBuilder("Name: " + p.getName() + "\nAddress:" + p.getAddress() + "\nPhone:" + p.getPhone() + "\nId:" + p.getId() + "\nType:" + p.getType() + "\nDocuments:\n");
+
         for (int i = 0; i < p.getDocuments().size(); i++){
             info.append("\t Title: ").append(p.getDocuments().get(i).getTitle()).append(" Due date: ").append(p.getDocuments().get(i).getDueDate()).append("\n");
         }
@@ -103,9 +104,10 @@ public class Librarian extends User {
     }
 
     public void emptyQueues(){
-        for (int i = 0; i < library.documents.size(); i++){
-            if (library.documents.get(i).queue.size() != 0){
-                library.documents.get(i).queue.clear();
+        List <Document> docs = library.getDocuments();
+        for (int i = 0; i < docs.size(); i++){
+            if (docs.get(i).queue.size() != 0){
+                docs.get(i).queue.clear();
             }
         }
     }
