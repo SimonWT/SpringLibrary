@@ -153,7 +153,7 @@ public class BookController {
 
     @RequestMapping("/test/addBook")
     public String testAddBook(){
-        Book book = new Book(2,"Test", 155,"Author", "Ya", false, new java.sql.Date(System.currentTimeMillis()) ,1 );
+        Book book = new Book(2,"F*cking Awesome", 89,"Yarik", "The Verge", true, new Date(2007-1900, 0, 0) ,2 );
         docService.save(book);
         return "Success adding Book";
     }
