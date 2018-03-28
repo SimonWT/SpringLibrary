@@ -1,5 +1,6 @@
 package net.proselyte.springsecurityapp.controller;
 
+import net.proselyte.springsecurityapp.model.Booking.History;
 import net.proselyte.springsecurityapp.model.Documents.Article;
 import net.proselyte.springsecurityapp.model.Documents.AudioVideo;
 import net.proselyte.springsecurityapp.model.Documents.Book;
@@ -7,6 +8,7 @@ import net.proselyte.springsecurityapp.model.Users.Patron;
 import net.proselyte.springsecurityapp.model.Users.User;
 import net.proselyte.springsecurityapp.service.BookService;
 import net.proselyte.springsecurityapp.service.DocumentService;
+import net.proselyte.springsecurityapp.service.HistoryService;
 import net.proselyte.springsecurityapp.service.UserService;
 import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,16 @@ public class BookController {
 
     @Autowired
     private DocumentService docService;
+
+    @Autowired
+    private HistoryService historyService;
+
+    public Long getCurrentUserId(){
+        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.findByUsername(currentUser);
+        return user.getId();
+    }
+
 
     @RequestMapping(value = "/editBook/{id}", method = RequestMethod.GET)
     public String editInfo(@PathVariable("id") Long id , Model model) {
@@ -159,4 +171,27 @@ public class BookController {
         docService.save(article);
         return "Success adding Article";
     }
+
+    @RequestMapping("/test/listBooks/")
+    public String testListBooks(){
+        List list = docService.getListOfBook();
+        return "Success"+list.get(0).toString();
+    }
+
+    @RequestMapping("/test/checkOut/{id}")
+    public String checkOut(@PathVariable("id") Long docId){
+        Long userId = getCurrentUserId();
+        History history = new History(docId, userId, new Date(System.currentTimeMillis()), new Date(System.currentTimeMillis()+190000), 0, 0);
+        historyService.save(history);
+        return "Success";
+    }
+
+    @RequestMapping("/test/getHistory/")
+    public String getHistory(){
+        System.out.println(historyService.getListOfHistoryByUser(Integer.toUnsignedLong(71)).get(0).getUserId());
+        return "Success";
+    }
+
+
 }
+

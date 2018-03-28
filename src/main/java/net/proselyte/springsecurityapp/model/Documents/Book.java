@@ -163,16 +163,20 @@ public class Book extends Document {
     }
 
 
-//    @Override
-//    public String toString() {
-//        return "Book{" +
-//                "id=" + id +
-//                ", title='" + title + '\'' +
-//                ", author='" + author + '\'' +
-//                ", year='" + year + '\'' +
-//                ", edition=" + edition +
-//                ", price=" + price +
-//                ", copies=" + copies +
-//                '}';
-//    }
+
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "publisher='" + publisher + '\'' +
+                ", bestSeller=" + bestSeller +
+                ", year=" + year +
+                ", edition=" + edition +
+                ", id=" + id +
+                ", copies=" + copies +
+                ", title='" + title + '\'' +
+                ", price=" + price +
+                ", authors='" + authors + '\'' +
+                '}';
+    }
 }

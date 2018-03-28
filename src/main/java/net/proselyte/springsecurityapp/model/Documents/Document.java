@@ -157,4 +157,20 @@ public class Document {
         return copy;
     }
 
+    @Override
+    public String toString() {
+        return "Document{" +
+                "id=" + id +
+                ", copies=" + copies +
+                ", title='" + title + '\'' +
+                ", price=" + price +
+                ", authors='" + authors + '\'' +
+                ", keys='" + keys + '\'' +
+                ", daysRemained=" + daysRemained +
+                ", checkoutDate=" + checkoutDate +
+                ", fine=" + fine +
+                ", overdue=" + overdue +
+                ", queue=" + queue +
+                '}';
+    }
 }
