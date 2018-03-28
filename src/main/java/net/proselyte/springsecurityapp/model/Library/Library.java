@@ -1,5 +1,9 @@
 package net.proselyte.springsecurityapp.model.Library;
 
+import net.proselyte.springsecurityapp.dao.ForTesting.DocDao;
+import net.proselyte.springsecurityapp.dao.ForTesting.DocDaoImpl;
+import net.proselyte.springsecurityapp.dao.ForTesting.UserDaoImpl;
+import net.proselyte.springsecurityapp.dao.UserDao;
 import net.proselyte.springsecurityapp.model.Documents.Document;
 import net.proselyte.springsecurityapp.model.Users.Librarian;
 import net.proselyte.springsecurityapp.model.Users.Patron;
@@ -13,8 +17,8 @@ import java.util.PriorityQueue;
  */
 public class Library {
     public ArrayList<Librarian> librarians;
-    public ArrayList<Patron> patrons;
-    public ArrayList<Document> documents;
+    private ArrayList<Patron> patrons;
+    private ArrayList<Document> documents;
 
     public List<Document> getDocuments() {
         return librarians.get(0).docDao.getDocuments();
@@ -26,4 +30,7 @@ public class Library {
         documents = new ArrayList<>();
     }
 
+    public ArrayList<Patron> getPatrons() {
+        return (ArrayList<Patron>) librarians.get(0).userDao.getPatrons();
+    }
 }

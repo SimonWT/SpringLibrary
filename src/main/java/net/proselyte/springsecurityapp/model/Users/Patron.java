@@ -45,7 +45,7 @@ public class Patron extends User {
     }
 
     public void checkout(Document doc){
-        if (!library.patrons.contains(this)){
+        if (!library.getPatrons().contains(this)){
             System.out.println("You have not registered in system. Ask librarian to register you in system");
             return;
         }
@@ -53,7 +53,7 @@ public class Patron extends User {
             System.out.println("user " + getName() + " already have this document");
             return;
         }
-        if (library.documents.contains(doc) && doc.getCopies() > 0 && !doc.getKeys().equals("reference")) {
+        if (library.getDocuments().contains(doc) && doc.getCopies() > 0 && !doc.getKeys().contains("reference")) {
             Document checkedDoc = doc.toCopy();
             documents.add(checkedDoc);
             //doc.patron = this;
