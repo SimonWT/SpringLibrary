@@ -14,21 +14,18 @@
 <head>
     <meta charset="utf-8">
 
-    <title>Login Form|DeepLib</title>
+    <title>Login Form | DeepLib</title>
     <link href="${contextPath}/resources/cssNew/bootstrap.css" rel="stylesheet">
     <link href="${contextPath}/resources/cssNew/font-awesome.css" rel="stylesheet">
-    <link href="${contextPath}/resources/cssNew/styles.css" rel="stylesheet">
-    <link href="https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel = "stylesheet">
+    <link href="${contextPath}/resources/cssNew/loginform.css" rel="stylesheet">
 
 </head>
 <body>
 <div class="hero">
-
     <div class="hero-content col-md-9">
         <div class="hero-bg-wrapper">
             <div class="hero-bg-mask"></div>
             <div class="hero-bg-gradient-mask"></div>
-            <div class="hero-bg-video" id="youtube-video" data-video-id="jv2ATV8Ff_A"></div>
         </div>
         <div class="hero-caption">
             <h1 class="hero-caption-title">Welcome to DeepLib</h1>
@@ -51,9 +48,9 @@
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane active" id="loginTab">
                     <form method="POST" action="${contextPath}/login">
+                        <span>${error}</span>
 
                         <div class="form-group ${error != null ? 'has-error' : ''}">
-                            <span>${message}</span>
                             <label for="loginInputEmail">Email address/Login</label>
                             <i class="fa fa-at"></i>
                             <input name="username" class = "form-control" type="text"  id="loginInputEmail"  required>
@@ -62,7 +59,6 @@
                             <label for="loginInputPwd">Password</label>
                             <i class="fa fa-lock"></i>
                             <input name="password" type="password" class = "form-control" data-type="password"  id ="loginInputPwd" required>
-                            <span>${error}</span>
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                         </div>
 
@@ -84,9 +80,9 @@
                             <input type="password" class="form-control" id="registerInputPwd">
                         </div>
                         <div class="form-group">
-                            <label for="registerInputPwdComfirm">Confirm Password</label>
+                            <label for="registerInputPwdConfirm">Confirm Password</label>
                             <i class="fa fa-lock"></i>
-                            <input type="password" class="form-control" id="registerInputPwdComfirm">
+                            <input type="password" class="form-control" id="registerInputPwdConfirm">
                         </div>
                         <button type="submit" class="btn btn-block btn-default hero-btn">Sign up</button>
                     </form>
@@ -99,12 +95,10 @@
 
     </div>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 
 <script src="${contextPath}/resources/jsNew/jquery.js"></script>
 <script src="${contextPath}/resources/jsNew/bootstrap.js"></script>
 <script src="${contextPath}/resources/jsNew/scripts.js"></script>
-<script src="${contextPath}/resources/jsNew/video.js"></script>
 
 </body>
 </html>

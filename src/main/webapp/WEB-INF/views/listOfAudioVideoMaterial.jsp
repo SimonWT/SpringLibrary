@@ -21,7 +21,7 @@
 
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/bootstrap.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/font-awesome.css">
-    <link rel="stylesheet" href="${contextPath}/resources/cssNew/styles.css"></head>
+    <link rel="stylesheet" href="${contextPath}/resources/cssNew/loginform.css"></head>
 <body>
 <nav class="navbar navbar-static-top" style="background-color: #A52A2A;">
     <a href = "/welcome" class="navbar-brand" style="background-color: #A52A2A; " >DeepLib</a>

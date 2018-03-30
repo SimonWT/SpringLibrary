@@ -17,7 +17,7 @@
 
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/bootstrap.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/font-awesome.css">
-    <link rel="stylesheet" href="${contextPath}/resources/cssNew/styles.css">
+    <link rel="stylesheet" href="${contextPath}/resources/cssNew/loginform.css">
 </head>
 
 <body>
