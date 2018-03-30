@@ -3,6 +3,7 @@ package net.proselyte.springsecurityapp.model.Documents;
 import net.proselyte.springsecurityapp.model.Users.Patron;
 import net.proselyte.springsecurityapp.model.Users.PatronComparator;
 
+import javax.persistence.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -11,17 +12,39 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.PriorityQueue;
 
+@Entity
+@Table(name = "documents")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Document {
-    private long id;
-    private int copies;
-    private String title;
-    private int price;
-    private String authors;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public long id;
+
+    @Column(name = "copies")
+    public int copies;
+
+    @Column(name = "title")
+    public String title;
+
+    @Column(name = "price")
+    public int price;
+
+    @Column(name = "authors")
+    public String authors;
+
+
+    @Transient
     private String keys;
+    @Transient
     private int daysRemained;
+    @Transient
     private Date checkoutDate;
+    @Transient
     private int fine;
+    @Transient
     private int overdue;
+    @Transient
     public PriorityQueue<Patron> queue;
 
 
@@ -30,6 +53,13 @@ public class Document {
         //authors = new ArrayList<String>();
         //keys = new ArrayList<String >();
         queue = new PriorityQueue<>(1, new PatronComparator());
+    }
+
+    public Document(int copies, String title, int price, String authors) {
+        this.copies = copies;
+        this.title = title;
+        this.price = price;
+        this.authors = authors;
     }
 
     public void setDoc(String title, int price, String authors, String keys){
@@ -44,6 +74,7 @@ public class Document {
         this.copies = n;
         assert(this.copies == this.getCopies());
     }
+
     public void setPrice(int newPrice){
         this.price = newPrice;
         assert(this.price == this.getPrice());
@@ -126,4 +157,20 @@ public class Document {
         return copy;
     }
 
+    @Override
+    public String toString() {
+        return "Document{" +
+                "id=" + id +
+                ", copies=" + copies +
+                ", title='" + title + '\'' +
+                ", price=" + price +
+                ", authors='" + authors + '\'' +
+                ", keys='" + keys + '\'' +
+                ", daysRemained=" + daysRemained +
+                ", checkoutDate=" + checkoutDate +
+                ", fine=" + fine +
+                ", overdue=" + overdue +
+                ", queue=" + queue +
+                '}';
+    }
 }

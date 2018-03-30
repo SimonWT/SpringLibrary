@@ -18,18 +18,18 @@ public class test {
 //        List<Patron> listOfPatrons = userDao.getPatrons();
 //        for(Patron patron: listOfPatrons)
 //            System.out.println(patron.getUsername());
+////
+//        AudioVideo av = new AudioVideo("av1","av1",69,69);
+//        System.out.println(av.getAuthor());
+//        docDao.addAV(av);
+////
+////        List<Document> list = docDao.getDocuments();
+////        for(int i =0; i< list.size(); i++)
+////            System.out.println(list.get(i).getTitle());
 //
-        AudioVideo av = new AudioVideo("av1","av1",69,69);
-        System.out.println(av.getAuthor());
-        docDao.addAV(av);
-//
-//        List<Document> list = docDao.getDocuments();
-//        for(int i =0; i< list.size(); i++)
-//            System.out.println(list.get(i).getTitle());
-
-        Book book = new Book((long) 69,"DD","DD","DD",323,3,3);
-        docDao.addBook(book);
-        docDao.deleteLastBook();
+//        Book book = new Book((long) 69,"DD","DD","DD",323,3,3);
+//        docDao.addBook(book);
+//        docDao.deleteLastBook();
 
 
     }

@@ -30,7 +30,7 @@ public class Librarian extends User {
     public Library library;
 
     @Transient
-    private UserDao userDao = new UserDaoImpl();
+    public UserDao userDao = new UserDaoImpl();
 
     @Transient
     public DocDao docDao = new DocDaoImpl();
