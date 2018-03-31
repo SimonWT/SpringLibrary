@@ -2,7 +2,7 @@
 .search{
     margin-left:calc(50% - 165px);
     font-size:20px;
-    color:#d46b0e;
+    color:black;
 }
 .search input,
 .search button{
