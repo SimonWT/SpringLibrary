@@ -20,6 +20,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 
 /**
  * Controller for {@link User}'s pages.
@@ -197,6 +198,7 @@ public class UserController {
     }
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model, String error, String logout) {
+
         if (error != null) {
             model.addAttribute("error", "Username or password is incorrect.");
         }
@@ -265,7 +267,6 @@ public class UserController {
          return "/welcome";
     }
 
-
     @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
     public String welcome(Model model) {
         return "welcome";
@@ -278,5 +279,14 @@ public class UserController {
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public String user(Model model) { return "user"; }
+
+    @RequestMapping("/test/listOfPatrons/")
+    public String listOfPatrons(){
+        String result="";
+        List<Patron> patrons = userService.getAllPatrons();
+        for (int i=0; i<patrons.size(); i++) result += patrons.get(i).toString();
+        return result;
+    }
+
 
 }

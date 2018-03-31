@@ -192,6 +192,13 @@ public class BookController {
         return "Success";
     }
 
+    @RequestMapping(value = "/test/allBooks/", method = RequestMethod.GET)
+    public String allBooks(Model model){
+        model.addAttribute("books", docService.getListOfBook() );
+        return "books";
+    }
+
+
 
 }
 
