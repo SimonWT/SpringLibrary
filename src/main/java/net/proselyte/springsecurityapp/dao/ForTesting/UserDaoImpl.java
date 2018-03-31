@@ -62,7 +62,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getUserById(Long id) {
-        String sql = "SELECT id, name, surname, username, phone, email FROM users WHERE id='"+id+"')"; //SQL Query
+        String sql = "SELECT id, name, surname, username, phone, email, type FROM users WHERE id='"+id+"')"; //SQL Query
 
         User user=null;
 
@@ -76,7 +76,8 @@ public class UserDaoImpl implements UserDao {
                     rs.getString("name"),
                     rs.getString("surname"),
                     rs.getString("phone"),
-                    rs.getString("email"));
+                    rs.getString("email"),
+                    rs.getString("type"));
             user.setId(id);
 
             rs.close();
@@ -106,7 +107,9 @@ public class UserDaoImpl implements UserDao {
                         rs.getString("name"),
                         rs.getString("surname"),
                         rs.getString("phone"),
-                        rs.getString("email"));
+                        rs.getString("email"),
+                        rs.getString("type")
+                );
 
                 patron.setId(rs.getLong("id"));
                 //TODO: GetDocument to Every Patron

@@ -78,10 +78,10 @@ public class UserValidator implements Validator {
             errors.rejectValue("email", "Size.userForm.email");
         }
 
-       /* ValidationUtils.rejectIfEmptyOrWhitespace(errors, "type", "Required");
-        if (user.getType().length() != 6 || user.getType.length() != 9) {
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "type", "Required");
+        if (user.getType().equals("")) {
             errors.rejectValue("type", "Size.userForm.type");
-        }*/
+        }
 
         /**
          * If the first password does not match with the second one

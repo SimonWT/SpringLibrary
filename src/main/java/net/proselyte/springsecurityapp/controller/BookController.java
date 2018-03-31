@@ -1,15 +1,13 @@
 package net.proselyte.springsecurityapp.controller;
 
 import net.proselyte.springsecurityapp.model.Booking.History;
+import net.proselyte.springsecurityapp.model.Booking.Queue;
 import net.proselyte.springsecurityapp.model.Documents.Article;
 import net.proselyte.springsecurityapp.model.Documents.AudioVideo;
 import net.proselyte.springsecurityapp.model.Documents.Book;
 import net.proselyte.springsecurityapp.model.Users.Patron;
 import net.proselyte.springsecurityapp.model.Users.User;
-import net.proselyte.springsecurityapp.service.BookService;
-import net.proselyte.springsecurityapp.service.DocumentService;
-import net.proselyte.springsecurityapp.service.HistoryService;
-import net.proselyte.springsecurityapp.service.UserService;
+import net.proselyte.springsecurityapp.service.*;
 import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.convert.ReadingConverter;
@@ -42,6 +40,9 @@ public class BookController {
 
     @Autowired
     private HistoryService historyService;
+
+    @Autowired
+    private QueueService queueService;
 
     public Long getCurrentUserId(){
         String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -94,17 +95,17 @@ public class BookController {
         List<Book> list = new LinkedList<>();
         while(rs.next()){
 
-                String title = rs.getString("title");
-                String author = rs.getString("author");
-                Integer price = rs.getInt("price");
+            String title = rs.getString("title");
+            String author = rs.getString("author");
+            Integer price = rs.getInt("price");
 
-                //Assuming you have a user object
-                Book book = new Book();
-                book.setAuthors(author);
-                book.setTitle(title);
-                book.setPrice(price);
+            //Assuming you have a user object
+            Book book = new Book();
+            book.setAuthors(author);
+            book.setTitle(title);
+            book.setPrice(price);
 
-                list.add(book);
+            list.add(book);
 
         }
 
@@ -146,7 +147,7 @@ public class BookController {
 
     @RequestMapping("/reg/Pat")
     public String regPat(){
-        User user = new Patron("TestInh","TestInh","TestInh","TestInh","TestInh","TestInh");
+        User user = new Patron("TestInh","TestInh","TestInh","TestInh","TestInh","TestInh", "TestIng");
         userService.save(user);
         return "SUCCESS";
     }
@@ -181,8 +182,13 @@ public class BookController {
     @RequestMapping("/test/checkOut/{id}")
     public String checkOut(@PathVariable("id") Long docId){
         Long userId = getCurrentUserId();
-        History history = new History(docId, userId, new Date(System.currentTimeMillis()), new Date(System.currentTimeMillis()+190000), 0, 0);
-        historyService.save(history);
+        if (docService.getDocumentById(docId).copies == 0) {
+            Queue queue = new Queue(docId, userId, new Date(System.currentTimeMillis()));
+            queueService.save(queue);
+        } else {
+            History history = new History(docId, userId, new Date(System.currentTimeMillis()), new Date(System.currentTimeMillis() + 190000), 0, 0);
+            historyService.save(history);
+        }
         return "Success";
     }
 
@@ -192,6 +198,12 @@ public class BookController {
         return "Success";
     }
 
+    @RequestMapping("/test/getQueue/")
+    public String getQueue() {
+        //System.out.println(queueService.getListOfQueueByUser(Integer.toUnsignedLong(71)).get(0).getUserId());
+        return "Success";
+    }
+
+
 
 }
-

@@ -53,8 +53,8 @@ public class Librarian extends User {
         library = new Library();
     }
 
-    public Librarian(String username, String password, String name, String surname, String phone, String email) {
-        super(username, password, name, surname, phone, email);
+    public Librarian(String username, String password, String name, String surname, String phone, String email, String type) {
+        super(username, password, name, surname, phone, email, type);
     }
 
     public void addDoc(Document doc, int copiesAmount){

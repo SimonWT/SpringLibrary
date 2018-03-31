@@ -127,6 +127,13 @@
             </div>
         </spring:bind>
 
+        <spring:bind path="type">
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <form:input type="text" path="type" class="form-control" placeholder="Type of user"></form:input>
+                <form:errors path="type"></form:errors>
+            </div>
+        </spring:bind>
+
 
         <button class="btn btn-block" type="submit">Submit</button>
     </form:form>

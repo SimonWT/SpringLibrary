@@ -36,8 +36,8 @@ public class Patron extends User {
 
     public Patron(){};
 
-    public Patron(String username, String password, String name, String surname, String phone, String email) {
-        super(username, password, name, surname, phone, email);
+    public Patron(String username, String password, String name, String surname, String phone, String email, String type) {
+        super(username, password, name, surname, phone, email, type);
     }
 
     public void setType(String t){
