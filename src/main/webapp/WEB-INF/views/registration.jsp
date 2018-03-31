@@ -18,7 +18,7 @@
     <link href="${contextPath}/resources/css/common.css" rel="stylesheet">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/bootstrap.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/font-awesome.css">
-    <link rel="stylesheet" href="${contextPath}/resources/cssNew/styles.css">
+    <link rel="stylesheet" href="${contextPath}/resources/cssNew/loginform.css">
 
 </head>
 
@@ -124,6 +124,13 @@
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <form:input type="text" path="email" class="form-control" placeholder="E-mail"></form:input>
                 <form:errors path="email"></form:errors>
+            </div>
+        </spring:bind>
+
+        <spring:bind path="type">
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <form:input type="text" path="type" class="form-control" placeholder="Type of user"></form:input>
+                <form:errors path="type"></form:errors>
             </div>
         </spring:bind>
 

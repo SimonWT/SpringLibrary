@@ -1,5 +1,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
@@ -12,113 +13,185 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Home page|DeepLib</title>
-
+    <title>Home page | DeepLib</title>
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/bootstrap.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/font-awesome.css">
-    <link rel="stylesheet" href="${contextPath}/resources/cssNew/styles.css">
+    <link rel="stylesheet" href="${contextPath}/resources/cssNew/welcomeform.css">
+    <style>
+
+    </style>
 </head>
 <body>
 
-</nav>
-<div class="hero">
+<div class="topnav" id="myTopnav">
+    <a class="navbar-brand" class = "active" href = "/welcome">
+            <span>
+              <img alt="Brand" style="width: 33.5px"
+                   src="http://hasintech.com/favicons/apple-touch-icon-57x57.png">
+            </span>
+        DeepLib
 
-    <div class="hero-bg-wrapper">
-        <nav class="navbar navbar-static-top" role = "navigation" style="background-color: #A52A2A;">
+    </a>
+    <div class  = "hell">
+    <a href="/listOfAudioVideoMaterialForPatron" style = ""><i class="fa fa-file-audio-o" aria-hidden="true"></i>
+        Media</a>
+    <a href="/listOfArticlesForPatron" style = ""><i class="fa fa-newspaper-o" aria-hidden="true"></i>
+        Journal Article</a>
+    <a href="/listOfBooksForPatron" style = ""><i class="fa fa-book" aria-hidden="true"></i> Books</a>
+    </div>
+    <div class="dropdown2" >
+        <button class="dropbtn"><i class="fa fa-user-circle-o" aria-hidden="true"></i>
 
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
+        ${pageContext.request.userPrincipal.name}
+            <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content2">
+            <a href="/ProfilePage" data-toggle="modal" data-target="#largeModal"> <i class="fa fa-address-card-o" aria-hidden="true"></i>
+                 Profile</a>
+            <a href="/user">
+                <i class="fa fa-bookmark" aria-hidden="true"></i>
 
-            </div>
-            <a href = "/welcome" class="navbar-brand" style="background-color: #A52A2A; " >DeepLib</a>
-            <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" style="height: 1px;">
-            <ul class="nav navbar-nav" >
-                <li class="divider-vertical"></li>
+                My Documents</a>
 
 
-                    <form class="navbar-form navbar-left">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Search..">
-                        </div>
-                        <button type="submit" class="btn btn-default">Submit</button>
-                    </form>
-                    <ul class="nav navbar-nav navbar-right" >
-                        <li><a href="/listOfAudioVideoMaterialForPatron">Audio/Video File</a></li>
-                        <li><a href="/listOfArticlesForPatron">Journal Articles</a></li>
-                        <li><a href="/listOfBooksForPatron">Books</a></li>
-                        <li class="dropdown" style = "margin-left:450px">
+            <c:if test="${pageContext.request.userPrincipal.name != null}">
+                <form id="logoutForm" method="POST" action="${contextPath}/logout">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                    <a href = "#" onclick="document.forms['logoutForm'].submit()"> <i class="fa fa-sign-out" aria-hidden="true"></i>
+                        Logout</a>
+                </form>
 
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"
-                               role="button" aria-haspopup="true"
 
-                               aria-expanded="false"><img src="${contextPath}/resources/imgNew/user2.png"  style="height: 2rem; display: inline-block; margin-bottom: .3125rem;">
-                                ${pageContext.request.userPrincipal.name}
-                                <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                               <li> <c:if test="${pageContext.request.userPrincipal.name != null}">
-                                    <a href="/ProfilePage">Profile</a>
-                                </c:if>
-                               </li>
-
-                                <li>
-                                    <c:if test="${pageContext.request.userPrincipal.name != null}">
-                                        <a href="/editUser">Edit Information</a>
-                                    </c:if>
-                                </li>
-                                <li><a href="/user">My Documents</a></li>
-                                <li role="separator" class="divider"></li>
-                                <c:if test="${pageContext.request.userPrincipal.name != null}">
-                                    <form id="logoutForm" method="POST" action="${contextPath}/logout">
-                                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                                    </form>
-                                    <li><a onclick="document.forms['logoutForm'].submit()">Logout</a></li>
-                                </c:if>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-
-            </ul>
-        </nav>
-
-        <div style = "z-index: 2;
-  background: #000;
-  opacity: 0.7;">
-            <nav class="text-center" style="margin-top: 559px;z-index: 4;  background: linear-gradient(to right, #f9d423, #ff4e50);opacity: 0.47;">
-                <div style="color: #fff; padding-top: 20px; padding-bottom: 20px;">
-                    <img src="${contextPath}/resources/imgNew/15.jpg"  style="height: 2rem; display: inline-block; margin-bottom: .3125rem;">
-                    <p>2018,"DeepLib" <br>All rights reserved.</p>
-                    <div id="use" class="img-rounded text-center col-sm-6 col-sm-offset-3" style="background: #999999; padding-top: .3125rem; padding-bottom: .3125rem; margin-top: .3125rem; margin-bottom: 15px; font-size: .875rem; "> by Maksimychev Evgenij, Uzbekova Ekaterina,
-                        Yudinskikh Yaroslav, Vakhula Igor
-                    </div>
-                </div>
-                <div style="color: #4CAF50;padding-right: 4px;">
-
-                    <c:if test="${pageContext.request.userPrincipal.name != null}">
-                        <a href="/admin">ADMINKA</a>
-                    </c:if>
-
-                </div>
-                <div class="clearfix"></div>
-            </nav>
+            </c:if>
         </div>
-        <div class="hero-bg-gradient-mask"></div>
-        <div class="hero-bg-mask"></div>
+    </div>
+
+
+
+    <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
+</div>
+<br>
+<br>
+<br>
+<br>
+<div class="container">
+
+    <div class="alert" align = "center">
+   <strong style = "font-size:37px">
+${pageContext.request.userPrincipal.name}</strong>,
+        <br>
+        Welcome to DeepLib!
+    <br>
+        <br>
+        <input type="search" id="mySearch" name="q"
+               placeholder="Search the document..." required>
+        <button>Search</button>
+        <br>
+        <br>
+        <h5 style = "font-size:25px;">How to use this sourse:</h5>
+        <i class="fa fa-square" aria-hidden="true"></i> Go to Media/Jornal Articles/Books and choose document, which you want.
+    <br>
+        <i class="fa fa-square" aria-hidden="true"></i> Also you can find documents by using searching .
+        <br><i class="fa fa-square" aria-hidden="true"></i>
+        The application support different search criteria(e.g., by author, by title)<br> and combinations
+
+        of these search strategies.
+        <br><i class="fa fa-square" aria-hidden="true"></i>
+        Books are checked out for three weeks, unless:
+        <br><i class="fa fa-circle-o-notch" aria-hidden="true"></i>
+
+        they are current best sellers, in which case the limit is two weeks
+        <br><i class="fa fa-circle-o-notch" aria-hidden="true"></i>
+
+        they are checked out by a faculty member, in which case
+        <br>
+        the limit is 4 weeks (regardless the book is best seller)
+        <br><i class="fa fa-square" aria-hidden="true"></i>
+        AV materials and journals may be checked out for two weeks.
+        <br><i class="fa fa-square" aria-hidden="true"></i>
+        The overdue fine is a hundred rubles per item per day,<br> but cannot be higher than the value of the overdue item
+        <br><i class="fa fa-square" aria-hidden="true"></i>
+        You can renew an item once (and only once), unless <br> there is an outstanding request for the item, in which case
+       <br> <i class="fa fa-square" aria-hidden="true"></i>
+        the item needs to be returned immediately
+        <br>
+        <br>
+        <br>
     </div>
 </div>
+<script>
+    function myFunction() {
+        var x = document.getElementById("myTopnav");
+        if (x.className === "topnav") {
+            x.className += " responsive";
+        } else {
+            x.className = "topnav";
+        }
+    }
+</script>
+
+
+<div class="modal" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="cont">
+            <div class="modal2">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="fa fa-window-close-o" aria-hidden="true" style = "font-size:45px; padding-right:4px;"></i>
+                </button>
+                <br>
+                <br>
+                <div class="row">
+                    <div class="cont1">
+                        <span class = "photprof">
+                    <img src="${contextPath}/resources/imgNew/user2.png" height = "auto"; width = "auto";>
+
+                    <p style = "padding-left:25%; padding-top:5%;">ID: YARIKLOH</p>
+                </span>
+                    </div>
+                    <div class="cont2">
+                        <p>Katusha Uzbekova</p>
+                        <a href="tel:+79177972480">89177972480</a>
+                        <p><a href="mailto:e.uzbekova@innopolis.ru">
+                            e.uzbekova@innopolis.ru</a></p>
+                        <p>Universitetskaya </p>
+                        <p>1-2,325</p>
+                        <button  style = "background:#8a6d3b; outline:none; border: none; font-size:25px;"><a href="#" style = "color:#ddd8c4">
+                            <i class="fa fa-bookmark" aria-hidden="true" style = "padding-right:5px;"></i>My Documents</a></button>
+                    </div>
+                </div>
+                <div class = "row">
+                <div class = "button1">
+                    <button> <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        Edit </button>
+                </div>
+                    <div class = "button2">
+                    <c:if test="${pageContext.request.userPrincipal.name != null}">
+                    <form id="logoutForm" method="POST" action="${contextPath}/logout">
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                        <a href = "#" onclick="document.forms['logoutForm'].submit()"> <button ><i class="fa fa-sign-out" aria-hidden="true"></i>
+                            Logout </button></a>
+                    </form>
+
+
+                </c:if>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+
+
+                <br>
+            </div>
+
+
+        </div>
+    </div>
 </div>
-
-
-
-
-
 
 <script src="${contextPath}/resources/jsNew/jquery.js"></script>
 <script src="${contextPath}/resources/jsNew/bootstrap.js"></script>
-<script src="${contextPath}/resources/jsNew/scripts.js"></script>
 </body>
 </html>

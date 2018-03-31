@@ -1,0 +1,51 @@
+
+.search{
+    margin-left:calc(50% - 165px);
+    font-size:20px;
+    color:black;
+}
+.search input,
+.search button{
+    display:inline;
+}
+.row{
+    height:30%;
+    font-size:25px;
+}
+.form1{
+    width:40%;
+    color:black;
+    height:100px;
+
+}
+.form2{
+    width:40%;
+    color:black;
+    height:100px;
+
+}
+.form3{
+    width:40%;
+    color:black;
+    height:100px;
+}
+.form4{
+    color:black;
+    height:100px;
+
+    width:40%;
+}
+.button a{
+    color:black;
+}
+.alert2{
+    color: #d46b0e;
+    font-size:20px;
+    background:#84b59f;
+    border:0;
+    padding: 10px;
+    margin: auto;
+    width:70%;
+    height:70%;
+    position: relative;
+}

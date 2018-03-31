@@ -73,7 +73,7 @@ CREATE TABLE audio_video(
   ENGINE = InnoDB;
 CREATE TABLE history(
   id           INT          NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  type         VARCHAR(255) NOT NULL,
+
   doc_id       INT          NOT NULL,
   user_id      INT          NOT NULL,
   status       BOOLEAN      NOT NULL,
@@ -86,7 +86,6 @@ CREATE TABLE history(
 
 CREATE TABLE queue(
   id           INT          NOT NULL,
-  type         VARCHAR(255) NOT NULL,
   doc_id       INT          NOT NULL,
   user_id      INT          NOT NULL,
   date         DATE         NOT NULL
