@@ -6,6 +6,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
 <!DOCTYPE html>
@@ -119,7 +120,11 @@
                     rs2 = rs.getString("title");
                     %>
 
-            <button class="btn btn-info btn-lg"  style = "background: #f44336; border:1px; height: 100px; text-align: center; width:200px; margin-left:5px; left:0; color: #ddd8c4; font-size:13px;" type="button" data-toggle="modal" data-target="#myModal"><%=rs2%></button>
+            <button style = "background: #f44336; border:1px;
+            height: 90px; text-align: center; width:50%;
+            margin-left:calc(50%- 200px); color: #ddd8c4; font-size:13px;"
+                    type="button" data-toggle="modal"
+                    data-target="#myModal"><%=rs2%></button>
 
 
         <br>
@@ -157,7 +162,7 @@
                     {   if (rs.getRow()%5 == 2) {
                         rs2 = rs.getString("title");
             %>
-            <button style = "background: #f44336; border:2px;  height:100px; width:200px; text-align:center; margin-left:10px;"><%=rs2%></button>
+            <button class="btn btn-info btn-lg"  style = "background: #f44336; border:1px; height: 100px; text-align: center; width:200px; margin-left:5px; left:0; color: #ddd8c4; font-size:13px;" type="button" data-toggle="modal" data-target="#myModal"><%=rs2%></button>
             <br>
             <br>
             <br>
@@ -193,7 +198,7 @@
                 {   if (rs.getRow()%5 == 3) {
                     rs2 = rs.getString("title");
         %>
-        <button style = "background: #f44336; border:2px;  height:100px; width:200px; text-align:center; margin-left:10px;"><%=rs2%></button>
+        <button class="btn btn-info btn-lg"  style = "background: #f44336; border:1px; height: 100px; text-align: center; width:200px; margin-left:5px; left:0; color: #ddd8c4; font-size:13px;" type="button" data-toggle="modal" data-target="#myModal"><%=rs2%></button>
         <br>
         <br>
         <br>
@@ -229,8 +234,8 @@
                 {   if (rs.getRow()%5 == 4) {
                     rs2 = rs.getString("title");
         %>
-        <button style = "background: #f44336; border:2px;  height:100px; width:200px; text-align:center; margin-left:10px;"><%=rs2%></button>
-        <br>
+        <button class="btn btn-info btn-lg"  style = "background: #f44336; border:1px; height: 100px; text-align: center; width:200px; margin-left:5px; left:0; color: #ddd8c4; font-size:13px;" type="button" data-toggle="modal" data-target="#myModal"><%=rs2%></button>
+            <br>
         <br>
         <br>
         <%
@@ -265,7 +270,7 @@
                     {   if (rs.getRow()%5 == 0) {
                         rs2 = rs.getString("title");
             %>
-            <button style = "background: #f44336; border:2px;  height:100px; width:200px; text-align:center; margin-left:10px;"><%=rs2%></button>
+            <button class="btn btn-info btn-lg"  style = "background: #f44336; border:1px; height: 100px; text-align: center; width:200px; margin-left:5px; left:0; color: #ddd8c4; font-size:13px;" type="button" data-toggle="modal" data-target="#myModal"><%=rs2%></button>
             <br>
             <br>
             <br>
@@ -356,18 +361,47 @@
         </div>
     </div>
 </div>
-<div id="myModal" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header"><button class="close" type="button" data-dismiss="modal"><i class="fa fa-window-close-o" aria-hidden="true" style = "font-size:45px; padding-right:4px;"></i></button>
-            </div>
-            <div class="modal-body">
-                <img src = "${contextPath}/resources/imgNew/user2.png">
-                <p>Title: название книги</p>
+<div id="myModal" class="modal fade" >
+    <div class="modal-dialog" style = "margin-left:calc(50%- 8px); width: 470px;">
+        <div class="modal-content" >
+            <div class="modal-body" style = "height:410px; background:#9d9d9d">
+                 <div class = "row" >
+                <button class="close" type="button" data-dismiss="modal"><i class="fa fa-window-close-o" aria-hidden="true" style = "font-size:45px; padding-right:4px;"></i></button>
+                <br>
+                <br>
+                <br>
+
+                <div style = "float:left; margin-left:4px;">  <img src = "${contextPath}/resources/imgNew/images.png" style = "width:160px; height:200px;"></div>
+                <div style = "float:right; margin-right:30%;">
+                <p>Title: </p>
                 <p>Edition: издание </p>
                 <p>Authors: авторы</p>
                 <p>Publisher: </p>
                 <p>Publish Year: </p>
+                </div>
+                </div>
+                <br>
+                <br>
+                <br>
+                <div class = "row">
+                    <div style = "float:left; margin-left:4%;">
+                        <button>
+                            Return back </button>
+                    </div>
+                    <div style = "float:left; margin-left:4%">
+                        <button>
+                            Renew  </button>
+                    </div>
+                    <div style = "float:right; margin-right:4%">
+                         <button >
+                                   Queue  </button>
+                    </div>
+                    <div style = "float:right; margin-right:4%">
+                        <button>
+                            Book  </button>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
