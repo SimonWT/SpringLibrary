@@ -84,7 +84,7 @@ public class BookController {
     }
 
     @RequestMapping(value = "/listOfBooksForPatron", method = RequestMethod.GET)
-    public String listOfBooksForPatron(ModelAndView modelAndView) {
+    public String listOfBooksForPatron(Model model) {
 
         String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userService.findByUsername(currentUser);
@@ -94,15 +94,18 @@ public class BookController {
         for(Book book: bookList){
             Long bookId = book.getId();
             History userHistory = historyService.getHistoryByIdAndDocId(userId, bookId);
-            int status = userHistory.getStatus();
+            int status = 1;
+            if (userHistory!=null) status = userHistory.getStatus();
+
             if(status != 0 ){
                 if(book.getCopies() == 0) status = 2; //Go to Queue
                 else status = 3;                      //Simple CheckOut
             }                                         //else Renew + Return
             book.setStatus(status);
+
         }
 
-       modelAndView.addObject(bookList);
+      model.addAttribute(bookList);
         return "listOfBooksForPatron";
     }
 
