@@ -290,7 +290,7 @@ public class UserController {
         userData.put("email", user.getEmail());
         userData.put("type", user.getType());
         mav.setViewName("welcome");
-        mav.setViewName("admin");
+
         mav.addObject("user", userData);
 
         return mav;
