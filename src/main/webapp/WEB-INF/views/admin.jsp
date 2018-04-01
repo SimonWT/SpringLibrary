@@ -32,13 +32,26 @@
         ADMIN
 
     </a>
-    <div class  = "hell">
-        <a href="/listOfAudioVideoMaterialForPatron" style = ""><i class="fa fa-file-audio-o" aria-hidden="true"></i>
-            Media</a>
-        <a href="/listOfArticlesForPatron" style = ""><i class="fa fa-newspaper-o" aria-hidden="true"></i>
-            Journal Article</a>
-        <a href="/listOfBooksForPatron" style = ""><i class="fa fa-book" aria-hidden="true"></i> Books</a>
-    </div>
+    <c:choose>
+        <c:when test="${user.type=='Librarian'}">
+            <div class  = "hell">
+                <a href="/listOfAudioVideoMaterial" style = ""><i class="fa fa-file-audio-o" aria-hidden="true"></i>
+                    Media</a>
+                <a href="/listOfArticles" style = ""><i class="fa fa-newspaper-o" aria-hidden="true"></i>
+                    Journal Article</a>
+                <a href="/listOfBooks" style = ""><i class="fa fa-book" aria-hidden="true"></i> Books</a>
+            </div>
+        </c:when>
+        <c:otherwise>
+            <div class  = "hell">
+                <a href="/listOfAudioVideoMaterialForPatron" style = ""><i class="fa fa-file-audio-o" aria-hidden="true"></i>
+                    Media</a>
+                <a href="/listOfArticlesForPatron" style = ""><i class="fa fa-newspaper-o" aria-hidden="true"></i>
+                    Journal Article</a>
+                <a href="/ListOfBooksForPatronGf" style = ""><i class="fa fa-book" aria-hidden="true"></i> Books</a>
+            </div>
+        </c:otherwise>
+    </c:choose>
 
     <div class="dropdown3" >
         <button class="dropbtn3">
