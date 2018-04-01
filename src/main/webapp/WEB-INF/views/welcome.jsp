@@ -17,8 +17,17 @@
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/bootstrap.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/font-awesome.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/welcomeform.css">
+    <style>
+
+    </style>
 </head>
 <body>
+<div>Web Application. Passed parameter : th:text="${user.username}"</div>
+<div>Web Application. Passed parameter : th:text="${user.name}"</div>
+<div>Web Application. Passed parameter : th:text="${user.surname}"</div>
+<div>Web Application. Passed parameter : th:text="${user.phone}"</div>
+<div>Web Application. Passed parameter : th:text="${user.email}"</div>
+<div>Web Application. Passed parameter : th:text="${user.type}"</div>
 <div class="topnav" id="myTopnav">
     <a class="navbar-brand" class = "active" href = "/welcome">
             <span>
@@ -35,33 +44,10 @@
         Journal Article</a>
     <a href="/listOfBooksForPatron" style = ""><i class="fa fa-book" aria-hidden="true"></i> Books</a>
     </div>
-
-
-
-    <div class="dropdown3" >
-        <button class="dropbtn3">
-            <i class="fa fa-file-text" aria-hidden="true"></i>
-
-        </button>
-
-        <div class="dropdown-content3" >
-
-            <p><a href="http://38.mchs.gov.ru/document/1396914" style = "width:100%;color:darkred">
-                <i class="fa fa-fire" aria-hidden="true"></i>
-
-                What to Do: Fire Emergency
-                <i class="fa fa-exclamation" aria-hidden="true" style = "color:red;"></i>
-
-            </a></p>
-            <p style = "font-size:20px; color: #f44336">Do not forget receive book until 26.08.2018</p>
-
-        </div>
-    </div>
-
-
     <div class="dropdown2" >
         <button class="dropbtn"><i class="fa fa-user-circle-o" aria-hidden="true"></i>
-            ${pageContext.request.userPrincipal.name}
+
+        ${pageContext.request.userPrincipal.name}
             <i class="fa fa-caret-down"></i>
         </button>
         <div class="dropdown-content2">
@@ -84,7 +70,6 @@
             </c:if>
         </div>
     </div>
-
 
 
 
@@ -165,16 +150,16 @@ ${pageContext.request.userPrincipal.name}</strong>,
                         <span class = "photprof">
                     <img src="${contextPath}/resources/imgNew/user2.png" height = "auto"; width = "auto";>
 
-                    <p style = "padding-left:25%; padding-top:5%;">ID: YARIKLOH</p>
+                    <p style = "padding-left:25%; padding-top:5%;">Deep Library ID: ${user.username}</p>
                 </span>
                     </div>
                     <div class="cont2">
-                        <p>Katusha Uzbekova</p>
-                        <a href="tel:+79177972480">89177972480</a>
-                        <p><a href="mailto:e.uzbekova@innopolis.ru">
-                            e.uzbekova@innopolis.ru</a></p>
-                        <p>Universitetskaya </p>
-                        <p>1-2,325</p>
+                        <p>${user.name}  ${user.surname}</p>
+                        <a href="tel:${user.phone}">${user.phone}</a>
+                        <p><a href="mailto:${user.email}">
+                            ${user.email}</a></p>
+                        <p>Type: ${user.type}</p>
+
                         <button  style = "background:#8a6d3b; outline:none; border: none; font-size:25px;"><a href="#" style = "color:#ddd8c4">
                             <i class="fa fa-bookmark" aria-hidden="true" style = "padding-right:5px;"></i>My Documents</a></button>
                     </div>

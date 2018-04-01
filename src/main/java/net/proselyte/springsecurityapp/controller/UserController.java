@@ -23,7 +23,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Controller for {@link User}'s pages.
@@ -272,9 +274,47 @@ public class UserController {
     }
 
     @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
-    public String welcome(Model model) {
-        return "welcome";
+    public ModelAndView welcome(Model model) {
+        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.findByUsername(currentUser);
+        ModelAndView mav = new ModelAndView();
+        /*Map<String, String> message1 = new HashMap<String, String>();
+        message1.put("message1", "Hello World");
+        mav.setViewName("welcome");
+        mav.addObject("message", message1);*/
+        Map<String, String> userData = new HashMap<>();
+        userData.put("username", user.getUsername());
+        userData.put("name", user.getName());
+        userData.put("surname", user.getSurname());
+        userData.put("phone", user.getPhone());
+        userData.put("email", user.getEmail());
+        userData.put("type", user.getType());
+        mav.setViewName("welcome");
+        mav.setViewName("admin");
+        mav.addObject("user", userData);
+
+        return mav;
+
     }
+
+
+
+    /*@RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
+    public ModelAndView welcome(@PathVariable("id") Long id) {
+        User user = userService.getUserById(id);
+        ModelAndView modelAndView = new ModelAndView();
+        Map<String, String> userData = new HashMap<String, String>();
+        userData.put("id", user.getId().toString());
+        userData.put("username", user.getUsername());
+
+        userData.put("name", user.getName());
+        userData.put("surname", user.getName());
+        userData.put("phone", user.getPhone());
+        userData.put("email", user.getEmail());
+        userData.put("type", user.getType());
+        modelAndView.addAllObjects(userData);
+        return modelAndView;
+    }*/
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public String admin(Model model) {
