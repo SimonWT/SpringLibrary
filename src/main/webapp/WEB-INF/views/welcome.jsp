@@ -17,12 +17,8 @@
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/bootstrap.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/font-awesome.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/welcomeform.css">
-    <style>
-
-    </style>
 </head>
 <body>
-
 <div class="topnav" id="myTopnav">
     <a class="navbar-brand" class = "active" href = "/welcome">
             <span>
@@ -39,10 +35,33 @@
         Journal Article</a>
     <a href="/listOfBooksForPatron" style = ""><i class="fa fa-book" aria-hidden="true"></i> Books</a>
     </div>
+
+
+
+    <div class="dropdown3" >
+        <button class="dropbtn3">
+            <i class="fa fa-file-text" aria-hidden="true"></i>
+
+        </button>
+
+        <div class="dropdown-content3" >
+
+            <p><a href="http://38.mchs.gov.ru/document/1396914" style = "width:100%;color:darkred">
+                <i class="fa fa-fire" aria-hidden="true"></i>
+
+                What to Do: Fire Emergency
+                <i class="fa fa-exclamation" aria-hidden="true" style = "color:red;"></i>
+
+            </a></p>
+            <p style = "font-size:20px; color: #f44336">Do not forget receive book until 26.08.2018</p>
+
+        </div>
+    </div>
+
+
     <div class="dropdown2" >
         <button class="dropbtn"><i class="fa fa-user-circle-o" aria-hidden="true"></i>
-
-        ${pageContext.request.userPrincipal.name}
+            ${pageContext.request.userPrincipal.name}
             <i class="fa fa-caret-down"></i>
         </button>
         <div class="dropdown-content2">
@@ -65,6 +84,7 @@
             </c:if>
         </div>
     </div>
+
 
 
 

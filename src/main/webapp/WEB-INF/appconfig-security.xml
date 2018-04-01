@@ -27,6 +27,7 @@
         <intercept-url pattern="/user" access="hasRole('ROLE_USER')"/>
         <intercept-url pattern="/ProfilePage" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')"/>
         <intercept-url pattern="/listOfBooksForPatronGf" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')"/>
+        <intercept-url pattern="/addnewdocument" access="hasRole('ROLE_ADMIN')"/>
 
 
 
