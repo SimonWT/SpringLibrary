@@ -32,6 +32,7 @@
 </head>
 
 <body>
+<%@ include file ="topnav.jsp" %>
 
 <div class="container">
 

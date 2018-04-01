@@ -17,8 +17,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-
-    <title>Books | DeepLib</title>
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/bootstrap.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/font-awesome.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/welcomeform.css">
@@ -34,39 +32,46 @@
         DeepLib
 
     </a>
-    <div class  = "hell">
-        <a href="/listOfAudioVideoMaterialForPatron" style = ""><i class="fa fa-file-audio-o" aria-hidden="true"></i>
-            Media</a>
-        <a href="/listOfArticlesForPatron" style = ""><i class="fa fa-newspaper-o" aria-hidden="true"></i>
-            Journal Article</a>
-        <a href="/listOfBooksForPatron" style = ""><i class="fa fa-book" aria-hidden="true"></i> Books</a>
-    </div>
-
-
-
+    <c:choose>
+        <c:when test="${user.type=='Librarian'}">
+            <div class  = "hell">
+                <a href="/listOfAudioVideoMaterial" style = ""><i class="fa fa-file-audio-o" aria-hidden="true"></i>
+                    Media</a>
+                <a href="/listOfArticles" style = ""><i class="fa fa-newspaper-o" aria-hidden="true"></i>
+                    Journal Article</a>
+                <a href="/listOfBooks" style = ""><i class="fa fa-book" aria-hidden="true"></i> Books</a>
+                <a href="/admin" style = ""><i class="fa fa-user-secret" aria-hidden="true"></i> ADMINKA</a>
+            </div>
+        </c:when>
+        <c:otherwise>
+            <div class  = "hell">
+                <a href="/listOfAudioVideoMaterialForPatron" style = ""><i class="fa fa-file-audio-o" aria-hidden="true"></i>
+                    Media</a>
+                <a href="/listOfArticlesForPatron" style = ""><i class="fa fa-newspaper-o" aria-hidden="true"></i>
+                    Journal Article</a>
+                <a href="/ListOfBooksForPatronGf" style = ""><i class="fa fa-book" aria-hidden="true"></i> Books</a>
+            </div>
+        </c:otherwise>
+    </c:choose>
     <div class="dropdown3" >
         <button class="dropbtn3">
-            <i class="fa fa-file-text" aria-hidden="true"></i>
+            <i class="fa fa-envelope" aria-hidden="true"></i>
 
         </button>
+    <div class="dropdown-content3" >
 
-        <div class="dropdown-content3" >
+        <p><a href="http://38.mchs.gov.ru/document/1396914" style = "width:100%;color:darkred">
+            <i class="fa fa-fire" aria-hidden="true"></i>
 
-            <p><a href="http://38.mchs.gov.ru/document/1396914" style = "width:100%;color:darkred">
-                <i class="fa fa-fire" aria-hidden="true"></i>
+            What to Do: Fire Emergency
+            <i class="fa fa-exclamation" aria-hidden="true" style = "color:red;"></i>
 
-                What to Do: Fire Emergency
-                <i class="fa fa-exclamation" aria-hidden="true" style = "color:red;"></i>
-
-            </a></p>
-            <p style = "font-size:20px; color: #f44336">Do not forget receive book until 26.08.2018</p>
-
-        </div>
+        </a>
     </div>
-
-
+</div>
     <div class="dropdown2" >
         <button class="dropbtn"><i class="fa fa-user-circle-o" aria-hidden="true"></i>
+
             ${pageContext.request.userPrincipal.name}
             <i class="fa fa-caret-down"></i>
         </button>
@@ -91,6 +96,10 @@
         </div>
     </div>
 
+
+
+    <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
+</div>
     <div class="modal" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="cont">
@@ -150,10 +159,16 @@
             </div>
         </div>
     </div>
-
-
-
-    <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
+<script>
+    function myFunction() {
+        var x = document.getElementById("myTopnav");
+        if (x.className === "topnav") {
+            x.className += " responsive";
+        } else {
+            x.className = "topnav";
+        }
+    }
+</script>
     <script src="${contextPath}/resources/jsNew/jquery.js"></script>
     <script src="${contextPath}/resources/jsNew/bootstrap.js"></script>
 </div>

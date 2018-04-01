@@ -23,7 +23,6 @@
 </head>
 <body>
 <%@ include file ="topnav.jsp" %>
-</include>
 <form method="POST">
     <table class="table table-condensed">
         <thead>

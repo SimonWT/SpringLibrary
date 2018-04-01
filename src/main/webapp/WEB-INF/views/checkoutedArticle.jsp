@@ -11,6 +11,8 @@
     <title>My Articles | Deeplib</title>
 </head>
 <body>
+<%@ include file ="topnav.jsp" %>
+
 
 </body>
 </html>
