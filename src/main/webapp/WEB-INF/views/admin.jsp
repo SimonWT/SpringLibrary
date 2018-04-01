@@ -121,16 +121,16 @@
                         <span class = "photprof">
                     <img src="${contextPath}/resources/imgNew/user2.png" height = "auto"; width = "auto";>
 
-                    <p style = "padding-left:25%; padding-top:5%;">ID: YARIKLOH</p>
+                    <p style = "padding-left:25%; padding-top:5%;">Deep Library ID: ${user.username}</p>
                 </span>
                     </div>
                     <div class="cont2">
-                        <p>Katusha Uzbekova</p>
-                        <a href="tel:+79177972480">89177972480</a>
-                        <p><a href="mailto:e.uzbekova@innopolis.ru">
-                            e.uzbekova@innopolis.ru</a></p>
-                        <p>Universitetskaya </p>
-                        <p>1-2,325</p>
+                        <p>${user.name}  ${user.surname}</p>
+                        <a href="tel:${user.phone}">${user.phone}</a>
+                        <p><a href="mailto:${user.email}">
+                            ${user.email}</a></p>
+                        <p>Type: ${user.type}</p>
+
                         <button  style = "background:#8a6d3b; outline:none; border: none; font-size:25px;"><a href="#" style = "color:#ddd8c4">
                             <i class="fa fa-bookmark" aria-hidden="true" style = "padding-right:5px;"></i>My Documents</a></button>
                     </div>

@@ -4,12 +4,10 @@ import net.proselyte.springsecurityapp.model.Booking.History;
 import net.proselyte.springsecurityapp.model.Documents.Article;
 import net.proselyte.springsecurityapp.model.Documents.AudioVideo;
 import net.proselyte.springsecurityapp.model.Documents.Book;
+import net.proselyte.springsecurityapp.model.Documents.Document;
 import net.proselyte.springsecurityapp.model.Users.Patron;
 import net.proselyte.springsecurityapp.model.Users.User;
-import net.proselyte.springsecurityapp.service.BookService;
-import net.proselyte.springsecurityapp.service.DocumentService;
-import net.proselyte.springsecurityapp.service.HistoryService;
-import net.proselyte.springsecurityapp.service.UserService;
+import net.proselyte.springsecurityapp.service.*;
 import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.convert.ReadingConverter;
@@ -21,6 +19,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import sun.util.calendar.BaseCalendar;
 
+import javax.print.Doc;
 import java.security.Principal;
 import java.sql.*;
 import java.time.Year;
@@ -42,6 +41,9 @@ public class BookController {
 
     @Autowired
     private HistoryService historyService;
+
+    @Autowired
+    private QueueService queueService;
 
     public Long getCurrentUserId(){
         String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -181,8 +183,15 @@ public class BookController {
     @RequestMapping("/test/checkOut/{id}")
     public String checkOut(@PathVariable("id") Long docId){
         Long userId = getCurrentUserId();
-        History history = new History(docId, userId, new Date(System.currentTimeMillis()), new Date(System.currentTimeMillis()+190000), 0, 0);
-        historyService.save(history);
+        Document document = docService.getDocumentById(docId);
+        if (document.copies == 0) {
+
+        } else {
+            History history = new History(docId, userId, new Date(System.currentTimeMillis()), new Date(System.currentTimeMillis() + 190000), 0, 0);
+            historyService.save(history);
+            document.copies--;
+            docService.update(document);
+        }
         return "Success";
     }
 
