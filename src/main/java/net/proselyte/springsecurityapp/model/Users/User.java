@@ -143,6 +143,7 @@ public class User {
         assert (this.type.equals(this.getType()));
     }
 
+
     public Set<Role> getRoles() {
         return roles;
     }
@@ -151,6 +152,7 @@ public class User {
         this.roles = roles;
         assert (this.roles.equals(this.getRoles()));
     }
+
 
     @Override
     public String toString() {

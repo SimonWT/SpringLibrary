@@ -23,21 +23,23 @@ import java.util.concurrent.TimeUnit;
 @DiscriminatorValue("Patron")
 public class Patron extends User {
 
-
     @Transient
     private String type; //faculty or student
 
-    private ArrayList <Document> documents; //documents checked by this user
-
+    @Column(name = "address")
     private String address;
+
+    private ArrayList <Document> documents; //documents checked by this user
 
     @Transient
     private Library library;
 
     public Patron(){};
 
-    public Patron(String username, String password, String name, String surname, String phone, String email, String type) {
+    public Patron(String username, String password, String name, String surname, String phone, String email, String type, String type1, String address) {
         super(username, password, name, surname, phone, email, type);
+        this.type = type1;
+        this.address = address;
     }
 
     public void setType(String t){
