@@ -2,39 +2,31 @@
 <%@ page import="java.sql.DriverManager" %>
 <%@ page import="java.sql.Statement" %>
 <%@ page import="java.sql.ResultSet" %>
-<%@ page import="org.springframework.jdbc.datasource.DriverManagerDataSource" %><%--
-  Created by IntelliJ IDEA.
-  Users: Igor
-  Date: 02-Mar-18
-  Time: 3:14 PM
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="org.springframework.jdbc.datasource.DriverManagerDataSource" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-
-    <title>Books | DeepLib</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
 
+    <title>Books | DeepLib</title>
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/bootstrap.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/font-awesome.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/welcomeform.css">
-
+    <link rel="stylesheet" href="${contextPath}/resources/cssNew/listbook.css">
 
 </head>
-<body style = "height:320px;">
-
+<body>
 <div class="topnav" id="myTopnav">
-    <a class="navbar-brand" class = "active" href = "/admin">
+    <a class="navbar-brand" class = "active" href = "/welcome">
             <span>
               <img alt="Brand" style="width: 33.5px"
                    src="http://hasintech.com/favicons/apple-touch-icon-57x57.png">
@@ -49,9 +41,32 @@
             Journal Article</a>
         <a href="/listOfBooksForPatron" style = ""><i class="fa fa-book" aria-hidden="true"></i> Books</a>
     </div>
+
+
+
+    <div class="dropdown3" >
+        <button class="dropbtn3">
+            <i class="fa fa-file-text" aria-hidden="true"></i>
+
+        </button>
+
+        <div class="dropdown-content3" >
+
+            <p><a href="http://38.mchs.gov.ru/document/1396914" style = "width:100%;color:darkred">
+                <i class="fa fa-fire" aria-hidden="true"></i>
+
+                What to Do: Fire Emergency
+                <i class="fa fa-exclamation" aria-hidden="true" style = "color:red;"></i>
+
+            </a></p>
+            <p style = "font-size:20px; color: #f44336">Do not forget receive book until 26.08.2018</p>
+
+        </div>
+    </div>
+
+
     <div class="dropdown2" >
         <button class="dropbtn"><i class="fa fa-user-circle-o" aria-hidden="true"></i>
-
             ${pageContext.request.userPrincipal.name}
             <i class="fa fa-caret-down"></i>
         </button>
@@ -78,13 +93,89 @@
 
 
 
+
     <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
 </div>
-<br>
-
 <form method="POST">
-    <table class="table table-condensed">
-        <tbody>
+    <br>
+    <br>
+    <div class = "row">
+        <div class = "one" style = "float:left; margin-left:2%;">
+    <%
+            try
+            {
+                DriverManagerDataSource dataSource = new DriverManagerDataSource();
+                dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+                dataSource.setUrl("jdbc:mysql://eu-cdbr-west-02.cleardb.net:3306/heroku_f76d6fb9e659782");
+                dataSource.setUsername("baff532465d8d9");
+                dataSource.setPassword("ffa9cd9f");
+                String query="SELECT title FROM books";
+                Connection conn=DriverManager.getConnection(dataSource.getUrl(), dataSource.getUsername(), dataSource.getPassword());
+                Statement stmt=conn.createStatement();
+                ResultSet rs=stmt.executeQuery(query);
+                String rs2;
+                while(rs.next())
+                {   if (rs.getRow()%5 == 1) {
+                    rs2 = rs.getString("title");
+                    %>
+
+            <button class="btn btn-info btn-lg"  style = "background: #f44336; border:1px; height: 100px; text-align: center; width:200px; margin-left:5px; left:0; color: #ddd8c4; font-size:13px;" type="button" data-toggle="modal" data-target="#myModal"><%=rs2%></button>
+
+
+        <br>
+            <br>
+            <br>
+                    <%
+                }
+            }
+
+            rs.close();
+            stmt.close();
+            conn.close();
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+            System.out.println("<h1> error: "+ e.getMessage()+"</h1>");
+        }
+    %>
+        </div>
+        <div class = "two" style = "float:left; margin-left:0;">
+            <%
+                try
+                {
+                    DriverManagerDataSource dataSource = new DriverManagerDataSource();
+                    dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+                    dataSource.setUrl("jdbc:mysql://eu-cdbr-west-02.cleardb.net:3306/heroku_f76d6fb9e659782");
+                    dataSource.setUsername("baff532465d8d9");
+                    dataSource.setPassword("ffa9cd9f");
+                    String query="SELECT title FROM books";
+                    Connection conn=DriverManager.getConnection(dataSource.getUrl(), dataSource.getUsername(), dataSource.getPassword());
+                    Statement stmt=conn.createStatement();
+                    ResultSet rs=stmt.executeQuery(query);
+                    String rs2;
+                    while(rs.next())
+                    {   if (rs.getRow()%5 == 2) {
+                        rs2 = rs.getString("title");
+            %>
+            <button style = "background: #f44336; border:2px;  height:100px; width:200px; text-align:center; margin-left:10px;"><%=rs2%></button>
+            <br>
+            <br>
+            <br>
+            <%
+                        }
+                    }
+
+                    rs.close();
+                    stmt.close();
+                    conn.close();
+                }
+                catch(Exception e) {
+                    e.printStackTrace();
+                    System.out.println("<h1> error: "+ e.getMessage()+"</h1>");
+                }
+            %>
+        </div>
+    <div class = "three" style = "float:left;">
         <%
             try
             {
@@ -97,30 +188,103 @@
                 Connection conn=DriverManager.getConnection(dataSource.getUrl(), dataSource.getUsername(), dataSource.getPassword());
                 Statement stmt=conn.createStatement();
                 ResultSet rs=stmt.executeQuery(query);
+                String rs2;
                 while(rs.next())
-                {
+                {   if (rs.getRow()%5 == 3) {
+                    rs2 = rs.getString("title");
         %>
-
-        <tr>
-        <td><%=rs.getString("title") %></td>
-        </tr>
-        </tbody>
+        <button style = "background: #f44336; border:2px;  height:100px; width:200px; text-align:center; margin-left:10px;"><%=rs2%></button>
+        <br>
+        <br>
+        <br>
         <%
+                    }
+                }
+
+                rs.close();
+                stmt.close();
+                conn.close();
+            }
+            catch(Exception e) {
+                e.printStackTrace();
+                System.out.println("<h1> error: "+ e.getMessage()+"</h1>");
             }
         %>
-    </table>
-    <%
-            rs.close();
-            stmt.close();
-            conn.close();
-        }
-        catch(Exception e) {
-            e.printStackTrace();
-            System.out.println("<h1> error: "+ e.getMessage()+"</h1>");
-        }
-    %>
-</form>
+    </div>
+    <div class = "four" style = "float:left;">
+        <%
+            try
+            {
+                DriverManagerDataSource dataSource = new DriverManagerDataSource();
+                dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+                dataSource.setUrl("jdbc:mysql://eu-cdbr-west-02.cleardb.net:3306/heroku_f76d6fb9e659782");
+                dataSource.setUsername("baff532465d8d9");
+                dataSource.setPassword("ffa9cd9f");
+                String query="SELECT title FROM books";
+                Connection conn=DriverManager.getConnection(dataSource.getUrl(), dataSource.getUsername(), dataSource.getPassword());
+                Statement stmt=conn.createStatement();
+                ResultSet rs=stmt.executeQuery(query);
+                String rs2;
+                while(rs.next())
+                {   if (rs.getRow()%5 == 4) {
+                    rs2 = rs.getString("title");
+        %>
+        <button style = "background: #f44336; border:2px;  height:100px; width:200px; text-align:center; margin-left:10px;"><%=rs2%></button>
+        <br>
+        <br>
+        <br>
+        <%
+                    }
+                }
 
+                rs.close();
+                stmt.close();
+                conn.close();
+            }
+            catch(Exception e) {
+                e.printStackTrace();
+                System.out.println("<h1> error: "+ e.getMessage()+"</h1>");
+            }
+        %>
+    </div>
+        <div class = "five" style = "float:left;">
+            <%
+                try
+                {
+                    DriverManagerDataSource dataSource = new DriverManagerDataSource();
+                    dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+                    dataSource.setUrl("jdbc:mysql://eu-cdbr-west-02.cleardb.net:3306/heroku_f76d6fb9e659782");
+                    dataSource.setUsername("baff532465d8d9");
+                    dataSource.setPassword("ffa9cd9f");
+                    String query="SELECT title FROM books";
+                    Connection conn=DriverManager.getConnection(dataSource.getUrl(), dataSource.getUsername(), dataSource.getPassword());
+                    Statement stmt=conn.createStatement();
+                    ResultSet rs=stmt.executeQuery(query);
+                    String rs2;
+                    while(rs.next())
+                    {   if (rs.getRow()%5 == 0) {
+                        rs2 = rs.getString("title");
+            %>
+            <button style = "background: #f44336; border:2px;  height:100px; width:200px; text-align:center; margin-left:10px;"><%=rs2%></button>
+            <br>
+            <br>
+            <br>
+            <%
+                        }
+                    }
+
+                    rs.close();
+                    stmt.close();
+                    conn.close();
+                }
+                catch(Exception e) {
+                    e.printStackTrace();
+                    System.out.println("<h1> error: "+ e.getMessage()+"</h1>");
+                }
+            %>
+        </div>
+    </div>
+</form>
 <script>
     function myFunction() {
         var x = document.getElementById("myTopnav");
@@ -192,12 +356,23 @@
         </div>
     </div>
 </div>
-
+<div id="myModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header"><button class="close" type="button" data-dismiss="modal"><i class="fa fa-window-close-o" aria-hidden="true" style = "font-size:45px; padding-right:4px;"></i></button>
+            </div>
+            <div class="modal-body">
+                <img src = "${contextPath}/resources/imgNew/user2.png">
+                <p>Title: название книги</p>
+                <p>Edition: издание </p>
+                <p>Authors: авторы</p>
+                <p>Publisher: </p>
+                <p>Publish Year: </p>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="${contextPath}/resources/jsNew/jquery.js"></script>
 <script src="${contextPath}/resources/jsNew/bootstrap.js"></script>
-
-<script src="${contextPath}/resources/jsNew/jquery.js"></script>
-<script src="${contextPath}/resources/jsNew/bootstrap.js"></script>
-<script src="${contextPath}/resources/jsNew/scripts.js"></script>
 </body>
 </html>

@@ -46,6 +46,8 @@ public class Document {
     private int overdue;
     @Transient
     public PriorityQueue<Patron> queue;
+    @Transient
+    private int status;
 
 
     //public Document( String title, int price, ArrayList<String> authors, ArrayList<String> keys) {
@@ -136,6 +138,14 @@ public class Document {
     public int getDue(){return daysRemained;}
     public int getFine(){return fine;}
     public int getOverdue() { return overdue; }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
     public Date getDueDate(){
         Calendar calendar = Calendar.getInstance();

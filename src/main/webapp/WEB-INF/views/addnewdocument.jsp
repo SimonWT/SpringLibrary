@@ -1,26 +1,31 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: Катя
+  Date: 01.04.2018
+  Time: 10:28
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-
-    <title>Admin Page | DeepLib</title>
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/bootstrap.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/font-awesome.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/welcomeform.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/admin.css">
-
-
+    <title>Add New Document | DeepLib</title>
 </head>
-<body style = "height:320px;">
+<body>
 
 <div class="topnav" id="myTopnav">
     <a class="navbar-brand" class = "active" href = "/admin">
@@ -56,7 +61,7 @@
 
             </a></p>
             <p style = "font-size:20px; color: #4CAF50; text-align: center"><i class="fa fa-plus" aria-hidden="true" style = "color:darkred"></i>
-                 New User : <i class="fa fa-female" aria-hidden="true"></i>
+                New User : <i class="fa fa-female" aria-hidden="true"></i>
             </p>
 
         </div>
@@ -106,16 +111,16 @@
     <div class="alert2" align = "center">
 
         <div class = "row" >
-           <a href="/registration" > <button  class = "form1" >Register somebody  </button></a>
+            <a href="/registration" > <button  class = "form1" >Register somebody  </button></a>
             <a href="/listOfUsers"> <button class = "form2">View users</button> </a>
         </div>
         <br>
         <div class = "row" >
-            <a href="/addnewdocument"> <button  class = "form3" >Add New Document  </button></a>
+            <a href="/registration"> <button  class = "form3" >Add New Document  </button></a>
             <a href="/listOfDocumets"> <button class = "form4">View Documets</button></a>
         </div>
-        </div>
     </div>
+</div>
 </div>
 <script>
     function myFunction() {
@@ -143,16 +148,16 @@
                         <span class = "photprof">
                     <img src="${contextPath}/resources/imgNew/user2.png" height = "auto"; width = "auto";>
 
-                    <p style = "padding-left:25%; padding-top:5%;">Deep Library ID: ${user.username}</p>
+                    <p style = "padding-left:25%; padding-top:5%;">ID: YARIKLOH</p>
                 </span>
                     </div>
                     <div class="cont2">
-                        <p>${user.name}  ${user.surname}</p>
-                        <a href="tel:${user.phone}">${user.phone}</a>
-                        <p><a href="mailto:${user.email}">
-                            ${user.email}</a></p>
-                        <p>Type: ${user.type}</p>
-
+                        <p>Katusha Uzbekova</p>
+                        <a href="tel:+79177972480">89177972480</a>
+                        <p><a href="mailto:e.uzbekova@innopolis.ru">
+                            e.uzbekova@innopolis.ru</a></p>
+                        <p>Universitetskaya </p>
+                        <p>1-2,325</p>
                         <button  style = "background:#8a6d3b; outline:none; border: none; font-size:25px;"><a href="#" style = "color:#ddd8c4">
                             <i class="fa fa-bookmark" aria-hidden="true" style = "padding-right:5px;"></i>My Documents</a></button>
                     </div>

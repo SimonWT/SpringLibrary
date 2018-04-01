@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface HistoryDao extends JpaRepository<History, Long> {
     History getHistoryById(Long id);
-
     List<History> findAllByUserId(Long id);
+    History getHistoryByUserIdAndDocId(Long userId, Long docId);
 
 }

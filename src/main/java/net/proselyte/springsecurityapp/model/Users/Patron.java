@@ -23,26 +23,21 @@ import java.util.concurrent.TimeUnit;
 @DiscriminatorValue("Patron")
 public class Patron extends User {
 
-
-    @Transient
-    private String type; //faculty or student
+    @Column(name = "address")
+    private String address;
 
     private ArrayList <Document> documents; //documents checked by this user
-
-    private String address;
 
     @Transient
     private Library library;
 
     public Patron(){};
 
-    public Patron(String username, String password, String name, String surname, String phone, String email, String type) {
+    public Patron(String username, String password, String name, String surname, String phone, String email, String type, String address) {
         super(username, password, name, surname, phone, email, type);
+        this.address = address;
     }
 
-    public void setType(String t){
-        type = t;
-    }
 
     public void checkout(Document doc){
         if (!library.getPatrons().contains(this)){
@@ -112,7 +107,4 @@ public class Patron extends User {
         this.address = address;
     }
 
-    public String getType() {
-        return type;
-    }
 }

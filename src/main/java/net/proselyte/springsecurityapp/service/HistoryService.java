@@ -9,5 +9,6 @@ public interface HistoryService {
     List<History> getListOfHistoryByUser(Long id);
     void updateHistory(History history);
     void save(History history);
+    History getHistoryByIdAndDocId(Long userId, Long dicId);
 
 }

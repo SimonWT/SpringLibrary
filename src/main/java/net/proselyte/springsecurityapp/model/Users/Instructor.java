@@ -9,7 +9,7 @@ public class Instructor extends Faculty {
     public Instructor() {
     }
 
-    public Instructor(String username, String password, String name, String surname, String phone, String email, String type) {
-        super(username, password, name, surname, phone, email, type);
+    public Instructor(String username, String password, String name, String surname, String phone, String email, String type, String address) {
+        super(username, password, name, surname, phone, email, type, address);
     }
 }
