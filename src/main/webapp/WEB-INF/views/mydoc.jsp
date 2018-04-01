@@ -11,6 +11,7 @@
     <title>Title</title>
 </head>
 <body>
+<%@ include file ="topnav.jsp" %>
 
 </body>
 </html>

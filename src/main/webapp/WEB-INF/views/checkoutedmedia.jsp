@@ -11,6 +11,7 @@
     <title>My Media | DeepLib</title>
 </head>
 <body>
+<%@ include file ="topnav.jsp" %>
 
 </body>
 </html>

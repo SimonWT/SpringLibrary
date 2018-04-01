@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/font-awesome.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/loginform.css"></head>
 <body>
+<%@ include file ="topnav.jsp" %>
 
 <form method="POST">
     <table class="table table-condensed">
