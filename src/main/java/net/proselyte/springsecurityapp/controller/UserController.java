@@ -97,6 +97,7 @@ public class UserController {
 
         //userService.save(userForm);
         bookService.save(bookForm);
+
         /*
             this action authorizate new user after addition (it is useful in our case, but let it be here)
          */
@@ -129,6 +130,7 @@ public class UserController {
         //securityService.autoLogin(userForm.getUsername(), userForm.getConfirmPassword());
 
         return "redirect:/admin";
+
     }
 
     @RequestMapping(value = "/addAudioVideoMaterial", method = RequestMethod.GET)
@@ -174,8 +176,8 @@ public class UserController {
             return "registration";
         }
 
-
         userService.save(userForm);
+
         /*
             this action authorizate new user after addition (it is useful in our case, but let it be here)
          */
@@ -191,9 +193,9 @@ public class UserController {
     }
     @RequestMapping(value = "/ProfilePage", method = RequestMethod.POST)
     public String ProfilePage (@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
-        userValidator.validate(userForm, bindingResult);
+          userValidator.validate(userForm, bindingResult);
 
-            return "ProfilePage";
+          return "ProfilePage";
 
     }
     @RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -202,8 +204,6 @@ public class UserController {
         if (error != null) {
             model.addAttribute("error", "Username or password is incorrect.");
         }
-
-
 
         return "login";
     }

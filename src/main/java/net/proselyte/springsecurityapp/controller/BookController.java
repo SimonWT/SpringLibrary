@@ -4,6 +4,7 @@ import net.proselyte.springsecurityapp.model.Booking.History;
 import net.proselyte.springsecurityapp.model.Documents.Article;
 import net.proselyte.springsecurityapp.model.Documents.AudioVideo;
 import net.proselyte.springsecurityapp.model.Documents.Book;
+import net.proselyte.springsecurityapp.model.Documents.Document;
 import net.proselyte.springsecurityapp.model.Users.Patron;
 import net.proselyte.springsecurityapp.model.Users.User;
 import net.proselyte.springsecurityapp.service.BookService;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import sun.util.calendar.BaseCalendar;
 
 import java.security.Principal;
@@ -52,26 +54,55 @@ public class BookController {
 
     @RequestMapping(value = "/editBook/{id}", method = RequestMethod.GET)
     public String editInfo(@PathVariable("id") Long id , Model model) {
-        Book book = bookService.getBookById(id);
+        Document doc = docService.getDocumentById(id);
 
-        if(book!=null)
-            logger.info("Book got by ID: "+book.toString());
+        if(doc!=null)
+            logger.info("Book got by ID: "+doc.toString());
 
-        model.addAttribute("bookForm", book);
+        model.addAttribute("bookForm", doc);
 
         return "editBook";
     }
 
     @RequestMapping(value = "/editBook/{id}",method = RequestMethod.POST)
     public String editInfo(@ModelAttribute("bookForm") Book bookForm, BindingResult bindingResult, Model model){
-        bookService.update(bookForm);
-
+        docService.update(bookForm);
         logger.info("Book updated: "+ bookForm.toString());
         return "redirect:/listOfBooks";
     }
 
+    @RequestMapping(value = "/book/{bookId}", method = RequestMethod.POST)
+    public String book(@PathVariable Long bookId){
+        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.findByUsername(currentUser);
+        Long userId = user.getId();
+        History userHistory = historyService.getHistoryByIdAndDocId(userId, bookId);
+        int status = userHistory.getStatus();
+
+        return "Success";
+    }
+
     @RequestMapping(value = "/listOfBooksForPatron", method = RequestMethod.GET)
-    public String listOfBooksForPatron() {
+    public String listOfBooksForPatron(ModelAndView modelAndView) {
+
+        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.findByUsername(currentUser);
+        Long userId = user.getId();
+        List<Book> bookList = docService.getListOfBook();
+
+        for(Book book: bookList){
+            Long bookId = book.getId();
+            History userHistory = historyService.getHistoryByIdAndDocId(userId, bookId);
+            int status = userHistory.getStatus();
+            if(status != 0 ){
+                if(book.getCopies() == 0) status = 2; //Go to Queue
+                else status = 3;                      //Simple CheckOut
+            }  //else Renew + Return
+
+            book.setStatus(status);
+        }
+
+       modelAndView.addObject(bookList);
         return "listOfBooksForPatron";
     }
 
