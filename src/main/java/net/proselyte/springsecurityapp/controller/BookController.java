@@ -146,7 +146,7 @@ public class BookController {
 
     @RequestMapping("/reg/Pat")
     public String regPat(){
-        User user = new Patron("TestInh","TestInh","TestInh","TestInh","TestInh","TestInh");
+        User user = new Patron("TestInh","TestInh","TestInh","TestInh","TestInh","TestInh","TestInh");
         userService.save(user);
         return "SUCCESS";
     }
