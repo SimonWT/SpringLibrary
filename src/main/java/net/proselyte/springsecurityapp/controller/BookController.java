@@ -97,8 +97,7 @@ public class BookController {
             if(status != 0 ){
                 if(book.getCopies() == 0) status = 2; //Go to Queue
                 else status = 3;                      //Simple CheckOut
-            }  //else Renew + Return
-
+            }                                         //else Renew + Return
             book.setStatus(status);
         }
 

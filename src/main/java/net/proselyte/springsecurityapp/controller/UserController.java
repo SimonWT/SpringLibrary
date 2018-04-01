@@ -1,8 +1,10 @@
 package net.proselyte.springsecurityapp.controller;
 
+import net.proselyte.springsecurityapp.model.Booking.History;
 import net.proselyte.springsecurityapp.model.Documents.Article;
 import net.proselyte.springsecurityapp.model.Documents.AudioVideo;
 import net.proselyte.springsecurityapp.model.Documents.Book;
+import net.proselyte.springsecurityapp.model.Documents.Document;
 import net.proselyte.springsecurityapp.model.Users.Patron;
 import net.proselyte.springsecurityapp.model.Users.User;
 import net.proselyte.springsecurityapp.service.*;
@@ -18,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
 import java.util.List;
@@ -63,6 +66,9 @@ public class UserController {
 
     @Autowired
     private AudioVideoValidator audioVideoValidator;
+
+    @Autowired
+    private HistoryService historyService;
 
     @RequestMapping(value = "/test/inh", method = RequestMethod.GET )
     public String testInh(Model model){
@@ -278,6 +284,28 @@ public class UserController {
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public String user(Model model) { return "user"; }
 
+
+    @RequestMapping(value = "/mydoc/", method = RequestMethod.GET)
+    public String history(ModelAndView modelAndView){
+        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.findByUsername(currentUser);
+        Long userId = user.getId();
+        List<History> historyList = historyService.getListOfHistoryByUser(userId);
+        for(History history: historyList){
+            Document document = history.getDocument();
+            int status = history.getStatus();
+            if(status != 0 ){
+                if(document.getCopies() == 0) status = 2; //Go to Queue
+                else status = 3;                      //Simple CheckOut
+            }                                         //else Renew + Return
+            document.setStatus(status);
+            history.setDocument(document);
+        }
+
+        modelAndView.addObject(historyList);
+        return  "/mydoc/";
+    }
+
     @RequestMapping("/test/listOfPatrons/")
     public String listOfPatrons(){
         String result="";
@@ -285,6 +313,8 @@ public class UserController {
         for (int i=0; i<patrons.size(); i++) result += patrons.get(i).toString();
         return result;
     }
+
+
 
 
 }
