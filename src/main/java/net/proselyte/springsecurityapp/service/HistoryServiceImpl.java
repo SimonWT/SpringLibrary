@@ -32,5 +32,10 @@ public class HistoryServiceImpl implements HistoryService {
         historyDao.save(history);
     }
 
+    @Override
+    public History getHistoryByIdAndDocId(Long userId, Long dicId) {
+        return historyDao.getHistoryByUserIdAndDocId(userId, dicId);
+    }
+
 
 }
