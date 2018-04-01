@@ -31,6 +31,7 @@
 
 
 <body>
+
 <nav class="navbar navbar-static-top" style="background-color: #A52A2A;">
     <a href = "/welcome" class="navbar-brand" style="background-color: #A52A2A; " >DeepLib</a>
 
