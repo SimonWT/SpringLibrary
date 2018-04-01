@@ -194,7 +194,7 @@ public class TestCases_07_03 {
 
     @Test
     public static void testCase9(){
-        List<Patron> patrons = librarian.userDao.getPatrons();
+        List<Patron> patrons = librarian.userDao.getAllPatrons();
         System.out.println("Patrons:");
         for (int i = patrons.size() - 3; i < patrons.size(); i++){
             System.out.println(patrons.get(i).getName());

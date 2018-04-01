@@ -8,7 +8,6 @@ import net.proselyte.springsecurityapp.model.Users.Patron;
 import java.util.List;
 
 public class test {
-    public static UserDao userDao = new UserDaoImpl();
     public static DocDao docDao = new DocDaoImpl();
 
 
