@@ -33,6 +33,7 @@
         <th>Username</th>
         <th>Phone number</th>
         <th>Email</th>
+        <th>Type</th>
         <th>View</th>
     </tr>
     </thead>
@@ -45,7 +46,7 @@
             dataSource.setUrl("jdbc:mysql://eu-cdbr-west-02.cleardb.net:3306/heroku_f76d6fb9e659782");
             dataSource.setUsername("baff532465d8d9");
             dataSource.setPassword("ffa9cd9f");
-            String query="SELECT id, name, surname, username, phone, email FROM users";
+            String query="SELECT id, name, surname, username, phone, email, type FROM users";
             Connection conn=DriverManager.getConnection(dataSource.getUrl(), dataSource.getUsername(), dataSource.getPassword());
             Statement stmt=conn.createStatement();
             ResultSet rs=stmt.executeQuery(query);
@@ -59,6 +60,7 @@
         <td><%=rs.getString("username") %></td>
         <td><%=rs.getString("phone") %></td>
         <td><%=rs.getString("email") %></td>
+        <td><%=rs.getString("type") %></td>
         <td><a href="/editUser/<%=rs.getLong("id")%>">Modify</a><a href="/deleteUser/<%=rs.getLong("id")%>">Delete</a></td>
 
 

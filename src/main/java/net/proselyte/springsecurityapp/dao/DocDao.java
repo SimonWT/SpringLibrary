@@ -13,6 +13,9 @@ import java.util.List;
 public interface DocDao  extends JpaRepository<Document, Long> {
     Document getDocumentById(Long id);
 
+    @Query("select u from Book u where id = id")
+    Book getBookById(Long id);
+
     @Query("select u from Book u")
     List<Book> getAllBooks();
 

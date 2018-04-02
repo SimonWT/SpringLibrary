@@ -67,6 +67,7 @@ public class BookController {
 
     @RequestMapping(value = "/editBook/{id}",method = RequestMethod.POST)
     public String editInfo(@ModelAttribute("bookForm") Book bookForm, BindingResult bindingResult, Model model){
+
         docService.update(bookForm);
         logger.info("Book updated: "+ bookForm.toString());
         return "redirect:/listOfBooks";
@@ -180,7 +181,7 @@ public class BookController {
 
     @RequestMapping("/deleteBook/{id}")
     public String deleteBook(@PathVariable("id") Long id){
-        bookService.delete(id);
+        docService.delete(id);
 
         return "redirect:/listOfBooks";
     }
@@ -194,7 +195,7 @@ public class BookController {
 
     @RequestMapping("/test/addBook")
     public String testAddBook(){
-        Book book = new Book(2,"F*cking Awesome", 89,"Yarik", "The Verge", true, new Date(2007-1900, 0, 0) ,2 );
+        Book book = new Book(69,"SexLoveSlavs", 1488,"Yarik", "Innopolis", true, new Date(2017-1900, 0, 0) ,6 );
         docService.save(book);
         return "Success adding Book";
     }

@@ -37,45 +37,22 @@
         </tr>
         </thead>
         <tbody>
-        <%
-            try
-            {
-                DriverManagerDataSource dataSource = new DriverManagerDataSource();
-                dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-                dataSource.setUrl("jdbc:mysql://eu-cdbr-west-02.cleardb.net:3306/heroku_f76d6fb9e659782");
-                dataSource.setUsername("baff532465d8d9");
-                dataSource.setPassword("ffa9cd9f");
-                String query="SELECT id, author, title, price, copies FROM audio_video";
-                Connection conn=DriverManager.getConnection(dataSource.getUrl(), dataSource.getUsername(), dataSource.getPassword());
-                Statement stmt=conn.createStatement();
-                ResultSet rs=stmt.executeQuery(query);
-                while(rs.next())
-                {
-        %>
 
 
-        <td><%=rs.getString("author") %></td>
-        <td><%=rs.getString("title") %></td>
-        <td><%=rs.getString("price") %></td>
-        <td><%=rs.getString("copies") %></td>
-        <td><a href="/editAudioVideo/<%=rs.getLong("id")%>">Modify</a><a href="/deleteAudioVideo/<%=rs.getLong("id")%>">Delete</a></td>
-
+        <c:forEach items="${audioVideoList}" var="av">
+        <tr>
+        <td>${av.authors}</td>
+        <td>${av.title}</td>
+        <td>${av.price}</td>
+        <td>${av.copies}</td>
+        <td><a href="/editAudioVideo/${av.id}">Edit</a><a href="/deleteAudioVideo/${av.id}">Delete</a></td>
+        </tr>
+        </c:forEach>
 
         </tbody>
-        <%
-            }
-        %>
+
     </table>
-    <%
-            rs.close();
-            stmt.close();
-            conn.close();
-        }
-        catch(Exception e) {
-            e.printStackTrace();
-            System.out.println("<h1> error: "+ e.getMessage()+"</h1>");
-        }
-    %>
+
 </form>
 
 
