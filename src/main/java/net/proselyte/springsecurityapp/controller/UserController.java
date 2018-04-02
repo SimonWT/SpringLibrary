@@ -343,9 +343,6 @@ public class UserController {
         Long userId = user.getId();
 
         if(user instanceof Patron){
-            Library library = new Library();
-            library.patrons.add((Patron) user);
-            ((Patron) user).setLibrary(library);
             ((Patron) user).setDocumentService(documentService);
             ((Patron) user).setHistoryService(historyService);
             int status = ((Patron) user).checkout(documentService.getDocumentById(docId));
