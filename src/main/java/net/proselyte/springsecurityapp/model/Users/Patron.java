@@ -64,7 +64,7 @@ public class Patron extends User {
             System.out.println("You have not registered in system. Ask librarian to register you in system");
             return 1;
         }
-        //TODO: Check branches
+        //TODO: Check branches, Copies of Doc -1
         if (historyService.getHistoryByIdAndDocId(getId(),doc.getId()).getStatus() == 0 ){
             System.out.println("user " + getName() + " already have this document");
             return 2;
@@ -74,6 +74,7 @@ public class Patron extends User {
             History h = historyService.getHistoryByIdAndDocId(this.getId(), doc.getId());
             h.status = 1;
             historyService.updateHistory(h);
+            doc.setCopies(doc.getCopies()-1);
             documentService.update(doc);
 
             //doc.patron = this;
@@ -96,6 +97,7 @@ public class Patron extends User {
                 }
             }
             checkedDoc.setCheckoutDate(new Date());
+
             historyService.save(new History(checkedDoc.getId(), getId(), new Date(System.currentTimeMillis()), checkedDoc.getDueDate(), 0, 0));
             System.out.println("The book \"" + doc.getTitle() + "\" are checked out by " + getName());
             return 0;
@@ -110,7 +112,7 @@ public class Patron extends User {
         }
     }
 
-    public void toReturn(Document doc){
+    public int toReturn(Document doc){
         History h = historyService.getHistoryByIdAndDocId(this.getId(), doc.getId());
         h.status = 0;
         historyService.updateHistory(h);
@@ -121,11 +123,14 @@ public class Patron extends User {
         int difDays = (int)TimeUnit.DAYS.convert(dif, TimeUnit.MILLISECONDS);
         if (difDays > doc.getDue()){
             doc.setOverdue(difDays - doc.getDue());
-            if (100 * (difDays - doc.getDue()) < doc.getPrice())
+            if (100 * (difDays - doc.getDue()) < doc.getPrice()) {
                 doc.setFine(100 * (difDays - doc.getDue()));
-            else
+                return 1;
+            }else
                 doc.setFine(doc.getPrice());
+                return 2;
         }
+        return 0;
     }
 
     public List<Document> getDocuments() {
