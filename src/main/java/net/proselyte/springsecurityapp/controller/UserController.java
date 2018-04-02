@@ -315,7 +315,7 @@ public class UserController {
     public String user(Model model) { return "user"; }
 
 
-    @RequestMapping(value = "/mydoc/", method = RequestMethod.GET)
+    @RequestMapping(value = "/mydoc", method = RequestMethod.GET)
     public String history(ModelAndView modelAndView){
         String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userService.findByUsername(currentUser);
@@ -333,7 +333,7 @@ public class UserController {
         }
 
         modelAndView.addObject(historyList);
-        return  "/mydoc/";
+        return  "mydoc";
     }
 
     @RequestMapping(value = "/booking/{docId}")

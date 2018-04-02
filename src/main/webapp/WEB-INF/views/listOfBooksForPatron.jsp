@@ -12,6 +12,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -23,6 +24,8 @@
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/font-awesome.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/welcomeform.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/listbook.css">
+
+    <sec:csrfMetaTags/>
 
 </head>
 <body>
@@ -71,8 +74,8 @@
 
                             <c:if test="${book.status==0}" >
                             <div style = "float:left; margin-left:4%;">
-                                <button>
-                                    Return back </button>
+                                <a href="/return/${book.id}"><button>
+                                    Return back </button></a>
                             </div>
                             <div style = "float:left; margin-left:4%">
                                 <button>
@@ -80,17 +83,16 @@
                             </div>
                             </c:if>
 
-                            <c:if test="${book.status==2}" >
+                            <c:if test="${book.status==2}">
                             <div style = "float:right; margin-right:4%">
-                                <button >
-                                    Queue  </button>
+                                <button> Queue  </button>
                             </div>
+
                             </c:if>
 
                             <c:if test="${book.status==3}" >
                             <div style = "float:right; margin-right:4%">
-                                <button href="/booking/${book.id}">
-                                    Book  </button>
+                                <a href="/booking/${book.id}"><button> Book  </button></a>
                             </div>
                             </c:if>
                         </div>

@@ -235,6 +235,11 @@ public class BookController {
         return "Success";
     }
 
+    @RequestMapping("/addnewdocument")
+    public String addNewDocument(){
+        return "addnewdocument";
+    }
+
     @RequestMapping("/test/getHistory/")
     public String getHistory(){
         System.out.println(historyService.getListOfHistoryByUser(Integer.toUnsignedLong(71)).get(0).getUserId());
