@@ -17,8 +17,8 @@ import java.util.PriorityQueue;
  */
 public class Library {
     public ArrayList<Librarian> librarians;
-    private ArrayList<Patron> patrons;
-    private ArrayList<Document> documents;
+    public ArrayList<Patron> patrons;
+    public ArrayList<Document> documents;
 
     public List<Document> getDocuments() {
         return librarians.get(0).docDao.getDocuments();
