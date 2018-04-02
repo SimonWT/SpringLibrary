@@ -3,12 +3,11 @@ package net.proselyte.springsecurityapp.model.Users;
 import jdk.nashorn.internal.ir.annotations.Ignore;
 import net.proselyte.springsecurityapp.dao.ForTesting.DocDao;
 import net.proselyte.springsecurityapp.dao.ForTesting.DocDaoImpl;
-import net.proselyte.springsecurityapp.dao.ForTesting.UserDao;
-import net.proselyte.springsecurityapp.dao.ForTesting.UserDaoImpl;
 import net.proselyte.springsecurityapp.model.Documents.AudioVideo;
 import net.proselyte.springsecurityapp.model.Documents.Book;
 import net.proselyte.springsecurityapp.model.Documents.Document;
 import net.proselyte.springsecurityapp.model.Library.Library;
+import net.proselyte.springsecurityapp.service.UserService;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -30,7 +29,7 @@ public class Librarian extends User {
     public Library library;
 
     @Transient
-    public UserDao userDao = new UserDaoImpl();
+    public UserService userDao;
 
     @Transient
     public DocDao docDao = new DocDaoImpl();
@@ -38,7 +37,7 @@ public class Librarian extends User {
     public void addPatron(Patron newPatron){
         library.patrons.add(newPatron);
         //newPatron.library = library;
-        userDao.addUser(newPatron);
+        userDao.save(newPatron);
     }
 
     public void removePatron(String name, String phoneNumber){
@@ -53,8 +52,8 @@ public class Librarian extends User {
         library = new Library();
     }
 
-    public Librarian(String username, String password, String name, String surname, String phone, String email) {
-        super(username, password, name, surname, phone, email);
+    public Librarian(String username, String password, String name, String surname, String phone, String email, String type) {
+        super(username, password, name, surname, phone, email, type);
     }
 
     public void addDoc(Document doc, int copiesAmount){

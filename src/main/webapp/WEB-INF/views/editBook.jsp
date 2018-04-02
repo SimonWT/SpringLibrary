@@ -35,6 +35,8 @@
     </style>
 </head>
 <body>
+<%@ include file ="topnav.jsp" %>
+
   <div class="container">
         <form:form method="POST" modelAttribute="bookForm" class="form-signin">
           <h2 class="form-signin-heading">Edit a book</h2>

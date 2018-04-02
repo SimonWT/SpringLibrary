@@ -27,6 +27,7 @@
 <body>
 
 <div class="container">
+    <%@ include file ="topnav.jsp" %>
 
     <form:form method="POST" modelAttribute="userForm" class="form-signin">
         <h2 class="form-signin-heading">Edit a User</h2>

@@ -16,6 +16,8 @@
     <title>My Books | DeepLib</title>
 </head>
 <body>
+<%@ include file ="topnav.jsp" %>
+
 <h3><a href="/welcome">Back</a></h3>
 <c:if test="${!empty listOfbooks}">
     <table class="tg">

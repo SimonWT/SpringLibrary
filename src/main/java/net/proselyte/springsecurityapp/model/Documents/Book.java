@@ -25,21 +25,66 @@ public class Book extends Document {
     @Transient
     private Date checkoutDate;
 
-////    @Id
-////    @GeneratedValue(strategy = GenerationType.AUTO)
-////    private Long id;
-//
-//    @Column(name = "title")
-//    private String title;
-//
-//    @Column(name = "author")
-//    private String author;
+
 
     @Column(name = "year")
-    private java.sql.Date year;
+    private Date year;
 
     @Column(name = "edition")
     private int edition;
+
+    public boolean isBestSeller() {
+        return bestSeller;
+    }
+
+    public Date getYear() {
+        return year;
+    }
+
+    public void setYear(Date year) {
+        this.year = year;
+    }
+
+    public int getEdition() {
+        return edition;
+    }
+
+    public void setEdition(int edition) {
+        this.edition = edition;
+        assert(this.edition == this.getEdition());
+    }
+
+
+
+    public void setBestSeller(boolean bestSeller) {
+        this.bestSeller = bestSeller;
+        assert(this.bestSeller == this.isBestSeller());
+    }
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
+
+
+    public Book(int copies, String title, int price, String authors, String publisher, boolean bestSeller, Date year, int edition) {
+        super(copies, title, price, authors);
+        this.publisher = publisher;
+        this.bestSeller = bestSeller;
+        this.year = year;
+        this.edition = edition;
+    }
+
+
+
+
+    public Book() {
+
+    }
 
 //    @Column(name = "price")
 //    private int price;
@@ -60,43 +105,27 @@ public class Book extends Document {
 //        return title;
 //    }
 
-    public boolean isBestSeller() {
-        return bestSeller;
-    }
-
-//    public void setTitle(String title) {
+//    @Override
+//    public Book toCopy(){
+//        Book copy = new Book(id, title, super.authors, year, edition, price, copies--);
+//        copy.setOverdue(this.getOverdue());
+//        copy.setFine(this.getFine());
+//        copy.checkoutDate = checkoutDate;
+//        copy.setDue(this.getDue());
+//        copy.setBestSeller(bestSeller);
+//        //this.copies--;
+//        return copy;
+//    }
+//    public Book(Long id, String title, String author, String year, int edition, int price, int copies) {
+//        this.id = id;
 //        this.title = title;
-//        assert(this.title.equals(this.getTitle()));
-//    }
-
-//    public String getAuthor() {
-//        return author;
-//    }
-//
-//    public void setAuthor(String author) {
 //        this.author = author;
-//        assert(this.author.equals(this.getAuthor()));
+//        this.year = year;
+//        this.edition = edition;
+//        this.price = price;
+//        this.copies = copies;
 //    }
-
-
-    public java.sql.Date getYear() {
-        return year;
-    }
-
-    public void setYear(java.sql.Date year) {
-        this.year = year;
-    }
-
-    public int getEdition() {
-        return edition;
-    }
-
-    public void setEdition(int edition) {
-        this.edition = edition;
-        assert(this.edition == this.getEdition());
-    }
-
-//    public int getPrice() {
+    //    public int getPrice() {
 //        return price;
 //    }
 //
@@ -113,66 +142,59 @@ public class Book extends Document {
 //        this.copies = copies;
 //        assert(this.copies == this.getCopies());
 //    }
+//////    @Id
+//////    @GeneratedValue(strategy = GenerationType.AUTO)
+//////    private Long id;
+////
+////    @Column(name = "title")
+////    private String title;
+////
+////    @Column(name = "author")
+////    private String author;
+//    @Column(name = "price")
+//    private int price;
+//
+//    @Column(name = "copies")
+//    private int copies;
 
-    public void setBestSeller(boolean bestSeller) {
-        this.bestSeller = bestSeller;
-        assert(this.bestSeller == this.isBestSeller());
-    }
+//    public Long getId() {
+//        return id;
+//    }
 
-    public String getPublisher() {
-        return publisher;
-    }
-
-    public void setPublisher(String publisher) {
-        this.publisher = publisher;
-    }
-
-    //    public Book(Long id, String title, String author, String year, int edition, int price, int copies) {
+//    public void setId(Long id) {
 //        this.id = id;
+//        assert(this.id.equals(this.getId()));
+//    }
+
+//    public String getTitle() {
+//        return title;
+//    }
+//    public void setTitle(String title) {
 //        this.title = title;
+//        assert(this.title.equals(this.getTitle()));
+//    }
+
+    //    public String getAuthor() {
+//        return author;
+//    }
+//
+//    public void setAuthor(String author) {
 //        this.author = author;
-//        this.year = year;
-//        this.edition = edition;
-//        this.price = price;
-//        this.copies = copies;
+//        assert(this.author.equals(this.getAuthor()));
 //    }
 
-    public Book(int copies, String title, int price, String authors, String publisher, boolean bestSeller, java.sql.Date year, int edition) {
-        super(copies, title, price, authors);
-        this.publisher = publisher;
-        this.bestSeller = bestSeller;
-        this.year = year;
-        this.edition = edition;
+    @Override
+    public String toString() {
+        return "Book{" +
+                "publisher='" + publisher + '\'' +
+                ", bestSeller=" + bestSeller +
+                ", year=" + year +
+                ", edition=" + edition +
+                ", id=" + id +
+                ", copies=" + copies +
+                ", title='" + title + '\'' +
+                ", price=" + price +
+                ", authors='" + authors + '\'' +
+                '}';
     }
-
-
-//    @Override
-//    public Book toCopy(){
-//        Book copy = new Book(id, title, super.authors, year, edition, price, copies--);
-//        copy.setOverdue(this.getOverdue());
-//        copy.setFine(this.getFine());
-//        copy.checkoutDate = checkoutDate;
-//        copy.setDue(this.getDue());
-//        copy.setBestSeller(bestSeller);
-//        //this.copies--;
-//        return copy;
-//    }
-
-    public Book() {
-
-    }
-
-
-//    @Override
-//    public String toString() {
-//        return "Book{" +
-//                "id=" + id +
-//                ", title='" + title + '\'' +
-//                ", author='" + author + '\'' +
-//                ", year='" + year + '\'' +
-//                ", edition=" + edition +
-//                ", price=" + price +
-//                ", copies=" + copies +
-//                '}';
-//    }
 }

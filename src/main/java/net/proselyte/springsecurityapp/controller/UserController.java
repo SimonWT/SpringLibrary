@@ -1,8 +1,10 @@
 package net.proselyte.springsecurityapp.controller;
 
+import net.proselyte.springsecurityapp.model.Booking.History;
 import net.proselyte.springsecurityapp.model.Documents.Article;
 import net.proselyte.springsecurityapp.model.Documents.AudioVideo;
 import net.proselyte.springsecurityapp.model.Documents.Book;
+import net.proselyte.springsecurityapp.model.Documents.Document;
 import net.proselyte.springsecurityapp.model.Users.Patron;
 import net.proselyte.springsecurityapp.model.Users.User;
 import net.proselyte.springsecurityapp.service.*;
@@ -18,8 +20,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Controller for {@link User}'s pages.
@@ -63,6 +69,9 @@ public class UserController {
     @Autowired
     private AudioVideoValidator audioVideoValidator;
 
+    @Autowired
+    private HistoryService historyService;
+
     @RequestMapping(value = "/test/inh", method = RequestMethod.GET )
     public String testInh(Model model){
 
@@ -96,6 +105,7 @@ public class UserController {
 
         //userService.save(userForm);
         bookService.save(bookForm);
+
         /*
             this action authorizate new user after addition (it is useful in our case, but let it be here)
          */
@@ -128,6 +138,7 @@ public class UserController {
         //securityService.autoLogin(userForm.getUsername(), userForm.getConfirmPassword());
 
         return "redirect:/admin";
+
     }
 
     @RequestMapping(value = "/addAudioVideoMaterial", method = RequestMethod.GET)
@@ -173,8 +184,8 @@ public class UserController {
             return "registration";
         }
 
-
         userService.save(userForm);
+
         /*
             this action authorizate new user after addition (it is useful in our case, but let it be here)
          */
@@ -190,19 +201,16 @@ public class UserController {
     }
     @RequestMapping(value = "/ProfilePage", method = RequestMethod.POST)
     public String ProfilePage (@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
-        userValidator.validate(userForm, bindingResult);
+          userValidator.validate(userForm, bindingResult);
 
-            return "ProfilePage";
+          return "ProfilePage";
 
     }
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model, String error, String logout) {
+
         if (error != null) {
             model.addAttribute("error", "Username or password is incorrect.");
-        }
-
-        if (logout != null) {
-            model.addAttribute("message", "Logged out successfully.");
         }
 
         return "login";
@@ -239,11 +247,6 @@ public class UserController {
         return "redirect:/listOfUsers";
     }
 
-    @RequestMapping(value = "/listOfBooks", method = RequestMethod.GET)
-    public String listOfBooks() {
-
-        return "listOfBooks";
-    }
     @RequestMapping(value = "/listOfArticles", method = RequestMethod.GET)
     public String listOfArticles() {
 
@@ -265,18 +268,107 @@ public class UserController {
          return "/welcome";
     }
 
-
     @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
-    public String welcome(Model model) {
-        return "welcome";
+    public ModelAndView welcome(Model model) {
+        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.findByUsername(currentUser);
+        ModelAndView mav = new ModelAndView();
+        /*Map<String, String> message1 = new HashMap<String, String>();
+        message1.put("message1", "Hello World");
+        mav.setViewName("welcome");
+        mav.addObject("message", message1);*/
+        Map<String, String> userData = new HashMap<>();
+        userData.put("username", user.getUsername());
+        userData.put("name", user.getName());
+        userData.put("surname", user.getSurname());
+        userData.put("phone", user.getPhone());
+        userData.put("email", user.getEmail());
+        userData.put("type", user.getType());
+        mav.setViewName("welcome");
+
+        mav.addObject("user", userData);
+
+        return mav;
+
     }
 
+
+
+    /*@RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
+    public ModelAndView welcome(@PathVariable("id") Long id) {
+        User user = userService.getUserById(id);
+        ModelAndView modelAndView = new ModelAndView();
+        Map<String, String> userData = new HashMap<String, String>();
+        userData.put("id", user.getId().toString());
+        userData.put("username", user.getUsername());
+
+        userData.put("name", user.getName());
+        userData.put("surname", user.getName());
+        userData.put("phone", user.getPhone());
+        userData.put("email", user.getEmail());
+        userData.put("type", user.getType());
+        modelAndView.addAllObjects(userData);
+        return modelAndView;
+    }*/
+
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
-    public String admin(Model model) {
-        return "admin";
+    public ModelAndView admin(Model model) {
+
+        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.findByUsername(currentUser);
+        ModelAndView mav = new ModelAndView();
+        /*Map<String, String> message1 = new HashMap<String, String>();
+        message1.put("message1", "Hello World");
+        mav.setViewName("welcome");
+        mav.addObject("message", message1);*/
+        Map<String, String> userData = new HashMap<>();
+        userData.put("username", user.getUsername());
+        userData.put("name", user.getName());
+        userData.put("surname", user.getSurname());
+        userData.put("phone", user.getPhone());
+        userData.put("email", user.getEmail());
+        userData.put("type", user.getType());
+        mav.setViewName("admin");
+
+        mav.addObject("user", userData);
+
+        return mav;
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public String user(Model model) { return "user"; }
+
+
+    @RequestMapping(value = "/mydoc/", method = RequestMethod.GET)
+    public String history(ModelAndView modelAndView){
+        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.findByUsername(currentUser);
+        Long userId = user.getId();
+        List<History> historyList = historyService.getListOfHistoryByUser(userId);
+        for(History history: historyList){
+            Document document = history.getDocument();
+            int status = history.getStatus();
+            if(status != 0 ){
+                if(document.getCopies() == 0) status = 2; //Go to Queue
+                else status = 3;                      //Simple CheckOut
+            }                                         //else Renew + Return
+            document.setStatus(status);
+            history.setDocument(document);
+        }
+
+        modelAndView.addObject(historyList);
+        return  "/mydoc/";
+    }
+
+    @RequestMapping("/test/listOfPatrons/")
+    public String listOfPatrons(){
+        String result="";
+        List<Patron> patrons = userService.getAllPatrons();
+        for (int i=0; i<patrons.size(); i++) result += patrons.get(i).toString();
+        return result;
+    }
+
+
+
 
 }

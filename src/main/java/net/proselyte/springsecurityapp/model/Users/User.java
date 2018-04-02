@@ -54,13 +54,14 @@ public class User {
     public User() {
     }
 
-    public User(String username, String password, String name, String surname, String phone, String email) {
+    public User(String username, String password, String name, String surname, String phone, String email, String type) {
         this.username = username;
         this.password = password;
         this.name = name;
         this.surname = surname;
         this.phone = phone;
         this.email = email;
+        this.type = type;
     }
 
     public Long getId() {
@@ -135,9 +136,13 @@ public class User {
         assert (this.email.equals(this.getEmail()));
     }
 
-   // public void getType() { return type; }
+   public String getType() { return type; }
 
-    public void setType(String type) { this.type = type;}
+    public void setType(String type) {
+        this.type = type;
+        assert (this.type.equals(this.getType()));
+    }
+
 
     public Set<Role> getRoles() {
         return roles;
@@ -148,6 +153,7 @@ public class User {
         assert (this.roles.equals(this.getRoles()));
     }
 
+
     @Override
     public String toString() {
         return "Users{" +
@@ -157,6 +163,7 @@ public class User {
                 ", surname='" + surname + '\'' +
                 ", phone='" + phone + '\'' +
                 ", email='" + email + '\'' +
+                ", type='" + type + '\'' +
 
                 '}';
     }

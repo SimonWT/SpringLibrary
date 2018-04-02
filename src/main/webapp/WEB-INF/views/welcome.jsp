@@ -1,5 +1,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
@@ -12,113 +13,71 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Home page|DeepLib</title>
-
+    <title>Home page | DeepLib</title>
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/bootstrap.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/font-awesome.css">
-    <link rel="stylesheet" href="${contextPath}/resources/cssNew/styles.css">
+    <link rel="stylesheet" href="${contextPath}/resources/cssNew/welcomeform.css">
+    <style>
+
+    </style>
 </head>
 <body>
-
-</nav>
-<div class="hero">
-
-    <div class="hero-bg-wrapper">
-        <nav class="navbar navbar-static-top" role = "navigation" style="background-color: #A52A2A;">
-
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-
-            </div>
-            <a href = "/welcome" class="navbar-brand" style="background-color: #A52A2A; " >DeepLib</a>
-            <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" style="height: 1px;">
-            <ul class="nav navbar-nav" >
-                <li class="divider-vertical"></li>
+<%@ include file ="topnav.jsp" %>
 
 
-                    <form class="navbar-form navbar-left">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Search..">
-                        </div>
-                        <button type="submit" class="btn btn-default">Submit</button>
-                    </form>
-                    <ul class="nav navbar-nav navbar-right" >
-                        <li><a href="/listOfAudioVideoMaterialForPatron">Audio/Video File</a></li>
-                        <li><a href="/listOfArticlesForPatron">Journal Articles</a></li>
-                        <li><a href="/listOfBooksForPatron">Books</a></li>
-                        <li class="dropdown" style = "margin-left:450px">
+<br>
+<br>
+<br>
+<br>
+<div class="container">
 
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"
-                               role="button" aria-haspopup="true"
+    <div class="alert" align = "center">
+   <strong style = "font-size:37px">
+${pageContext.request.userPrincipal.name}</strong>,
+        <br>
+        Welcome to DeepLib!
+    <br>
+        <br>
+        <input type="search" id="mySearch" name="q"
+               placeholder="Search the document..." required>
+        <button>Search</button>
+        <br>
+        <br>
+        <h5 style = "font-size:25px;">How to use this sourse:</h5>
+        <i class="fa fa-square" aria-hidden="true"></i> Go to Media/Jornal Articles/Books and choose document, which you want.
+    <br>
+        <i class="fa fa-square" aria-hidden="true"></i> Also you can find documents by using searching .
+        <br><i class="fa fa-square" aria-hidden="true"></i>
+        The application support different search criteria(e.g., by author, by title)<br> and combinations
 
-                               aria-expanded="false"><img src="${contextPath}/resources/imgNew/user2.png"  style="height: 2rem; display: inline-block; margin-bottom: .3125rem;">
-                                ${pageContext.request.userPrincipal.name}
-                                <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                               <li> <c:if test="${pageContext.request.userPrincipal.name != null}">
-                                    <a href="/ProfilePage">Profile</a>
-                                </c:if>
-                               </li>
+        of these search strategies.
+        <br><i class="fa fa-square" aria-hidden="true"></i>
+        Books are checked out for three weeks, unless:
+        <br><i class="fa fa-circle-o-notch" aria-hidden="true"></i>
 
-                                <li>
-                                    <c:if test="${pageContext.request.userPrincipal.name != null}">
-                                        <a href="/editUser">Edit Information</a>
-                                    </c:if>
-                                </li>
-                                <li><a href="/user">My Documents</a></li>
-                                <li role="separator" class="divider"></li>
-                                <c:if test="${pageContext.request.userPrincipal.name != null}">
-                                    <form id="logoutForm" method="POST" action="${contextPath}/logout">
-                                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                                    </form>
-                                    <li><a onclick="document.forms['logoutForm'].submit()">Logout</a></li>
-                                </c:if>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
+        they are current best sellers, in which case the limit is two weeks
+        <br><i class="fa fa-circle-o-notch" aria-hidden="true"></i>
 
-            </ul>
-        </nav>
-
-        <div style = "z-index: 2;
-  background: #000;
-  opacity: 0.7;">
-            <nav class="text-center" style="margin-top: 559px;z-index: 4;  background: linear-gradient(to right, #f9d423, #ff4e50);opacity: 0.47;">
-                <div style="color: #fff; padding-top: 20px; padding-bottom: 20px;">
-                    <img src="${contextPath}/resources/imgNew/15.jpg"  style="height: 2rem; display: inline-block; margin-bottom: .3125rem;">
-                    <p>2018,"DeepLib" <br>All rights reserved.</p>
-                    <div id="use" class="img-rounded text-center col-sm-6 col-sm-offset-3" style="background: #999999; padding-top: .3125rem; padding-bottom: .3125rem; margin-top: .3125rem; margin-bottom: 15px; font-size: .875rem; "> by Maksimychev Evgenij, Uzbekova Ekaterina,
-                        Yudinskikh Yaroslav, Vakhula Igor
-                    </div>
-                </div>
-                <div style="color: #4CAF50;padding-right: 4px;">
-
-                    <c:if test="${pageContext.request.userPrincipal.name != null}">
-                        <a href="/admin">ADMINKA</a>
-                    </c:if>
-
-                </div>
-                <div class="clearfix"></div>
-            </nav>
-        </div>
-        <div class="hero-bg-gradient-mask"></div>
-        <div class="hero-bg-mask"></div>
+        they are checked out by a faculty member, in which case
+        <br>
+        the limit is 4 weeks (regardless the book is best seller)
+        <br><i class="fa fa-square" aria-hidden="true"></i>
+        AV materials and journals may be checked out for two weeks.
+        <br><i class="fa fa-square" aria-hidden="true"></i>
+        The overdue fine is a hundred rubles per item per day,<br> but cannot be higher than the value of the overdue item
+        <br><i class="fa fa-square" aria-hidden="true"></i>
+        You can renew an item once (and only once), unless <br> there is an outstanding request for the item, in which case
+       <br> <i class="fa fa-square" aria-hidden="true"></i>
+        the item needs to be returned immediately
+        <br>
+        <br>
+        <br>
     </div>
 </div>
-</div>
-
-
-
 
 
 
 <script src="${contextPath}/resources/jsNew/jquery.js"></script>
 <script src="${contextPath}/resources/jsNew/bootstrap.js"></script>
-<script src="${contextPath}/resources/jsNew/scripts.js"></script>
 </body>
 </html>
