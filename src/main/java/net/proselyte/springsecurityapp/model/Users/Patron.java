@@ -1,9 +1,13 @@
 package net.proselyte.springsecurityapp.model.Users;
 
+import net.proselyte.springsecurityapp.model.Booking.History;
 import net.proselyte.springsecurityapp.model.Documents.Book;
 import net.proselyte.springsecurityapp.model.Documents.Document;
 import net.proselyte.springsecurityapp.model.Documents.Role;
 import net.proselyte.springsecurityapp.model.Library.Library;
+import net.proselyte.springsecurityapp.service.DocumentService;
+import net.proselyte.springsecurityapp.service.HistoryService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
@@ -23,9 +27,17 @@ import java.util.concurrent.TimeUnit;
 @DiscriminatorValue("Patron")
 public class Patron extends User {
 
+
     @Column(name = "address")
     private String address;
 
+    @Transient
+    private DocumentService documentService;
+
+    @Transient
+    private HistoryService historyService;
+
+    @Transient
     private ArrayList <Document> documents; //documents checked by this user
 
     @Transient
@@ -39,25 +51,29 @@ public class Patron extends User {
     }
 
 
-    public void checkout(Document doc){
+    public int checkout(Document doc){
         if (!library.getPatrons().contains(this)){
             System.out.println("You have not registered in system. Ask librarian to register you in system");
-            return;
+            return 1;
         }
-        if (this.documents.contains(doc)){
+        //TODO: Check branches
+        if (this.documents.contains(doc) || historyService.getHistoryByIdAndDocId(getId(),doc.getId()).getStatus() == 0 ){
             System.out.println("user " + getName() + " already have this document");
-            return;
+            return 2;
         }
         if (library.getDocuments().contains(doc) && doc.getCopies() > 0 && !doc.getKeys().contains("reference")) {
             Document checkedDoc = doc.toCopy();
             documents.add(checkedDoc);
+
             //doc.patron = this;
             //doc.resetDate();
             //doc.setCopies(doc.getCopies() - 1);
-            if (!doc.getClass().toString().equals("class net.proselyte.springsecurityapp.model.Documents.Book")){
+
+
+            if (!(doc instanceof Book)){
                 checkedDoc.setDue(14);
             }
-            else if (this.getType().equals("Faculty")){
+            else if (this instanceof Faculty){
                 checkedDoc.setDue(28);
             } else{
                 Book b = (Book) checkedDoc;
@@ -69,7 +85,9 @@ public class Patron extends User {
                 }
             }
             checkedDoc.setCheckoutDate(new Date());
+            historyService.save(new History(checkedDoc.getId(), getId(), new Date(System.currentTimeMillis()), checkedDoc.getDueDate(), 0, 0));
             System.out.println("The book \"" + doc.getTitle() + "\" are checked out by " + getName());
+            return 0;
         }
 
         else{
@@ -77,6 +95,7 @@ public class Patron extends User {
                 doc.queue.add(this);
             }
             System.out.println("No available documents for " + getName());
+            return 3;
         }
     }
 
@@ -107,4 +126,19 @@ public class Patron extends User {
         this.address = address;
     }
 
+    public DocumentService getDocumentService() {
+        return documentService;
+    }
+
+    public void setDocumentService(DocumentService documentService) {
+        this.documentService = documentService;
+    }
+
+    public HistoryService getHistoryService() {
+        return historyService;
+    }
+
+    public void setHistoryService(HistoryService historyService) {
+        this.historyService = historyService;
+    }
 }
