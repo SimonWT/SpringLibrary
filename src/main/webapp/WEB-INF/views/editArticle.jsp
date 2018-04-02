@@ -39,42 +39,42 @@
     <form:form method="POST" modelAttribute="articleForm" class="form-signin">
         <h2 class="form-signin-heading">Create a new Article</h2>
 
-        <spring:bind path="journal_title">
+        <spring:bind path="title">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input value="${articleForm.journal_title}" type="text" path="journal_title" class="form-control" placeholder="Journal's title"
+                <form:input value="${articleForm.title}" type="text" path="title" class="form-control" placeholder="Artical's title"
                             autofocus="true"></form:input>
-                <form:errors path="journal_title"></form:errors>
+                <form:errors path="title"></form:errors>
             </div>
         </spring:bind>
 
-        <spring:bind path="article_title">
+        <spring:bind path="journal">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input value="${articleForm.article_title}" type="text" path="article_title" class="form-control" placeholder="Article's title"
+                <form:input value="${articleForm.journal}" type="text" path="journal" class="form-control" placeholder="Journal's title"
                             autofocus="true"></form:input>
-                <form:errors path="article_title"></form:errors>
+                <form:errors path="journal"></form:errors>
             </div>
         </spring:bind>
 
 
 
-        <spring:bind path="publication_month_year">
+        <spring:bind path="date">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input value="${articleForm.publication_month_year}" type="text" path="publication_month_year" class="form-control" placeholder="Month and Year"></form:input>
-                <form:errors path="publication_month_year"></form:errors>
+                <form:input value="${articleForm.date}" type="text" path="date" class="form-control" placeholder="Month and Year"></form:input>
+                <form:errors path="date"></form:errors>
             </div>
         </spring:bind>
 
-        <spring:bind path="author">
+        <spring:bind path="authors">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input value="${articleForm.author}" type="text" path="author" class="form-control" placeholder="Author's name"></form:input>
-                <form:errors path="author"></form:errors>
+                <form:input value="${articleForm.authors}" type="text" path="authors" class="form-control" placeholder="Authors name"></form:input>
+                <form:errors path="authors"></form:errors>
             </div>
         </spring:bind>
 
-        <spring:bind path="editor">
+        <spring:bind path="editors">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input value="${articleForm.editor}" type="text" path="editor" class="form-control" placeholder="Editor's name"></form:input>
-                <form:errors path="editor"></form:errors>
+                <form:input value="${articleForm.editors}" type="text" path="editors" class="form-control" placeholder="Editors name"></form:input>
+                <form:errors path="editors"></form:errors>
             </div>
         </spring:bind>
 

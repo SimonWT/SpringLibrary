@@ -247,17 +247,7 @@ public class UserController {
         return "redirect:/listOfUsers";
     }
 
-    @RequestMapping(value = "/listOfArticles", method = RequestMethod.GET)
-    public String listOfArticles() {
 
-        return "listOfArticles";
-    }
-
-    @RequestMapping(value = "/listOfAudioVideoMaterial", method = RequestMethod.GET)
-    public String listOfAudioVideoMaterial() {
-
-        return "listOfAudioVideoMaterial";
-    }
 
     @RequestMapping(value = "/testId", method = RequestMethod.GET)
     public String showResults(Principal principal) {

@@ -33,47 +33,7 @@
     <br>
     <div class = "row">
         <div class = "one" style = "float:left; margin-left:2%;">
-    <%--<%--%>
-            <%--try--%>
-            <%--{--%>
-                <%--DriverManagerDataSource dataSource = new DriverManagerDataSource();--%>
-                <%--dataSource.setDriverClassName("com.mysql.jdbc.Driver");--%>
-                <%--dataSource.setUrl("jdbc:mysql://eu-cdbr-west-02.cleardb.net:3306/heroku_f76d6fb9e659782");--%>
-                <%--dataSource.setUsername("baff532465d8d9");--%>
-                <%--dataSource.setPassword("ffa9cd9f");--%>
-                <%--String query="SELECT title FROM books";--%>
-                <%--Connection conn=DriverManager.getConnection(dataSource.getUrl(), dataSource.getUsername(), dataSource.getPassword());--%>
-                <%--Statement stmt=conn.createStatement();--%>
-                <%--ResultSet rs=stmt.executeQuery(query);--%>
-                <%--String rs2;--%>
-                <%--while(rs.next())--%>
-                <%--{   if (rs.getRow()%5 == 1) {--%>
-                    <%--rs2 = rs.getString("title");--%>
-                    <%--%>--%>
 
-            <%--<button style = "background: #f44336; border:1px;--%>
-            <%--height: 90px; text-align: center; width:50%;--%>
-            <%--margin-left:calc(50%- 200px); color: #ddd8c4; font-size:13px;"--%>
-                    <%--type="button" data-toggle="modal"--%>
-                    <%--data-target="#myModal"><%=rs2%></button>--%>
-
-
-        <%--<br>--%>
-            <%--<br>--%>
-            <%--<br>--%>
-                    <%--<%--%>
-                <%--}--%>
-            <%--}--%>
-
-            <%--rs.close();--%>
-            <%--stmt.close();--%>
-            <%--conn.close();--%>
-        <%--}--%>
-        <%--catch(Exception e) {--%>
-            <%--e.printStackTrace();--%>
-            <%--System.out.println("<h1> error: "+ e.getMessage()+"</h1>");--%>
-        <%--}--%>
-    <%--%>--%>
     </div>
 
     <c:forEach items="${bookList}" var="book">
