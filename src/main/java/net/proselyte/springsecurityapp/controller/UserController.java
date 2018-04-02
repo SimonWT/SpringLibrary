@@ -354,6 +354,7 @@ public class UserController {
         return "redirect:/status/{status}";
     }
 
+
     @RequestMapping("/test/listOfPatrons/")
     public String listOfPatrons(){
         String result="";

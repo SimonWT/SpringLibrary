@@ -126,6 +126,14 @@ public class Patron extends User {
         this.address = address;
     }
 
+    public Library getLibrary() {
+        return library;
+    }
+
+    public void setLibrary(Library library) {
+        this.library = library;
+    }
+
     public DocumentService getDocumentService() {
         return documentService;
     }
