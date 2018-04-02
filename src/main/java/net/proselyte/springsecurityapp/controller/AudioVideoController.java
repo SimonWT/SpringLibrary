@@ -39,6 +39,29 @@ public class AudioVideoController {
     @Autowired
     private HistoryService historyService;
 
+    @RequestMapping(value = "/addAudioVideoMaterial", method = RequestMethod.GET)
+    public String addAudioVideoMaterial(Model model) {
+        model.addAttribute("audioVideoForm", new AudioVideo());
+
+        return "addAudioVideoMaterial";
+
+    }
+
+    @RequestMapping(value = "/addAudioVideoMaterial", method = RequestMethod.POST)
+    public String addAudioVideoMaterial(@ModelAttribute("addAudioVideoMaterial") AudioVideo audioVideoForm, BindingResult bindingResult, Model model) {
+       //TODO: AuidoVideo Validation
+        //audioVideoValidator.validate(audioVideoForm, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            return "addAudioVideoMaterial";
+        }
+
+        docService.save(audioVideoForm);
+        return "redirect:/admin";
+    }
+
+
+
     @RequestMapping(value = "/editAudioVideo/{id}", method = RequestMethod.GET)
     public String editInfo(@PathVariable("id") Long id , Model model) {
         Document audioVideo = docService.getDocumentById(id);

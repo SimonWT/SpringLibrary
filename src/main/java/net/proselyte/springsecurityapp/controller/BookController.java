@@ -52,6 +52,34 @@ public class BookController {
         return user.getId();
     }
 
+    @RequestMapping(value = "/addBook", method = RequestMethod.GET)
+    public String addBook(Model model) {
+        model.addAttribute("bookForm", new Book());
+
+        return "addBook";
+
+    }
+
+    @RequestMapping(value = "/addBook", method = RequestMethod.POST)
+    public String addBook(@ModelAttribute("bookForm") Book bookForm, BindingResult bindingResult, Model model) {
+        //TODO: Book validation
+        //bookValidator.validate(bookForm, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            return "addBook";
+        }
+
+        //userService.save(userForm);
+        docService.save(bookForm);
+
+        /*
+            this action authorizate new user after addition (it is useful in our case, but let it be here)
+         */
+        //securityService.autoLogin(userForm.getUsername(), userForm.getConfirmPassword());
+
+        return "redirect:/admin";
+    }
+
 
     @RequestMapping(value = "/editBook/{id}", method = RequestMethod.GET)
     public String editInfo(@PathVariable("id") Long id , Model model) {

@@ -91,85 +91,8 @@ public class UserController {
         return "redirect:/listOfUsers";
     }
 
-    @RequestMapping(value = "/addBook", method = RequestMethod.GET)
-    public String addBook(Model model) {
-        model.addAttribute("bookForm", new Book());
 
-        return "addBook";
 
-    }
-
-    @RequestMapping(value = "/addBook", method = RequestMethod.POST)
-    public String addBook(@ModelAttribute("bookForm") Book bookForm, BindingResult bindingResult, Model model) {
-        bookValidator.validate(bookForm, bindingResult);
-
-        if (bindingResult.hasErrors()) {
-            return "addBook";
-        }
-
-        //userService.save(userForm);
-        bookService.save(bookForm);
-
-        /*
-            this action authorizate new user after addition (it is useful in our case, but let it be here)
-         */
-        //securityService.autoLogin(userForm.getUsername(), userForm.getConfirmPassword());
-
-        return "redirect:/admin";
-    }
-
-    @RequestMapping(value = "/addArticle", method = RequestMethod.GET)
-    public String addArticle(Model model) {
-        model.addAttribute("articleForm", new Article());
-
-        return "addArticle";
-
-    }
-
-    @RequestMapping(value = "/addArticle", method = RequestMethod.POST)
-    public String addArticle(@ModelAttribute("articleForm") Article articleForm, BindingResult bindingResult, Model model) {
-        articleValidator.validate(articleForm, bindingResult);
-
-        if (bindingResult.hasErrors()) {
-            return "addArticle";
-        }
-
-        //userService.save(userForm);
-        articleService.save(articleForm);
-        /*
-            this action authorizate new user after addition (it is useful in our case, but let it be here)
-         */
-        //securityService.autoLogin(userForm.getUsername(), userForm.getConfirmPassword());
-
-        return "redirect:/admin";
-
-    }
-
-    @RequestMapping(value = "/addAudioVideoMaterial", method = RequestMethod.GET)
-    public String addAudioVideoMaterial(Model model) {
-        model.addAttribute("audioVideoForm", new AudioVideo());
-
-        return "addAudioVideoMaterial";
-
-    }
-
-    @RequestMapping(value = "/addAudioVideoMaterial", method = RequestMethod.POST)
-    public String addAudioVideoMaterial(@ModelAttribute("addAudioVideoMaterial") AudioVideo audioVideoForm, BindingResult bindingResult, Model model) {
-        audioVideoValidator.validate(audioVideoForm, bindingResult);
-
-        if (bindingResult.hasErrors()) {
-            return "addAudioVideoMaterial";
-        }
-
-        //userService.save(userForm);
-        audioVideoMaterialService.save(audioVideoForm);
-        /*
-            this action authorizate new user after addition (it is useful in our case, but let it be here)
-         */
-        //securityService.autoLogin(userForm.getUsername(), userForm.getConfirmPassword());
-
-        return "redirect:/admin";
-    }
 
 
 

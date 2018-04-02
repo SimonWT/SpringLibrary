@@ -38,6 +38,30 @@ public class ArticleController {
     @Autowired
     private HistoryService historyService;
 
+    @RequestMapping(value = "/addArticle", method = RequestMethod.GET)
+    public String addArticle(Model model) {
+        model.addAttribute("articleForm", new Article());
+
+        return "addArticle";
+
+    }
+
+    @RequestMapping(value = "/addArticle", method = RequestMethod.POST)
+    public String addArticle(@ModelAttribute("articleForm") Article articleForm, BindingResult bindingResult, Model model) {
+        //TODO: Article Validation
+        // articleValidator.validate(articleForm, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            return "addArticle";
+        }
+
+        docService.save(articleForm);
+
+        return "redirect:/admin";
+
+    }
+
+
     @RequestMapping(value = "/editArticle/{id}", method = RequestMethod.GET)
     public String editInfo(@PathVariable("id") Long id , Model model) {
         Document article = docService.getDocumentById(id);

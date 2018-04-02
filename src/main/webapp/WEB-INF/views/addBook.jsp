@@ -46,22 +46,27 @@
             </div>
         </spring:bind>
 
-          <spring:bind path="author">
+          <spring:bind path="authors">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="text" path="author" class="form-control" placeholder="Author's name"
+                <form:input type="text" path="authors" class="form-control" placeholder="Author's name"
                             autofocus="true"></form:input>
-                <form:errors path="author"></form:errors>
+                <form:errors path="authors"></form:errors>
             </div>
         </spring:bind>
 
-
-
-        <spring:bind path="year">
+        <spring:bind path="publisher">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="text" path="year" class="form-control" placeholder="Month and Year"></form:input>
-                <form:errors path="year"></form:errors>
+                <form:input type="text" path="publisher" class="form-control" placeholder="Publisher"></form:input>
+                <form:errors path="publisher"></form:errors>
             </div>
         </spring:bind>
+
+        <%--<spring:bind path="year">--%>
+            <%--<div class="form-group ${status.error ? 'has-error' : ''}">--%>
+                <%--<form:input type="text" path="year" class="form-control" placeholder="Month and Year"></form:input>--%>
+                <%--<form:errors path="year"></form:errors>--%>
+            <%--</div>--%>
+        <%--</spring:bind>--%>
 
         <spring:bind path="edition">
             <div class="form-group ${status.error ? 'has-error' : ''}">
@@ -81,6 +86,13 @@
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <form:input type="text" path="copies" class="form-control" placeholder="Copies"></form:input>
                 <form:errors path="copies"></form:errors>
+            </div>
+        </spring:bind>
+
+        <spring:bind path="bestSeller">
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <form:input type="text" path="bestSeller" class="form-control" placeholder="BestSeller"></form:input>
+                <form:errors path="bestSeller"></form:errors>
             </div>
         </spring:bind>
 
