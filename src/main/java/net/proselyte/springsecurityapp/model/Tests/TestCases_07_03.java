@@ -50,7 +50,7 @@ public class TestCases_07_03 {
 
         library = new Library();
         library.librarians.add(librarian);
-        librarian.library = library;
+        //librarian.library = library;
 
         b1.setTitle("Introduction to Algorithms");
 //        b1.setAuthor("Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest and Clifford Stein");
@@ -117,14 +117,14 @@ public class TestCases_07_03 {
         librarian.addPatron(p2);
         librarian.addPatron(p3);
 
-        System.out.println(librarian.library.getPatrons().size() + 1 + " users in system");
+        //System.out.println(librarian.library.getPatrons().size() + 1 + " users in system");
 
         int docNum = 0;
 
-        ArrayList<Document> docs = (ArrayList<Document>) librarian.library.getDocuments();
-        for (int i = 0; i < docs.size(); i++){
-            docNum += docs.get(i).getCopies();
-        }
+//        ArrayList<Document> docs = (ArrayList<Document>) librarian.library.getDocuments();
+//        for (int i = 0; i < docs.size(); i++){
+//            docNum += docs.get(i).getCopies();
+//        }
         assertEquals(9, docNum);
         System.out.println(docNum + " documents in system");
 
@@ -142,10 +142,10 @@ public class TestCases_07_03 {
 
         int docNum = 0;
 
-        ArrayList<Document> docs = (ArrayList<Document>) librarian.library.getDocuments();
-        for (int i = 0; i < docs.size(); i++){
-            docNum += docs.get(i).getCopies();
-        }
+//        ArrayList<Document> docs = (ArrayList<Document>) librarian.docService.getDocuments();
+//        for (int i = 0; i < docs.size(); i++){
+//            docNum += docs.get(i).getCopies();
+//        }
 
         System.out.println(docNum + " documents in system");
 
@@ -311,7 +311,7 @@ public class TestCases_07_03 {
 
         library = new Library();
         library.librarians.add(librarian);
-        librarian.library = library;
+        //librarian.library = library;
 
         b1.setTitle("Introduction to Algorithms");
 //        b1.setAuthor("Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest and Clifford Stein");

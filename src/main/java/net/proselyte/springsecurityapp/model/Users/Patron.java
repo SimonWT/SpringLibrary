@@ -9,6 +9,7 @@ import net.proselyte.springsecurityapp.service.DocumentService;
 import net.proselyte.springsecurityapp.service.HistoryService;
 import net.proselyte.springsecurityapp.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
@@ -27,6 +28,7 @@ import java.util.concurrent.TimeUnit;
 
 @Entity
 @DiscriminatorValue("Patron")
+@Component
 public class Patron extends User {
 
 
@@ -34,15 +36,18 @@ public class Patron extends User {
     private String address;
 
     @Transient
+    @Autowired
     private DocumentService documentService;
 
     @Transient
+    @Autowired
     private HistoryService historyService;
 
 //    @Transient
 //    private ArrayList <Document> documents; //documents checked by this user
 
     @Transient
+    @Autowired
     private UserServiceImpl userService;
 
     public Patron(){};
