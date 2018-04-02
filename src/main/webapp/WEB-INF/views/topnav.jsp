@@ -49,7 +49,7 @@
                     Media</a>
                 <a href="/listOfArticlesForPatron" style = ""><i class="fa fa-newspaper-o" aria-hidden="true"></i>
                     Journal Article</a>
-                <a href="/ListOfBooksForPatronGf" style = ""><i class="fa fa-book" aria-hidden="true"></i> Books</a>
+                <a href="/ListOfBooksForPatron" style = ""><i class="fa fa-book" aria-hidden="true"></i> Books</a>
             </div>
         </c:otherwise>
     </c:choose>
@@ -78,7 +78,7 @@
         <div class="dropdown-content2">
             <a href="/ProfilePage" data-toggle="modal" data-target="#largeModal"> <i class="fa fa-address-card-o" aria-hidden="true"></i>
                 Profile</a>
-            <a href="/user">
+            <a href="/mydoc">
                 <i class="fa fa-bookmark" aria-hidden="true"></i>
 
                 My Documents</a>
