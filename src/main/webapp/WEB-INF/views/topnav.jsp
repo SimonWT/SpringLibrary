@@ -34,7 +34,7 @@
     </a>
     <c:choose>
         <c:when test="${user.type=='Librarian'}">
-            <div class  = "hell">
+            <div class  = "hell2">
                 <a href="/listOfAudioVideoMaterial" style = ""><i class="fa fa-file-audio-o" aria-hidden="true"></i>
                     Media</a>
                 <a href="/listOfArticles" style = ""><i class="fa fa-newspaper-o" aria-hidden="true"></i>
