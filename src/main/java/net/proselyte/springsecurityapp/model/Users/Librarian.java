@@ -11,6 +11,7 @@ import net.proselyte.springsecurityapp.model.Library.Library;
 import net.proselyte.springsecurityapp.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;

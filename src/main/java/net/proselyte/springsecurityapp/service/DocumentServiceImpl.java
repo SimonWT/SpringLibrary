@@ -53,7 +53,7 @@ public class DocumentServiceImpl implements DocumentService {
 
     @Override
     public List<Document> getAllDocuments() {
-        return docDao.getAll();
+        return docDao.getAllByIdIsNotNull();
     }
 
 
