@@ -107,7 +107,7 @@ public class Patron extends User {
         }
     }
 
-    public void toReturn(Document doc){
+    public int toReturn(Document doc){
         History h = historyService.getHistoryByIdAndDocId(this.getId(), doc.getId());
         h.status = 0;
         historyService.updateHistory(h);
@@ -118,11 +118,14 @@ public class Patron extends User {
         int difDays = (int)TimeUnit.DAYS.convert(dif, TimeUnit.MILLISECONDS);
         if (difDays > doc.getDue()){
             doc.setOverdue(difDays - doc.getDue());
-            if (100 * (difDays - doc.getDue()) < doc.getPrice())
+            if (100 * (difDays - doc.getDue()) < doc.getPrice()) {
                 doc.setFine(100 * (difDays - doc.getDue()));
-            else
+                return 1;
+            }else
                 doc.setFine(doc.getPrice());
+                return 2;
         }
+        return 0;
     }
 
     public List<Document> getDocuments() {

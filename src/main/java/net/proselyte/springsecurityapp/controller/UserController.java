@@ -348,7 +348,22 @@ public class UserController {
             int status = ((Patron) user).checkout(documentService.getDocumentById(docId));
         }
         //Status ==0 - Success
-        return "redirect:/status/{status}";
+        return "redirect:/status/checkout/{status}";
+    }
+
+    @RequestMapping(value = "/return/{docId}")
+    public String returnDoc(@PathVariable Long docId){
+        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.findByUsername(currentUser);
+        Long userId = user.getId();
+
+        if(user instanceof Patron){
+            ((Patron) user).setDocumentService(documentService);
+            ((Patron) user).setHistoryService(historyService);
+            int status = ((Patron) user).toReturn(documentService.getDocumentById(docId));
+        }
+        //Status ==0 - Success
+        return "redirect:/status/return/{status}";
     }
 
 
