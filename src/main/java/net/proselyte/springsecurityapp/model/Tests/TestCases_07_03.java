@@ -267,28 +267,28 @@ public class TestCases_07_03 {
         }
     }
 
-    @Test
-    public void testCase9(){
-        List<Patron> patrons = librarian.userDao.getPatrons();
-        System.out.println("Patrons:");
-        for (int i = patrons.size() - 3; i < patrons.size(); i++){
-            System.out.println(patrons.get(i).getName());
-        }
-
-        List<Document> docs = librarian.docDao.getDocuments();
-        System.out.println("Books:");
-        for (int i = 0; i < docs.size(); i++) {
-            if (docs.get(i).getClass().toString().equals("class net.proselyte.springsecurityapp.model.Documents.Book")) {
-                System.out.println(docs.get(i).getTitle() + " " + docs.get(i).getCopies() + " copies");
-            }
-        }
-        System.out.println("AVs:");
-        for (int i = docs.size() - 5; i < docs.size(); i++) {
-            if (docs.get(i).getClass().toString().equals("class net.proselyte.springsecurityapp.model.Documents.AudioVideo")) {
-                System.out.println(docs.get(i).getTitle() + " " + docs.get(i).getCopies() + " copies");
-            }
-        }
-    }
+//    @Test
+//    public void testCase9(){
+//        List<Patron> patrons = librarian.userDao.getPatrons();
+//        System.out.println("Patrons:");
+//        for (int i = patrons.size() - 3; i < patrons.size(); i++){
+//            System.out.println(patrons.get(i).getName());
+//        }
+//
+//        List<Document> docs = librarian.docDao.getDocuments();
+//        System.out.println("Books:");
+//        for (int i = 0; i < docs.size(); i++) {
+//            if (docs.get(i).getClass().toString().equals("class net.proselyte.springsecurityapp.model.Documents.Book")) {
+//                System.out.println(docs.get(i).getTitle() + " " + docs.get(i).getCopies() + " copies");
+//            }
+//        }
+//        System.out.println("AVs:");
+//        for (int i = docs.size() - 5; i < docs.size(); i++) {
+//            if (docs.get(i).getClass().toString().equals("class net.proselyte.springsecurityapp.model.Documents.AudioVideo")) {
+//                System.out.println(docs.get(i).getTitle() + " " + docs.get(i).getCopies() + " copies");
+//            }
+//        }
+//    }
 
 //    @Test
 //    public static void clearDB(){
