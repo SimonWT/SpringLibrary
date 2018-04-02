@@ -3,11 +3,14 @@ package net.proselyte.springsecurityapp.model.Users;
 import jdk.nashorn.internal.ir.annotations.Ignore;
 import net.proselyte.springsecurityapp.dao.ForTesting.DocDao;
 import net.proselyte.springsecurityapp.dao.ForTesting.DocDaoImpl;
+import net.proselyte.springsecurityapp.model.Documents.Article;
 import net.proselyte.springsecurityapp.model.Documents.AudioVideo;
 import net.proselyte.springsecurityapp.model.Documents.Book;
 import net.proselyte.springsecurityapp.model.Documents.Document;
 import net.proselyte.springsecurityapp.model.Library.Library;
-import net.proselyte.springsecurityapp.service.UserService;
+import net.proselyte.springsecurityapp.service.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -22,6 +25,7 @@ import java.util.concurrent.TimeUnit;
  */
 
 @Entity
+@Component
 @DiscriminatorValue("Librarian")
 public class Librarian extends User {
 
@@ -29,23 +33,28 @@ public class Librarian extends User {
     public Library library;
 
     @Transient
-    public UserService userDao;
+    @Autowired
+    public UserService userService;
 
+    @Autowired
     @Transient
-    public DocDao docDao = new DocDaoImpl();
+    public ArticleServiceImpl articleService;
+
+    @Autowired
+    @Transient
+    public BookServiceImpl bookService;
+
+    @Autowired
+    @Transient
+    public AudioVideoMaterialServiceImpl avService;
+
+    @Autowired
+    @Transient
+    public DocumentServiceImpl docService;
 
     public void addPatron(Patron newPatron){
         library.patrons.add(newPatron);
-        //newPatron.library = library;
-        userDao.save(newPatron);
-    }
-
-    public void removePatron(String name, String phoneNumber){
-        int id = (name + phoneNumber).hashCode();
-        for (Patron patron : library.patrons){
-            if (patron.getId() == id)
-                library.patrons.remove(patron);
-        }
+        userService.save(newPatron);
     }
 
     public Librarian() {
@@ -57,16 +66,11 @@ public class Librarian extends User {
     }
 
     public void addDoc(Document doc, int copiesAmount){
-        if (library.documents.contains(doc))
+        if (docService.getListOfArticle().contains(doc) || docService.getListOfAudioVideo().contains(doc) || docService.getListOfBook().contains(doc))
             doc.setCopies(doc.getCopies() + copiesAmount);
         else {
             doc.setCopies(copiesAmount);
-            library.documents.add(doc);
-            if (doc.getClass().toString().equals("class net.proselyte.springsecurityapp.model.Documents.AudioVideo")){
-                docDao.addAV((AudioVideo) doc);
-            }
-            if (doc.getClass().toString().equals("class net.proselyte.springsecurityapp.model.Documents.Book"))
-                docDao.addBook((Book) doc);
+            docService.save(doc);
         }
 
     }
@@ -94,13 +98,14 @@ public class Librarian extends User {
     public void removeDoc(Document doc, int copies){
         //get list of documents
         doc.setCopies(doc.getCopies() - copies);
+        docService.update(doc);
         if (doc.getCopies() < 0)
-            library.documents.remove(doc);
+            docService.delete(doc.getId());
         //rewrite list of documents
     }
 
     public void removePatron(Patron p){
-        library.patrons.remove(p);
+        userService.delete(p.getId());
     }
 
     public String checkInfo(Patron p){
