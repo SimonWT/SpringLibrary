@@ -19,9 +19,9 @@ public class Library {
     public ArrayList<Patron> patrons;
     public ArrayList<Document> documents;
 
-    public List<Document> getDocuments() {
-        return librarians.get(0).docDao.getDocuments();
-    }
+//    public List<Document> getDocuments() {
+//        return librarians.get(0).docService.ge);
+//    }
 
     public Library(){
         librarians = new ArrayList<>();
@@ -30,6 +30,6 @@ public class Library {
     }
 
     public ArrayList<Patron> getPatrons() {
-        return (ArrayList<Patron>) librarians.get(0).userDao.getAllPatrons();
+        return (ArrayList<Patron>) librarians.get(0).userService.getAllPatrons();
     }
 }

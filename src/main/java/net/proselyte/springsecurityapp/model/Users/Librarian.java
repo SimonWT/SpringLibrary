@@ -30,9 +30,6 @@ import java.util.concurrent.TimeUnit;
 public class Librarian extends User {
 
     @Transient
-    public Library library;
-
-    @Transient
     @Autowired
     public UserService userService;
 
@@ -53,12 +50,11 @@ public class Librarian extends User {
     public DocumentServiceImpl docService;
 
     public void addPatron(Patron newPatron){
-        library.patrons.add(newPatron);
         userService.save(newPatron);
     }
 
     public Librarian() {
-        library = new Library();
+
     }
 
     public Librarian(String username, String password, String name, String surname, String phone, String email, String type) {
@@ -109,7 +105,7 @@ public class Librarian extends User {
     }
 
     public String checkInfo(Patron p){
-        if (!library.patrons.contains(p)){
+        if (!userService.getAllPatrons().contains(p)){
             return "Information not available, patron does not exist.";
         }
         StringBuilder info = new StringBuilder("Name: " + p.getName() + "\nAddress:" + p.getAddress() + "\nPhone:" + p.getPhone() + "\nId:" + p.getId() + /*"\nType:" + p.getType() +*/ "\nDocuments:\n");
@@ -120,10 +116,10 @@ public class Librarian extends User {
     }
 
     public void emptyQueues(){
-        for (int i = 0; i < library.documents.size(); i++){
-            if (library.documents.get(i).queue.size() != 0){
-                library.documents.get(i).queue.clear();
-            }
-        }
+//        for (int i = 0; i < library.documents.size(); i++){
+//            if (library.documents.get(i).queue.size() != 0){
+//                library.documents.get(i).queue.clear();
+//            }
+//        }
     }
 }

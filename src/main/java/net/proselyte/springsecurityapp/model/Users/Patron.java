@@ -7,6 +7,7 @@ import net.proselyte.springsecurityapp.model.Documents.Role;
 import net.proselyte.springsecurityapp.model.Library.Library;
 import net.proselyte.springsecurityapp.service.DocumentService;
 import net.proselyte.springsecurityapp.service.HistoryService;
+import net.proselyte.springsecurityapp.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.Column;
@@ -16,6 +17,7 @@ import javax.persistence.Transient;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 
@@ -37,33 +39,37 @@ public class Patron extends User {
     @Transient
     private HistoryService historyService;
 
-    @Transient
-    private ArrayList <Document> documents; //documents checked by this user
+//    @Transient
+//    private ArrayList <Document> documents; //documents checked by this user
 
     @Transient
-    private Library library;
+    private UserServiceImpl userService;
 
     public Patron(){};
 
     public Patron(String username, String password, String name, String surname, String phone, String email, String type, String address) {
         super(username, password, name, surname, phone, email, type);
+        userService = new UserServiceImpl();
         this.address = address;
     }
 
 
     public int checkout(Document doc){
-        if (!library.getPatrons().contains(this)){
+        if (userService.getAllPatrons().contains(this)){
             System.out.println("You have not registered in system. Ask librarian to register you in system");
             return 1;
         }
         //TODO: Check branches
-        if (this.documents.contains(doc) || historyService.getHistoryByIdAndDocId(getId(),doc.getId()).getStatus() == 0 ){
+        if (historyService.getHistoryByIdAndDocId(getId(),doc.getId()).getStatus() == 0 ){
             System.out.println("user " + getName() + " already have this document");
             return 2;
         }
-        if (library.getDocuments().contains(doc) && doc.getCopies() > 0 && !doc.getKeys().contains("reference")) {
+        if (documentService.getDocumentById(doc.getId()) != null && doc.getCopies() > 0) {
             Document checkedDoc = doc.toCopy();
-            documents.add(checkedDoc);
+            History h = historyService.getHistoryByIdAndDocId(this.getId(), doc.getId());
+            h.status = 1;
+            historyService.updateHistory(h);
+            documentService.update(doc);
 
             //doc.patron = this;
             //doc.resetDate();
@@ -100,8 +106,11 @@ public class Patron extends User {
     }
 
     public void toReturn(Document doc){
-        documents.remove(doc);
+        History h = historyService.getHistoryByIdAndDocId(this.getId(), doc.getId());
+        h.status = 0;
+        historyService.updateHistory(h);
         doc.setCopies(doc.getCopies() + 1);
+        documentService.update(doc);
         Date today = new Date();
         long dif = doc.getCheckoutDate().getTime() - today.getTime();
         int difDays = (int)TimeUnit.DAYS.convert(dif, TimeUnit.MILLISECONDS);
@@ -114,8 +123,13 @@ public class Patron extends User {
         }
     }
 
-    public ArrayList<Document> getDocuments() {
-        return documents;
+    public List<Document> getDocuments() {
+        List<History> histories = this.historyService.getListOfHistoryByUser(this.getId());
+        List<Document> docs = new ArrayList<>();
+        for (int i = 0; i < histories.size(); i++){
+            docs.add(histories.get(0).getDocument());
+        }
+        return docs;
     }
 
     public String getAddress() {
