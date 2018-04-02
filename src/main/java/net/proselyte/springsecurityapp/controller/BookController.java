@@ -109,6 +109,13 @@ public class BookController {
         return "listOfBooksForPatron";
     }
 
+    @RequestMapping(value = "/listOfBooks",method = RequestMethod.GET)
+    public String listOfBooks(Model model){
+            List<Book> bookList = docService.getListOfBook();
+            model.addAttribute(bookList);
+            return "listOfBooks";
+        }
+
     @RequestMapping(value = "/checkOutedBooks", method = RequestMethod.GET)
     public String checkOutedBooks(Principal principal, Model model) throws SQLException {
         String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();

@@ -247,11 +247,6 @@ public class UserController {
         return "redirect:/listOfUsers";
     }
 
-    @RequestMapping(value = "/listOfBooks", method = RequestMethod.GET)
-    public String listOfBooks() {
-
-        return "listOfBooks";
-    }
     @RequestMapping(value = "/listOfArticles", method = RequestMethod.GET)
     public String listOfArticles() {
 

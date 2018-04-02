@@ -95,7 +95,7 @@
                             <br>
 
                             <div style = "float:left; margin-left:4px;">  <img src = "${contextPath}/resources/imgNew/images.png" style = "width:160px; height:200px;"></div>
-                            <div style = "float:right; margin-right:30%;">
+                            <div style = "float:right; margin-right:20%;">
 
                                 <p>Title: ${book.title}</p>
                                 <p>Edition: ${book.edition} </p>
