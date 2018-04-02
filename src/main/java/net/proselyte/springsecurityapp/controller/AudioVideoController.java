@@ -1,12 +1,18 @@
 package net.proselyte.springsecurityapp.controller;
 
 
+import net.proselyte.springsecurityapp.model.Booking.History;
 import net.proselyte.springsecurityapp.model.Documents.AudioVideo;
+import net.proselyte.springsecurityapp.model.Documents.Book;
 import net.proselyte.springsecurityapp.model.Documents.Document;
+import net.proselyte.springsecurityapp.model.Users.User;
 import net.proselyte.springsecurityapp.service.AudioVideoMaterialService;
 import net.proselyte.springsecurityapp.service.DocumentService;
+import net.proselyte.springsecurityapp.service.HistoryService;
+import net.proselyte.springsecurityapp.service.UserService;
 import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,6 +32,12 @@ public class AudioVideoController {
 
     @Autowired
     private DocumentService docService;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private HistoryService historyService;
 
     @RequestMapping(value = "/editAudioVideo/{id}", method = RequestMethod.GET)
     public String editInfo(@PathVariable("id") Long id , Model model) {
@@ -57,7 +69,28 @@ public class AudioVideoController {
 
     //TODO:
     @RequestMapping(value = "/listOfAudioVideoMaterialForPatron", method = RequestMethod.GET)
-    public String listOfAVForPatron() {
+    public String listOfAVForPatron(Model model) {
+        //TODO: user Cookie for that
+        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.findByUsername(currentUser);
+        Long userId = user.getId();
+
+        List<AudioVideo> audioVideoList = docService.getListOfAudioVideo();
+
+        for(AudioVideo audioVideo: audioVideoList){
+            Long avId  = audioVideo.getId();
+            History userHistory = historyService.getHistoryByIdAndDocId(userId, avId);
+            int status = 1;
+            if (userHistory!=null) status = userHistory.getStatus();
+
+            if(status != 0 ){
+                if(audioVideo.getCopies() == 0) status = 2;  //Go to Queue
+                else status = 3;                            //Simple CheckOut
+            }                                                 //else Renew + Return
+            audioVideo.setStatus(status);
+        }
+
+        model.addAttribute(audioVideoList);
 
         return "listOfAudioVideoMaterialForPatron";
     }

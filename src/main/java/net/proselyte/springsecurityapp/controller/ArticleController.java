@@ -1,11 +1,17 @@
 package net.proselyte.springsecurityapp.controller;
 
+import net.proselyte.springsecurityapp.model.Booking.History;
 import net.proselyte.springsecurityapp.model.Documents.Article;
+import net.proselyte.springsecurityapp.model.Documents.AudioVideo;
 import net.proselyte.springsecurityapp.model.Documents.Document;
+import net.proselyte.springsecurityapp.model.Users.User;
 import net.proselyte.springsecurityapp.service.ArticleService;
 import net.proselyte.springsecurityapp.service.DocumentService;
+import net.proselyte.springsecurityapp.service.HistoryService;
+import net.proselyte.springsecurityapp.service.UserService;
 import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,6 +31,12 @@ public class ArticleController {
 
     @Autowired
     private DocumentService docService;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private HistoryService historyService;
 
     @RequestMapping(value = "/editArticle/{id}", method = RequestMethod.GET)
     public String editInfo(@PathVariable("id") Long id , Model model) {
@@ -54,7 +66,28 @@ public class ArticleController {
     }
 
     @RequestMapping(value = "/listOfArticlesForPatron", method = RequestMethod.GET)
-    public String listOfArticlesForPatron() {
+    public String listOfArticlesForPatron(Model model) {
+        //TODO: user Cookie for that
+        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.findByUsername(currentUser);
+        Long userId = user.getId();
+
+        List<Article> articleList = docService.getListOfArticle();
+
+        for(Article article: articleList){
+            Long articleId  = article.getId();
+            History userHistory = historyService.getHistoryByIdAndDocId(userId, articleId);
+            int status = 1;
+            if (userHistory!=null) status = userHistory.getStatus();
+
+            if(status != 0 ){
+                if(article.getCopies() == 0) status = 2;  //Go to Queue
+                else status = 3;                            //Simple CheckOut
+            }                                                 //else Renew + Return
+            article.setStatus(status);
+        }
+
+        model.addAttribute(articleList);
         return "listOfArticlesForPatron";
     }
 

@@ -23,61 +23,84 @@
 </head>
 <body>
 <%@ include file ="topnav.jsp" %>
+
 <form method="POST">
-    <table class="table table-condensed">
-        <thead>
-        <tr>
-            <th>Journal Title</th>
-            <th>Articles Title</th>
-            <th>Publication</th>
-            <th>Author</th>
-            <th>Editor</th>
-            <th>Price</th>
-            <th>Copies</th>
-        </tr>
-        </thead>
-        <tbody>
-        <%
-            try
-            {
-                DriverManagerDataSource dataSource = new DriverManagerDataSource();
-                dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-                dataSource.setUrl("jdbc:mysql://eu-cdbr-west-02.cleardb.net:3306/heroku_f76d6fb9e659782");
-                dataSource.setUsername("baff532465d8d9");
-                dataSource.setPassword("ffa9cd9f");
-                String query="SELECT journal_title, article_title, publication_month_year, author, editor, price, copies FROM journal_articles";
-                Connection conn=DriverManager.getConnection(dataSource.getUrl(), dataSource.getUsername(), dataSource.getPassword());
-                Statement stmt=conn.createStatement();
-                ResultSet rs=stmt.executeQuery(query);
-                while(rs.next())
-                {
-        %>
+    <br>
+    <br>
+    <div class = "row">
+        <div class = "one" style = "float:left; margin-left:2%;">
+
+        </div>
+
+        <c:forEach items="${articleList}" var="article">
+
+        <button style = "background: #f44444; border:1px; height: 90px; text-align: center; width:50%;
+    margin-left:calc(50%- 200px); color: #ddd8c4; font-size:13px;"
+                type="button" data-toggle="modal"
+                data-target="#my${article.id}">${article.title}</button>
+        <br><br>
+
+        <div id="my${article.id}" class="modal fade"  >
+            <div class="modal-dialog" style = "margin-left:calc(50%- 8px); width: 470px;">
+                <div class="modal-content" >
+                    <div class="modal-body" style = "height:410px; background:#9d9d9d">
+                        <div class = "row" >
+                            <button class="close" type="button" data-dismiss="modal"><i class="fa fa-window-close-o" aria-hidden="true" style = "font-size:45px; padding-right:4px;"></i></button>
+                            <br>
+                            <br>
+                            <br>
+
+                            <div style = "float:left; margin-left:4px;">  <img src = "${contextPath}/resources/imgNew/images.png" style = "width:160px; height:200px;"></div>
+                            <div style = "float:right; margin-right:20%;">
+                                <p>ID: ${article.id}</p>
+                                <p>Title: ${article.title}</p>
+                                <p>Authors: ${article.authors}</p>
+                                <p>Journal: ${article.journal}</p>
+                                <p>Editors: ${article.editors}</p>
+                                <p>Date: ${article.date}</p>
+                                <p>Price: ${article.price}</p>
+                                <p>Copies: ${article.copies}</p>
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+                        <br>
+                        <div class = "row">
+
+                            <c:if test="${article.status==0}" >
+                                <div style = "float:left; margin-left:4%;">
+                                    <button>
+                                        Return back </button>
+                                </div>
+                                <div style = "float:left; margin-left:4%">
+                                    <button>
+                                        Renew  </button>
+                                </div>
+                            </c:if>
+
+                            <c:if test="${article.status==2}" >
+                                <div style = "float:right; margin-right:4%">
+                                    <button >
+                                        Queue  </button>
+                                </div>
+                            </c:if>
+
+                            <c:if test="${article.status==3}" >
+                                <div style = "float:right; margin-right:4%">
+                                    <button>
+                                        Book  </button>
+                                </div>
+                            </c:if>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        </c:forEach>
 
 
-        <td><%=rs.getString("journal_title") %></td>
-        <td><%=rs.getString("article_title") %></td>
-        <td><%=rs.getString("publication_month_year") %></td>
-        <td><%=rs.getString("author") %></td>
-        <td><%=rs.getString("editor") %></td>
-        <td><%=rs.getString("price") %></td>
-        <td><%=rs.getString("copies") %></td>
-        <td><a>Book</a></td>
-
-        </tbody>
-        <%
-            }
-        %>
-    </table>
-    <%
-            rs.close();
-            stmt.close();
-            conn.close();
-        }
-        catch(Exception e) {
-            e.printStackTrace();
-            System.out.println("<h1> error: "+ e.getMessage()+"</h1>");
-        }
-    %>
 </form>
 <script src="${contextPath}/resources/jsNew/jquery.js"></script>
 <script src="${contextPath}/resources/jsNew/bootstrap.js"></script>

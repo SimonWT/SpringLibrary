@@ -225,7 +225,7 @@ public class BookController {
         Long userId = getCurrentUserId();
         Document document = docService.getDocumentById(docId);
         if (document.copies == 0) {
-
+            //Queue
         } else {
             History history = new History(docId, userId, new Date(System.currentTimeMillis()), new Date(System.currentTimeMillis() + 190000), 0, 0);
             historyService.save(history);

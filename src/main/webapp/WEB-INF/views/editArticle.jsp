@@ -73,7 +73,7 @@
 
         <spring:bind path="editors">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input value="${articleForm.editors}" type="text" path="editors" class="form-control" placeholder="Editor's name"></form:input>
+                <form:input value="${articleForm.editors}" type="text" path="editors" class="form-control" placeholder="Editors name"></form:input>
                 <form:errors path="editors"></form:errors>
             </div>
         </spring:bind>
