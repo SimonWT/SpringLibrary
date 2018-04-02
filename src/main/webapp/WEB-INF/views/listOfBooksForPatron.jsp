@@ -56,7 +56,7 @@
 
                             <div style = "float:left; margin-left:4px;">  <img src = "${contextPath}/resources/imgNew/images.png" style = "width:160px; height:200px;"></div>
                             <div style = "float:right; margin-right:20%;">
-
+                                <p>ID: ${book.id}</p>
                                 <p>Title: ${book.title}</p>
                                 <p>Edition: ${book.edition} </p>
                                 <p>Authors: ${book.authors}</p>
@@ -89,7 +89,7 @@
 
                             <c:if test="${book.status==3}" >
                             <div style = "float:right; margin-right:4%">
-                                <button>
+                                <button href="/booking/${book.id}">
                                     Book  </button>
                             </div>
                             </c:if>
