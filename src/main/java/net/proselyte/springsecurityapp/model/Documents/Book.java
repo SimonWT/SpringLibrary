@@ -53,8 +53,14 @@ public class Book extends Document {
         this.edition = edition;
         assert(this.edition == this.getEdition());
     }
+    public String getAuthors() {
+        return authors;
+    }
 
-
+    public void setAuthors(String authors) {
+        this.authors = authors;
+        assert(this.authors == this.getAuthors());
+    }
 
     public void setBestSeller(boolean bestSeller) {
         this.bestSeller = bestSeller;

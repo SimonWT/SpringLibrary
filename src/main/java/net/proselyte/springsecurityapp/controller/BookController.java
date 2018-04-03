@@ -117,6 +117,7 @@ public class BookController {
             return "listOfBooks";
         }
 
+
     @RequestMapping(value = "/checkOutedBooks", method = RequestMethod.GET)
     public String checkOutedBooks(Principal principal, Model model) throws SQLException {
         String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
