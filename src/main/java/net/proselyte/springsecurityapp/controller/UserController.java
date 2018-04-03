@@ -113,6 +113,9 @@ public class UserController {
 
         userService.save(userForm);
 
+        //send a notification
+
+
         /*
             this action authorizate new user after addition (it is useful in our case, but let it be here)
          */
@@ -155,24 +158,38 @@ public class UserController {
     }
 
     @RequestMapping(value="/editUser/{id}", method = RequestMethod.GET)
-    public String editUser(@PathVariable("id") Long id, Model model){
-        User user = userService.getUserById(id);
+    public ModelAndView editUser(@PathVariable("id") Long id, Model model){
+        User user1 = userService.getUserById(id);
 
-        if(user!=null)
-            logger.info("Users got by ID: " + user.toString());
+        if(user1!=null)
+            logger.info("Users got by ID: " + user1.toString());
 
-        model.addAttribute("userForm", user);
+        model.addAttribute("userForm", user1);
+        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.findByUsername(currentUser);
+        ModelAndView mav = new ModelAndView();
 
-        return "editUser";
+        Map<String, String> userData = new HashMap<>();
+        userData.put("username", user.getUsername());
+        userData.put("name", user.getName());
+        userData.put("surname", user.getSurname());
+        userData.put("phone", user.getPhone());
+        userData.put("email", user.getEmail());
+        userData.put("type", user.getType());
+        mav.setViewName("editUser");
+
+        mav.addObject("user", userData);
+
+        return mav;
     }
 
     @RequestMapping(value = "/editUser/{id}",method = RequestMethod.POST)
     public String editUser(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model){
 
-        userService.update(userForm);
+                    userService.update(userForm);
 
-        logger.info("Users updated: "+ userForm.toString());
-        return "redirect:/listOfUsers";
+                    logger.info("Users updated: "+ userForm.toString());
+                    return "redirect:/listOfUsers";
     }
 
 
@@ -235,7 +252,27 @@ public class UserController {
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
-    public String user(Model model) { return "user"; }
+    public ModelAndView user(Model model) {
+        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.findByUsername(currentUser);
+        ModelAndView mav = new ModelAndView();
+        /*Map<String, String> message1 = new HashMap<String, String>();
+        message1.put("message1", "Hello World");
+        mav.setViewName("welcome");
+        mav.addObject("message", message1);*/
+        Map<String, String> userData = new HashMap<>();
+        userData.put("username", user.getUsername());
+        userData.put("name", user.getName());
+        userData.put("surname", user.getSurname());
+        userData.put("phone", user.getPhone());
+        userData.put("email", user.getEmail());
+        userData.put("type", user.getType());
+        mav.setViewName("user");
+
+        mav.addObject("user", userData);
+
+        return mav;
+    }
 
 
     @RequestMapping(value = "/mydoc", method = RequestMethod.GET)
