@@ -44,6 +44,9 @@ public class User {
     private String type;
 
     @Transient
+    private String typeString;
+
+    @Transient
     private String confirmPassword;
 
     @ManyToMany
@@ -143,6 +146,13 @@ public class User {
         assert (this.type.equals(this.getType()));
     }
 
+    public String getTypeString() {
+        return typeString;
+    }
+
+    public void setTypeString(String typeString) {
+        this.typeString = typeString;
+    }
 
     public Set<Role> getRoles() {
         return roles;

@@ -3,6 +3,7 @@ package net.proselyte.springsecurityapp.service;
 import net.proselyte.springsecurityapp.dao.RoleDao;
 import net.proselyte.springsecurityapp.dao.UserDao;
 import net.proselyte.springsecurityapp.model.Documents.Role;
+import net.proselyte.springsecurityapp.model.Users.Librarian;
 import net.proselyte.springsecurityapp.model.Users.Patron;
 import net.proselyte.springsecurityapp.model.Users.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,7 @@ public class UserServiceImpl implements UserService{
     public void save(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         Set<Role> roles = new HashSet<>();
-        if (user.getType().equals("Librarian")) {
+        if (user instanceof Librarian) {
             roles.add(roleDao.getOne(2L));
         } else {
             roles.add(roleDao.getOne(1L));

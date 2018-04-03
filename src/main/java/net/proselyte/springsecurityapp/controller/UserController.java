@@ -6,8 +6,7 @@ import net.proselyte.springsecurityapp.model.Documents.AudioVideo;
 import net.proselyte.springsecurityapp.model.Documents.Book;
 import net.proselyte.springsecurityapp.model.Documents.Document;
 import net.proselyte.springsecurityapp.model.Library.Library;
-import net.proselyte.springsecurityapp.model.Users.Patron;
-import net.proselyte.springsecurityapp.model.Users.User;
+import net.proselyte.springsecurityapp.model.Users.*;
 import net.proselyte.springsecurityapp.service.*;
 import net.proselyte.springsecurityapp.validator.ArticleValidator;
 import net.proselyte.springsecurityapp.validator.AudioVideoValidator;
@@ -76,14 +75,6 @@ public class UserController {
     @Autowired
     private DocumentService documentService;
 
-    @RequestMapping(value = "/test/inh", method = RequestMethod.GET )
-    public String testInh(Model model){
-
-
-
-        return "SUKA.";
-    }
-
     @RequestMapping("/deleteUser/{id}")
     public String deleteUser(@PathVariable("id") Long id){
         userService.delete(id);
@@ -91,27 +82,33 @@ public class UserController {
         return "redirect:/listOfUsers";
     }
 
-
-
-
-
+    public User selecType(User user){
+        User newUser = new Patron();
+        if(user.getTypeString().equals("Librarian")) newUser = new Librarian(user.getUsername(), user.getPassword(),user.getName(), user.getSurname(), user.getPhone(), user.getEmail(), "Librarian");
+        else if (user.getTypeString().equals("Student")) newUser = new Student(user.getUsername(), user.getPassword(),user.getName(), user.getSurname(), user.getPhone(), user.getEmail(), "Student", "Lenina");
+        else if (user.getTypeString().equals("TA")) newUser = new TA(user.getUsername(), user.getPassword(),user.getName(), user.getSurname(), user.getPhone(), user.getEmail(), "Student", "Lenina");
+        else if (user.getTypeString().equals("Instructor")) newUser = new Instructor(user.getUsername(), user.getPassword(),user.getName(), user.getSurname(), user.getPhone(), user.getEmail(), "Student", "Lenina");
+        else if (user.getTypeString().equals("Professor")) newUser = new Professor(user.getUsername(), user.getPassword(),user.getName(), user.getSurname(), user.getPhone(), user.getEmail(), "Student", "Lenina");
+        else if (user.getTypeString().equals("Visiting Professor")) newUser = new VisitingProfessor(user.getUsername(), user.getPassword(),user.getName(), user.getSurname(), user.getPhone(), user.getEmail(), "Student", "Lenina");
+        return newUser;
+    }
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
         model.addAttribute("userForm", new User());
-
         return "registration";
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
+    public String registration(@ModelAttribute("userForm") User user, BindingResult bindingResult, Model model) {
         //userValidator.validate(userForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
             return "registration";
         }
 
-        userService.save(userForm);
+
+        userService.save(selecType(user));
 
         /*
             this action authorizate new user after addition (it is useful in our case, but let it be here)
@@ -120,6 +117,7 @@ public class UserController {
 
         return "redirect:/admin";
     }
+
     @RequestMapping(value = "/ProfilePage", method = RequestMethod.GET)
     public String ProfilePage(Model model) {
         model.addAttribute("userForm", new User());
@@ -169,7 +167,7 @@ public class UserController {
     @RequestMapping(value = "/editUser/{id}",method = RequestMethod.POST)
     public String editUser(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model){
 
-        userService.update(userForm);
+        userService.update(selecType(userForm));
 
         logger.info("Users updated: "+ userForm.toString());
         return "redirect:/listOfUsers";

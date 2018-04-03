@@ -1546,6 +1546,7 @@ role_id</ColNames>
     <column id="350" parent="238" name="type">
       <Position>8</Position>
       <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="351" parent="238" name="address">
