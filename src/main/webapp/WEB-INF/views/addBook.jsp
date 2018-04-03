@@ -46,11 +46,11 @@
             </div>
         </spring:bind>
 
-          <spring:bind path="author">
+          <spring:bind path="authors">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="text" path="author" class="form-control" placeholder="Author's name"
+                <form:input type="text" path="authors" class="form-control" placeholder="Author's name"
                             autofocus="true"></form:input>
-                <form:errors path="author"></form:errors>
+                <form:errors path="authors"></form:errors>
             </div>
         </spring:bind>
 

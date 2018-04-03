@@ -49,7 +49,7 @@
                     Media</a>
                 <a href="/listOfArticlesForPatron" style = ""><i class="fa fa-newspaper-o" aria-hidden="true"></i>
                     Journal Article</a>
-                <a href="/ListOfBooksForPatron" style = ""><i class="fa fa-book" aria-hidden="true"></i> Books</a>
+                <a href="/listOfBooksForPatron" style = ""><i class="fa fa-book" aria-hidden="true"></i> Books</a>
             </div>
         </c:otherwise>
     </c:choose>
@@ -81,7 +81,7 @@
             <a href="/mydoc">
                 <i class="fa fa-bookmark" aria-hidden="true"></i>
 
-                My Documents</a>
+                My Documents(count)</a>
 
 
             <c:if test="${pageContext.request.userPrincipal.name != null}">
@@ -103,7 +103,7 @@
     <div class="modal" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="cont">
-                <div class="modal2">
+                <div class="modal2">`
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <i class="fa fa-window-close-o" aria-hidden="true" style = "font-size:45px; padding-right:4px;"></i>
                     </button>

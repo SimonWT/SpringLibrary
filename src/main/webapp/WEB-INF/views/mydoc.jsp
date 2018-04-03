@@ -1,49 +1,51 @@
+<%@ page import="java.sql.Connection" %>
+<%@ page import="java.sql.DriverManager" %>
+<%@ page import="java.sql.Statement" %>
+<%@ page import="java.sql.ResultSet" %>
+<%@ page import="org.springframework.jdbc.datasource.DriverManagerDataSource" %><%--
+  Created by IntelliJ IDEA.
+  Users: Igor
+  Date: 02-Mar-18
+  Time: 3:14 PM
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
 
-    <title>My Documents | DeepLib</title>
+    <title>All Books | DeepLib</title>
+
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/bootstrap.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/font-awesome.css">
-    <link rel="stylesheet" href="${contextPath}/resources/cssNew/welcomeform.css">
-    <link rel="stylesheet" href="${contextPath}/resources/cssNew/document.css">
-
+    <link rel="stylesheet" href="${contextPath}/resources/cssNew/loginform.css"></head>
 <body>
-
 <%@ include file ="topnav.jsp" %>
-<ul class="nav nav-pills">
-    <li class="active"><a data-toggle="pill" href="#home">Home</a></li>
-    <li><a data-toggle="pill" href="#menu1">Menu 1</a></li>
-    <li><a data-toggle="pill" href="#menu2">Menu 2</a></li>
-</ul>
+<br>
+<br>
+<div style = "background: #8c8c8c; text-align: center;color:#ddd8c4; font-size:30px; width:60%;margin-left:21.5%;
+font-style: normal">My Documents</div>
+<br>
+<br>
 
-<div class="tab-content">
-    <div id="home" class="tab-pane fade in active">
-        <h3>HOME</h3>
-        <p>Some content.</p>
-    </div>
-    <div id="menu1" class="tab-pane fade">
-        <h3>Menu 1</h3>
-        <p>Some content in menu 1.</p>
-    </div>
-    <div id="menu2" class="tab-pane fade">
-        <h3>Menu 2</h3>
-        <p>Some content in menu 2.</p>
-    </div>
-</div>
+                <div class = "row" style = "background: #ebccd1; width: 50%; margin-left:35%; height:27%; ">
+
+                    <div style = "float:left; margin-top:1.5%; margin-left:4px;">  <img src = "${contextPath}/resources/imgNew/images.png" style = "width:100%; height:90%;"></div>
+                    <div style = "float:right;">
+                        <div style = "height:20%;">How to forgot about girls and learn masturbate  </div>
+                        <div  style = "font-size:40px; color:darkred;">DO  NOT FORGET TO RETURN UNTIL 04.04.2018</div>
+                        <div>Fine: </div>
+                    </div>
+
+                    <div style = "float:right;  font-size:20px;" >
+                        <button style = "border: none !important; margin-top:50%;border-radius: 10px;">Return Document</button> </div>
+                </div>
+
 <script src="${contextPath}/resources/jsNew/jquery.js"></script>
 <script src="${contextPath}/resources/jsNew/bootstrap.js"></script>
-<script src="${contextPath}/resources/jsNew/scripts.js"></script>
-</body>
+<script src="${contextPath}/resources/jsNew/scripts.js"></script></body>
 </html>
