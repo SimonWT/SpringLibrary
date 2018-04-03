@@ -264,6 +264,7 @@ public class UserController {
         String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userService.findByUsername(currentUser);
         Long userId = user.getId();
+        if(documentService.getDocumentById(docId)==null) return "redirect:/error/wrongid";
 
         if(user instanceof Patron){
             Library library = new Library();
@@ -283,14 +284,16 @@ public class UserController {
         String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userService.findByUsername(currentUser);
         Long userId = user.getId();
+        if(documentService.getDocumentById(docId)==null) return "redirect:/error/wrongid";
 
+        int status = -2;
         if(user instanceof Patron){
             ((Patron) user).setDocumentService(documentService);
             ((Patron) user).setHistoryService(historyService);
-            int status = ((Patron) user).toReturn(documentService.getDocumentById(docId));
+             status = ((Patron) user).toReturn(documentService.getDocumentById(docId));
         }
         //Status ==0 - Success
-        return "redirect:/status/return/{status}";
+        return "redirect:/status/return/"+status;
     }
 
 

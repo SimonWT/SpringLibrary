@@ -119,23 +119,28 @@ public class Patron extends User {
 
     public int toReturn(Document doc){
         History h = historyService.getHistoryByIdAndDocId(this.getId(), doc.getId());
-        h.status = 0;
+        h.setStatus(1); //Close status
         historyService.updateHistory(h);
         doc.setCopies(doc.getCopies() + 1);
         documentService.update(doc);
+
         Date today = new Date();
+        doc.setCheckoutDate(h.getCheckOutDate());
         long dif = doc.getCheckoutDate().getTime() - today.getTime();
+
         int difDays = (int)TimeUnit.DAYS.convert(dif, TimeUnit.MILLISECONDS);
         if (difDays > doc.getDue()){
             doc.setOverdue(difDays - doc.getDue());
             if (100 * (difDays - doc.getDue()) < doc.getPrice()) {
                 doc.setFine(100 * (difDays - doc.getDue()));
-                return 1;
+                return doc.getFine();
             }else
                 doc.setFine(doc.getPrice());
-                return 2;
+                return doc.getFine();
         }
-        return 0;
+
+
+        return -1;
     }
 
     public List<Document> getDocuments() {
