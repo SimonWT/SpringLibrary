@@ -3,11 +3,15 @@ package net.proselyte.springsecurityapp.model.Users;
 import jdk.nashorn.internal.ir.annotations.Ignore;
 import net.proselyte.springsecurityapp.dao.ForTesting.DocDao;
 import net.proselyte.springsecurityapp.dao.ForTesting.DocDaoImpl;
+import net.proselyte.springsecurityapp.model.Documents.Article;
 import net.proselyte.springsecurityapp.model.Documents.AudioVideo;
 import net.proselyte.springsecurityapp.model.Documents.Book;
 import net.proselyte.springsecurityapp.model.Documents.Document;
 import net.proselyte.springsecurityapp.model.Library.Library;
-import net.proselyte.springsecurityapp.service.UserService;
+import net.proselyte.springsecurityapp.service.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -22,34 +26,36 @@ import java.util.concurrent.TimeUnit;
  */
 
 @Entity
+@Component
 @DiscriminatorValue("Librarian")
 public class Librarian extends User {
 
     @Transient
-    public Library library;
+    @Autowired
+    public UserService userService;
 
+    @Autowired
     @Transient
-    public UserService userDao;
+    public ArticleServiceImpl articleService;
 
+    @Autowired
     @Transient
-    public DocDao docDao = new DocDaoImpl();
+    public BookServiceImpl bookService;
+
+    @Autowired
+    @Transient
+    public AudioVideoMaterialServiceImpl avService;
+
+    @Autowired
+    @Transient
+    public DocumentServiceImpl docService;
 
     public void addPatron(Patron newPatron){
-        library.patrons.add(newPatron);
-        //newPatron.library = library;
-        userDao.save(newPatron);
-    }
-
-    public void removePatron(String name, String phoneNumber){
-        int id = (name + phoneNumber).hashCode();
-        for (Patron patron : library.patrons){
-            if (patron.getId() == id)
-                library.patrons.remove(patron);
-        }
+        userService.save(newPatron);
     }
 
     public Librarian() {
-        library = new Library();
+
     }
 
     public Librarian(String username, String password, String name, String surname, String phone, String email, String type) {
@@ -57,16 +63,11 @@ public class Librarian extends User {
     }
 
     public void addDoc(Document doc, int copiesAmount){
-        if (library.documents.contains(doc))
+        if (docService.getListOfArticle().contains(doc) || docService.getListOfAudioVideo().contains(doc) || docService.getListOfBook().contains(doc))
             doc.setCopies(doc.getCopies() + copiesAmount);
         else {
             doc.setCopies(copiesAmount);
-            library.documents.add(doc);
-            if (doc.getClass().toString().equals("class net.proselyte.springsecurityapp.model.Documents.AudioVideo")){
-                docDao.addAV((AudioVideo) doc);
-            }
-            if (doc.getClass().toString().equals("class net.proselyte.springsecurityapp.model.Documents.Book"))
-                docDao.addBook((Book) doc);
+            docService.save(doc);
         }
 
     }
@@ -94,17 +95,18 @@ public class Librarian extends User {
     public void removeDoc(Document doc, int copies){
         //get list of documents
         doc.setCopies(doc.getCopies() - copies);
+        docService.update(doc);
         if (doc.getCopies() < 0)
-            library.documents.remove(doc);
+            docService.delete(doc.getId());
         //rewrite list of documents
     }
 
     public void removePatron(Patron p){
-        library.patrons.remove(p);
+        userService.delete(p.getId());
     }
 
     public String checkInfo(Patron p){
-        if (!library.patrons.contains(p)){
+        if (!userService.getAllPatrons().contains(p)){
             return "Information not available, patron does not exist.";
         }
         StringBuilder info = new StringBuilder("Name: " + p.getName() + "\nAddress:" + p.getAddress() + "\nPhone:" + p.getPhone() + "\nId:" + p.getId() + /*"\nType:" + p.getType() +*/ "\nDocuments:\n");
@@ -115,10 +117,10 @@ public class Librarian extends User {
     }
 
     public void emptyQueues(){
-        for (int i = 0; i < library.documents.size(); i++){
-            if (library.documents.get(i).queue.size() != 0){
-                library.documents.get(i).queue.clear();
-            }
-        }
+//        for (int i = 0; i < library.documents.size(); i++){
+//            if (library.documents.get(i).queue.size() != 0){
+//                library.documents.get(i).queue.clear();
+//            }
+//        }
     }
 }

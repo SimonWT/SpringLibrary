@@ -7,11 +7,15 @@ import net.proselyte.springsecurityapp.model.Documents.Document;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import javax.print.Doc;
 import java.util.AbstractMap;
 import java.util.List;
 
 public interface DocDao  extends JpaRepository<Document, Long> {
     Document getDocumentById(Long id);
+
+    List<Document> getAllByIdIsNotNull();
+
 
     @Query("select u from Book u")
     List<Book> getAllBooks();

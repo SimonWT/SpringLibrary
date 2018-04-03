@@ -12,6 +12,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,6 +25,8 @@
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/welcomeform.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/listbook.css">
 
+    <sec:csrfMetaTags/>
+
 </head>
 <body>
 <%@ include file ="topnav.jsp" %>
@@ -33,47 +36,7 @@
     <br>
     <div class = "row">
         <div class = "one" style = "float:left; margin-left:2%;">
-    <%--<%--%>
-            <%--try--%>
-            <%--{--%>
-                <%--DriverManagerDataSource dataSource = new DriverManagerDataSource();--%>
-                <%--dataSource.setDriverClassName("com.mysql.jdbc.Driver");--%>
-                <%--dataSource.setUrl("jdbc:mysql://eu-cdbr-west-02.cleardb.net:3306/heroku_f76d6fb9e659782");--%>
-                <%--dataSource.setUsername("baff532465d8d9");--%>
-                <%--dataSource.setPassword("ffa9cd9f");--%>
-                <%--String query="SELECT title FROM books";--%>
-                <%--Connection conn=DriverManager.getConnection(dataSource.getUrl(), dataSource.getUsername(), dataSource.getPassword());--%>
-                <%--Statement stmt=conn.createStatement();--%>
-                <%--ResultSet rs=stmt.executeQuery(query);--%>
-                <%--String rs2;--%>
-                <%--while(rs.next())--%>
-                <%--{   if (rs.getRow()%5 == 1) {--%>
-                    <%--rs2 = rs.getString("title");--%>
-                    <%--%>--%>
 
-            <%--<button style = "background: #f44336; border:1px;--%>
-            <%--height: 90px; text-align: center; width:50%;--%>
-            <%--margin-left:calc(50%- 200px); color: #ddd8c4; font-size:13px;"--%>
-                    <%--type="button" data-toggle="modal"--%>
-                    <%--data-target="#myModal"><%=rs2%></button>--%>
-
-
-        <%--<br>--%>
-            <%--<br>--%>
-            <%--<br>--%>
-                    <%--<%--%>
-                <%--}--%>
-            <%--}--%>
-
-            <%--rs.close();--%>
-            <%--stmt.close();--%>
-            <%--conn.close();--%>
-        <%--}--%>
-        <%--catch(Exception e) {--%>
-            <%--e.printStackTrace();--%>
-            <%--System.out.println("<h1> error: "+ e.getMessage()+"</h1>");--%>
-        <%--}--%>
-    <%--%>--%>
     </div>
 
     <c:forEach items="${bookList}" var="book">
@@ -96,7 +59,7 @@
 
                             <div style = "float:left; margin-left:4px;">  <img src = "${contextPath}/resources/imgNew/images.png" style = "width:160px; height:200px;"></div>
                             <div style = "float:right; margin-right:20%;">
-
+                                <p>ID: ${book.id}</p>
                                 <p>Title: ${book.title}</p>
                                 <p>Edition: ${book.edition} </p>
                                 <p>Authors: ${book.authors}</p>
@@ -111,8 +74,8 @@
 
                             <c:if test="${book.status==0}" >
                             <div style = "float:left; margin-left:4%;">
-                                <button>
-                                    Return back </button>
+                                <a href="/return/${book.id}"><button>
+                                    Return back </button></a>
                             </div>
                             <div style = "float:left; margin-left:4%">
                                 <button>
@@ -120,17 +83,16 @@
                             </div>
                             </c:if>
 
-                            <c:if test="${book.status==2}" >
+                            <c:if test="${book.status==2}">
                             <div style = "float:right; margin-right:4%">
-                                <button >
-                                    Queue  </button>
+                                <button> Queue  </button>
                             </div>
+
                             </c:if>
 
                             <c:if test="${book.status==3}" >
                             <div style = "float:right; margin-right:4%">
-                                <button>
-                                    Book  </button>
+                                <a href="/booking/${book.id}"><button> Book  </button></a>
                             </div>
                             </c:if>
                         </div>

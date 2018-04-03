@@ -110,11 +110,19 @@
       <artifactId>logback-classic</artifactId>
       <version>${logback.version}</version>
     </dependency>
+
       <dependency>
           <groupId>junit</groupId>
           <artifactId>junit</artifactId>
           <version>RELEASE</version>
       </dependency>
+
+    <!--<dependency>-->
+      <!--<groupId>org.junit.jupiter</groupId>-->
+      <!--<artifactId>junit-jupiter-api</artifactId>-->
+      <!--<version>RELEASE</version>-->
+    <!--</dependency>-->
+
   </dependencies>
   <build>
     <plugins>
@@ -123,8 +131,40 @@
         <artifactId>jetty-maven-plugin</artifactId>
         <version>9.2.11.v20150529</version>
       </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.5</version>
+        <configuration>
+          <excludes>
+            <exclude>${systest.package}</exclude>
+            <exclude>**/*$*</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
     </plugins>
 
     <finalName>SpringSecurityApp</finalName>
   </build>
+
+    <profiles>
+        <profile>
+            <id>TestCase_07_03</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.5</version>
+                        <configuration>
+                            <excludes>
+                                <exclude>**/*$*</exclude>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

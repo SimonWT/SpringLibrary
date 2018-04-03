@@ -5,6 +5,7 @@ import net.proselyte.springsecurityapp.model.Documents.Article;
 import net.proselyte.springsecurityapp.model.Documents.AudioVideo;
 import net.proselyte.springsecurityapp.model.Documents.Book;
 import net.proselyte.springsecurityapp.model.Documents.Document;
+import net.proselyte.springsecurityapp.model.Library.Library;
 import net.proselyte.springsecurityapp.model.Users.Patron;
 import net.proselyte.springsecurityapp.model.Users.User;
 import net.proselyte.springsecurityapp.service.*;
@@ -71,6 +72,9 @@ public class UserController {
 
     @Autowired
     private HistoryService historyService;
+
+    @Autowired
+    private DocumentService documentService;
 
     @RequestMapping(value = "/test/inh", method = RequestMethod.GET )
     public String testInh(Model model){
@@ -241,23 +245,14 @@ public class UserController {
 
     @RequestMapping(value = "/editUser/{id}",method = RequestMethod.POST)
     public String editUser(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model){
+
         userService.update(userForm);
 
         logger.info("Users updated: "+ userForm.toString());
         return "redirect:/listOfUsers";
     }
 
-    @RequestMapping(value = "/listOfArticles", method = RequestMethod.GET)
-    public String listOfArticles() {
 
-        return "listOfArticles";
-    }
-
-    @RequestMapping(value = "/listOfAudioVideoMaterial", method = RequestMethod.GET)
-    public String listOfAudioVideoMaterial() {
-
-        return "listOfAudioVideoMaterial";
-    }
 
     @RequestMapping(value = "/testId", method = RequestMethod.GET)
     public String showResults(Principal principal) {
@@ -273,10 +268,7 @@ public class UserController {
         String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userService.findByUsername(currentUser);
         ModelAndView mav = new ModelAndView();
-        /*Map<String, String> message1 = new HashMap<String, String>();
-        message1.put("message1", "Hello World");
-        mav.setViewName("welcome");
-        mav.addObject("message", message1);*/
+
         Map<String, String> userData = new HashMap<>();
         userData.put("username", user.getUsername());
         userData.put("name", user.getName());
@@ -294,22 +286,6 @@ public class UserController {
 
 
 
-    /*@RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
-    public ModelAndView welcome(@PathVariable("id") Long id) {
-        User user = userService.getUserById(id);
-        ModelAndView modelAndView = new ModelAndView();
-        Map<String, String> userData = new HashMap<String, String>();
-        userData.put("id", user.getId().toString());
-        userData.put("username", user.getUsername());
-
-        userData.put("name", user.getName());
-        userData.put("surname", user.getName());
-        userData.put("phone", user.getPhone());
-        userData.put("email", user.getEmail());
-        userData.put("type", user.getType());
-        modelAndView.addAllObjects(userData);
-        return modelAndView;
-    }*/
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public ModelAndView admin(Model model) {
@@ -339,7 +315,7 @@ public class UserController {
     public String user(Model model) { return "user"; }
 
 
-    @RequestMapping(value = "/mydoc/", method = RequestMethod.GET)
+    @RequestMapping(value = "/mydoc", method = RequestMethod.GET)
     public String history(ModelAndView modelAndView){
         String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userService.findByUsername(currentUser);
@@ -357,8 +333,42 @@ public class UserController {
         }
 
         modelAndView.addObject(historyList);
-        return  "/mydoc/";
+        return  "mydoc";
     }
+
+    @RequestMapping(value = "/booking/{docId}")
+    public String booking(@PathVariable Long docId){
+        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.findByUsername(currentUser);
+        Long userId = user.getId();
+
+        if(user instanceof Patron){
+            Library library = new Library();
+            library.patrons.add((Patron) user);
+//            ((Patron) user).setLibrary(library);
+            ((Patron) user).setDocumentService(documentService);
+            ((Patron) user).setHistoryService(historyService);
+            int status = ((Patron) user).checkout(documentService.getDocumentById(docId));
+        }
+        //Status ==0 - Success
+        return "redirect:/status/checkout/{status}";
+    }
+
+    @RequestMapping(value = "/return/{docId}")
+    public String returnDoc(@PathVariable Long docId){
+        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.findByUsername(currentUser);
+        Long userId = user.getId();
+
+        if(user instanceof Patron){
+            ((Patron) user).setDocumentService(documentService);
+            ((Patron) user).setHistoryService(historyService);
+            int status = ((Patron) user).toReturn(documentService.getDocumentById(docId));
+        }
+        //Status ==0 - Success
+        return "redirect:/status/return/{status}";
+    }
+
 
     @RequestMapping("/test/listOfPatrons/")
     public String listOfPatrons(){

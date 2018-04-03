@@ -26,6 +26,7 @@
     <title>Add New Document | DeepLib</title>
 </head>
 <body>
+
 <%@ include file ="topnav.jsp" %>
 
 <br>
@@ -40,18 +41,16 @@
 <div class="container">
 
     <div class="alert2" align = "center">
-
+        <sec:csrfMetaTags/>
         <div class = "row" >
-            <a href="/registration" > <button  class = "form1" >Register somebody  </button></a>
-            <a href="/listOfUsers"> <button class = "form2">View users</button> </a>
-        </div>
-        <br>
-        <div class = "row" >
-            <a href="/registration"> <button  class = "form3" >Add New Document  </button></a>
-            <a href="/listOfDocumets"> <button class = "form4">View Documets</button></a>
+            <a href="/addArticle" > <button  class = "form1" > New Article </button></a>
+            <a href="/addBook"> <button class = "form2"> New Book </button> </a>
+            <br>
+            <a href="/addAudioVideoMaterial"> <button class = "form4"> New Media </button></a>
         </div>
     </div>
 </div>
+
 </div>
 
 

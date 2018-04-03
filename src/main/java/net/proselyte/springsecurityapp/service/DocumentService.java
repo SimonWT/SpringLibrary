@@ -15,5 +15,6 @@ public interface DocumentService {
     List<Book> getListOfBook();
     List<AudioVideo> getListOfAudioVideo();
     List<Article> getListOfArticle();
+    List<Document> getAllDocuments();
 
 }
