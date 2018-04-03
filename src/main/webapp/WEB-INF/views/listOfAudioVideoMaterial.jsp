@@ -26,33 +26,19 @@
 <%@ include file ="topnav.jsp" %>
 
 <form method="POST">
-    <table class="table table-condensed">
-        <thead>
-        <tr>
-            <th>Author</th>
-            <th>Title</th>
-            <th>Price</th>
-            <th>Copies</th>
-            <th>View</th>
-        </tr>
-        </thead>
-        <tbody>
 
 
         <c:forEach items="${audioVideoList}" var="av">
-        <tr>
-        <td>${av.authors}</td>
-        <td>${av.title}</td>
-        <td>${av.price}</td>
-        <td>${av.copies}</td>
-        <td><a href="/editAudioVideo/${av.id}">Edit</a><a href="/deleteAudioVideo/${av.id}">Delete</a></td>
-        </tr>
+            <div style = "background: #ddd8c4; margin-left:calc(50%- 6px);width:50%">
+                <img src ="${contextPath}/resources/imgNew/logo7.png" width = 20% height = 10%>
+        <p>${av.authors}</p>
+        <p>${av.title}</p>
+        <p>${av.price}</p>
+        <p>${av.copies}</p>
+        <p><a href="/editAudioVideo/${av.id}">Edit</a><a href="/deleteAudioVideo/${av.id}">Delete</a></p>
+            </div>
+            <br>
         </c:forEach>
-
-        </tbody>
-
-    </table>
-
 </form>
 
 
