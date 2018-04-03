@@ -64,7 +64,7 @@
                                 <p>Edition: ${book.edition} </p>
                                 <p>Authors: ${book.authors}</p>
                                 <p>Publisher: ${book.publisher} </p>
-                                <p>Publish Year: ${book.year} </p>
+                                <p>Publish Year: ${book.yearString} </p>
                             </div>
                         </div>
                         <br>

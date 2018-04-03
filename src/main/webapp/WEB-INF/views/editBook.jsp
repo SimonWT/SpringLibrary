@@ -59,10 +59,12 @@
 
 
 
-            <spring:bind path="year">
+            <spring:bind path="yearString">
                 <div class="form-group ${status.error ? 'has-error' : ''}">
-                    <form:input value="${bookForm.year}" type="text" path="year" class="form-control" placeholder="Month and Year"></form:input>
-                    <form:errors path="year"></form:errors>
+
+                    <form:input value="${bookForm.yearString}" type="date" path="yearString" class="form-control" placeholder="Month and Year"></form:input>
+                    <form:errors path="yearString"></form:errors>
+
                 </div>
             </spring:bind>
 

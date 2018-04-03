@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -109,6 +110,7 @@ public class ArticleController {
                 else status = 3;                            //Simple CheckOut
             }                                                 //else Renew + Return
             article.setStatus(status);
+            article.setDateString(DateToString(article.getDate(),0,10));
         }
 
         model.addAttribute(articleList);
@@ -120,6 +122,12 @@ public class ArticleController {
         List<Article> articleList = docService.getListOfArticle();
         model.addAttribute(articleList);
         return "listOfArticles";
+    }
+
+    public String DateToString(Date date,int start, int finish){
+        String yearString = "";
+        if(date!=null) yearString = date.toString().substring(start, finish);
+        return yearString;
     }
 
 }

@@ -23,9 +23,16 @@ import sun.util.calendar.BaseCalendar;
 import javax.print.Doc;
 import java.security.Principal;
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.Year;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 public class BookController {
@@ -55,6 +62,7 @@ public class BookController {
     @RequestMapping(value = "/addBook", method = RequestMethod.GET)
     public String addBook(Model model) {
         model.addAttribute("bookForm", new Book());
+        model.addAttribute("year", "");
 
         return "addBook";
 
@@ -84,18 +92,21 @@ public class BookController {
     @RequestMapping(value = "/editBook/{id}", method = RequestMethod.GET)
     public String editInfo(@PathVariable("id") Long id , Model model) {
         Document doc = docService.getDocumentById(id);
-
+;
         if(doc!=null)
             logger.info("Book got by ID: "+doc.toString());
 
+        java.util.Date date = ((Book) doc).getYear();
+        String yearString = "";
+        if(date!=null) yearString = date.toString().substring(0,10);
+        ((Book) doc).setYearString(yearString);
         model.addAttribute("bookForm", doc);
-
         return "editBook";
     }
 
     @RequestMapping(value = "/editBook/{id}",method = RequestMethod.POST)
-    public String editInfo(@ModelAttribute("bookForm") Book bookForm, BindingResult bindingResult, Model model){
-
+    public String editInfo(@ModelAttribute("bookForm") Book bookForm, BindingResult bindingResult, Model model) throws ParseException {
+        bookForm.parseDate();
         docService.update(bookForm);
         logger.info("Book updated: "+ bookForm.toString());
         return "redirect:/listOfBooks";
@@ -131,7 +142,7 @@ public class BookController {
                 else status = 3;                      //Simple CheckOut
             }                                         //else Renew + Return
             book.setStatus(status);
-
+            book.setYearString(DateToString(book.getYear(),0,4));
         }
 
       model.addAttribute(bookList);
@@ -275,5 +286,17 @@ public class BookController {
     }
 
 
+    public java.util.Date parseDate(String year) throws ParseException {
+        DateFormat format = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);
+        java.util.Date date = format.parse(year);
+        System.out.println(date); // 2010-01-02
+        return date;
+    }
+
+    public String DateToString(java.util.Date date, int start, int finish){
+        String yearString = "";
+        if(date!=null) yearString = date.toString().substring(start,finish);
+        return yearString;
+    }
 }
 

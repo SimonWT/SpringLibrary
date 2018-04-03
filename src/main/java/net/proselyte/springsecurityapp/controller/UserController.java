@@ -271,6 +271,7 @@ public class UserController {
 //            ((Patron) user).setLibrary(library);
             ((Patron) user).setDocumentService(documentService);
             ((Patron) user).setHistoryService(historyService);
+            ((Patron) user).setUserService(userService);
             int status = ((Patron) user).checkout(documentService.getDocumentById(docId));
         }
         //Status ==0 - Success

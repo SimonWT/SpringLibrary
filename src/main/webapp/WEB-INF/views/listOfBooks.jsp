@@ -32,7 +32,7 @@
         <tr>
             <th>Title</th>
             <th>Author</th>
-            <th>Year</th>
+            <th>Publication Date</th>
             <th>Publisher</th>
             <th>Edition</th>
             <th>Price</th>

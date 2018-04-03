@@ -9,6 +9,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
@@ -36,6 +37,7 @@
 <div class="container">
 
     <form:form method="POST" modelAttribute="bookForm" class="form-signin">
+
         <h2 class="form-signin-heading">Create a new Book</h2>
 
         <spring:bind path="title">
@@ -61,12 +63,12 @@
             </div>
         </spring:bind>
 
-        <%--<spring:bind path="year">--%>
-            <%--<div class="form-group ${status.error ? 'has-error' : ''}">--%>
-                <%--<form:input type="text" path="year" class="form-control" placeholder="Month and Year"></form:input>--%>
-                <%--<form:errors path="year"></form:errors>--%>
-            <%--</div>--%>
-        <%--</spring:bind>--%>
+        <spring:bind path="year">
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <form:input type="date" path="year" class="form-control" placeholder="Publication Date"></form:input>
+                <form:errors path="year"></form:errors>
+            </div>
+        </spring:bind>
 
         <spring:bind path="edition">
             <div class="form-group ${status.error ? 'has-error' : ''}">

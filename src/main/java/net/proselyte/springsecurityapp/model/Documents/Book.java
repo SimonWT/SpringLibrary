@@ -3,8 +3,12 @@ package net.proselyte.springsecurityapp.model.Documents;
 import sun.util.calendar.BaseCalendar;
 
 import javax.persistence.*;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Year;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Simple JavaBean domain object that represents a Book.
@@ -29,6 +33,9 @@ public class Book extends Document {
 
     @Column(name = "year")
     private Date year;
+
+    @Transient
+    private String yearString;
 
     @Column(name = "edition")
     private int edition;
@@ -182,6 +189,24 @@ public class Book extends Document {
 //        this.author = author;
 //        assert(this.author.equals(this.getAuthor()));
 //    }
+
+
+    public String getYearString() {
+        return yearString;
+    }
+
+    public void setYearString(String yearString) {
+        this.yearString = yearString;
+    }
+
+    public void parseDate() throws ParseException {
+        DateFormat format = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH);
+        if(this.yearString.length()!=0) {
+            java.util.Date date = format.parse(this.yearString);
+            System.out.println(date); // 2010-01-02
+            this.year = date;
+        }
+    }
 
     @Override
     public String toString() {
