@@ -19,9 +19,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class ArticleController {
@@ -118,10 +121,30 @@ public class ArticleController {
     }
 
     @RequestMapping(value = "/listOfArticles", method = RequestMethod.GET)
-    public String listOfArticles(Model model){
+    public ModelAndView listOfArticles(Model model){
+
+        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.findByUsername(currentUser);
+        ModelAndView mav = new ModelAndView();
+        /*Map<String, String> message1 = new HashMap<String, String>();
+        message1.put("message1", "Hello World");
+        mav.setViewName("welcome");
+        mav.addObject("message", message1);*/
+        Map<String, String> userData = new HashMap<>();
+        userData.put("username", user.getUsername());
+        userData.put("name", user.getName());
+        userData.put("surname", user.getSurname());
+        userData.put("phone", user.getPhone());
+        userData.put("email", user.getEmail());
+        userData.put("type", user.getType());
+        mav.setViewName("listOfArticles");
+
+        mav.addObject("user", userData);
+
+
         List<Article> articleList = docService.getListOfArticle();
         model.addAttribute(articleList);
-        return "listOfArticles";
+        return mav;
     }
 
     public String DateToString(Date date,int start, int finish){

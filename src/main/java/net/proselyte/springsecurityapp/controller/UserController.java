@@ -6,7 +6,8 @@ import net.proselyte.springsecurityapp.model.Documents.AudioVideo;
 import net.proselyte.springsecurityapp.model.Documents.Book;
 import net.proselyte.springsecurityapp.model.Documents.Document;
 import net.proselyte.springsecurityapp.model.Library.Library;
-import net.proselyte.springsecurityapp.model.Users.*;
+import net.proselyte.springsecurityapp.model.Users.Patron;
+import net.proselyte.springsecurityapp.model.Users.User;
 import net.proselyte.springsecurityapp.service.*;
 import net.proselyte.springsecurityapp.validator.ArticleValidator;
 import net.proselyte.springsecurityapp.validator.AudioVideoValidator;
@@ -75,6 +76,14 @@ public class UserController {
     @Autowired
     private DocumentService documentService;
 
+    @RequestMapping(value = "/test/inh", method = RequestMethod.GET )
+    public String testInh(Model model){
+
+
+
+        return "SUKA.";
+    }
+
     @RequestMapping("/deleteUser/{id}")
     public String deleteUser(@PathVariable("id") Long id){
         userService.delete(id);
@@ -109,6 +118,9 @@ public class UserController {
 
 
         userService.save(selecType(user));
+
+        //send a notification
+
 
         /*
             this action authorizate new user after addition (it is useful in our case, but let it be here)
@@ -153,15 +165,29 @@ public class UserController {
     }
 
     @RequestMapping(value="/editUser/{id}", method = RequestMethod.GET)
-    public String editUser(@PathVariable("id") Long id, Model model){
-        User user = userService.getUserById(id);
+    public ModelAndView editUser(@PathVariable("id") Long id, Model model){
+        User user1 = userService.getUserById(id);
 
-        if(user!=null)
-            logger.info("Users got by ID: " + user.toString());
+        if(user1!=null)
+            logger.info("Users got by ID: " + user1.toString());
 
-        model.addAttribute("userForm", user);
+        model.addAttribute("userForm", user1);
+        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.findByUsername(currentUser);
+        ModelAndView mav = new ModelAndView();
 
-        return "editUser";
+        Map<String, String> userData = new HashMap<>();
+        userData.put("username", user.getUsername());
+        userData.put("name", user.getName());
+        userData.put("surname", user.getSurname());
+        userData.put("phone", user.getPhone());
+        userData.put("email", user.getEmail());
+        userData.put("type", user.getType());
+        mav.setViewName("editUser");
+
+        mav.addObject("user", userData);
+
+        return mav;
     }
 
     @RequestMapping(value = "/editUser/{id}",method = RequestMethod.POST)

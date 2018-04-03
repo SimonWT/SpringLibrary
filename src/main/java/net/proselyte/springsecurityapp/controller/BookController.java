@@ -29,10 +29,8 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Year;
 import java.time.format.DateTimeFormatter;
+import java.util.*;
 import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Locale;
 
 @Controller
 public class BookController {
@@ -150,10 +148,28 @@ public class BookController {
     }
 
     @RequestMapping(value = "/listOfBooks",method = RequestMethod.GET)
-    public String listOfBooks(Model model){
+    public ModelAndView listOfBooks(Model model){
             List<Book> bookList = docService.getListOfBook();
             model.addAttribute(bookList);
-            return "listOfBooks";
+        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.findByUsername(currentUser);
+        ModelAndView mav = new ModelAndView();
+        /*Map<String, String> message1 = new HashMap<String, String>();
+        message1.put("message1", "Hello World");
+        mav.setViewName("welcome");
+        mav.addObject("message", message1);*/
+        Map<String, String> userData = new HashMap<>();
+        userData.put("username", user.getUsername());
+        userData.put("name", user.getName());
+        userData.put("surname", user.getSurname());
+        userData.put("phone", user.getPhone());
+        userData.put("email", user.getEmail());
+        userData.put("type", user.getType());
+        mav.setViewName("listOfBooks");
+
+        mav.addObject("user", userData);
+
+        return mav;
         }
 
     @RequestMapping(value = "/checkOutedBooks", method = RequestMethod.GET)
