@@ -259,7 +259,7 @@ public class UserController {
         return  "mydoc";
     }
 
-    @RequestMapping(value = "/booking/{docId}")
+    @RequestMapping(value = "/booking/{docId}", method = RequestMethod.POST)
     public String booking(@PathVariable Long docId){
         String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userService.findByUsername(currentUser);

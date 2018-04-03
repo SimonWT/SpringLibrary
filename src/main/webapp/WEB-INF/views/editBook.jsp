@@ -98,14 +98,19 @@
 
             <spring:bind path="bestSeller">
                 <div class="form-group ${status.error ? 'has-error' : ''}">
-                    <form:input value="${bookForm.bestSeller}" type="text" path="bestSeller" class="form-control" placeholder="Bestseller"></form:input>
+                    is Bestseller
+                    <form:checkbox value="${bookForm.bestSeller}" path="bestSeller" class="form-control" placeholder="Bestseller"/>
                     <form:errors path="bestSeller"></form:errors>
+
                 </div>
             </spring:bind>
 
 
 
-          <button class="btn btn-block" type="submit">Submit</button>
+
+
+
+            <button class="btn btn-block" type="submit">Submit</button>
         </form:form>
 
   </div>
