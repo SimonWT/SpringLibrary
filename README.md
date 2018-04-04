@@ -74,7 +74,7 @@ Press "OK"
  
  ### For check TEST CASES:
  
- 1. Go to /src/main/java/net/proselyte/springsecurityapp/model/Tests/
+ 1. Go to src\test\java\net.proselyte.springsecurityapp directory
  2. And compile and run file file with title "TestCases_<dd>_<mm>" where dd_mm is date of delivery
  
  
