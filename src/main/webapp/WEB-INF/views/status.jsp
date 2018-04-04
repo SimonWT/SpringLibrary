@@ -23,6 +23,10 @@
         <h1>Returning complete </h1>
         <h2>Fine: ${history.penaltyDays}</h2>
     </c:if>
+    <c:if test="${history.status==3}">
+        <h1>You are in a queue for the book now</h1>
+        <h2>Please wait for a notification during 3 days</h2>
+    </c:if>
 
 </div>
 </body>

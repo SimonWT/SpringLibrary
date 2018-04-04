@@ -1,6 +1,7 @@
 package net.proselyte.springsecurityapp.controller;
 
 import net.proselyte.springsecurityapp.model.Booking.History;
+import net.proselyte.springsecurityapp.model.Booking.Queue;
 import net.proselyte.springsecurityapp.model.Documents.Article;
 import net.proselyte.springsecurityapp.model.Documents.AudioVideo;
 import net.proselyte.springsecurityapp.model.Documents.Book;
@@ -323,6 +324,8 @@ public class UserController {
             Library library = new Library();
             library.patrons.add((Patron) user);
             ((Patron) user).setQueueService(queueService);
+            Queue queue = new Queue(new Date(System.currentTimeMillis()), docId, userId);
+            queueService.save(queue);
         }
         //Status ==0 - Success
         return "redirect:/listOfBooksForPatron";

@@ -1,6 +1,7 @@
 package net.proselyte.springsecurityapp.model.Users;
 
 import net.proselyte.springsecurityapp.model.Booking.History;
+import net.proselyte.springsecurityapp.model.Booking.Queue;
 import net.proselyte.springsecurityapp.model.Documents.Book;
 import net.proselyte.springsecurityapp.model.Documents.Document;
 import net.proselyte.springsecurityapp.model.Documents.Role;
@@ -121,6 +122,7 @@ public class Patron extends User {
         else{
             if (doc.getCopies() == 0){
                 doc.queue.add(this);
+                queueService.save(new Queue(checkoutDate, doc.getId(), getId()));
             }
             System.out.println("No available documents for " + getName());
             return 3;
