@@ -213,144 +213,75 @@ public class TestCases_04_04 {
 
     @Test
     public void testCase1(){
-        p1.checkout(d1);
         try {
-            historyService.getHistoryByIdAndDocId(p1.getId(), d1.getId()).setCheckOutDate(format.parse("05 03"));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        p1.getDocuments().get(p1.getDocuments().size() - 1).setCheckoutDate("05 03");
+            p1.checkout(d1, format.parse("05 03"));
+            p1.checkout(d2, format.parse("05 03"));
 
-        p1.checkout(d2);
-        p1.getDocuments().get(p1.getDocuments().size() - 1).setCheckoutDate("05 03");
-        try {
-            historyService.getHistoryByIdAndDocId(p1.getId(), d2.getId()).setCheckOutDate(format.parse("05 03"));
+            p1.toReturn(d2, format.parse("02 04"));
+
+            System.out.println(l.checkOverdue(p1, format.parse("02 04")));
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
-        p1.toReturn(d2);
-        ///return 2nd April////
 
-        System.out.println(l.checkInfo(p1));
     }
 
     @Test
     public void testCase2(){
-        p1.checkout(d1);
-        p1.getDocuments().get(p1.getDocuments().size() - 1).setCheckoutDate("05 03");
+        Date date = new Date();
         try {
-            historyService.getHistoryByIdAndDocId(p1.getId(), d1.getId()).setCheckOutDate(format.parse("05 03"));
+            date = format.parse("05 03");
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
-        p1.checkout(d2);
-        p1.getDocuments().get(p1.getDocuments().size() - 1).setCheckoutDate("05 03");
-        try {
-            historyService.getHistoryByIdAndDocId(p1.getId(), d2.getId()).setCheckOutDate(format.parse("05 03"));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        p1.checkout(d1, date);
+        p1.checkout(d2, date);
 
-        s.checkout(d1);
-        s.getDocuments().get(s.getDocuments().size() - 1).setCheckoutDate("05 03");
-        try {
-            historyService.getHistoryByIdAndDocId(s.getId(), d1.getId()).setCheckOutDate(format.parse("05 03"));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        s.checkout(d1, date);
+        s.checkout(d2, date);
 
-        s.checkout(d2);
-        s.getDocuments().get(s.getDocuments().size() - 1).setCheckoutDate("05 03");
-        try {
-            historyService.getHistoryByIdAndDocId(s.getId(), d2.getId()).setCheckOutDate(format.parse("05 03"));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        v.checkout(d1, date);
+        v.checkout(d2, date);
 
-        v.checkout(d1);
-        v.getDocuments().get(v.getDocuments().size() - 1).setCheckoutDate("05 03");
-        try {
-            historyService.getHistoryByIdAndDocId(s.getId(), d1.getId()).setCheckOutDate(format.parse("05 03"));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        v.checkout(d2);
-        v.getDocuments().get(v.getDocuments().size() - 1).setCheckoutDate("05 03");
-        try {
-            historyService.getHistoryByIdAndDocId(s.getId(), d2.getId()).setCheckOutDate(format.parse("05 03"));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        ///checkouts at 5 March////
 
         try {
-            System.out.println(l.checkOverdue(p1, format.parse("02 04")));
+            date = format.parse("02 04");
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        try {
-            System.out.println(l.checkOverdue(s, format.parse("02 04")));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        try {
-            System.out.println(l.checkOverdue(v, format.parse("02 04")));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        System.out.println(l.checkOverdue(p1, date));
+        System.out.println(l.checkOverdue(s, date));
+        System.out.println(l.checkOverdue(v, date));
 
-        ///check overdue 2nd April////
     }
 
     @Test
     public void testCase3(){
-        p1.checkout(d1);
-        p1.getDocuments().get(p1.getDocuments().size() - 1).setCheckoutDate("05 03");
         try {
-            historyService.getHistoryByIdAndDocId(p1.getId(), d1.getId()).setCheckOutDate(format.parse("05 03"));
+            p1.checkout(d1, format.parse("05 03"));
+            s.checkout(d2, format.parse("05 03"));
+            v.checkout(d2, format.parse("05 03"));
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
-        s.checkout(d2);
-        s.getDocuments().get(s.getDocuments().size() - 1).setCheckoutDate("05 03");
+
         try {
-            historyService.getHistoryByIdAndDocId(s.getId(), d2.getId()).setCheckOutDate(format.parse("05 03"));
+            p1.renew(d1, format.parse("02 04"));
+            s.renew(d2, format.parse("02 04"));
+            v.renew(d2, format.parse("02 04"));
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
-        v.checkout(d2);
-        v.getDocuments().get(v.getDocuments().size() - 1).setCheckoutDate("05 03");
-        try {
-            historyService.getHistoryByIdAndDocId(s.getId(), d2.getId()).setCheckOutDate(format.parse("05 03"));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        p1.renew(d1);
-        s.renew(d2);
-        v.renew(d2);
-
-        try {
-            System.out.println(l.checkOverdue(p1, format.parse("02 04")));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        try {
-            System.out.println(l.checkOverdue(s, format.parse("02 04")));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        try {
-            System.out.println(l.checkOverdue(v, format.parse("02 04")));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        System.out.println(l.checkInfo(p1));
+        System.out.println(l.checkInfo(s));
+        System.out.println(l.checkInfo(v));
 
     }
+
+
     
 }
