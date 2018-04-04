@@ -88,7 +88,7 @@ public class Patron extends User {
 //            h.status = 0;
 //            historyService.updateHistory(h);
 
-            doc.setCopies(doc.getCopies()-1);
+            doc.setCopies(doc.getCopies());
             documentService.update(doc);
 
             //doc.patron = this;

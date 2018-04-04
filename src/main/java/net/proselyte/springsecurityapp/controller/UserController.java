@@ -294,6 +294,7 @@ public class UserController {
         String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userService.findByUsername(currentUser);
         Long userId = user.getId();
+
         if(documentService.getDocumentById(docId)==null) return "redirect:/error/wrongid";
         int status = -2;
         if(user instanceof Patron){
