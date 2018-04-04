@@ -74,10 +74,10 @@
 
                             <c:if test="${av.status==0}" >
                                 <div style = "float:left; margin-left:4%;">
-
-                                    <button><a style=" color:#d46b0e;text-decoration:none;" href="/return/${av.id}">
-                                        Return back </a> </button>
-
+                                    <form action="/return/${av.id}">
+                                    <button>
+                                        Return back </button>
+                                    </form>
                                 </div>
                                 <div style = "float:left; margin-left:4%">
                                     <button>
@@ -94,9 +94,9 @@
 
                             <c:if test="${av.status==3}" >
                                 <div style = "float:right; margin-right:4%">
-
-                                    <button><a style=" color:#d46b0e;text-decoration:none;" href="/booking/${av.id}">
-                                        Book </a> </button>
+                                    <form action="/booking/${av.id}">
+                                    <button>
+                                        Book  </button></form>
                                 </div>
                             </c:if>
                         </div>

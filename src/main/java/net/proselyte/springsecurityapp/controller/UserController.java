@@ -284,7 +284,7 @@ public class UserController {
         return  "mydoc";
     }
 
-    @RequestMapping("/booking/{docId}")
+    @RequestMapping(value = "/booking/{docId}")
     public String booking(@PathVariable Long docId){
         String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userService.findByUsername(currentUser);
@@ -294,13 +294,13 @@ public class UserController {
         if(user instanceof Patron){
             Library library = new Library();
             library.patrons.add((Patron) user);
+//            ((Patron) user).setLibrary(library);
             ((Patron) user).setDocumentService(documentService);
             ((Patron) user).setHistoryService(historyService);
             ((Patron) user).setUserService(userService);
              status = ((Patron) user).checkout(documentService.getDocumentById(docId));
         }
         //Status ==0 - Success
-
         return "redirect:/status/booking/"+docId;
     }
 
@@ -317,7 +317,6 @@ public class UserController {
             ((Patron) user).setHistoryService(historyService);
             status = ((Patron) user).toReturn(documentService.getDocumentById(docId));
         }
-
         //Status ==0 - Success
         return "redirect:/status/return/"+docId;
     }
