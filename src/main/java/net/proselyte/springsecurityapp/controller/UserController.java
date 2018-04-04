@@ -276,10 +276,12 @@ public class UserController {
             for (History history : historyList) {
                 Document document = documentService.getDocumentById(history.getDocId());
                 int status = history.getStatus();
+
 //                if (status != 0) {
 //                    if (document.getCopies() == 0) status = 2; //Go to Queue
 //                    else status = 3;                      //Simple CheckOut
 //                }                                         //else Renew + Return
+
                 document.setStatus(status);
                 history.setDocument(document);
             }

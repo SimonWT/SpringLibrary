@@ -101,7 +101,7 @@
 
             <c:if test="${book.status==3}">
                 <div style = "float:right; margin-right:4%">
-               <button type="submit"><a href="/booking/${book.id}"> Book </a></button>
+               <button type="submit" ><a href="/booking/${book.id}"> Book </a></button>
                 </div>
 
             </c:if>
