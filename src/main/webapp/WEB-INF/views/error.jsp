@@ -15,7 +15,7 @@
 <br>
 <br>
 <div style = "margin-left:25%;width:50%; height:30%">
-    <p style = "color:#d46b0e; font-size:40px;"> здесь текст </p>
+    <p style = "color:#d46b0e; font-size:40px;"> ERROR</p>
 </div>
 </body>
 </html>

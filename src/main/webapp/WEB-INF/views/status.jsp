@@ -8,14 +8,22 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title> | DeepLib</title>
+    <title>Order Status || DeepLib</title>
 </head>
 <body>
 <%@ include file ="topnav.jsp" %>
 <br>
 <br>
 <div style = "margin-left:25%;width:50%; height:30%">
-    <p style = "color:#d46b0e; font-size:40px;"> здесь текст </p>
+    <c:if test="${history.status==0}">
+        <h1>Booking complete </h1>
+        <h2>Returning date: ${history.returnDate}</h2>
+    </c:if>
+    <c:if test="${history.status==1}">
+        <h1>Returning complete </h1>
+        <h2>Fine: ${history.penaltyDays}</h2>
+    </c:if>
+
 </div>
 </body>
 </html>
