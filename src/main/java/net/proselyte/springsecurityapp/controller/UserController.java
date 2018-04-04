@@ -6,8 +6,7 @@ import net.proselyte.springsecurityapp.model.Documents.AudioVideo;
 import net.proselyte.springsecurityapp.model.Documents.Book;
 import net.proselyte.springsecurityapp.model.Documents.Document;
 import net.proselyte.springsecurityapp.model.Library.Library;
-import net.proselyte.springsecurityapp.model.Users.Patron;
-import net.proselyte.springsecurityapp.model.Users.User;
+import net.proselyte.springsecurityapp.model.Users.*;
 import net.proselyte.springsecurityapp.service.*;
 import net.proselyte.springsecurityapp.validator.ArticleValidator;
 import net.proselyte.springsecurityapp.validator.AudioVideoValidator;
@@ -16,6 +15,7 @@ import net.proselyte.springsecurityapp.validator.UserValidator;
 import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,6 +39,7 @@ import java.util.Map;
 @Controller
 public class UserController {
     private final Logger logger = LoggerFactory.logger(UserController.class);
+
 
     @Autowired
     private UserService userService;
@@ -75,6 +76,9 @@ public class UserController {
 
     @Autowired
     private DocumentService documentService;
+
+    @Autowired
+    private NotificationService notificationService;
 
     @RequestMapping(value = "/test/inh", method = RequestMethod.GET )
     public String testInh(Model model){
@@ -120,7 +124,12 @@ public class UserController {
         userService.save(selecType(user));
 
         //send a notification
-
+        try {
+            notificationService.sendNotification(user);
+        } catch (MailException e) {
+            //catch error
+            logger.info("Error Sending Email:" + e.getMessage());
+        }
 
         /*
             this action authorizate new user after addition (it is useful in our case, but let it be here)
