@@ -92,6 +92,7 @@
                             </c:if>
 
                             <c:if test="${book.status==3}" >
+
                             <div style = "float:right; margin-right:4%">
                                 <a href="/booking/${book.id}"><button> Book  </button></a>
                             </div>

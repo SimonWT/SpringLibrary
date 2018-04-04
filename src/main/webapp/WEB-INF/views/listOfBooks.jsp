@@ -37,7 +37,7 @@
             <th>Edition</th>
             <th>Price</th>
             <th>Copies</th>
-            <th>Bestseller</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -51,7 +51,13 @@
         <td>${book.edition}</td>
         <td>${book.price}</td>
         <td>${book.copies}</td>
-        <td>${book.bestSeller}</td>
+          <td>  <c:if test="${book.bestSeller == true}" >
+            </c:if>
+            <c:if test="${book.bestSeller == false} " >
+                <i class="fa fa-star" aria-hidden="true" style = "background: yellow"></i>
+
+            </c:if>
+        </td
         <td><a href="/editBook/${book.id}">Edit</a>
             <a href="/deleteBook/${book.id}">Delete</a></td>
         </tr>
