@@ -80,14 +80,6 @@ public class UserController {
     @Autowired
     private NotificationService notificationService;
 
-    @RequestMapping(value = "/test/inh", method = RequestMethod.GET )
-    public String testInh(Model model){
-
-
-
-        return "SUKA.";
-    }
-
     @RequestMapping("/deleteUser/{id}")
     public String deleteUser(@PathVariable("id") Long id){
         userService.delete(id);
