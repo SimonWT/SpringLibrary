@@ -290,7 +290,7 @@ public class UserController {
         User user = userService.findByUsername(currentUser);
         Long userId = user.getId();
         if(documentService.getDocumentById(docId)==null) return "redirect:/error/wrongid";
-
+        int status = -2;
         if(user instanceof Patron){
             Library library = new Library();
             library.patrons.add((Patron) user);
@@ -298,10 +298,10 @@ public class UserController {
             ((Patron) user).setDocumentService(documentService);
             ((Patron) user).setHistoryService(historyService);
             ((Patron) user).setUserService(userService);
-            int status = ((Patron) user).checkout(documentService.getDocumentById(docId));
+             status = ((Patron) user).checkout(documentService.getDocumentById(docId));
         }
         //Status ==0 - Success
-        return "redirect:/status/checkout/{status}";
+        return "redirect:/status/booking/"+status;
     }
 
     @RequestMapping(value = "/return/{docId}")
@@ -330,6 +330,13 @@ public class UserController {
         return result;
     }
 
+    @RequestMapping(value = "/status/booking/{status}" )
+    public String statusBooking(@PathVariable int status,Model model ){
+        if(status==-2 || status ==-1) return "redirect:/error";
+
+
+        return "redirect:/status";
+    }
 
 
 
