@@ -132,9 +132,13 @@ public class BookController {
         for(Book book: bookList){
             Long bookId = book.getId();
             List<History> historyList= historyService.getListHistoriesByIdAndDocId(userId,bookId);
-            History userHistory = historyList.get(historyList.size()-1);
+
+
             int status = 1;
-            if (userHistory!=null) status = userHistory.getStatus();
+            if (historyList!=null && !historyList.isEmpty()){
+                History userHistory = historyList.get(historyList.size()-1);
+                status = userHistory.getStatus();
+            }
 
             if(status != 0 ){
                 if(book.getCopies() == 0) status = 2; //Go to Queue

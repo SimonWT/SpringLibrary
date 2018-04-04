@@ -299,7 +299,7 @@ public class UserController {
         if(user instanceof Patron){
             Library library = new Library();
             library.patrons.add((Patron) user);
-//          ((Patron) user).setLibrary(library);
+            // ((Patron) user).setLibrary(library);
             ((Patron) user).setDocumentService(documentService);
             ((Patron) user).setHistoryService(historyService);
             ((Patron) user).setUserService(userService);
