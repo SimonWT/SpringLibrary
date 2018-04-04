@@ -33,8 +33,13 @@ public class HistoryServiceImpl implements HistoryService {
     }
 
     @Override
-    public History getHistoryByIdAndDocId(Long userId, Long dicId) {
-        return historyDao.getHistoryByUserIdAndDocId(userId, dicId);
+    public History getHistoryByIdAndDocId(Long userId, Long docId) {
+        return historyDao.getHistoryByUserIdAndDocId(userId,docId);
+    }
+
+    @Override
+    public List<History> getListHistoriesByIdAndDocId(Long userId, Long docId) {
+        return historyDao.getHistoriesByUserIdAndDocIdOrderById(userId,docId);
     }
 
 

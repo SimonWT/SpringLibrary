@@ -70,7 +70,9 @@ public class Patron extends User {
             return 1;
         }
         //TODO: Check branches, Copies of Doc -1
-        History historyByIdAndDocId = historyService.getHistoryByIdAndDocId(this.getId(),doc.getId());
+
+        List<History> historyList= historyService.getListHistoriesByIdAndDocId(this.getId(),doc.getId());
+        History historyByIdAndDocId = historyList.get(historyList.size()-1);
 
         if (historyByIdAndDocId!=null && historyByIdAndDocId.getStatus() == 0 ){
             System.out.println("user " + getName() + " already have this document");
@@ -122,7 +124,9 @@ public class Patron extends User {
     }
 
     public int toReturn(Document doc, Date returnDate){
-        History h = historyService.getHistoryByIdAndDocId(this.getId(), doc.getId());
+
+        List<History> historyList= historyService.getListHistoriesByIdAndDocId(this.getId(), doc.getId());
+        History h = historyList.get(historyList.size()-1);
         h.setStatus(1); //Close status
         historyService.updateHistory(h);
         doc.setCopies(doc.getCopies() + 1);

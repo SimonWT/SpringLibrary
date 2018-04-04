@@ -131,7 +131,8 @@ public class BookController {
 
         for(Book book: bookList){
             Long bookId = book.getId();
-            History userHistory = historyService.getHistoryByIdAndDocId(userId, bookId);
+            List<History> historyList= historyService.getListHistoriesByIdAndDocId(userId,bookId);
+            History userHistory = historyList.get(historyList.size()-1);
             int status = 1;
             if (userHistory!=null) status = userHistory.getStatus();
 

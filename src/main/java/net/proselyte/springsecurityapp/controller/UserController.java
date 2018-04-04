@@ -265,23 +265,27 @@ public class UserController {
 
 
     @RequestMapping(value = "/mydoc", method = RequestMethod.GET)
-    public String history(ModelAndView modelAndView){
+    public String history(Model model){
         String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userService.findByUsername(currentUser);
+
         Long userId = user.getId();
         List<History> historyList = historyService.getListOfHistoryByUser(userId);
-        for(History history: historyList){
-            Document document = history.getDocument();
-            int status = history.getStatus();
-            if(status != 0 ){
-                if(document.getCopies() == 0) status = 2; //Go to Queue
-                else status = 3;                      //Simple CheckOut
-            }                                         //else Renew + Return
-            document.setStatus(status);
-            history.setDocument(document);
-        }
+        if(historyList !=null && historyList.size()>0 ) {
 
-        modelAndView.addObject(historyList);
+            for (History history : historyList) {
+                Document document = documentService.getDocumentById(history.getDocId());
+                int status = history.getStatus();
+//                if (status != 0) {
+//                    if (document.getCopies() == 0) status = 2; //Go to Queue
+//                    else status = 3;                      //Simple CheckOut
+//                }                                         //else Renew + Return
+                document.setStatus(status);
+                history.setDocument(document);
+            }
+
+        }
+        model.addAttribute(historyList);
         return  "mydoc";
     }
 
@@ -318,6 +322,7 @@ public class UserController {
             ((Patron) user).setHistoryService(historyService);
             status = ((Patron) user).toReturn(documentService.getDocumentById(docId), new Date(System.currentTimeMillis()));
         }
+
         //Status ==0 - Success
         return "redirect:/status/return/"+docId;
     }
@@ -337,7 +342,8 @@ public class UserController {
         User user = userService.findByUsername(currentUser);
         Long userId = user.getId();
 
-        History history = historyService.getHistoryByIdAndDocId(userId, docId);
+        List<History> historyList= historyService.getListHistoriesByIdAndDocId(userId,docId);
+        History history = historyList.get(historyList.size()-1);
         if(history == null) return "error";
         else model.addAttribute("history",history);
 

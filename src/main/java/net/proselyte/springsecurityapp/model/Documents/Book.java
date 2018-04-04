@@ -29,8 +29,6 @@ public class Book extends Document {
     @Transient
     private Date checkoutDate;
 
-
-
     @Column(name = "year")
     private Date year;
 
