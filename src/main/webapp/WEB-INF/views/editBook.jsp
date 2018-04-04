@@ -8,6 +8,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="width" uri="http://www.springframework.org/tags/form" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -43,7 +44,7 @@
 
             <spring:bind path="title">
               <div class="form-group ${status.error ? 'has-error' : ''}">
-                  <form:input value="${bookForm.title}" type="text" path="title" class="form-control" placeholder="Title"
+                  <form:input value="${bookForm.title}" cssStyle="background: #adadad; border:none; border-radius: 7px;" type="text" path="title" class="form-control" placeholder="Title"
                                         ></form:input>
                   <form:errors path="title"></form:errors>
               </div>
@@ -51,7 +52,7 @@
 
             <spring:bind path="authors">
                 <div class="form-group ${status.error ? 'has-error' : ''}">
-                    <form:input value="${bookForm.authors}" type="text" path="authors" class="form-control" placeholder="Author's name"
+                    <form:input value="${bookForm.authors}" type="text" cssStyle="background: #adadad; border:none; border-radius: 7px;" path="authors" class="form-control" placeholder="Author's name"
                                 autofocus="true"></form:input>
                     <form:errors path="authors"></form:errors>
                 </div>
@@ -62,7 +63,7 @@
             <spring:bind path="yearString">
                 <div class="form-group ${status.error ? 'has-error' : ''}">
 
-                    <form:input value="${bookForm.yearString}" type="date" path="yearString" class="form-control" placeholder="Month and Year"></form:input>
+                    <form:input value="${bookForm.yearString}" type="date" path="yearString" class="form-control" placeholder="Month and Year" cssStyle="background: #adadad; border:none; border-radius: 7px;"></form:input>
                     <form:errors path="yearString"></form:errors>
 
                 </div>
@@ -70,38 +71,39 @@
 
             <spring:bind path="publisher">
                 <div class="form-group ${status.error ? 'has-error' : ''}">
-                    <form:input value="${bookForm.publisher}" type="text" path="publisher" class="form-control" placeholder="Publisher"></form:input>
+                    <form:input value="${bookForm.publisher}" cssStyle="background: #adadad; border:none; border-radius: 7px;" type="text" path="publisher" class="form-control" placeholder="Publisher"></form:input>
                     <form:errors path="publisher"></form:errors>
                 </div>
             </spring:bind>
 
             <spring:bind path="edition">
                 <div class="form-group ${status.error ? 'has-error' : ''}">
-                    <form:input value="${bookForm.edition}" type="text" path="edition" class="form-control" placeholder="Edition"></form:input>
+                    <form:input value="${bookForm.edition}" type="text" path="edition" class="form-control" placeholder="Edition" cssStyle="background: #adadad; border:none; border-radius: 7px;"></form:input>
                     <form:errors path="edition"></form:errors>
                 </div>
             </spring:bind>
 
             <spring:bind path="price">
                 <div class="form-group ${status.error ? 'has-error' : ''}">
-                    <form:input value="${bookForm.price}" type="text" path="price" class="form-control" placeholder="Price"></form:input>
+                    <form:input value="${bookForm.price}" cssStyle="background: #adadad; border:none; border-radius: 7px;" type="text" path="price" class="form-control" placeholder="Price"></form:input>
                     <form:errors path="price"></form:errors>
                 </div>
             </spring:bind>
 
             <spring:bind path="copies">
                 <div class="form-group ${status.error ? 'has-error' : ''}">
-                    <form:input value="${bookForm.copies}" type="text" path="copies" class="form-control" placeholder="Copies"></form:input>
+                    <form:input value="${bookForm.copies}" type="text" cssStyle="background: #adadad; border:none; border-radius: 7px;" path="copies" class="form-control" placeholder="Copies"></form:input>
                     <form:errors path="copies"></form:errors>
                 </div>
             </spring:bind>
 
             <spring:bind path="bestSeller">
                 <div class="form-group ${status.error ? 'has-error' : ''}">
-                    is Bestseller
-                    <form:checkbox value="${bookForm.bestSeller}" path="bestSeller" class="form-control" placeholder="Bestseller"/>
-                    <form:errors path="bestSeller"></form:errors>
+                 <label for = "checker">
+                    <form:checkbox value="${bookForm.bestSeller}" id = "checker" path="bestSeller"  cssStyle="float:right;" class="form-control"/>
 
+                    <form:errors path="bestSeller"></form:errors>
+                </label>
                 </div>
             </spring:bind>
 
@@ -110,7 +112,7 @@
 
 
 
-            <button class="btn btn-block" type="submit">Submit</button>
+            <button class="btn btn-block" type="submit" style = "background: #ddd8c4; color:#d46b0e; font-size:30px; border:none; border-radius: 17px;">Submit</button>
         </form:form>
 
   </div>

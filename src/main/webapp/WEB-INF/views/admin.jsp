@@ -43,7 +43,6 @@
         <br>
         <div class = "row" >
             <a href="/addnewdocument"> <button  class = "form3" >Add New Document  </button></a>
-            <a href="/listOfDocumets"> <button class = "form4">View Documets</button></a>
         </div>
         </div>
     </div>
