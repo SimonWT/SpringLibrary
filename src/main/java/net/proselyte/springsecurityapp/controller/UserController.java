@@ -301,7 +301,7 @@ public class UserController {
              status = ((Patron) user).checkout(documentService.getDocumentById(docId));
         }
         //Status ==0 - Success
-        return "redirect:/status/booking/"+status;
+        return "redirect:/status/booking/"+docId;
     }
 
     @RequestMapping(value = "/return/{docId}")
@@ -318,7 +318,7 @@ public class UserController {
             status = ((Patron) user).toReturn(documentService.getDocumentById(docId));
         }
         //Status ==0 - Success
-        return "redirect:/status/return/"+status;
+        return "redirect:/status/return/"+docId;
     }
 
 
@@ -330,13 +330,19 @@ public class UserController {
         return result;
     }
 
-    @RequestMapping(value = "/status/booking/{status}" )
-    public String statusBooking(@PathVariable int status,Model model ){
-        if(status==-2 || status ==-1) return "redirect:/error";
+    @RequestMapping(value = "/status/booking/{docId}", method = RequestMethod.GET)
+    public String statusBooking(@PathVariable Long docId, Model model ){
+        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.findByUsername(currentUser);
+        Long userId = user.getId();
 
+        History history = historyService.getHistoryByIdAndDocId(userId, docId);
+        if(history == null) return "error";
+        else model.addAttribute("history",history);
 
-        return "redirect:/status";
+        return "/status/booking";
     }
+
 
 
 
