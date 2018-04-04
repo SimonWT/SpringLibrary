@@ -36,6 +36,7 @@
                     username-parameter="username" password-parameter="password"/>
 
         <logout logout-success-url="/login?logout"/>
+        <csrf disabled="true"/>
     </http>
 
     <authentication-manager alias="authenticationManager">
