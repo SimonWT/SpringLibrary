@@ -31,8 +31,10 @@ public class Queue {
         this.date = date;
     }
 
-    public Queue() {
-
+    public Queue(Date date, Long docId, Long userId) {
+        this.date = date;
+        this.docId = docId;
+        this.userId = userId;
     }
 
     public Long getId() {

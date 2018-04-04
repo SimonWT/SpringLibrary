@@ -1,6 +1,7 @@
 package net.proselyte.springsecurityapp.controller;
 
 import net.proselyte.springsecurityapp.model.Booking.History;
+import net.proselyte.springsecurityapp.model.Booking.Queue;
 import net.proselyte.springsecurityapp.model.Documents.Article;
 import net.proselyte.springsecurityapp.model.Documents.AudioVideo;
 import net.proselyte.springsecurityapp.model.Documents.Book;
@@ -29,6 +30,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Year;
 import java.time.format.DateTimeFormatter;
+
 import java.util.*;
 import java.util.Date;
 
@@ -131,9 +133,14 @@ public class BookController {
 
         for(Book book: bookList){
             Long bookId = book.getId();
-            History userHistory = historyService.getHistoryByIdAndDocId(userId, bookId);
+            List<History> historyList= historyService.getListHistoriesByIdAndDocId(userId,bookId);
+
+
             int status = 1;
-            if (userHistory!=null) status = userHistory.getStatus();
+            if (historyList!=null && !historyList.isEmpty()){
+                History userHistory = historyList.get(historyList.size()-1);
+                status = userHistory.getStatus();
+            }
 
             if(status != 0 ){
                 if(book.getCopies() == 0) status = 2; //Go to Queue
@@ -281,7 +288,8 @@ public class BookController {
         Long userId = getCurrentUserId();
         Document document = docService.getDocumentById(docId);
         if (document.copies == 0) {
-            //Queue
+            Queue queue = new Queue(new Date(System.currentTimeMillis()), docId, userId);
+            queueService.save(queue);
         } else {
             History history = new History(docId, userId, new Date(System.currentTimeMillis()), new Date(System.currentTimeMillis() + 190000), 0, 0);
             historyService.save(history);

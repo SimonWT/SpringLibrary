@@ -1,14 +1,12 @@
 package net.proselyte.springsecurityapp.model.Users;
 
 import net.proselyte.springsecurityapp.model.Booking.History;
+import net.proselyte.springsecurityapp.model.Booking.Queue;
 import net.proselyte.springsecurityapp.model.Documents.Book;
 import net.proselyte.springsecurityapp.model.Documents.Document;
 import net.proselyte.springsecurityapp.model.Documents.Role;
 import net.proselyte.springsecurityapp.model.Library.Library;
-import net.proselyte.springsecurityapp.service.DocumentService;
-import net.proselyte.springsecurityapp.service.HistoryService;
-import net.proselyte.springsecurityapp.service.UserService;
-import net.proselyte.springsecurityapp.service.UserServiceImpl;
+import net.proselyte.springsecurityapp.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,7 +18,10 @@ import javax.print.Doc;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 
@@ -51,6 +52,10 @@ public class Patron extends User {
     @Transient
     @Autowired
     private UserService userService;
+
+    @Transient
+    @Autowired
+    private QueueService queueService;
 
     public Patron(){};
 

@@ -50,8 +50,21 @@ font-style: normal">My Documents</div>
                         <div>Fine: </div>
                     </div>
                     <div style = "float:right;  font-size:20px;" >
-                        <button style = "border: none !important; float:top; margin-top:25%;border-radius: 10px;">Return Document</button> </div>
+                        <button style = "border: none !important; float:top; margin-top:25%;border-radius: 10px;">Return Document</button>
+                    </div>
                 </div>
+
+                    <c:forEach items="${historyList}" var="history">
+                        <br>
+                        <br>
+                        <p>${history.document.id}</p>
+                        <p>${history.document.title}</p>
+                        <p>${history.document.authors}</p>
+                        <p>Check out date: ${history.checkOutDate}</p>
+
+                    </c:forEach>
+
+
 
 <script src="${contextPath}/resources/jsNew/jquery.js"></script>
 <script src="${contextPath}/resources/jsNew/bootstrap.js"></script>
