@@ -67,8 +67,9 @@ public class Patron extends User {
             return 1;
         }
         //TODO: Check branches, Copies of Doc -1
-        History historyOfUserandId = historyService.getHistoryByIdAndDocId(this.getId(),doc.getId());
-        if (historyOfUserandId!=null && historyOfUserandId.getStatus() == 0 ){
+        History historyByIdAndDocId = historyService.getHistoryByIdAndDocId(this.getId(),doc.getId());
+
+        if (historyByIdAndDocId!=null && historyByIdAndDocId.getStatus() == 0 ){
             System.out.println("user " + getName() + " already have this document");
             return 2;
         }
