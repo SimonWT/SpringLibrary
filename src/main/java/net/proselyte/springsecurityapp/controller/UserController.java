@@ -290,18 +290,18 @@ public class UserController {
         User user = userService.findByUsername(currentUser);
         Long userId = user.getId();
         if(documentService.getDocumentById(docId)==null) return "redirect:/error/wrongid";
-
+        int status = -2;
         if(user instanceof Patron){
             Library library = new Library();
             library.patrons.add((Patron) user);
-//            ((Patron) user).setLibrary(library);
+//          ((Patron) user).setLibrary(library);
             ((Patron) user).setDocumentService(documentService);
             ((Patron) user).setHistoryService(historyService);
             ((Patron) user).setUserService(userService);
-            int status = ((Patron) user).checkout(documentService.getDocumentById(docId));
+             status = ((Patron) user).checkout(documentService.getDocumentById(docId));
         }
         //Status ==0 - Success
-        return "redirect:/status/checkout/{status}";
+        return "redirect:/status/booking/"+docId;
     }
 
     @RequestMapping(value = "/return/{docId}")
@@ -318,7 +318,7 @@ public class UserController {
             status = ((Patron) user).toReturn(documentService.getDocumentById(docId));
         }
         //Status ==0 - Success
-        return "redirect:/status/return/"+status;
+        return "redirect:/status/return/"+docId;
     }
 
 
@@ -328,6 +328,19 @@ public class UserController {
         List<Patron> patrons = userService.getAllPatrons();
         for (int i=0; i<patrons.size(); i++) result += patrons.get(i).toString();
         return result;
+    }
+
+    @RequestMapping(value = "/status/booking/{docId}", method = RequestMethod.GET)
+    public String statusBooking(@PathVariable Long docId, Model model ){
+        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.findByUsername(currentUser);
+        Long userId = user.getId();
+
+        History history = historyService.getHistoryByIdAndDocId(userId, docId);
+        if(history == null) return "error";
+        else model.addAttribute("history",history);
+
+        return "/status/booking";
     }
 
 

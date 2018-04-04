@@ -43,9 +43,9 @@
         {
             DriverManagerDataSource dataSource = new DriverManagerDataSource();
             dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-            dataSource.setUrl("jdbc:mysql://eu-cdbr-west-02.cleardb.net:3306/heroku_f76d6fb9e659782");
-            dataSource.setUsername("baff532465d8d9");
-            dataSource.setPassword("ffa9cd9f");
+            dataSource.setUrl("jdbc:mysql://127.0.0.1/deep_library_3rd_delivery");
+            dataSource.setUsername("root");
+            dataSource.setPassword("root");
             String query="SELECT id, name, surname, username, phone, email, type FROM users";
             Connection conn=DriverManager.getConnection(dataSource.getUrl(), dataSource.getUsername(), dataSource.getPassword());
             Statement stmt=conn.createStatement();

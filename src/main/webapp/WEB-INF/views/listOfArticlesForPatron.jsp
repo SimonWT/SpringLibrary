@@ -31,11 +31,10 @@
         <div class = "one" style = "float:left; margin-left:2%;">
 
         </div>
+        <c:forEach items="${articleList}" var = "article" begin = "1" end = "2">
 
-        <c:forEach items="${articleList}" var="article">
-
-        <button style = "background: #f44444; border:1px; height: 90px; text-align: center; width:50%;
-    margin-left:calc(50%- 200px); color: #ddd8c4; font-size:13px;"
+        <button style = "background: #2e6da4; margin-left:2%;border:1px; height: 30%; text-align: center; width:20%;
+    color: #ddd8c4; font-size:13px;"
                 type="button" data-toggle="modal"
                 data-target="#my${article.id}">${article.title}</button>
         <br><br>
@@ -69,8 +68,10 @@
 
                             <c:if test="${article.status==0}" >
                                 <div style = "float:left; margin-left:4%;">
-                                    <button>
-                                        Return back </button>
+                                    <form action="/booking/${article.id}">
+                                    <button><a href="/return/${article.id}">
+                                        Return back</a></button>
+                                    </form>
                                 </div>
                                 <div style = "float:left; margin-left:4%">
                                     <button>
@@ -80,15 +81,19 @@
 
                             <c:if test="${article.status==2}" >
                                 <div style = "float:right; margin-right:4%">
+                                    <form action="/queue/${article.id}">
                                     <button >
                                         Queue  </button>
+                                    </form>>
                                 </div>
                             </c:if>
 
                             <c:if test="${article.status==3}" >
                                 <div style = "float:right; margin-right:4%">
-                                    <button>
-                                        Book  </button>
+
+                                    <button><a href="/booking/${article.id}"> Book  </a>
+                                       </button>
+
                                 </div>
                             </c:if>
                         </div>
