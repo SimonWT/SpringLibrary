@@ -3,6 +3,7 @@ package net.proselyte.springsecurityapp;
 import net.proselyte.springsecurityapp.config.jp;
 import net.proselyte.springsecurityapp.dao.UserDao;
 import net.proselyte.springsecurityapp.model.Booking.History;
+import net.proselyte.springsecurityapp.model.Documents.Book;
 import net.proselyte.springsecurityapp.model.Users.User;
 import net.proselyte.springsecurityapp.service.*;
 
@@ -167,6 +168,8 @@ public class Test1 {
     public void testUnit(){
         User user = userService.findByUsername("Test");
         System.out.println(user);
+        Book book = new Book(69,"SexLoveSlavs", 1488,"Yarik", "Innopolis", true, new Date(2017-1900, 0, 0) ,6 );
+        documentService.save(book);
     }
 
    /* @org.springframework.context.annotation.Configuration

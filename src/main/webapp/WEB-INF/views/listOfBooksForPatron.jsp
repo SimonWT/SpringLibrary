@@ -21,59 +21,6 @@
     <meta name="author" content="">
 
     <title>Books | DeepLib</title>
-    <style>
-        .popup {
-            position: relative;
-            display: inline-block;
-            cursor: pointer;
-        }
-
-        /* The actual popup (appears on top) */
-        .popup .popuptext {
-            visibility: hidden;
-            width: 160px;
-            background-color: #555;
-            color: #fff;
-            text-align: center;
-            border-radius: 6px;
-            padding: 8px 0;
-            position: absolute;
-            z-index: 1;
-            bottom: 125%;
-            left: 50%;
-            margin-left: -80px;
-        }
-
-        /* Popup arrow */
-        .popup .popuptext::after {
-            content: "";
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            margin-left: -5px;
-            border-width: 5px;
-            border-style: solid;
-            border-color: #555 transparent transparent transparent;
-        }
-
-        /* Toggle this class when clicking on the popup container (hide and show the popup) */
-        .popup .show {
-            visibility: visible;
-            -webkit-animation: fadeIn 1s;
-            animation: fadeIn 1s
-        }
-
-        /* Add animation (fade in the popup) */
-        @-webkit-keyframes fadeIn {
-            from {opacity: 0;}
-            to {opacity: 1;}
-        }
-
-        @keyframes fadeIn {
-            from {opacity: 0;}
-            to {opacity:1 ;}
-        }
-    </style>
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/bootstrap.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/font-awesome.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/welcomeform.css">
@@ -104,14 +51,14 @@
         <div id="my${book.id}" class="modal fade"  >
             <div class="modal-dialog" style = "margin-left:calc(50%- 8px); width: 470px;">
                 <div class="modal-content" >
-                    <div class="modal-body" style = "height:320px; background:#9d9d9d">
+                    <div class="modal-body" style = "height:410px; background:#9d9d9d">
                         <div class = "row" >
                             <button class="close" type="button" data-dismiss="modal"><i class="fa fa-window-close-o" aria-hidden="true" style = "font-size:45px; padding-right:4px;"></i></button>
                             <br>
-
-
-                            <div style = "float:left; margin-left:4px;">  <img src = "${contextPath}/resources/imgNew/images.png" style = "width:200px; height:260px;"></div>
                             <br>
+                            <br>
+
+                            <div style = "float:left; margin-left:4px;">  <img src = "${contextPath}/resources/imgNew/images.png" style = "width:160px; height:200px;"></div>
                             <div style = "float:right; margin-right:20%;">
                                 <p>ID: ${book.id}</p>
                                 <p>Title: ${book.title}</p>
@@ -121,20 +68,18 @@
                                 <p>Publish Year: ${book.yearString} </p>
                             </div>
                         </div>
+                        <br>
+                        <br>
+                        <br>
                         <div class = "row">
 
                             <c:if test="${book.status==0}" >
                             <div style = "float:left; margin-left:4%;">
                                 <a href="/return/${book.id}"><button>
-                                    Return back
-
-
-
-
-                                </button></a>
+                                    Return back </button></a>
                             </div>
                             <div style = "float:left; margin-left:4%">
-                                <button type="button" data-toggle="modalren" data-target="renew">
+                                <button>
                                     Renew  </button>
                             </div>
                             </c:if>
@@ -147,17 +92,8 @@
                             </c:if>
 
                             <c:if test="${book.status==3}" >
-
-                            <div style = "float:right; margin-right:10%">
-                                <div class="popup" href = "/booking/${book.id}" onclick="myFunction()">Book
-                                <span class="popuptext" id="myPopup">Check out successful!</span>
-                            </div>
-                                <script>
-                                    function myFunction() {
-                                        var popup = document.getElementById("myPopup");
-                                        popup.classList.toggle("show");
-                                    }
-                                </script>
+                            <div style = "float:right; margin-right:4%">
+                                <a href="/booking/${book.id}"><button> Book  </button></a>
                             </div>
 
                             </c:if>
@@ -172,7 +108,6 @@
     </c:forEach>
 
 </form>
-
 <script src="${contextPath}/resources/jsNew/jquery.js"></script>
 <script src="${contextPath}/resources/jsNew/bootstrap.js"></script>
 </body>
