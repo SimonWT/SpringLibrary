@@ -55,7 +55,7 @@ public class Librarian extends User {
     }
 
     public Librarian() {
-
+        userService = new UserServiceImpl();
     }
 
     public Librarian(String username, String password, String name, String surname, String phone, String email, String type) {
