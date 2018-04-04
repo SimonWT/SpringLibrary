@@ -35,6 +35,7 @@
 
     <form:form method="POST" modelAttribute="audioVideoForm" class="form-signin">
         <h2 class="form-signin-heading">Add new Audio or Video Material</h2>
+
         <spring:bind path="title">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <form:input type="text" path="title" class="form-control" placeholder="Title"
@@ -45,7 +46,7 @@
 
         <spring:bind path="authors">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="text" path="authors" class="form-control" placeholder="Author's name" autofocus="true"></form:input>
+                <form:input type="text" path="authors" class="form-control" placeholder="Authors name" autofocus="true"></form:input>
                 <form:errors path="authors"></form:errors>
             </div>
         </spring:bind>

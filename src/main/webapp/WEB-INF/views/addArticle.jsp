@@ -33,7 +33,6 @@
 <body>
 <%@ include file ="topnav.jsp" %>
 
-<a style = "color:black;" href = "/addnewdocument"> Return back </a>
 
 <div class="container">
 
@@ -41,17 +40,17 @@
         <h2 class="form-signin-heading">Create a new Article</h2>
         <spring:bind path="journal_title">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="text" path="id" class="form-control" placeholder="Journal's title"
+                <form:input type="text" path="journal_title" class="form-control" placeholder="Journal's title"
                             autofocus="true"></form:input>
-                <form:errors path="id"></form:errors>
+                <form:errors path="journal_title"></form:errors>
             </div>
         </spring:bind>
 
         <spring:bind path="article_title">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="text" path="journal" class="form-control" placeholder="Article's title"
+                <form:input type="text" path="article_title" class="form-control" placeholder="Article's title"
                             autofocus="true"></form:input>
-                <form:errors path="journal"></form:errors>
+                <form:errors path="article_title"></form:errors>
             </div>
         </spring:bind>
 

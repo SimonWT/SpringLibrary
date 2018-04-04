@@ -11,6 +11,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+    <csrf disabled="true" />
 <head>
 
     <meta charset="utf-8">
@@ -25,7 +26,7 @@
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/welcomeform.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/listbook.css">
 
-    <sec:csrfMetaTags/>
+
 
 </head>
 <body>
@@ -64,7 +65,7 @@
                                 <p>Edition: ${book.edition} </p>
                                 <p>Authors: ${book.authors}</p>
                                 <p>Publisher: ${book.publisher} </p>
-                                <p>Publish Year: ${book.year} </p>
+                                <p>Publish Year: ${book.yearString} </p>
                             </div>
                         </div>
                         <br>
@@ -94,7 +95,9 @@
                             <div style = "float:right; margin-right:4%">
                                 <a href="/booking/${book.id}"><button> Book  </button></a>
                             </div>
+
                             </c:if>
+
                         </div>
 
                     </div>
@@ -103,9 +106,8 @@
         </div>
 
     </c:forEach>
-    </div>
-</form>
 
+</form>
 <script src="${contextPath}/resources/jsNew/jquery.js"></script>
 <script src="${contextPath}/resources/jsNew/bootstrap.js"></script>
 </body>

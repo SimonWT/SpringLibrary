@@ -46,6 +46,9 @@ public class Article extends Document{
     @Column(name = "journal")
     private String journal;
 
+    @Transient
+    private String dateString;
+
 //    public Long getId() {
 //        return id;
 //    }
@@ -116,7 +119,15 @@ public class Article extends Document{
         this.journal = journal;
     }
 
-    //    public int getPrice() {
+    public String getDateString() {
+        return dateString;
+    }
+
+    public void setDateString(String dateString) {
+        this.dateString = dateString;
+    }
+
+//    public int getPrice() {
 //        return price;
 //    }
 //

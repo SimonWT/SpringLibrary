@@ -27,6 +27,21 @@
 <%@ include file ="topnav.jsp" %>
 
 <form method="POST">
+    <table class="table table-condensed">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Publication Date</th>
+            <th>Publisher</th>
+            <th>Edition</th>
+            <th>Price</th>
+            <th>Copies</th>
+            <th>Bestseller</th>
+        </tr>
+        </thead>
+        <tbody>
+
         <c:forEach items="${bookList}" var="book">
         <tr>
         <td>${book.title}</td>
@@ -41,6 +56,11 @@
             <a href="/deleteBook/${book.id}">Delete</a></td>
         </tr>
         </c:forEach>
+
+        </tbody>
+
+    </table>
+
 </form>
 
 
