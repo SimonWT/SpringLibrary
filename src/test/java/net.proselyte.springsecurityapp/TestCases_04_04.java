@@ -2,10 +2,8 @@ package net.proselyte.springsecurityapp;
 
 import net.proselyte.springsecurityapp.config.jp;
 import net.proselyte.springsecurityapp.dao.UserDao;
-import net.proselyte.springsecurityapp.model.Booking.History;
 import net.proselyte.springsecurityapp.model.Documents.AudioVideo;
 import net.proselyte.springsecurityapp.model.Documents.Book;
-import net.proselyte.springsecurityapp.model.Documents.Document;
 import net.proselyte.springsecurityapp.model.Users.*;
 import net.proselyte.springsecurityapp.service.*;
 
@@ -14,7 +12,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Component;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
@@ -23,12 +20,14 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
+import java.util.Locale;
 
 import static org.junit.Assert.*;
 
@@ -62,7 +61,7 @@ public class TestCases_04_04 {
 
     @Before
     public void createItems(){
-        format = new SimpleDateFormat("dd mm");
+        format = new SimpleDateFormat("dd MMM", Locale.ENGLISH);
 
         l = new Librarian();
         l.setName("libr");
@@ -77,6 +76,7 @@ public class TestCases_04_04 {
         l.userService = userService;
         l.docService = documentService;
         userService.save(l);
+        l.historyService = historyService;
 
         p1 = new Professor();
         p1.setName("Sergey");
@@ -127,16 +127,16 @@ public class TestCases_04_04 {
         s.setEmail("esdfghjjgtbnbnbnbnqq");
 
         v = new VisitingProfessor();
-        v.setName("Andrey");
-        v.setSurname("Velo");
-        v.setAddress("Avenida Mazatlan 250");
-        v.setPhone("30004");
+        v.setName("Veronika");
+        v.setSurname("Rama");
+        v.setAddress("Stret Atocha, 27");
+        v.setPhone("30005");
         v.setId((long) 1110);
-        v.setType("Student");
+        v.setType("Visiting Professor");
         v.setPassword("$2a$11$KaBxQDYikh.EWsYw5Bo0B.6G7FYWZN2rVdelaZWT6.zDHXwlJCju6");
         v.setConfirmPassword("$2a$11$KaBxQDYikh.EWsYw5Bo0B.6G7FYWZN2rVdelaZWT6.zDHXwlJCju6");
-        v.setUsername("dfghjkl,fghjkaqpp");
-        v.setEmail("esdfghjjgtbnbnbnbnqqpp");
+        v.setUsername("dfghjkl,fghjkaqppee");
+        v.setEmail("esdfghjjgtbnbnbnbnqqppee");
 
 
         l.addPatron(p1);
@@ -165,13 +165,13 @@ public class TestCases_04_04 {
         v.setUserService(userService);
         v.setHistoryService(historyService);
 
-        DateFormat format = new SimpleDateFormat("mm yyyy");
+        DateFormat format1 = new SimpleDateFormat("mm yyyy");
         d1 = new Book();
         d1.setTitle("Intoduction to Algorithms");
         d1.setAuthors("Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest and Clifford Stein");
         d1.setPublisher("MIT Press");
         try {
-            d1.setYear(format.parse("01 2009"));
+            d1.setYear(format1.parse("01 2009"));
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -185,7 +185,7 @@ public class TestCases_04_04 {
         d2.setAuthors("Erich Gamma, Ralph Johnson, John Vlissides, Richard Helm");
         d2.setPublisher("Addison-Wesley Professional");
         try {
-            d2.setYear(format.parse("01 2003"));
+            d2.setYear(format1.parse("01 2003"));
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -214,12 +214,18 @@ public class TestCases_04_04 {
     @Test
     public void testCase1(){
         try {
-            p1.checkout(d1, format.parse("05 03"));
-            p1.checkout(d2, format.parse("05 03"));
+            p1.checkout(d1, format.parse("05 March"));
+            p1.checkout(d2, format.parse("05 March"));
 
-            p1.toReturn(d2, format.parse("02 04"));
+            p1.toReturn(d2, format.parse("02 April"));
 
-            System.out.println(l.checkOverdue(p1, format.parse("02 04")));
+            String expectedResult = "Name: Sergey\n" +
+                    "Address:Via Margutta, 3\n" +
+                    "Phone:30001\n" +
+                    "Id:1010\n" +
+                    "Documents:\n" +
+                    "\t Title: Intoduction to Algorithms 0 days overdue 0 roubles fine\n";
+            assertEquals(expectedResult, l.checkOverdue(p1, format.parse("02 April")));
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -231,7 +237,7 @@ public class TestCases_04_04 {
     public void testCase2(){
         Date date = new Date();
         try {
-            date = format.parse("05 03");
+            date = format.parse("05 March");
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -247,41 +253,163 @@ public class TestCases_04_04 {
 
 
         try {
-            date = format.parse("02 04");
+            date = format.parse("02 April");
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        System.out.println(l.checkOverdue(p1, date));
-        System.out.println(l.checkOverdue(s, date));
-        System.out.println(l.checkOverdue(v, date));
+
+        String expectedResult = "Name: Sergey\n" +
+                "Address:Via Margutta, 3\n" +
+                "Phone:30001\n" +
+                "Id:1010\n" +
+                "Documents:\n" +
+                "\t Title: Intoduction to Algorithms 0 days overdue 0 roubles fine\n" +
+                "\t Title: Design Patterns: Elements of Reusable Object-Oriented Software 0 days overdue 0 roubles fine\n" +
+                "Name: Andrey\n" +
+                "Address:Avenida Mazatlan 250\n" +
+                "Phone:30004\n" +
+                "Id:1101\n" +
+                "Documents:\n" +
+                "\t Title: Intoduction to Algorithms 7 days overdue 700 roubles fine\n" +
+                "\t Title: Design Patterns: Elements of Reusable Object-Oriented Software 14 days overdue 1400 roubles fine\n" +
+                "Name: Veronika\n" +
+                "Address:Stret Atocha, 27\n" +
+                "Phone:30005\n" +
+                "Id:1110\n" +
+                "Documents:\n" +
+                "\t Title: Intoduction to Algorithms 21 days overdue 2100 roubles fine\n" +
+                "\t Title: Design Patterns: Elements of Reusable Object-Oriented Software 21 days overdue 1700 roubles fine\n";
+        assertEquals(expectedResult, l.checkOverdue(p1,date) + l.checkOverdue(s, date) + l.checkOverdue(v, date));
 
     }
 
     @Test
     public void testCase3(){
+        Date date = new Date();
+
         try {
-            p1.checkout(d1, format.parse("05 03"));
-            s.checkout(d2, format.parse("05 03"));
-            v.checkout(d2, format.parse("05 03"));
+            date = format.parse("05 March");
+            p1.checkout(d1, date);
+            s.checkout(d2, date);
+            v.checkout(d2, date);
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
 
         try {
-            p1.renew(d1, format.parse("02 04"));
-            s.renew(d2, format.parse("02 04"));
-            v.renew(d2, format.parse("02 04"));
+            date = format.parse("02 April");
+            p1.renew(d1, date);
+            s.renew(d2, date);
+            v.renew(d2, date);
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
-        System.out.println(l.checkInfo(p1));
-        System.out.println(l.checkInfo(s));
-        System.out.println(l.checkInfo(v));
+        String expectedRes = "Name: Sergey\n" +
+                "Address:Via Margutta, 3\n" +
+                "Phone:30001\n" +
+                "Id:1010\n" +
+                "Documents:\n" +
+                "\t Title: Intoduction to Algorithms Due date: Thu Apr 30 00:00:00 MSK 1970\n" +
+                "Name: Andrey\n" +
+                "Address:Avenida Mazatlan 250\n" +
+                "Phone:30004\n" +
+                "Id:1101\n" +
+                "Documents:\n" +
+                "\t Title: Design Patterns: Elements of Reusable Object-Oriented Software Due date: Thu Apr 16 00:00:00 MSK 1970\n" +
+                "Name: Veronika\n" +
+                "Address:Stret Atocha, 27\n" +
+                "Phone:30005\n" +
+                "Id:1110\n" +
+                "Documents:\n" +
+                "\t Title: Design Patterns: Elements of Reusable Object-Oriented Software Due date: Thu Apr 09 00:00:00 MSK 1970\n";
+        assertEquals(expectedRes, l.checkInfo(p1) + l.checkInfo(s) + l.checkInfo(v));
 
     }
 
+    @Test
+    public void testCase4(){
+        Date date = new Date();
 
+        try {
+            date = format.parse("05 March");
+            p1.checkout(d1, date);
+            s.checkout(d2, date);
+            v.checkout(d2, date);
+
+            date = format.parse("02 April");
+            p1.renew(d1, date);
+            s.renew(d2, date);
+            v.renew(d2, date);
+
+            l.outstandingrequest(d2, date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter("out.txt"));
+            bw.write(l.checkInfo(p1));
+            bw.write(l.checkInfo(s));
+            bw.write(l.checkInfo(v));
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Test
+    public void testCase5(){
+        p1.checkout(d3, new Date());
+        s.checkout(d3, new Date());
+        v.checkout(d3, new Date());
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter("out.txt"));
+            bw.write(String.valueOf(d3.queue));
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testCase6(){
+        Date d = new Date();
+        p1.checkout(d3, d);
+        p2.checkout(d3, d);
+        s.checkout(d3, d);
+        v.checkout(d3, d);
+        p3.checkout(d3, d);
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter("out.txt"));
+            bw.write(String.valueOf(d3.queue));
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testCase7(){
+        testCase6();
+        l.outstandingrequest(d3, new Date());
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter("out.txt"));
+
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testCase8(){
+        testCase6();
+        p2.toReturn(d3, new Date());
+
+    }
     
 }
