@@ -51,8 +51,8 @@ Press "OK"
    Password: *your password*
    URL: jdbc:mysql://127.0.0.1/deep_library_3rd_delivery
    **PRESS Test Connection** if you succeed **PRESS OK** if you do not succeed please try one more time
-5. go to database properties and change password
-6. Click right button on the "database.sql" and choose execution target "deep_library_3rd_delivery" and press "OK"
+5. go to database properties and change password from "root" to your if you have different
+6. Click right button on the "database.sql" and choose execution target "deep_library_3rd_delivery@127.0.0.1 [2]" and press "OK"
 
 
 
