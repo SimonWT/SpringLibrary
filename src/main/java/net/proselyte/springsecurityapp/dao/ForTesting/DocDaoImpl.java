@@ -24,9 +24,9 @@ public class DocDaoImpl implements DocDao {
         try{
             DriverManagerDataSource dataSource = new DriverManagerDataSource();
             dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-            dataSource.setUrl("jdbc:mysql://eu-cdbr-west-02.cleardb.net:3306/heroku_f76d6fb9e659782");
-            dataSource.setUsername("baff532465d8d9");
-            dataSource.setPassword("ffa9cd9f");
+            dataSource.setUrl("jdbc:mysql://localhost:3306/deep_library");
+            dataSource.setUsername("root");
+            dataSource.setPassword("root");
             Connection conn= DriverManager.getConnection(dataSource.getUrl(), dataSource.getUsername(), dataSource.getPassword());
 
             return conn;

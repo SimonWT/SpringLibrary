@@ -182,9 +182,9 @@ public class BookController {
 
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://eu-cdbr-west-02.cleardb.net:3306/heroku_f76d6fb9e659782");
-        dataSource.setUsername("baff532465d8d9");
-        dataSource.setPassword("ffa9cd9f");
+        dataSource.setUrl("jdbc:mysql://127.0.0.1/deep_library_3rd_delivery");
+        dataSource.setUsername("root");
+        dataSource.setPassword("root");
         String query="SELECT books.* FROM user_books INNER JOIN books ON user_books.book_id = books.id WHERE user_books.user_id='"+idd+"'";
         Connection conn= DriverManager.getConnection(dataSource.getUrl(), dataSource.getUsername(), dataSource.getPassword());
         Statement stmt=conn.createStatement();
@@ -221,9 +221,9 @@ public class BookController {
         try{
             DriverManagerDataSource dataSource = new DriverManagerDataSource();
             dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-            dataSource.setUrl("jdbc:mysql://eu-cdbr-west-02.cleardb.net:3306/heroku_f76d6fb9e659782");
-            dataSource.setUsername("baff532465d8d9");
-            dataSource.setPassword("ffa9cd9f");
+            dataSource.setUrl("jdbc:mysql://localhost:3306/deep_library");
+            dataSource.setUsername("root");
+            dataSource.setPassword("root");
             String query="INSERT INTO user_books VALUES ('"+user_id+",'"+id+"', '2018-03-07')";
             Connection conn= DriverManager.getConnection(dataSource.getUrl(), dataSource.getUsername(), dataSource.getPassword());
             Statement stmt=conn.createStatement();
