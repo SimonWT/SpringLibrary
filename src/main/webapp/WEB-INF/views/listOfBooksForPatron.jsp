@@ -76,10 +76,15 @@
                             <c:if test="${book.status==0}" >
                             <div style = "float:left; margin-left:4%;">
                                 <a href="/return/${book.id}"><button>
-                                    Return back </button></a>
+                                    Return back
+
+
+
+
+                                </button></a>
                             </div>
                             <div style = "float:left; margin-left:4%">
-                                <button>
+                                <button type="button" data-toggle="modalren" data-target="renew">
                                     Renew  </button>
                             </div>
                             </c:if>
@@ -93,7 +98,7 @@
 
                             <c:if test="${book.status==3}" >
                             <div style = "float:right; margin-right:4%">
-                                <a href="/booking/${book.id}"><button> Book  </button></a>
+                                <a href="/booking/${book.id}"><button data-toggle="modalren" data-target="book"> Book  </button></a>
                             </div>
 
                             </c:if>
@@ -108,6 +113,54 @@
     </c:forEach>
 
 </form>
+
+
+
+<div id="renew" class="modal fade"  >
+    <div class="modal-dialog" style = "margin-left:calc(50%- 8px); width: 470px;">
+        <div class="modal-content" >
+            <div class="modal-body" style = "height:410px; background:#9d9d9d">
+                <div class = "row" >
+                    <button class="close" type="button" data-dismiss="modal"><i class="fa fa-window-close-o" aria-hidden="true" style = "font-size:45px; padding-right:4px;"></i></button>
+                    <br>
+                    <br>
+                    <br>
+                    <p>You have extended the use of the document for a certain period of time
+                    </p>
+                </div>
+                <br>
+                <br>
+                <br>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+<div id="book" class="modal fade"  >
+    <div class="modal-dialog" style = "margin-left:calc(50%- 8px); width: 470px;">
+        <div class="modal-content" >
+            <div class="modal-body" style = "height:410px; background:#9d9d9d">
+                <div class = "row" >
+                    <button class="close" type="button" data-dismiss="modal"><i class="fa fa-window-close-o" aria-hidden="true" style = "font-size:45px; padding-right:4px;"></i></button>
+                    <br>
+                    <br>
+                    <br>
+                    <p>You have extended the use of the document for a certain period of time
+                    </p>
+                </div>
+                <br>
+                <br>
+                <br>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
 <script src="${contextPath}/resources/jsNew/jquery.js"></script>
 <script src="${contextPath}/resources/jsNew/bootstrap.js"></script>
 </body>
