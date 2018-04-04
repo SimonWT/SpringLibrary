@@ -81,7 +81,7 @@
             <a href="/mydoc">
                 <i class="fa fa-bookmark" aria-hidden="true"></i>
 
-                My Documents(count)</a>
+                My Documents</a>
 
 
             <c:if test="${pageContext.request.userPrincipal.name != null}">
