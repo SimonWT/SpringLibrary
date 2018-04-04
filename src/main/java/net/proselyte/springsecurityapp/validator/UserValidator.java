@@ -69,7 +69,7 @@ public class UserValidator implements Validator {
         }
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "phone", "Required");
-        if (user.getPhone().length() != 11) {
+        if (user.getPhone().length() != 5) {
             errors.rejectValue("phone", "Size.userForm.phone");
         }
 

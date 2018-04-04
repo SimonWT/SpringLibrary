@@ -1,4 +1,4 @@
-package net.proselyte.springsecurityapp.model.Tests;
+package net.proselyte.springsecurityapp;
 
 import net.proselyte.springsecurityapp.model.Documents.AudioVideo;
 import net.proselyte.springsecurityapp.model.Documents.Book;

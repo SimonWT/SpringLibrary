@@ -74,8 +74,10 @@
 
                             <c:if test="${av.status==0}" >
                                 <div style = "float:left; margin-left:4%;">
+                                    <form action="/return/${av.id}">
                                     <button>
                                         Return back </button>
+                                    </form>
                                 </div>
                                 <div style = "float:left; margin-left:4%">
                                     <button>
@@ -92,8 +94,9 @@
 
                             <c:if test="${av.status==3}" >
                                 <div style = "float:right; margin-right:4%">
+                                    <form action="/booking/${av.id}">
                                     <button>
-                                        Book  </button>
+                                        Book  </button></form>
                                 </div>
                             </c:if>
                         </div>
