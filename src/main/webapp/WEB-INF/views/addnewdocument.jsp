@@ -47,7 +47,7 @@
             <a href="/addArticle" > <button style = "border: none !important;
   border-radius: 17px;" class = "form1" > New Article </button></a>
              <button class = "form2" style = "border: none !important;
-  border-radius: 17px;"> <a href="/addBook"> New Book </a> </button>
+  border-radius: 17px;"> <a style = "text-decoration:none" href="/addBook"> New Book </a> </button>
             <br>
             <br>
             <a href="/addAudioVideoMaterial"> <button class = "form4" style = "border: none !important;
