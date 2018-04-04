@@ -7,9 +7,11 @@
 ------------------------------
 ### There are 4 contributors in our Team (DeepLib Team)
 1. Maksimychev Evgenij - Test Cases and Java Classes that are connected with Objects such as Librarian, Patron and etc.
+ 
 2. Uzbekova Ekaterina - Frontend (HTML, CSS, JS, Bootstrap and etc.)
 3. Yudinskikh Yaroslav - Database and Backend (Java, MySQL, Spring and etc.)
 4. Vakhula Igor - Database and Backend (Java, MySQL, Spring and etc.)
+![image](https://user-images.githubusercontent.com/31628809/38317149-09cb5146-3835-11e8-9f10-f1935f746be6.png)
 
 
 ### **How to install our project on your PC** 
@@ -43,6 +45,7 @@ Press "OK"
    Press "Apply"
    Press "Finish"
 
+![alt text](https://github.com/SimonWT/SpringLibrary/blob/master/src/main/webapp/resources/imgNew/ID-100160524.jpg)
 3. Now open our project in Intellij IDEA.
 4. View -> Tool Windows -> Database -> Add new (green button) -> Data Source -> MySQL
    Put this info to the fields:
