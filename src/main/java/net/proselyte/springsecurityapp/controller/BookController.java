@@ -23,9 +23,14 @@ import sun.util.calendar.BaseCalendar;
 import javax.print.Doc;
 import java.security.Principal;
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.Year;
-import java.util.LinkedList;
-import java.util.List;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
+import java.util.Date;
 
 @Controller
 public class BookController {
@@ -52,22 +57,54 @@ public class BookController {
         return user.getId();
     }
 
+    @RequestMapping(value = "/addBook", method = RequestMethod.GET)
+    public String addBook(Model model) {
+        model.addAttribute("bookForm", new Book());
+        return "addBook";
+
+    }
+
+    @RequestMapping(value = "/addBook", method = RequestMethod.POST)
+    public String addBook(@ModelAttribute("bookForm") Book bookForm, BindingResult bindingResult, Model model) throws ParseException {
+        //TODO: Book validation
+        //bookValidator.validate(bookForm, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            return "addBook";
+        }
+
+        //userService.save(userForm);
+
+        bookForm.parseDate();
+        docService.save(bookForm);
+
+        /*
+            this action authorizate new user after addition (it is useful in our case, but let it be here)
+         */
+        //securityService.autoLogin(userForm.getUsername(), userForm.getConfirmPassword());
+
+        return "redirect:/admin";
+    }
+
 
     @RequestMapping(value = "/editBook/{id}", method = RequestMethod.GET)
     public String editInfo(@PathVariable("id") Long id , Model model) {
         Document doc = docService.getDocumentById(id);
-
-        if(doc!=null)
-            logger.info("Book got by ID: "+doc.toString());
-
+;
+        if(doc!=null) {
+            logger.info("Book got by ID: " + doc.toString());
+            java.util.Date date = ((Book) doc).getYear();
+            String yearString = "";
+            if (date != null) yearString = date.toString().substring(0, 10);
+            ((Book) doc).setYearString(yearString);
+        }
         model.addAttribute("bookForm", doc);
-
         return "editBook";
     }
 
     @RequestMapping(value = "/editBook/{id}",method = RequestMethod.POST)
-    public String editInfo(@ModelAttribute("bookForm") Book bookForm, BindingResult bindingResult, Model model){
-
+    public String editInfo(@ModelAttribute("bookForm") Book bookForm, BindingResult bindingResult, Model model) throws ParseException {
+        bookForm.parseDate();
         docService.update(bookForm);
         logger.info("Book updated: "+ bookForm.toString());
         return "redirect:/listOfBooks";
@@ -103,7 +140,7 @@ public class BookController {
                 else status = 3;                      //Simple CheckOut
             }                                         //else Renew + Return
             book.setStatus(status);
-
+            book.setYearString(DateToString(book.getYear(),0,4));
         }
 
       model.addAttribute(bookList);
@@ -111,11 +148,30 @@ public class BookController {
     }
 
     @RequestMapping(value = "/listOfBooks",method = RequestMethod.GET)
-    public String listOfBooks(Model model){
+    public ModelAndView listOfBooks(Model model){
             List<Book> bookList = docService.getListOfBook();
             model.addAttribute(bookList);
-            return "listOfBooks";
+        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.findByUsername(currentUser);
+        ModelAndView mav = new ModelAndView();
+        /*Map<String, String> message1 = new HashMap<String, String>();
+        message1.put("message1", "Hello World");
+        mav.setViewName("welcome");
+        mav.addObject("message", message1);*/
+        Map<String, String> userData = new HashMap<>();
+        userData.put("username", user.getUsername());
+        userData.put("name", user.getName());
+        userData.put("surname", user.getSurname());
+        userData.put("phone", user.getPhone());
+        userData.put("email", user.getEmail());
+        userData.put("type", user.getType());
+        mav.setViewName("listOfBooks");
+
+        mav.addObject("user", userData);
+
+        return mav;
         }
+
 
     @RequestMapping(value = "/checkOutedBooks", method = RequestMethod.GET)
     public String checkOutedBooks(Principal principal, Model model) throws SQLException {
@@ -235,6 +291,11 @@ public class BookController {
         return "Success";
     }
 
+    @RequestMapping("/addnewdocument")
+    public String addNewDocument(){
+        return "addnewdocument";
+    }
+
     @RequestMapping("/test/getHistory/")
     public String getHistory(){
         System.out.println(historyService.getListOfHistoryByUser(Integer.toUnsignedLong(71)).get(0).getUserId());
@@ -242,5 +303,17 @@ public class BookController {
     }
 
 
+    public java.util.Date parseDate(String year) throws ParseException {
+        DateFormat format = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);
+        java.util.Date date = format.parse(year);
+        System.out.println(date); // 2010-01-02
+        return date;
+    }
+
+    public String DateToString(java.util.Date date, int start, int finish){
+        String yearString = "";
+        if(date!=null) yearString = date.toString().substring(start,finish);
+        return yearString;
+    }
 }
 

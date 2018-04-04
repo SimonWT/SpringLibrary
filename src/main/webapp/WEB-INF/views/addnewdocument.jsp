@@ -25,7 +25,8 @@
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/admin.css">
     <title>Add New Document | DeepLib</title>
 </head>
-<body>
+<body style = "height:700px;">
+
 <%@ include file ="topnav.jsp" %>
 
 <br>
@@ -37,21 +38,24 @@
 </div>
 <br>
 <br>
+<br>
 <div class="container">
 
     <div class="alert2" align = "center">
-
+        <sec:csrfMetaTags/>
         <div class = "row" >
-            <a href="/registration" > <button  class = "form1" >Register somebody  </button></a>
-            <a href="/listOfUsers"> <button class = "form2">View users</button> </a>
-        </div>
-        <br>
-        <div class = "row" >
-            <a href="/registration"> <button  class = "form3" >Add New Document  </button></a>
-            <a href="/listOfDocumets"> <button class = "form4">View Documets</button></a>
+            <a href="/addArticle" > <button style = "border: none !important;
+  border-radius: 17px;" class = "form1" > New Article </button></a>
+             <button class = "form2" style = "border: none !important;
+  border-radius: 17px;"> <a href="/addBook"> New Book </a> </button>
+            <br>
+            <br>
+            <a href="/addAudioVideoMaterial"> <button class = "form4" style = "border: none !important;
+  border-radius: 17px;"> New Media </button></a>
         </div>
     </div>
 </div>
+
 </div>
 
 

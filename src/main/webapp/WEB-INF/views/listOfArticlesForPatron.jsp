@@ -57,7 +57,7 @@
                                 <p>Authors: ${article.authors}</p>
                                 <p>Journal: ${article.journal}</p>
                                 <p>Editors: ${article.editors}</p>
-                                <p>Date: ${article.date}</p>
+                                <p>Date: ${article.dateString}</p>
                                 <p>Price: ${article.price}</p>
                                 <p>Copies: ${article.copies}</p>
                             </div>

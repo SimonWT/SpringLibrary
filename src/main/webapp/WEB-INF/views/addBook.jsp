@@ -9,6 +9,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
@@ -36,6 +37,7 @@
 <div class="container">
 
     <form:form method="POST" modelAttribute="bookForm" class="form-signin">
+
         <h2 class="form-signin-heading">Create a new Book</h2>
 
         <spring:bind path="title">
@@ -46,20 +48,25 @@
             </div>
         </spring:bind>
 
-          <spring:bind path="author">
+          <spring:bind path="authors">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="text" path="author" class="form-control" placeholder="Author's name"
+                <form:input type="text" path="authors" class="form-control" placeholder="Author's name"
                             autofocus="true"></form:input>
-                <form:errors path="author"></form:errors>
+                <form:errors path="authors"></form:errors>
             </div>
         </spring:bind>
 
-
-
-        <spring:bind path="year">
+        <spring:bind path="publisher">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="text" path="year" class="form-control" placeholder="Month and Year"></form:input>
-                <form:errors path="year"></form:errors>
+                <form:input type="text" path="publisher" class="form-control" placeholder="Publisher"></form:input>
+                <form:errors path="publisher"></form:errors>
+            </div>
+        </spring:bind>
+
+        <spring:bind path="yearString">
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <form:input type="date" path="yearString" class="form-control" placeholder="Publication Date"></form:input>
+                <form:errors path="yearString"></form:errors>
             </div>
         </spring:bind>
 
@@ -81,6 +88,14 @@
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <form:input type="text" path="copies" class="form-control" placeholder="Copies"></form:input>
                 <form:errors path="copies"></form:errors>
+            </div>
+        </spring:bind>
+
+        <spring:bind path="bestSeller">
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                is Bestseller
+                <form:checkbox path="bestSeller" class="form-control" placeholder="Bestseller"/>
+                <form:errors path="bestSeller"></form:errors>
             </div>
         </spring:bind>
 

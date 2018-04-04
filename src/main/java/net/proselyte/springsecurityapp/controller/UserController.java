@@ -6,8 +6,7 @@ import net.proselyte.springsecurityapp.model.Documents.AudioVideo;
 import net.proselyte.springsecurityapp.model.Documents.Book;
 import net.proselyte.springsecurityapp.model.Documents.Document;
 import net.proselyte.springsecurityapp.model.Library.Library;
-import net.proselyte.springsecurityapp.model.Users.Patron;
-import net.proselyte.springsecurityapp.model.Users.User;
+import net.proselyte.springsecurityapp.model.Users.*;
 import net.proselyte.springsecurityapp.service.*;
 import net.proselyte.springsecurityapp.validator.ArticleValidator;
 import net.proselyte.springsecurityapp.validator.AudioVideoValidator;
@@ -91,104 +90,36 @@ public class UserController {
         return "redirect:/listOfUsers";
     }
 
-    @RequestMapping(value = "/addBook", method = RequestMethod.GET)
-    public String addBook(Model model) {
-        model.addAttribute("bookForm", new Book());
-
-        return "addBook";
-
+    public User selecType(User user){
+        User newUser = new Patron();
+        if(user.getTypeString().equals("Librarian")) newUser = new Librarian(user.getUsername(), user.getPassword(),user.getName(), user.getSurname(), user.getPhone(), user.getEmail(), "Librarian");
+        else if (user.getTypeString().equals("Student")) newUser = new Student(user.getUsername(), user.getPassword(),user.getName(), user.getSurname(), user.getPhone(), user.getEmail(), "Student", "Lenina");
+        else if (user.getTypeString().equals("TA")) newUser = new TA(user.getUsername(), user.getPassword(),user.getName(), user.getSurname(), user.getPhone(), user.getEmail(), "Student", "Lenina");
+        else if (user.getTypeString().equals("Instructor")) newUser = new Instructor(user.getUsername(), user.getPassword(),user.getName(), user.getSurname(), user.getPhone(), user.getEmail(), "Student", "Lenina");
+        else if (user.getTypeString().equals("Professor")) newUser = new Professor(user.getUsername(), user.getPassword(),user.getName(), user.getSurname(), user.getPhone(), user.getEmail(), "Student", "Lenina");
+        else if (user.getTypeString().equals("Visiting Professor")) newUser = new VisitingProfessor(user.getUsername(), user.getPassword(),user.getName(), user.getSurname(), user.getPhone(), user.getEmail(), "Student", "Lenina");
+        return newUser;
     }
-
-    @RequestMapping(value = "/addBook", method = RequestMethod.POST)
-    public String addBook(@ModelAttribute("bookForm") Book bookForm, BindingResult bindingResult, Model model) {
-        bookValidator.validate(bookForm, bindingResult);
-
-        if (bindingResult.hasErrors()) {
-            return "addBook";
-        }
-
-        //userService.save(userForm);
-        bookService.save(bookForm);
-
-        /*
-            this action authorizate new user after addition (it is useful in our case, but let it be here)
-         */
-        //securityService.autoLogin(userForm.getUsername(), userForm.getConfirmPassword());
-
-        return "redirect:/admin";
-    }
-
-    @RequestMapping(value = "/addArticle", method = RequestMethod.GET)
-    public String addArticle(Model model) {
-        model.addAttribute("articleForm", new Article());
-
-        return "addArticle";
-
-    }
-
-    @RequestMapping(value = "/addArticle", method = RequestMethod.POST)
-    public String addArticle(@ModelAttribute("articleForm") Article articleForm, BindingResult bindingResult, Model model) {
-        articleValidator.validate(articleForm, bindingResult);
-
-        if (bindingResult.hasErrors()) {
-            return "addArticle";
-        }
-
-        //userService.save(userForm);
-        articleService.save(articleForm);
-        /*
-            this action authorizate new user after addition (it is useful in our case, but let it be here)
-         */
-        //securityService.autoLogin(userForm.getUsername(), userForm.getConfirmPassword());
-
-        return "redirect:/admin";
-
-    }
-
-    @RequestMapping(value = "/addAudioVideoMaterial", method = RequestMethod.GET)
-    public String addAudioVideoMaterial(Model model) {
-        model.addAttribute("audioVideoForm", new AudioVideo());
-
-        return "addAudioVideoMaterial";
-
-    }
-
-    @RequestMapping(value = "/addAudioVideoMaterial", method = RequestMethod.POST)
-    public String addAudioVideoMaterial(@ModelAttribute("addAudioVideoMaterial") AudioVideo audioVideoForm, BindingResult bindingResult, Model model) {
-        audioVideoValidator.validate(audioVideoForm, bindingResult);
-
-        if (bindingResult.hasErrors()) {
-            return "addAudioVideoMaterial";
-        }
-
-        //userService.save(userForm);
-        audioVideoMaterialService.save(audioVideoForm);
-        /*
-            this action authorizate new user after addition (it is useful in our case, but let it be here)
-         */
-        //securityService.autoLogin(userForm.getUsername(), userForm.getConfirmPassword());
-
-        return "redirect:/admin";
-    }
-
-
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
         model.addAttribute("userForm", new User());
-
         return "registration";
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
+    public String registration(@ModelAttribute("userForm") User user, BindingResult bindingResult, Model model) {
         //userValidator.validate(userForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
             return "registration";
         }
 
-        userService.save(userForm);
+
+        userService.save(selecType(user));
+
+        //send a notification
+
 
         /*
             this action authorizate new user after addition (it is useful in our case, but let it be here)
@@ -197,6 +128,7 @@ public class UserController {
 
         return "redirect:/admin";
     }
+
     @RequestMapping(value = "/ProfilePage", method = RequestMethod.GET)
     public String ProfilePage(Model model) {
         model.addAttribute("userForm", new User());
@@ -232,21 +164,35 @@ public class UserController {
     }
 
     @RequestMapping(value="/editUser/{id}", method = RequestMethod.GET)
-    public String editUser(@PathVariable("id") Long id, Model model){
-        User user = userService.getUserById(id);
+    public ModelAndView editUser(@PathVariable("id") Long id, Model model){
+        User user1 = userService.getUserById(id);
 
-        if(user!=null)
-            logger.info("Users got by ID: " + user.toString());
+        if(user1!=null)
+            logger.info("Users got by ID: " + user1.toString());
 
-        model.addAttribute("userForm", user);
+        model.addAttribute("userForm", user1);
+        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.findByUsername(currentUser);
+        ModelAndView mav = new ModelAndView();
 
-        return "editUser";
+        Map<String, String> userData = new HashMap<>();
+        userData.put("username", user.getUsername());
+        userData.put("name", user.getName());
+        userData.put("surname", user.getSurname());
+        userData.put("phone", user.getPhone());
+        userData.put("email", user.getEmail());
+        userData.put("type", user.getType());
+        mav.setViewName("editUser");
+
+        mav.addObject("user", userData);
+
+        return mav;
     }
 
     @RequestMapping(value = "/editUser/{id}",method = RequestMethod.POST)
     public String editUser(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model){
-
-        userService.update(userForm);
+        userService.delete(userService.findByUsername(userForm.getUsername()).getId());
+        userService.update(selecType(userForm));
 
         logger.info("Users updated: "+ userForm.toString());
         return "redirect:/listOfUsers";
@@ -315,7 +261,7 @@ public class UserController {
     public String user(Model model) { return "user"; }
 
 
-    @RequestMapping(value = "/mydoc/", method = RequestMethod.GET)
+    @RequestMapping(value = "/mydoc", method = RequestMethod.GET)
     public String history(ModelAndView modelAndView){
         String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userService.findByUsername(currentUser);
@@ -333,14 +279,15 @@ public class UserController {
         }
 
         modelAndView.addObject(historyList);
-        return  "/mydoc/";
+        return  "mydoc";
     }
 
-    @RequestMapping(value = "/booking/{docId}")
+    @RequestMapping(value = "/booking/{docId}", method = RequestMethod.POST)
     public String booking(@PathVariable Long docId){
         String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userService.findByUsername(currentUser);
         Long userId = user.getId();
+        if(documentService.getDocumentById(docId)==null) return "redirect:/error/wrongid";
 
         if(user instanceof Patron){
             Library library = new Library();
@@ -348,6 +295,7 @@ public class UserController {
 //            ((Patron) user).setLibrary(library);
             ((Patron) user).setDocumentService(documentService);
             ((Patron) user).setHistoryService(historyService);
+            ((Patron) user).setUserService(userService);
             int status = ((Patron) user).checkout(documentService.getDocumentById(docId));
         }
         //Status ==0 - Success
@@ -359,14 +307,16 @@ public class UserController {
         String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userService.findByUsername(currentUser);
         Long userId = user.getId();
+        if(documentService.getDocumentById(docId)==null) return "redirect:/error/wrongid";
 
+        int status = -2;
         if(user instanceof Patron){
             ((Patron) user).setDocumentService(documentService);
             ((Patron) user).setHistoryService(historyService);
-            int status = ((Patron) user).toReturn(documentService.getDocumentById(docId));
+             status = ((Patron) user).toReturn(documentService.getDocumentById(docId));
         }
         //Status ==0 - Success
-        return "redirect:/status/return/{status}";
+        return "redirect:/status/return/"+status;
     }
 
 

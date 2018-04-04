@@ -7,6 +7,7 @@ import net.proselyte.springsecurityapp.model.Documents.Role;
 import net.proselyte.springsecurityapp.model.Library.Library;
 import net.proselyte.springsecurityapp.service.DocumentService;
 import net.proselyte.springsecurityapp.service.HistoryService;
+import net.proselyte.springsecurityapp.service.UserService;
 import net.proselyte.springsecurityapp.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,6 +16,7 @@ import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
+import javax.print.Doc;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
@@ -48,32 +50,35 @@ public class Patron extends User {
 
     @Transient
     @Autowired
-    private UserServiceImpl userService;
+    private UserService userService;
 
     public Patron(){};
 
     public Patron(String username, String password, String name, String surname, String phone, String email, String type, String address) {
         super(username, password, name, surname, phone, email, type);
-        userService = new UserServiceImpl();
         this.address = address;
     }
 
 
     public int checkout(Document doc){
+
         if (userService.getAllPatrons().contains(this)){
             System.out.println("You have not registered in system. Ask librarian to register you in system");
             return 1;
         }
         //TODO: Check branches, Copies of Doc -1
-        if (historyService.getHistoryByIdAndDocId(getId(),doc.getId()).getStatus() == 0 ){
+        History historyOfUserandId = historyService.getHistoryByIdAndDocId(this.getId(),doc.getId());
+        if (historyOfUserandId!=null && historyOfUserandId.getStatus() == 0 ){
             System.out.println("user " + getName() + " already have this document");
             return 2;
         }
         if (documentService.getDocumentById(doc.getId()) != null && doc.getCopies() > 0) {
             Document checkedDoc = doc.toCopy();
-            History h = historyService.getHistoryByIdAndDocId(this.getId(), doc.getId());
-            h.status = 1;
-            historyService.updateHistory(h);
+
+//            History h = historyService.getHistoryByIdAndDocId(this.getId(), doc.getId());
+//            h.status = 1;
+//            historyService.updateHistory(h);
+
             doc.setCopies(doc.getCopies()-1);
             documentService.update(doc);
 
@@ -88,8 +93,8 @@ public class Patron extends User {
             else if (this instanceof Faculty){
                 checkedDoc.setDue(28);
             } else{
-                Book b = (Book) checkedDoc;
-                if (b.isBestSeller()){
+                Book b = (Book) doc;
+                if (((Book ) b).isBestSeller()){
                     checkedDoc.setDue(14);
                 }
                 else {
@@ -114,23 +119,28 @@ public class Patron extends User {
 
     public int toReturn(Document doc){
         History h = historyService.getHistoryByIdAndDocId(this.getId(), doc.getId());
-        h.status = 0;
+        h.setStatus(1); //Close status
         historyService.updateHistory(h);
         doc.setCopies(doc.getCopies() + 1);
         documentService.update(doc);
+
         Date today = new Date();
+        doc.setCheckoutDate(h.getCheckOutDate());
         long dif = doc.getCheckoutDate().getTime() - today.getTime();
+
         int difDays = (int)TimeUnit.DAYS.convert(dif, TimeUnit.MILLISECONDS);
         if (difDays > doc.getDue()){
             doc.setOverdue(difDays - doc.getDue());
             if (100 * (difDays - doc.getDue()) < doc.getPrice()) {
                 doc.setFine(100 * (difDays - doc.getDue()));
-                return 1;
+                return doc.getFine();
             }else
                 doc.setFine(doc.getPrice());
-                return 2;
+                return doc.getFine();
         }
-        return 0;
+
+
+        return -1;
     }
 
     public List<Document> getDocuments() {
@@ -164,5 +174,13 @@ public class Patron extends User {
 
     public void setHistoryService(HistoryService historyService) {
         this.historyService = historyService;
+    }
+
+    public UserService getUserService() {
+        return userService;
+    }
+
+    public void setUserService(UserService userService) {
+        this.userService = userService;
     }
 }

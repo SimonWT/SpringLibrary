@@ -34,7 +34,7 @@
     </a>
     <c:choose>
         <c:when test="${user.type=='Librarian'}">
-            <div class  = "hell">
+            <div class  = "hell2">
                 <a href="/listOfAudioVideoMaterial" style = ""><i class="fa fa-file-audio-o" aria-hidden="true"></i>
                     Media</a>
                 <a href="/listOfArticles" style = ""><i class="fa fa-newspaper-o" aria-hidden="true"></i>
@@ -49,7 +49,7 @@
                     Media</a>
                 <a href="/listOfArticlesForPatron" style = ""><i class="fa fa-newspaper-o" aria-hidden="true"></i>
                     Journal Article</a>
-                <a href="/ListOfBooksForPatronGf" style = ""><i class="fa fa-book" aria-hidden="true"></i> Books</a>
+                <a href="/listOfBooksForPatron" style = ""><i class="fa fa-book" aria-hidden="true"></i> Books</a>
             </div>
         </c:otherwise>
     </c:choose>
@@ -78,7 +78,7 @@
         <div class="dropdown-content2">
             <a href="/ProfilePage" data-toggle="modal" data-target="#largeModal"> <i class="fa fa-address-card-o" aria-hidden="true"></i>
                 Profile</a>
-            <a href="/user">
+            <a href="/mydoc">
                 <i class="fa fa-bookmark" aria-hidden="true"></i>
 
                 My Documents</a>
@@ -103,7 +103,7 @@
     <div class="modal" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="cont">
-                <div class="modal2">
+                <div class="modal2">`
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <i class="fa fa-window-close-o" aria-hidden="true" style = "font-size:45px; padding-right:4px;"></i>
                     </button>
