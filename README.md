@@ -11,7 +11,7 @@
 2. Uzbekova Ekaterina - Frontend (HTML, CSS, JS, Bootstrap and etc.)
 3. Yudinskikh Yaroslav - Database and Backend (Java, MySQL, Spring and etc.)
 4. Vakhula Igor - Database and Backend (Java, MySQL, Spring and etc.)
-![image](https://user-images.githubusercontent.com/31628809/38317149-09cb5146-3835-11e8-9f10-f1935f746be6.png)
+![image]
 
 
 ### **How to install our project on your PC** 
@@ -44,8 +44,6 @@ Press "OK"
    Press "Apply"
    Press "Apply"
    Press "Finish"
-
-![alt text](https://github.com/SimonWT/SpringLibrary/blob/master/src/main/webapp/resources/imgNew/ID-100160524.jpg)
 3. Now open our project in Intellij IDEA.
 4. View -> Tool Windows -> Database -> Add new (green button) -> Data Source -> MySQL
    Put this info to the fields:
@@ -71,7 +69,8 @@ Press "OK"
     * Account of Patron:
       + username: i.vakhula_user
       + password: useruser
- 
+   4.if you have some problem with login, and you saw the message "Username or password is incorrect.", but it isn't true, try to login one more time.
+   5.
  ### For check TEST CASES:
  
  1. Go to /src/main/java/net/proselyte/springsecurityapp/model/Tests/
