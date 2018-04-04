@@ -32,17 +32,25 @@ font-style: normal">My Documents</div>
 <br>
 <br>
 
-                <div class = "row" style = "background: #ebccd1; width: 50%; margin-left:35%; height:27%; ">
+                <div class = "row" style = "background: #ebccd1; width: 40%; margin-left:32%;  ">
+                    <div style = "float:left; margin-top:3%; margin-left:4px;">  <img src = "${contextPath}/resources/imgNew/images.png" style = "width:100%; height:25%;"></div>
+                    <br>
+                    <br>
 
-                    <div style = "float:left; margin-top:1.5%; margin-left:4px;">  <img src = "${contextPath}/resources/imgNew/images.png" style = "width:100%; height:90%;"></div>
-                    <div style = "float:right;">
-                        <div style = "height:20%;">How to forgot about girls and learn masturbate  </div>
-                        <div  style = "font-size:40px; color:darkred;">DO  NOT FORGET TO RETURN UNTIL 04.04.2018</div>
+                    <div style = "float:right; margin-right:10%;">
+                        <p>
+                            How to forgot about girls
+                            and learn masturbate
+           <hr style = "height:2px;border:none;color:black; background: black;">
+                    </p>
+                            <br>
+                            <br>
+                        <p style = "color:darkred;font-size:1vw;">DO  NOT FORGET TO RETURN
+                    <p style = "color:darkred;"> UNTIL 04.04.2018</p>
                         <div>Fine: </div>
                     </div>
-
                     <div style = "float:right;  font-size:20px;" >
-                        <button style = "border: none !important; margin-top:50%;border-radius: 10px;">Return Document</button> </div>
+                        <button style = "border: none !important; float:top; margin-top:25%;border-radius: 10px;">Return Document</button> </div>
                 </div>
 
 <script src="${contextPath}/resources/jsNew/jquery.js"></script>

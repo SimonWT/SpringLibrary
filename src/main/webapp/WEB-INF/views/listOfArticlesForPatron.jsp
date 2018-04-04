@@ -31,11 +31,10 @@
         <div class = "one" style = "float:left; margin-left:2%;">
 
         </div>
+        <c:forEach items="${articleList}" var = "article" begin = "1" end = "2">
 
-        <c:forEach items="${articleList}" var="article">
-
-        <button style = "background: #f44444; border:1px; height: 90px; text-align: center; width:50%;
-    margin-left:calc(50%- 200px); color: #ddd8c4; font-size:13px;"
+        <button style = "background: #2e6da4; margin-left:2%;border:1px; height: 30%; text-align: center; width:20%;
+    color: #ddd8c4; font-size:13px;"
                 type="button" data-toggle="modal"
                 data-target="#my${article.id}">${article.title}</button>
         <br><br>

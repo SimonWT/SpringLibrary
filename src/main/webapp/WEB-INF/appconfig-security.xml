@@ -29,6 +29,8 @@
         <intercept-url pattern="/listOfBooksForPatron" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')"/>
         <intercept-url pattern="/addnewdocument" access="hasRole('ROLE_ADMIN')"/>
         <intercept-url pattern="/mydoc" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')"/>
+        <intercept-url pattern="/queue" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')"/>
+
 
 
 
