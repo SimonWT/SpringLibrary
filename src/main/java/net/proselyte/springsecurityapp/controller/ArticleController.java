@@ -111,22 +111,22 @@ public class ArticleController {
         User user = userService.findByUsername(currentUser);
         Long userId = user.getId();
         List<Article> articleList = docService.getListOfArticle();
-        int status = -1;
+
         for(Article article: articleList){
             Long articleId  = article.getId();
             List<History> historyList= historyService.getListHistoriesByIdAndDocId(userId,articleId);
-
+            int status = -1;
 
             if (historyList!=null && !historyList.isEmpty()){
                 History userHistory = historyList.get(historyList.size()-1);
                 status = userHistory.getStatus();
             }
 
-
             if(status != 0 ){
                 if(article.getCopies() == 0) status = 2;  //Go to Queue
                 else status = 3;                            //Simple CheckOut
-            }                                                 //else Renew + Return
+            }
+                                                            //else Renew + Return
             article.setStatus(status);
             article.setDateString(DateToString(article.getDate(),0,10));
         }
