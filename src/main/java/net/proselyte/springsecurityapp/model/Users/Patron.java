@@ -5,10 +5,7 @@ import net.proselyte.springsecurityapp.model.Documents.Book;
 import net.proselyte.springsecurityapp.model.Documents.Document;
 import net.proselyte.springsecurityapp.model.Documents.Role;
 import net.proselyte.springsecurityapp.model.Library.Library;
-import net.proselyte.springsecurityapp.service.DocumentService;
-import net.proselyte.springsecurityapp.service.HistoryService;
-import net.proselyte.springsecurityapp.service.UserService;
-import net.proselyte.springsecurityapp.service.UserServiceImpl;
+import net.proselyte.springsecurityapp.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -54,6 +51,10 @@ public class Patron extends User {
     @Transient
     @Autowired
     private UserService userService;
+
+    @Transient
+    @Autowired
+    private QueueService queueService;
 
     public Patron(){};
 
@@ -193,6 +194,12 @@ public class Patron extends User {
 
     public void setHistoryService(HistoryService historyService) {
         this.historyService = historyService;
+    }
+
+    public QueueService getQueueService() { return queueService; }
+
+    public void setQueueService(QueueService queueService) {
+        this.queueService = queueService;
     }
 
     public UserService getUserService() {

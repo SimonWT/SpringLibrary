@@ -76,6 +76,9 @@ public class UserController {
     private HistoryService historyService;
 
     @Autowired
+    private QueueService queueService;
+
+    @Autowired
     private DocumentService documentService;
 
     @Autowired
@@ -308,6 +311,23 @@ public class UserController {
         //Status ==0 - Success
         return "redirect:/status/booking/"+docId;
     }
+
+    @RequestMapping(value = "/queue/{docId}")
+    public String queue(@PathVariable Long docId) {
+        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.findByUsername(currentUser);
+        Long userId = user.getId();
+        if(documentService.getDocumentById(docId)==null) return "redirect:/error/wrongid";
+        int status = -2;
+        if(user instanceof Patron){
+            Library library = new Library();
+            library.patrons.add((Patron) user);
+            ((Patron) user).setQueueService(queueService);
+        }
+        //Status ==0 - Success
+        return "redirect:/listOfBooksForPatron";
+    }
+
 
     @RequestMapping(value = "/return/{docId}")
     public String returnDoc(@PathVariable Long docId, Model model){
