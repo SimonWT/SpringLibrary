@@ -280,10 +280,12 @@ public class UserController {
             for (History history : historyList) {
                 Document document = documentService.getDocumentById(history.getDocId());
                 int status = history.getStatus();
+
 //                if (status != 0) {
 //                    if (document.getCopies() == 0) status = 2; //Go to Queue
 //                    else status = 3;                      //Simple CheckOut
 //                }                                         //else Renew + Return
+
                 document.setStatus(status);
                 history.setDocument(document);
             }
@@ -298,6 +300,7 @@ public class UserController {
         String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userService.findByUsername(currentUser);
         Long userId = user.getId();
+
         if(documentService.getDocumentById(docId)==null) return "redirect:/error/wrongid";
         int status = -2;
         if(user instanceof Patron){
