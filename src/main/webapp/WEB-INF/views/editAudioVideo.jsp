@@ -69,8 +69,7 @@
             </div>
         </spring:bind>
 
-
-        <button class="btn btn-block" type="submit">Submit</button>
+        <button class="btn btn-block" type="submit" style = "background: #ddd8c4; color:#d46b0e; font-size:30px; border:none; border-radius: 17px;">Submit</button>
     </form:form>
 
 </div>

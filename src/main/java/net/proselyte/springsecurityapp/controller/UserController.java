@@ -201,7 +201,7 @@ public class UserController {
 
     @RequestMapping(value = "/editUser/{id}",method = RequestMethod.POST)
     public String editUser(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model){
-
+        userService.delete(userService.findByUsername(userForm.getUsername()).getId());
         userService.update(selecType(userForm));
 
         logger.info("Users updated: "+ userForm.toString());

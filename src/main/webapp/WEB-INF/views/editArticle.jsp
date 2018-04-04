@@ -20,7 +20,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Add a new Article</title>
+    <title>Edit an Article</title>
 
     <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
     <link href="${contextPath}/resources/css/common.css" rel="stylesheet">
@@ -37,7 +37,7 @@
 <div class="container">
 
     <form:form method="POST" modelAttribute="articleForm" class="form-signin">
-        <h2 class="form-signin-heading">Create a new Article</h2>
+        <h2 class="form-signin-heading">Edit an Article</h2>
 
         <spring:bind path="title">
             <div class="form-group ${status.error ? 'has-error' : ''}">
@@ -57,10 +57,10 @@
 
 
 
-        <spring:bind path="date">
+        <spring:bind path="dateString">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input value="${articleForm.date}" type="text" path="date" class="form-control" placeholder="Month and Year"></form:input>
-                <form:errors path="date"></form:errors>
+                <form:input value="${articleForm.dateString}" type="date" path="dateString" class="form-control" placeholder="Month and Year"></form:input>
+                <form:errors path="dateString"></form:errors>
             </div>
         </spring:bind>
 
@@ -94,7 +94,7 @@
         </spring:bind>
 
 
-        <button class="btn btn-block" type="submit">Submit</button>
+        <button class="btn btn-block" type="submit" style = "background: #ddd8c4; color:#d46b0e; font-size:30px; border:none; border-radius: 17px;">Submit</button>
     </form:form>
 
 </div>

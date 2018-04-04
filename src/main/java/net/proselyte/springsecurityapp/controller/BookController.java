@@ -60,14 +60,12 @@ public class BookController {
     @RequestMapping(value = "/addBook", method = RequestMethod.GET)
     public String addBook(Model model) {
         model.addAttribute("bookForm", new Book());
-        model.addAttribute("year", "");
-
         return "addBook";
 
     }
 
     @RequestMapping(value = "/addBook", method = RequestMethod.POST)
-    public String addBook(@ModelAttribute("bookForm") Book bookForm, BindingResult bindingResult, Model model) {
+    public String addBook(@ModelAttribute("bookForm") Book bookForm, BindingResult bindingResult, Model model) throws ParseException {
         //TODO: Book validation
         //bookValidator.validate(bookForm, bindingResult);
 
@@ -76,6 +74,8 @@ public class BookController {
         }
 
         //userService.save(userForm);
+
+        bookForm.parseDate();
         docService.save(bookForm);
 
         /*
@@ -91,13 +91,13 @@ public class BookController {
     public String editInfo(@PathVariable("id") Long id , Model model) {
         Document doc = docService.getDocumentById(id);
 ;
-        if(doc!=null)
-            logger.info("Book got by ID: "+doc.toString());
-
-        java.util.Date date = ((Book) doc).getYear();
-        String yearString = "";
-        if(date!=null) yearString = date.toString().substring(0,10);
-        ((Book) doc).setYearString(yearString);
+        if(doc!=null) {
+            logger.info("Book got by ID: " + doc.toString());
+            java.util.Date date = ((Book) doc).getYear();
+            String yearString = "";
+            if (date != null) yearString = date.toString().substring(0, 10);
+            ((Book) doc).setYearString(yearString);
+        }
         model.addAttribute("bookForm", doc);
         return "editBook";
     }
@@ -171,6 +171,7 @@ public class BookController {
 
         return mav;
         }
+
 
     @RequestMapping(value = "/checkOutedBooks", method = RequestMethod.GET)
     public String checkOutedBooks(Principal principal, Model model) throws SQLException {
