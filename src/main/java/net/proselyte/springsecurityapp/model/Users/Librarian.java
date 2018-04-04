@@ -81,12 +81,13 @@ public class Librarian extends User {
 
     public ArrayList<Document> overdueDocuments(Patron p, Date today) {
         ArrayList<Document> overdueDocuments = new ArrayList<>();
-        for (int i = 0; i < p.getDocuments().size(); i++){
+        List<Document> docs = p.getDocuments();
+        for (int i = 0; i < docs.size(); i++){
             long dif =  today.getTime() - p.getDocuments().get(i).getCheckoutDate().getTime();
             int difDays = (int) TimeUnit.DAYS.convert(dif, TimeUnit.MILLISECONDS);
-            if (difDays > p.getDocuments().get(i).getDue()){
+            if (difDays > docs.get(i).getDue()){
                 overdueDocuments.add(p.getDocuments().get(i));
-                p.getDocuments().get(i).setOverdue(difDays - p.getDocuments().get(i).getDue());
+                docs.get(i).setOverdue(difDays - p.getDocuments().get(i).getDue());
             }
         }
         return overdueDocuments;

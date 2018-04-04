@@ -12,6 +12,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.PriorityQueue;
+import java.util.concurrent.TimeUnit;
 
 @Entity
 @Table(name = "documents")
@@ -84,13 +85,16 @@ public class Document {
         this.price = newPrice;
         assert(this.price == this.getPrice());
     }
+
     public void resetDate(){
         checkoutDate = new Date();
     }
+
     public void setDue(int days){
         daysRemained = days;
         assert(this.daysRemained == this.getDue());
     }
+
     public void setCheckoutDate(String date){
         DateFormat format = new SimpleDateFormat("dd mm", Locale.ENGLISH);
         try {
@@ -104,14 +108,29 @@ public class Document {
         checkoutDate = date;
         assert(this.checkoutDate.equals(this.getCheckoutDate()));
     }
+
     public void setFine(int f){
-        fine = f;
+        this.fine = f;
         assert(this.fine == this.getFine());
     }
-    public void setOverdue(int overdue){
-        this.overdue = overdue;
+
+    public void setOverdue(Date date){
+        long dif =  date.getTime() - getCheckoutDate().getTime();
+        int difDays = (int) TimeUnit.DAYS.convert(dif, TimeUnit.MILLISECONDS);
+        if (difDays > getDue()){
+           this.overdue = (difDays -getDue());
+        }
+        else{
+            this.overdue = 0;
+        }
         assert(this.overdue == this.getOverdue());
     }
+
+    public void setOverdue(int overdue){
+        this.overdue = overdue;
+        assert (this.overdue == this.getOverdue());
+    }
+
     public void setId(long id) {
         this.id = id;
         assert(this.id == this.getId());
@@ -139,7 +158,15 @@ public class Document {
     public Long getId(){return id;}
     public Date getCheckoutDate(){return checkoutDate;}
     public int getDue(){return daysRemained;}
-    public int getFine(){return fine;}
+    public int getFine()
+    {
+        fine = 100 * this.getOverdue();
+        if (fine > price){
+            fine = price;
+            return price;
+        }
+        return fine;
+    }
     public int getOverdue() { return overdue; }
 
     public int getStatus() {
@@ -167,7 +194,6 @@ public class Document {
         copy.setDoc(title, price, authors, keys);
         copy.setId(id);
         copy.setOverdue(overdue);
-        copy.setFine(fine);
         copy.checkoutDate = checkoutDate;
         copy.setDue(daysRemained);
         copy.setCopies(copies--);
