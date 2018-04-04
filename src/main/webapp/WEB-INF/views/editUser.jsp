@@ -82,6 +82,26 @@
             </div>
         </spring:bind>
 
+        <spring:bind path="typeString">
+
+            <%--<div class="form-group ${status.error ? 'has-error' : ''}">--%>
+            <%--<form:input type="text" path="type" class="form-control" placeholder="Type of user"></form:input>--%>
+            <%--<form:errors path="type"></form:errors>--%>
+            <%--</div>--%>
+
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <form:select path="typeString" itemValue="${userForm.typeString}">
+                    <form:option value="Librarian">Librarian</form:option>
+                    <form:option value="Student">Student</form:option>
+                    <form:option value="Professor">Professor</form:option>
+                    <form:option value="TA">TA</form:option>
+                    <form:option value="Visiting Professor">Visiting Professor</form:option>
+                    <form:option value="Instructor">Instructor</form:option>
+                </form:select>
+            </div>
+        </spring:bind>
+
+
 
         <button class="btn btn-block" type="submit">Submit</button>
     </form:form>

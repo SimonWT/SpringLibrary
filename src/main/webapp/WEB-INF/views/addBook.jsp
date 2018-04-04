@@ -63,10 +63,10 @@
             </div>
         </spring:bind>
 
-        <spring:bind path="year">
+        <spring:bind path="yearString">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="date" path="year" class="form-control" placeholder="Publication Date"></form:input>
-                <form:errors path="year"></form:errors>
+                <form:input type="date" path="yearString" class="form-control" placeholder="Publication Date"></form:input>
+                <form:errors path="yearString"></form:errors>
             </div>
         </spring:bind>
 
@@ -93,7 +93,8 @@
 
         <spring:bind path="bestSeller">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="text" path="bestSeller" class="form-control" placeholder="BestSeller"></form:input>
+                is Bestseller
+                <form:checkbox path="bestSeller" class="form-control" placeholder="Bestseller"/>
                 <form:errors path="bestSeller"></form:errors>
             </div>
         </spring:bind>
