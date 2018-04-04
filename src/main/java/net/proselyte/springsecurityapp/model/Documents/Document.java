@@ -51,8 +51,6 @@ public class Document {
     @Transient
     private int status;
 
-    private boolean renewed;
-
 
     //public Document( String title, int price, ArrayList<String> authors, ArrayList<String> keys) {
     public Document(){
@@ -96,7 +94,7 @@ public class Document {
     }
 
     public void setCheckoutDate(String date){
-        DateFormat format = new SimpleDateFormat("dd mm", Locale.ENGLISH);
+        DateFormat format = new SimpleDateFormat("dd MMM", Locale.ENGLISH);
         try {
             checkoutDate = format.parse(date);
         } catch (ParseException e) {
@@ -118,7 +116,7 @@ public class Document {
         long dif =  date.getTime() - getCheckoutDate().getTime();
         int difDays = (int) TimeUnit.DAYS.convert(dif, TimeUnit.MILLISECONDS);
         if (difDays > getDue()){
-           this.overdue = (difDays -getDue());
+           this.overdue = (difDays - getDue());
         }
         else{
             this.overdue = 0;
@@ -180,14 +178,10 @@ public class Document {
     public Date getDueDate(){
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(getCheckoutDate());
-        calendar.add(Calendar.DAY_OF_YEAR, getCheckoutDate().getDay() - 1 + getDue() - 1);
+        calendar.add(Calendar.DAY_OF_YEAR, getCheckoutDate().getDay() - 2 + getDue() - 2);
         return calendar.getTime();
     }
 
-    public boolean isRenewed(){return renewed;}
-    public void setRenewed(boolean renewed){
-        this.renewed = renewed;
-    }
 
     public Document toCopy(){
         Document copy = new Document();
@@ -197,6 +191,7 @@ public class Document {
         copy.checkoutDate = checkoutDate;
         copy.setDue(daysRemained);
         copy.setCopies(copies--);
+        copy.queue = queue;
         //this.copies--;
         return copy;
     }

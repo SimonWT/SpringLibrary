@@ -65,6 +65,12 @@ public class Patron extends User {
     }
 
 
+    public QueueService getQueueService() { return queueService; }
+
+    public void setQueueService(QueueService queueService) {
+        this.queueService = queueService;
+    }
+
     public int checkout(Document doc, Date checkoutDate){
 
         if (userService.getAllPatrons().contains(this)){
@@ -72,12 +78,7 @@ public class Patron extends User {
             return 1;
         }
         //TODO: Check branches, Copies of Doc -1
-
-        List<History> historyList= historyService.getListHistoriesByIdAndDocId(this.getId(),doc.getId());
-        History historyByIdAndDocId = null;
-        if(historyList!=null && !historyList.isEmpty()) {
-            historyByIdAndDocId = historyList.get(historyList.size() - 1);
-        }
+        History historyByIdAndDocId = historyService.getHistoryByIdAndDocId(this.getId(),doc.getId());
 
         if (historyByIdAndDocId!=null && historyByIdAndDocId.getStatus() == 0 ){
             System.out.println("user " + getName() + " already have this document");
@@ -90,7 +91,7 @@ public class Patron extends User {
 //            h.status = 0;
 //            historyService.updateHistory(h);
 
-            doc.setCopies(doc.getCopies());
+            //doc.setCopies(doc.getCopies()-1);
             documentService.update(doc);
 
             //doc.patron = this;
@@ -112,9 +113,18 @@ public class Patron extends User {
                     checkedDoc.setDue(21);
                 }
             }
-            checkedDoc.setCheckoutDate((new Date()));
-
-            historyService.save(new History(checkedDoc.getId(), getId(), checkoutDate, checkedDoc.getDueDate(), 0, 0));
+            if (this instanceof VisitingProfessor){
+                checkedDoc.setDue(7);
+            }
+            checkedDoc.setCheckoutDate(checkoutDate);
+            if (historyByIdAndDocId == null)
+                historyService.save(new History(checkedDoc.getId(), this.getId(), checkoutDate, checkedDoc.getDueDate(), 0, 0));
+            else {
+                historyByIdAndDocId.setStatus(0);
+                historyByIdAndDocId.setCheckOutDate(checkoutDate);
+                historyByIdAndDocId.setReturnDate(checkedDoc.getDueDate());
+                historyService.updateHistory(historyByIdAndDocId);
+            }
             System.out.println("The book \"" + doc.getTitle() + "\" are checked out by " + getName());
             return 0;
         }
@@ -122,7 +132,6 @@ public class Patron extends User {
         else{
             if (doc.getCopies() == 0){
                 doc.queue.add(this);
-                queueService.save(new Queue(checkoutDate, doc.getId(), getId()));
             }
             System.out.println("No available documents for " + getName());
             return 3;
@@ -130,16 +139,11 @@ public class Patron extends User {
     }
 
     public int toReturn(Document doc, Date returnDate){
-
-        List<History> historyList= historyService.getListHistoriesByIdAndDocId(this.getId(),doc.getId());
-        History h = new History();
-        if(historyList!=null && !historyList.isEmpty()) {
-           h = historyList.get(historyList.size() - 1);
-        }
+        History h = historyService.getHistoryByIdAndDocId(this.getId(), doc.getId());
         h.setStatus(1); //Close status
         historyService.updateHistory(h);
         doc.setCopies(doc.getCopies() + 1);
-        doc.setRenewed(false);
+        //doc.setRenewed(false);
         documentService.update(doc);
 
         doc.setCheckoutDate(h.getCheckOutDate());
@@ -161,20 +165,38 @@ public class Patron extends User {
     }
 
     public void renew(Document doc, Date renewDate){
-        History history = historyService.getHistoryByIdAndDocId(this.getId(), doc.getId());
-        if (history.status == 0 && !doc.isRenewed()){
-            doc.setDue(2 * doc.getDue());
-            doc.setRenewed(true);
-        }
+        toReturn(doc, renewDate);
+        checkout(doc, renewDate);
+//        History history = historyService.getHistoryByIdAndDocId(this.getId(), doc.getId());
+//        if (history.status == 0 && !doc.isRenewed()){
+//            Calendar c = Calendar.getInstance();
+//            c.setTime(new Date()); // Now use today date.
+//            c.add(Calendar.DATE, doc.getDue()); // Adding 5 day
+//            Date newReturnDate = c.getTime();
+//
+//            long diffInMillies = Math.abs(newReturnDate.getTime() - history.getCheckOutDate().getTime());
+//            long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+//            doc.setDue((int) diff);
+//
+//            documentService.update(doc);
+//            history.setReturnDate(newReturnDate);
+//            historyService.updateHistory(history);
+//            doc.setRenewed(true);
+//        }
     }
 
     public List<Document> getDocuments() {
         List<History> histories = this.historyService.getListOfHistoryByUser(this.getId());
-        System.out.println(histories.get(0).status);
         List<Document> docs = new ArrayList<>();
         for (int i = 0; i < histories.size(); i++){
             if (histories.get(i).status == 0) {
-                docs.add(documentService.getDocumentById(histories.get(0).getDocId()));
+                docs.add(documentService.getDocumentById(histories.get(i).getDocId()));
+                docs.get(docs.size() - 1).setCheckoutDate(histories.get(i).checkOutDate);
+                System.out.println(this.getName() + " " + histories.get(i).getReturnDate());
+
+                long diffInMillies = Math.abs(histories.get(i).getReturnDate().getTime() - histories.get(i).getCheckOutDate().getTime());
+                long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+                docs.get(docs.size() - 1).setDue((int) diff);
             }
         }
         return docs;
@@ -202,12 +224,6 @@ public class Patron extends User {
 
     public void setHistoryService(HistoryService historyService) {
         this.historyService = historyService;
-    }
-
-    public QueueService getQueueService() { return queueService; }
-
-    public void setQueueService(QueueService queueService) {
-        this.queueService = queueService;
     }
 
     public UserService getUserService() {
