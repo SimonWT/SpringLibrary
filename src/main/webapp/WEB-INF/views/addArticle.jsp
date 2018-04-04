@@ -56,12 +56,12 @@
         </spring:bind>
 
 
-        <%--<spring:bind path="date">--%>
-            <%--<div class="form-group ${status.error ? 'has-error' : ''}">--%>
-                <%--<form:input type="text" path="date" class="form-control" placeholder="Publication Date"></form:input>--%>
-                <%--<form:errors path="date"></form:errors>--%>
-            <%--</div>--%>
-        <%--</spring:bind>--%>
+        <spring:bind path="dateString">
+        <div class="form-group ${status.error ? 'has-error' : ''}">
+        <form:input type="date" path="dateString" class="form-control" placeholder="Publication Date"></form:input>
+        <form:errors path="dateString"></form:errors>
+        </div>
+        </spring:bind>
 
         <spring:bind path="authors">
             <div class="form-group ${status.error ? 'has-error' : ''}">
