@@ -5,6 +5,7 @@ import net.proselyte.springsecurityapp.dao.UserDao;
 import net.proselyte.springsecurityapp.model.Booking.History;
 import net.proselyte.springsecurityapp.model.Documents.AudioVideo;
 import net.proselyte.springsecurityapp.model.Documents.Book;
+import net.proselyte.springsecurityapp.model.Documents.Document;
 import net.proselyte.springsecurityapp.model.Users.*;
 import net.proselyte.springsecurityapp.service.*;
 
@@ -48,12 +49,22 @@ public class TestCases_04_04 {
 
     @Resource
     private UserDao userRepository;
-    
+
+    Librarian l;
+    Professor p1, p2, p3;
+    Student s;
+    VisitingProfessor v;
+
+    Book d1, d2;
+    AudioVideo d3;
+
+    DateFormat format;
 
     @Before
     public void createItems(){
+        format = new SimpleDateFormat("dd mm");
 
-        Librarian l = new Librarian();
+        l = new Librarian();
         l.setName("libr");
         l.setSurname("libr");
         l.setPhone("14837");
@@ -67,7 +78,7 @@ public class TestCases_04_04 {
         l.docService = documentService;
         userService.save(l);
 
-        Professor p1 = new Professor();
+        p1 = new Professor();
         p1.setName("Sergey");
         p1.setSurname("Afonso");
         p1.setAddress("Via Margutta, 3");
@@ -79,7 +90,7 @@ public class TestCases_04_04 {
         p1.setPassword("$2a$11$KaBxQDYikh.EWsYw5Bo0B.6G7FYWZN2rVdelaZWT6.zDHXwlJCju6");
         p1.setConfirmPassword("$2a$11$KaBxQDYikh.EWsYw5Bo0B.6G7FYWZN2rVdelaZWT6.zDHXwlJCju6");
 
-        Professor p2 = new Professor();
+        p2 = new Professor();
         p2.setName("Nadia");
         p2.setSurname("Teixeira");
         p2.setUsername("dfghjkl,fghjks");
@@ -91,7 +102,7 @@ public class TestCases_04_04 {
         p2.setType("Professor");
         p2.setEmail("esdfghjjgtbnbnbgn");
 
-        Professor p3 = new Professor();
+        p3 = new Professor();
         p3.setName("Elvira");
         p3.setSurname("Espindola");
         p3.setAddress("Via del Corso, 22");
@@ -103,7 +114,7 @@ public class TestCases_04_04 {
         p3.setUsername("dfghjkl,fghjka");
         p3.setEmail("esdfghjjgtbnbnbnbn");
 
-        Student s = new Student();
+        s = new Student();
         s.setName("Andrey");
         s.setSurname("Velo");
         s.setAddress("Avenida Mazatlan 250");
@@ -115,12 +126,12 @@ public class TestCases_04_04 {
         s.setUsername("dfghjkl,fghjkaq");
         s.setEmail("esdfghjjgtbnbnbnbnqq");
 
-        VisitingProfessor v = new VisitingProfessor();
+        v = new VisitingProfessor();
         v.setName("Andrey");
         v.setSurname("Velo");
         v.setAddress("Avenida Mazatlan 250");
         v.setPhone("30004");
-        v.setId((long) 1101);
+        v.setId((long) 1110);
         v.setType("Student");
         v.setPassword("$2a$11$KaBxQDYikh.EWsYw5Bo0B.6G7FYWZN2rVdelaZWT6.zDHXwlJCju6");
         v.setConfirmPassword("$2a$11$KaBxQDYikh.EWsYw5Bo0B.6G7FYWZN2rVdelaZWT6.zDHXwlJCju6");
@@ -128,10 +139,34 @@ public class TestCases_04_04 {
         v.setEmail("esdfghjjgtbnbnbnbnqqpp");
 
 
-        userService.save(p1);
+        l.addPatron(p1);
+        l.addPatron(p2);
+        l.addPatron(p3);
+        l.addPatron(s);
+        l.addPatron(v);
+
+        p1.setDocumentService(documentService);
+        p1.setUserService(userService);
+        p1.setHistoryService(historyService);
+
+        p2.setDocumentService(documentService);
+        p2.setUserService(userService);
+        p2.setHistoryService(historyService);
+
+        p3.setDocumentService(documentService);
+        p3.setUserService(userService);
+        p3.setHistoryService(historyService);
+
+        s.setDocumentService(documentService);
+        s.setUserService(userService);
+        s.setHistoryService(historyService);
+
+        v.setDocumentService(documentService);
+        v.setUserService(userService);
+        v.setHistoryService(historyService);
 
         DateFormat format = new SimpleDateFormat("mm yyyy");
-        Book d1 = new Book();
+        d1 = new Book();
         d1.setTitle("Intoduction to Algorithms");
         d1.setAuthors("Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest and Clifford Stein");
         d1.setPublisher("MIT Press");
@@ -145,7 +180,7 @@ public class TestCases_04_04 {
         d1.setPrice(5000);
         d1.setCopies(3);
 
-        Book d2 = new Book();
+        d2 = new Book();
         d2.setTitle("Design Patterns: Elements of Reusable Object-Oriented Software");
         d2.setAuthors("Erich Gamma, Ralph Johnson, John Vlissides, Richard Helm");
         d2.setPublisher("Addison-Wesley Professional");
@@ -159,15 +194,15 @@ public class TestCases_04_04 {
         d2.setPrice(1700);
         d2.setCopies(3);
 
-        AudioVideo d3 = new AudioVideo();
+        d3 = new AudioVideo();
         d3.setTitle("Null References: The Billion Dollar Mistake");
         d3.setAuthors("Tony Hoare");
         d3.setPrice(700);
         d3.setCopies(2);
 
-        documentService.save(d1);
-        documentService.save(d2);
-        documentService.save(d3);
+        l.addDoc(d1, d1.getCopies());
+        l.addDoc(d2, d2.getCopies());
+        l.addDoc(d3, d3.getCopies());
     }
 
     @Test
@@ -178,7 +213,144 @@ public class TestCases_04_04 {
 
     @Test
     public void testCase1(){
-        System.out.println(userService.getAllPatrons().size());
+        p1.checkout(d1);
+        try {
+            historyService.getHistoryByIdAndDocId(p1.getId(), d1.getId()).setCheckOutDate(format.parse("05 03"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        p1.getDocuments().get(p1.getDocuments().size() - 1).setCheckoutDate("05 03");
+
+        p1.checkout(d2);
+        p1.getDocuments().get(p1.getDocuments().size() - 1).setCheckoutDate("05 03");
+        try {
+            historyService.getHistoryByIdAndDocId(p1.getId(), d2.getId()).setCheckOutDate(format.parse("05 03"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        p1.toReturn(d2);
+        ///return 2nd April////
+
+        System.out.println(l.checkInfo(p1));
+    }
+
+    @Test
+    public void testCase2(){
+        p1.checkout(d1);
+        p1.getDocuments().get(p1.getDocuments().size() - 1).setCheckoutDate("05 03");
+        try {
+            historyService.getHistoryByIdAndDocId(p1.getId(), d1.getId()).setCheckOutDate(format.parse("05 03"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        p1.checkout(d2);
+        p1.getDocuments().get(p1.getDocuments().size() - 1).setCheckoutDate("05 03");
+        try {
+            historyService.getHistoryByIdAndDocId(p1.getId(), d2.getId()).setCheckOutDate(format.parse("05 03"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        s.checkout(d1);
+        s.getDocuments().get(s.getDocuments().size() - 1).setCheckoutDate("05 03");
+        try {
+            historyService.getHistoryByIdAndDocId(s.getId(), d1.getId()).setCheckOutDate(format.parse("05 03"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        s.checkout(d2);
+        s.getDocuments().get(s.getDocuments().size() - 1).setCheckoutDate("05 03");
+        try {
+            historyService.getHistoryByIdAndDocId(s.getId(), d2.getId()).setCheckOutDate(format.parse("05 03"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        v.checkout(d1);
+        v.getDocuments().get(v.getDocuments().size() - 1).setCheckoutDate("05 03");
+        try {
+            historyService.getHistoryByIdAndDocId(s.getId(), d1.getId()).setCheckOutDate(format.parse("05 03"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        v.checkout(d2);
+        v.getDocuments().get(v.getDocuments().size() - 1).setCheckoutDate("05 03");
+        try {
+            historyService.getHistoryByIdAndDocId(s.getId(), d2.getId()).setCheckOutDate(format.parse("05 03"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        ///checkouts at 5 March////
+
+        try {
+            System.out.println(l.checkOverdue(p1, format.parse("02 04")));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        try {
+            System.out.println(l.checkOverdue(s, format.parse("02 04")));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        try {
+            System.out.println(l.checkOverdue(v, format.parse("02 04")));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        ///check overdue 2nd April////
+    }
+
+    @Test
+    public void testCase3(){
+        p1.checkout(d1);
+        p1.getDocuments().get(p1.getDocuments().size() - 1).setCheckoutDate("05 03");
+        try {
+            historyService.getHistoryByIdAndDocId(p1.getId(), d1.getId()).setCheckOutDate(format.parse("05 03"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        s.checkout(d2);
+        s.getDocuments().get(s.getDocuments().size() - 1).setCheckoutDate("05 03");
+        try {
+            historyService.getHistoryByIdAndDocId(s.getId(), d2.getId()).setCheckOutDate(format.parse("05 03"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        v.checkout(d2);
+        v.getDocuments().get(v.getDocuments().size() - 1).setCheckoutDate("05 03");
+        try {
+            historyService.getHistoryByIdAndDocId(s.getId(), d2.getId()).setCheckOutDate(format.parse("05 03"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        p1.renew(d1);
+        s.renew(d2);
+        v.renew(d2);
+
+        try {
+            System.out.println(l.checkOverdue(p1, format.parse("02 04")));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        try {
+            System.out.println(l.checkOverdue(s, format.parse("02 04")));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        try {
+            System.out.println(l.checkOverdue(v, format.parse("02 04")));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
     }
     
 }

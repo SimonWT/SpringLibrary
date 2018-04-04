@@ -56,7 +56,9 @@ Press "OK"
    **PRESS Test Connection** if you succeed **PRESS OK** if you do not succeed please try one more time
 5. go to database properties and change password from "root" to your if you have different
 6. Click right button on the "database.sql" and choose execution target "deep_library_3rd_delivery@127.0.0.1 [*the bigger number*]" and press "OK"
-
+7. go to **src -> main -> java -> netspringsecurityapp -> dao -> ForTesting -> DocDaoImpl.java**  and change "root" to your password if you have different
+   src -> main -> resources -> database.properties and change "root" to your password if you have different
+8. You are done!
 
 
  ### To start WEB-application:

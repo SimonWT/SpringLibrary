@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -294,11 +295,11 @@ public class UserController {
         if(user instanceof Patron){
             Library library = new Library();
             library.patrons.add((Patron) user);
-//            ((Patron) user).setLibrary(library);
+//          ((Patron) user).setLibrary(library);
             ((Patron) user).setDocumentService(documentService);
             ((Patron) user).setHistoryService(historyService);
             ((Patron) user).setUserService(userService);
-             status = ((Patron) user).checkout(documentService.getDocumentById(docId));
+             status = ((Patron) user).checkout(documentService.getDocumentById(docId), new Date(System.currentTimeMillis()));
         }
         //Status ==0 - Success
         return "redirect:/status/booking/"+docId;
@@ -315,7 +316,7 @@ public class UserController {
         if(user instanceof Patron) {
             ((Patron) user).setDocumentService(documentService);
             ((Patron) user).setHistoryService(historyService);
-            status = ((Patron) user).toReturn(documentService.getDocumentById(docId));
+            status = ((Patron) user).toReturn(documentService.getDocumentById(docId), new Date(System.currentTimeMillis()));
         }
         //Status ==0 - Success
         return "redirect:/status/return/"+docId;

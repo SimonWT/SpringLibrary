@@ -110,8 +110,21 @@ public class Librarian extends User {
             return "Information not available, patron does not exist.";
         }
         StringBuilder info = new StringBuilder("Name: " + p.getName() + "\nAddress:" + p.getAddress() + "\nPhone:" + p.getPhone() + "\nId:" + p.getId() + /*"\nType:" + p.getType() +*/ "\nDocuments:\n");
-        for (int i = 0; i < p.getDocuments().size(); i++){
-            info.append("\t Title: ").append(p.getDocuments().get(i).getTitle()).append(" Due date: ").append(p.getDocuments().get(i).getDueDate()).append("\n");
+        List<Document> docs = p.getDocuments();
+        for (int i = 0; i < docs.size(); i++){
+            info.append("\t Title: ").append(docs.get(i).getTitle()).append(" Due date: ").append(docs.get(i).getDueDate()).append("\n");
+        }
+        return info.toString();
+    }
+
+    public String checkOverdue(Patron p, Date d){
+        if (!userService.getAllPatrons().contains(p)){
+            return "Information not available, patron does not exist.";
+        }
+        StringBuilder info = new StringBuilder("Name: " + p.getName() + "\nAddress:" + p.getAddress() + "\nPhone:" + p.getPhone() + "\nId:" + p.getId() + /*"\nType:" + p.getType() +*/ "\nDocuments:\n");
+        List<Document> docs = p.getDocuments();
+        for (int i = 0; i < docs.size(); i++){
+            info.append("\t Title: ").append(docs.get(i).getTitle()).append(docs.get(i).getOverdue()).append(" days overdue").append(docs.get(i).getFine()).append(" roubles fine\n");
         }
         return info.toString();
     }
