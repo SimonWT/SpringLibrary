@@ -17,6 +17,9 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 import javax.print.Doc;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
@@ -60,7 +63,7 @@ public class Patron extends User {
     }
 
 
-    public int checkout(Document doc){
+    public int checkout(Document doc, Date checkoutDate){
 
         if (userService.getAllPatrons().contains(this)){
             System.out.println("You have not registered in system. Ask librarian to register you in system");
@@ -77,7 +80,7 @@ public class Patron extends User {
             Document checkedDoc = doc.toCopy();
 
 //            History h = historyService.getHistoryByIdAndDocId(this.getId(), doc.getId());
-//            h.status = 1;
+//            h.status = 0;
 //            historyService.updateHistory(h);
 
             doc.setCopies(doc.getCopies()-1);
@@ -102,9 +105,9 @@ public class Patron extends User {
                     checkedDoc.setDue(21);
                 }
             }
-            checkedDoc.setCheckoutDate(new Date());
+            checkedDoc.setCheckoutDate((new Date()));
 
-            historyService.save(new History(checkedDoc.getId(), getId(), new Date(System.currentTimeMillis()), checkedDoc.getDueDate(), 0, 0));
+            historyService.save(new History(checkedDoc.getId(), getId(), checkoutDate, checkedDoc.getDueDate(), 0, 0));
             System.out.println("The book \"" + doc.getTitle() + "\" are checked out by " + getName());
             return 0;
         }
@@ -118,16 +121,16 @@ public class Patron extends User {
         }
     }
 
-    public int toReturn(Document doc){
+    public int toReturn(Document doc, Date returnDate){
         History h = historyService.getHistoryByIdAndDocId(this.getId(), doc.getId());
         h.setStatus(1); //Close status
         historyService.updateHistory(h);
         doc.setCopies(doc.getCopies() + 1);
+        doc.setRenewed(false);
         documentService.update(doc);
 
-        Date today = new Date();
         doc.setCheckoutDate(h.getCheckOutDate());
-        long dif = doc.getCheckoutDate().getTime() - today.getTime();
+        long dif = doc.getCheckoutDate().getTime() - returnDate.getTime();
 
         int difDays = (int)TimeUnit.DAYS.convert(dif, TimeUnit.MILLISECONDS);
         if (difDays > doc.getDue()){
@@ -144,11 +147,22 @@ public class Patron extends User {
         return -1;
     }
 
+    public void renew(Document doc, Date renewDate){
+        History history = historyService.getHistoryByIdAndDocId(this.getId(), doc.getId());
+        if (history.status == 0 && !doc.isRenewed()){
+            doc.setDue(2 * doc.getDue());
+            doc.setRenewed(true);
+        }
+    }
+
     public List<Document> getDocuments() {
         List<History> histories = this.historyService.getListOfHistoryByUser(this.getId());
+        System.out.println(histories.get(0).status);
         List<Document> docs = new ArrayList<>();
         for (int i = 0; i < histories.size(); i++){
-            docs.add(histories.get(0).getDocument());
+            if (histories.get(i).status == 0) {
+                docs.add(documentService.getDocumentById(histories.get(0).getDocId()));
+            }
         }
         return docs;
     }

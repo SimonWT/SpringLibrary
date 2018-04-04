@@ -50,6 +50,8 @@ public class Document {
     @Transient
     private int status;
 
+    private boolean renewed;
+
 
     //public Document( String title, int price, ArrayList<String> authors, ArrayList<String> keys) {
     public Document(){
@@ -90,7 +92,7 @@ public class Document {
         assert(this.daysRemained == this.getDue());
     }
     public void setCheckoutDate(String date){
-        DateFormat format = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);
+        DateFormat format = new SimpleDateFormat("dd mm", Locale.ENGLISH);
         try {
             checkoutDate = format.parse(date);
         } catch (ParseException e) {
@@ -153,6 +155,11 @@ public class Document {
         calendar.setTime(getCheckoutDate());
         calendar.add(Calendar.DAY_OF_YEAR, getCheckoutDate().getDay() - 1 + getDue() - 1);
         return calendar.getTime();
+    }
+
+    public boolean isRenewed(){return renewed;}
+    public void setRenewed(boolean renewed){
+        this.renewed = renewed;
     }
 
     public Document toCopy(){
