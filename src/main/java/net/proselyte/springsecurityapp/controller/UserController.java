@@ -15,6 +15,7 @@ import net.proselyte.springsecurityapp.validator.UserValidator;
 import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,6 +39,7 @@ import java.util.Map;
 @Controller
 public class UserController {
     private final Logger logger = LoggerFactory.logger(UserController.class);
+
 
     @Autowired
     private UserService userService;
@@ -75,13 +77,8 @@ public class UserController {
     @Autowired
     private DocumentService documentService;
 
-    @RequestMapping(value = "/test/inh", method = RequestMethod.GET )
-    public String testInh(Model model){
-
-
-
-        return "SUKA.";
-    }
+    @Autowired
+    private NotificationService notificationService;
 
     @RequestMapping("/deleteUser/{id}")
     public String deleteUser(@PathVariable("id") Long id){
@@ -119,7 +116,12 @@ public class UserController {
         userService.save(selecType(user));
 
         //send a notification
-
+        try {
+            notificationService.sendNotification(user);
+        } catch (MailException e) {
+            //catch error
+            logger.info("Error Sending Email:" + e.getMessage());
+        }
 
         /*
             this action authorizate new user after addition (it is useful in our case, but let it be here)

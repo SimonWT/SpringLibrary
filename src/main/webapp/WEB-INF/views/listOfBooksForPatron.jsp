@@ -32,7 +32,7 @@
 <body>
 <%@ include file ="topnav.jsp" %>
 
-<form method="POST">
+<form method="GET">
     <br>
     <br>
     <div class = "row">
