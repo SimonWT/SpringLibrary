@@ -1,6 +1,7 @@
 package net.proselyte.springsecurityapp.controller;
 
 import net.proselyte.springsecurityapp.model.Booking.History;
+import net.proselyte.springsecurityapp.model.Booking.Queue;
 import net.proselyte.springsecurityapp.model.Documents.Article;
 import net.proselyte.springsecurityapp.model.Documents.AudioVideo;
 import net.proselyte.springsecurityapp.model.Documents.Book;
@@ -29,6 +30,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Year;
 import java.time.format.DateTimeFormatter;
+
 import java.util.*;
 import java.util.Date;
 
@@ -286,7 +288,8 @@ public class BookController {
         Long userId = getCurrentUserId();
         Document document = docService.getDocumentById(docId);
         if (document.copies == 0) {
-            //Queue
+            Queue queue = new Queue(new Date(System.currentTimeMillis()), docId, userId);
+            queueService.save(queue);
         } else {
             History history = new History(docId, userId, new Date(System.currentTimeMillis()), new Date(System.currentTimeMillis() + 190000), 0, 0);
             historyService.save(history);

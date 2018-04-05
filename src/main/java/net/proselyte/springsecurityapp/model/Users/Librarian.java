@@ -3,6 +3,7 @@ package net.proselyte.springsecurityapp.model.Users;
 import jdk.nashorn.internal.ir.annotations.Ignore;
 import net.proselyte.springsecurityapp.dao.ForTesting.DocDao;
 import net.proselyte.springsecurityapp.dao.ForTesting.DocDaoImpl;
+import net.proselyte.springsecurityapp.model.Booking.History;
 import net.proselyte.springsecurityapp.model.Documents.Article;
 import net.proselyte.springsecurityapp.model.Documents.AudioVideo;
 import net.proselyte.springsecurityapp.model.Documents.Book;
@@ -49,6 +50,10 @@ public class Librarian extends User {
     @Autowired
     @Transient
     public DocumentServiceImpl docService;
+
+    @Autowired
+    @Transient
+    public HistoryServiceImpl historyService;
 
     public void addPatron(Patron newPatron){
         userService.save(newPatron);
@@ -107,9 +112,9 @@ public class Librarian extends User {
     }
 
     public String checkInfo(Patron p){
-        if (!userService.getAllPatrons().contains(p)){
-            return "Information not available, patron does not exist.";
-        }
+//        if (!userService.getAllPatrons().contains(p)){
+//            return "Information not available, patron does not exist.";
+//        }
         StringBuilder info = new StringBuilder("Name: " + p.getName() + "\nAddress:" + p.getAddress() + "\nPhone:" + p.getPhone() + "\nId:" + p.getId() + /*"\nType:" + p.getType() +*/ "\nDocuments:\n");
         List<Document> docs = p.getDocuments();
         for (int i = 0; i < docs.size(); i++){
@@ -119,22 +124,32 @@ public class Librarian extends User {
     }
 
     public String checkOverdue(Patron p, Date d){
-        if (!userService.getAllPatrons().contains(p)){
-            return "Information not available, patron does not exist.";
-        }
+//        if (!userService.getAllPatrons().contains(p)){
+//            return "Information not available, patron does not exist.";
+//        }
         StringBuilder info = new StringBuilder("Name: " + p.getName() + "\nAddress:" + p.getAddress() + "\nPhone:" + p.getPhone() + "\nId:" + p.getId() + /*"\nType:" + p.getType() +*/ "\nDocuments:\n");
         List<Document> docs = p.getDocuments();
         for (int i = 0; i < docs.size(); i++){
-            info.append("\t Title: ").append(docs.get(i).getTitle()).append(docs.get(i).getOverdue()).append(" days overdue").append(docs.get(i).getFine()).append(" roubles fine\n");
+            docs.get(i).setOverdue(d);
+            info.append("\t Title: ").append(docs.get(i).getTitle()).append(" ").append(docs.get(i).getOverdue()).append(" days overdue ").append(docs.get(i).getFine()).append(" roubles fine\n");
         }
         return info.toString();
     }
 
-    public void emptyQueues(){
-//        for (int i = 0; i < library.documents.size(); i++){
-//            if (library.documents.get(i).queue.size() != 0){
-//                library.documents.get(i).queue.clear();
-//            }
-//        }
+    public void outstandingrequest(Document doc, Date curDate){
+        if (doc.queue.size() != 0){
+            doc.queue.clear();
+        }
+        List<Patron> patrons = userService.getAllPatrons();
+        for (int i = 0; i < patrons.size(); i++){
+            History history = historyService.getHistoryByIdAndDocId(patrons.get(i).getId(), doc.getId());
+            if (history != null && history.status == 0){
+                long dif =   history.getReturnDate().getTime() - curDate.getTime();
+                int difDays = (int) TimeUnit.DAYS.convert(dif, TimeUnit.MILLISECONDS);
+                history.getDocument().setDue(history.getDocument().getDue() - difDays);
+                history.setReturnDate(curDate);
+                historyService.updateHistory(history);
+            }
+        }
     }
 }

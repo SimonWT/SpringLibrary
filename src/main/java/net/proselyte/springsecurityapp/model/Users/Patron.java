@@ -1,14 +1,12 @@
 package net.proselyte.springsecurityapp.model.Users;
 
 import net.proselyte.springsecurityapp.model.Booking.History;
+import net.proselyte.springsecurityapp.model.Booking.Queue;
 import net.proselyte.springsecurityapp.model.Documents.Book;
 import net.proselyte.springsecurityapp.model.Documents.Document;
 import net.proselyte.springsecurityapp.model.Documents.Role;
 import net.proselyte.springsecurityapp.model.Library.Library;
-import net.proselyte.springsecurityapp.service.DocumentService;
-import net.proselyte.springsecurityapp.service.HistoryService;
-import net.proselyte.springsecurityapp.service.UserService;
-import net.proselyte.springsecurityapp.service.UserServiceImpl;
+import net.proselyte.springsecurityapp.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -55,6 +53,10 @@ public class Patron extends User {
     @Autowired
     private UserService userService;
 
+    @Transient
+    @Autowired
+    private QueueService queueService;
+
     public Patron(){};
 
     public Patron(String username, String password, String name, String surname, String phone, String email, String type, String address) {
@@ -63,6 +65,12 @@ public class Patron extends User {
     }
 
 
+    public QueueService getQueueService() { return queueService; }
+
+    public void setQueueService(QueueService queueService) {
+        this.queueService = queueService;
+    }
+
     public int checkout(Document doc, Date checkoutDate){
 
         if (userService.getAllPatrons().contains(this)){
@@ -70,9 +78,7 @@ public class Patron extends User {
             return 1;
         }
         //TODO: Check branches, Copies of Doc -1
-
-        List<History> historyList= historyService.getListHistoriesByIdAndDocId(this.getId(),doc.getId());
-        History historyByIdAndDocId = historyList.get(historyList.size()-1);
+        History historyByIdAndDocId = historyService.getHistoryByIdAndDocId(this.getId(),doc.getId());
 
         if (historyByIdAndDocId!=null && historyByIdAndDocId.getStatus() == 0 ){
             System.out.println("user " + getName() + " already have this document");
@@ -85,7 +91,7 @@ public class Patron extends User {
 //            h.status = 0;
 //            historyService.updateHistory(h);
 
-            doc.setCopies(doc.getCopies()-1);
+            //doc.setCopies(doc.getCopies()-1);
             documentService.update(doc);
 
             //doc.patron = this;
@@ -107,9 +113,18 @@ public class Patron extends User {
                     checkedDoc.setDue(21);
                 }
             }
-            checkedDoc.setCheckoutDate((new Date()));
-
-            historyService.save(new History(checkedDoc.getId(), getId(), checkoutDate, checkedDoc.getDueDate(), 0, 0));
+            if (this instanceof VisitingProfessor){
+                checkedDoc.setDue(7);
+            }
+            checkedDoc.setCheckoutDate(checkoutDate);
+            if (historyByIdAndDocId == null)
+                historyService.save(new History(checkedDoc.getId(), this.getId(), checkoutDate, checkedDoc.getDueDate(), 0, 0));
+            else {
+                historyByIdAndDocId.setStatus(0);
+                historyByIdAndDocId.setCheckOutDate(checkoutDate);
+                historyByIdAndDocId.setReturnDate(checkedDoc.getDueDate());
+                historyService.updateHistory(historyByIdAndDocId);
+            }
             System.out.println("The book \"" + doc.getTitle() + "\" are checked out by " + getName());
             return 0;
         }
@@ -124,13 +139,11 @@ public class Patron extends User {
     }
 
     public int toReturn(Document doc, Date returnDate){
-
-        List<History> historyList= historyService.getListHistoriesByIdAndDocId(this.getId(), doc.getId());
-        History h = historyList.get(historyList.size()-1);
+        History h = historyService.getHistoryByIdAndDocId(this.getId(), doc.getId());
         h.setStatus(1); //Close status
         historyService.updateHistory(h);
         doc.setCopies(doc.getCopies() + 1);
-        doc.setRenewed(false);
+        //doc.setRenewed(false);
         documentService.update(doc);
 
         doc.setCheckoutDate(h.getCheckOutDate());
@@ -152,20 +165,38 @@ public class Patron extends User {
     }
 
     public void renew(Document doc, Date renewDate){
-        History history = historyService.getHistoryByIdAndDocId(this.getId(), doc.getId());
-        if (history.status == 0 && !doc.isRenewed()){
-            doc.setDue(2 * doc.getDue());
-            doc.setRenewed(true);
-        }
+        toReturn(doc, renewDate);
+        checkout(doc, renewDate);
+//        History history = historyService.getHistoryByIdAndDocId(this.getId(), doc.getId());
+//        if (history.status == 0 && !doc.isRenewed()){
+//            Calendar c = Calendar.getInstance();
+//            c.setTime(new Date()); // Now use today date.
+//            c.add(Calendar.DATE, doc.getDue()); // Adding 5 day
+//            Date newReturnDate = c.getTime();
+//
+//            long diffInMillies = Math.abs(newReturnDate.getTime() - history.getCheckOutDate().getTime());
+//            long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+//            doc.setDue((int) diff);
+//
+//            documentService.update(doc);
+//            history.setReturnDate(newReturnDate);
+//            historyService.updateHistory(history);
+//            doc.setRenewed(true);
+//        }
     }
 
     public List<Document> getDocuments() {
         List<History> histories = this.historyService.getListOfHistoryByUser(this.getId());
-        System.out.println(histories.get(0).status);
         List<Document> docs = new ArrayList<>();
         for (int i = 0; i < histories.size(); i++){
             if (histories.get(i).status == 0) {
-                docs.add(documentService.getDocumentById(histories.get(0).getDocId()));
+                docs.add(documentService.getDocumentById(histories.get(i).getDocId()));
+                docs.get(docs.size() - 1).setCheckoutDate(histories.get(i).checkOutDate);
+                System.out.println(this.getName() + " " + histories.get(i).getReturnDate());
+
+                long diffInMillies = Math.abs(histories.get(i).getReturnDate().getTime() - histories.get(i).getCheckOutDate().getTime());
+                long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+                docs.get(docs.size() - 1).setDue((int) diff);
             }
         }
         return docs;

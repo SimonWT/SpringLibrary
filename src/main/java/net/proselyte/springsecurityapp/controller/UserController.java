@@ -1,6 +1,7 @@
 package net.proselyte.springsecurityapp.controller;
 
 import net.proselyte.springsecurityapp.model.Booking.History;
+import net.proselyte.springsecurityapp.model.Booking.Queue;
 import net.proselyte.springsecurityapp.model.Documents.Article;
 import net.proselyte.springsecurityapp.model.Documents.AudioVideo;
 import net.proselyte.springsecurityapp.model.Documents.Book;
@@ -74,6 +75,9 @@ public class UserController {
 
     @Autowired
     private HistoryService historyService;
+
+    @Autowired
+    private QueueService queueService;
 
     @Autowired
     private DocumentService documentService;
@@ -276,10 +280,12 @@ public class UserController {
             for (History history : historyList) {
                 Document document = documentService.getDocumentById(history.getDocId());
                 int status = history.getStatus();
+
 //                if (status != 0) {
 //                    if (document.getCopies() == 0) status = 2; //Go to Queue
 //                    else status = 3;                      //Simple CheckOut
 //                }                                         //else Renew + Return
+
                 document.setStatus(status);
                 history.setDocument(document);
             }
@@ -294,6 +300,7 @@ public class UserController {
         String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userService.findByUsername(currentUser);
         Long userId = user.getId();
+
         if(documentService.getDocumentById(docId)==null) return "redirect:/error/wrongid";
         int status = -2;
         if(user instanceof Patron){
@@ -308,6 +315,25 @@ public class UserController {
         //Status ==0 - Success
         return "redirect:/status/booking/"+docId;
     }
+
+    @RequestMapping(value = "/queue/{docId}")
+    public String queue(@PathVariable Long docId) {
+        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.findByUsername(currentUser);
+        Long userId = user.getId();
+        if(documentService.getDocumentById(docId)==null) return "redirect:/error/wrongid";
+        int status = -2;
+        if(user instanceof Patron){
+            Library library = new Library();
+            library.patrons.add((Patron) user);
+            ((Patron) user).setQueueService(queueService);
+            Queue queue = new Queue(new Date(System.currentTimeMillis()), docId, userId);
+            queueService.save(queue);
+        }
+        //Status ==0 - Success
+        return "redirect:/listOfBooksForPatron";
+    }
+
 
     @RequestMapping(value = "/return/{docId}")
     public String returnDoc(@PathVariable Long docId, Model model){

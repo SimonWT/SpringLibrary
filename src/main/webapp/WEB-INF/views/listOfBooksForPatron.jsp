@@ -1,4 +1,5 @@
-    xmlns:c="http://www.hibernate.org/xsd/hibernate-mapping" xmlns:c="http://www.hibernate.org/xsd/hibernate-mapping"
+    xmlns:c="http://www.w3.org/1999/XSL/Transform" xmlns:c="http://www.hibernate.org/xsd/hibernate-mapping"
+        xmlns:c="http://www.hibernate.org/xsd/hibernate-mapping"
         xmlns:c="http://www.w3.org/1999/XSL/Transform"
         xmlns:c="http://www.w3.org/1999/XSL/Transform"
         xmlns:c="http://www.w3.org/1999/XSL/Transform"
@@ -82,7 +83,7 @@
             <c:if test="${book.status==0}">
                 <div style = "float:left; margin-left:4%;">
                 <button><a href="/return/${book.id}">
-                    Return back </a>
+                Return back </a>
                 </button>
 
                 </div>
@@ -94,14 +95,14 @@
 
             <c:if test="${book.status==2}">
                 <div style = "float:right; margin-right:4%">
-                <button> Queue </button>
+                <button type="submit"><a href="/queue/${book.id}"> Queue </a></button>
                 </div>
 
             </c:if>
 
             <c:if test="${book.status==3}">
                 <div style = "float:right; margin-right:4%">
-               <button type="submit"><a href="/booking/${book.id}"> Book </a></button>
+                <button type="submit"><a href="/booking/${book.id}"> Book </a></button>
                 </div>
 
             </c:if>

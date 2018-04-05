@@ -105,9 +105,14 @@ public class AudioVideoController {
 
         for(AudioVideo audioVideo: audioVideoList){
             Long avId  = audioVideo.getId();
-            History userHistory = historyService.getHistoryByIdAndDocId(userId, avId);
-            int status = 1;
-            if (userHistory!=null) status = userHistory.getStatus();
+            List<History> historyList= historyService.getListHistoriesByIdAndDocId(userId,avId);
+
+            int status = -1;
+
+            if (historyList!=null && !historyList.isEmpty()){
+                History userHistory = historyList.get(historyList.size()-1);
+                status = userHistory.getStatus();
+            }
 
             if(status != 0 ){
                 if(audioVideo.getCopies() == 0) status = 2;  //Go to Queue
