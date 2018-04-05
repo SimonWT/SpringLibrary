@@ -411,5 +411,24 @@ public class TestCases_04_04 {
         p2.toReturn(d3, new Date());
 
     }
+
+    @Test
+    public void testCase9(){
+        testCase6();
+        p1.renew(d3, new Date(2018,4,3));
+    }
+
+    @Test
+    public void testCase10(){
+
+        p1.checkout(d1, new Date(2018,3,26));
+        p1.renew(d1, new Date(2018, 3, 29));
+        v.checkout(d1, new Date(2018,3,26));
+        v.renew(d1, new Date(2018,3,29));
+
+        p1.checkout(d1, new Date());
+        v.renew(d1, new Date());
+        
+    }
     
 }
