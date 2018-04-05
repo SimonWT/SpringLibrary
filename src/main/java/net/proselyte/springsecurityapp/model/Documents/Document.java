@@ -8,10 +8,7 @@ import javax.persistence.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-import java.util.PriorityQueue;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 @Entity
@@ -47,7 +44,7 @@ public class Document {
     @Transient
     private int overdue;
     @Transient
-    public PriorityQueue<Patron> queue;
+    public Queue<Patron> queue;
     @Transient
     private int status;
 

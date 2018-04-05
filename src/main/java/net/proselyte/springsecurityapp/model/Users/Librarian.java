@@ -137,8 +137,8 @@ public class Librarian extends User {
     }
 
     public void outstandingrequest(Document doc, Date curDate){
-        if (doc.queue.size() != 0){
-            doc.queue.clear();
+        while (!doc.queue.isEmpty()){
+            doc.queue.poll().setNotification("You was removed from waiting list of document " + doc.getTitle());
         }
         List<Patron> patrons = userService.getAllPatrons();
         for (int i = 0; i < patrons.size(); i++){
@@ -146,10 +146,19 @@ public class Librarian extends User {
             if (history != null && history.status == 0){
                 long dif =   history.getReturnDate().getTime() - curDate.getTime();
                 int difDays = (int) TimeUnit.DAYS.convert(dif, TimeUnit.MILLISECONDS);
+                patrons.get(i).setNotification("You must return document " + doc.getTitle());
                 history.getDocument().setDue(history.getDocument().getDue() - difDays);
                 history.setReturnDate(curDate);
                 historyService.updateHistory(history);
             }
         }
+    }
+
+    public long[] checkQueue(Document doc){
+        long[] res = new long[doc.queue.size()];
+        for (int i = 0; i < res.length; i++){
+            res[i] = doc.queue.poll().getId();
+        }
+        return res;
     }
 }

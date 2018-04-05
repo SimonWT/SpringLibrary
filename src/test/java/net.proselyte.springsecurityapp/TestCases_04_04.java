@@ -366,39 +366,38 @@ public class TestCases_04_04 {
         p1.checkout(d3, new Date());
         s.checkout(d3, new Date());
         v.checkout(d3, new Date());
-        try {
-            BufferedWriter bw = new BufferedWriter(new FileWriter("out.txt"));
-            bw.write(String.valueOf(d3.queue));
-            bw.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        assertEquals(v.getId(), (Long) l.checkQueue(d3)[0]);
     }
 
     @Test
     public void testCase6(){
-        Date d = new Date();
+        Date d = new Date(2018, 3, 5);
         p1.checkout(d3, d);
         p2.checkout(d3, d);
         s.checkout(d3, d);
         v.checkout(d3, d);
         p3.checkout(d3, d);
-        try {
-            BufferedWriter bw = new BufferedWriter(new FileWriter("out.txt"));
-            bw.write(String.valueOf(d3.queue));
-            bw.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        long[] usersInQueue = l.checkQueue(d3);
+        assertEquals(s.getId(), (Long) usersInQueue[0]);
+        assertEquals(v.getId(), (Long) usersInQueue[1]);
+        assertEquals(p3.getId(), (Long) usersInQueue[2]);
     }
 
     @Test
     public void testCase7(){
-        testCase6();
+        Date d = new Date(2018, 3, 5);
+        p1.checkout(d3, d);
+        p2.checkout(d3, d);
+        s.checkout(d3, d);
+        v.checkout(d3, d);
+        p3.checkout(d3, d);
+
         l.outstandingrequest(d3, new Date());
+
+        assertTrue(d3.queue.isEmpty());
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter("out.txt"));
-
+            bw.write(p1.getNotification() + p2.getNotification() + s.getNotification() + v.getNotification() + p3.getNotification());
             bw.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -407,27 +406,91 @@ public class TestCases_04_04 {
 
     @Test
     public void testCase8(){
-        testCase6();
+        Date d = new Date(2018, 3, 5);
+        p1.checkout(d3, d);
+        p2.checkout(d3, d);
+        s.checkout(d3, d);
+        v.checkout(d3, d);
+        p3.checkout(d3, d);
         p2.toReturn(d3, new Date());
-
+        assertEquals("Document Null References: The Billion Dollar Mistake is available for you to checkout", s.getNotification());
+        assertTrue(p2.getDocuments().isEmpty());
+        long[] usersInQueue = l.checkQueue(d3);
+        assertEquals(s.getId(), (Long) usersInQueue[0]);
+        assertEquals(v.getId(), (Long) usersInQueue[1]);
+        assertEquals(p3.getId(), (Long) usersInQueue[2]);
     }
 
     @Test
     public void testCase9(){
-        testCase6();
-        p1.renew(d3, new Date(2018,4,3));
+        Date d = new Date();
+        try {
+            d = format.parse("02 April");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        p1.checkout(d3, d);
+        p2.checkout(d3, d);
+        s.checkout(d3, d);
+        v.checkout(d3, d);
+        p3.checkout(d3, d);
+
+        long[] usersInQueue = l.checkQueue(d3);
+        assertEquals(s.getId(), (Long) usersInQueue[0]);
+        assertEquals(v.getId(), (Long) usersInQueue[1]);
+        assertEquals(p3.getId(), (Long) usersInQueue[2]);
+
+        try {
+            d = format.parse("16 April");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        p1.renew(d3, d);
+
+        String patronInfoExp = "Name: Sergey\n" +
+                "Address:Via Margutta, 3\n" +
+                "Phone:30001\n" +
+                "Id:1010\n" +
+                "Documents:\n" +
+                "\t Title: Null References: The Billion Dollar Mistake Due date: Thu Apr 30 00:00:00 MSK 1970\n";
+        assertEquals(patronInfoExp, l.checkInfo(p1));
+
     }
 
     @Test
     public void testCase10(){
 
-        p1.checkout(d1, new Date(2018,3,26));
-        p1.renew(d1, new Date(2018, 3, 29));
-        v.checkout(d1, new Date(2018,3,26));
-        v.renew(d1, new Date(2018,3,29));
+        Date date = new Date();
 
-        p1.checkout(d1, new Date());
+        try {
+            date = format.parse("26 March");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        p1.checkout(d1, date);
+        v.checkout(d1, date);
+
+        try {
+            date = format.parse("29 March");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        p1.renew(d1, date);
+        v.renew(d1, date);
+
+        p1.renew(d1, new Date());
         v.renew(d1, new Date());
+
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter("out.txt"));
+            bw.write(l.checkInfo(p1));
+            bw.write(l.checkInfo(v));
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         
     }
     

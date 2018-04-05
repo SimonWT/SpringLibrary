@@ -57,6 +57,9 @@ public class Patron extends User {
     @Autowired
     private QueueService queueService;
 
+    @Transient
+    private String notification;
+
     public Patron(){};
 
     public Patron(String username, String password, String name, String surname, String phone, String email, String type, String address) {
@@ -64,6 +67,13 @@ public class Patron extends User {
         this.address = address;
     }
 
+    public String getNotification() {
+        return notification;
+    }
+
+    public void setNotification(String notification) {
+        this.notification = notification;
+    }
 
     public QueueService getQueueService() { return queueService; }
 
@@ -146,8 +156,13 @@ public class Patron extends User {
         //doc.setRenewed(false);
         documentService.update(doc);
 
+        if (!doc.queue.isEmpty()){
+            doc.queue.peek().setNotification("Document " + doc.getTitle() + " is available for you to checkout");
+        }
+
         doc.setCheckoutDate(h.getCheckOutDate());
         long dif = doc.getCheckoutDate().getTime() - returnDate.getTime();
+
 
         int difDays = (int)TimeUnit.DAYS.convert(dif, TimeUnit.MILLISECONDS);
         if (difDays > doc.getDue()){
