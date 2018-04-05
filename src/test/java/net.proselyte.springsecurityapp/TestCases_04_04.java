@@ -343,21 +343,31 @@ public class TestCases_04_04 {
             s.renew(d2, date);
             v.renew(d2, date);
 
-            l.outstandingrequest(d2, date);
+            l.outstandingRequest(d2, date);
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
 
-        try {
-            BufferedWriter bw = new BufferedWriter(new FileWriter("out.txt"));
-            bw.write(l.checkInfo(p1));
-            bw.write(l.checkInfo(s));
-            bw.write(l.checkInfo(v));
-            bw.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        String expectedRes = "Name: Sergey\n" +
+                "Address:Via Margutta, 3\n" +
+                "Phone:30001\n" +
+                "Id:1010\n" +
+                "Documents:\n" +
+                "\t Title: Intoduction to Algorithms Due date: Thu Apr 30 00:00:00 MSK 1970\n" +
+                "Name: Andrey\n" +
+                "Address:Avenida Mazatlan 250\n" +
+                "Phone:30004\n" +
+                "Id:1101\n" +
+                "Documents:\n" +
+                "\t Title: Design Patterns: Elements of Reusable Object-Oriented Software Due date: Thu Apr 02 00:00:00 MSK 1970\n" +
+                "Name: Veronika\n" +
+                "Address:Stret Atocha, 27\n" +
+                "Phone:30005\n" +
+                "Id:1110\n" +
+                "Documents:\n" +
+                "\t Title: Design Patterns: Elements of Reusable Object-Oriented Software Due date: Thu Apr 02 00:00:00 MSK 1970\n";
+        assertEquals(expectedRes, l.checkInfo(p1) + l.checkInfo(s) + l.checkInfo(v));
 
     }
 
@@ -392,9 +402,12 @@ public class TestCases_04_04 {
         v.checkout(d3, d);
         p3.checkout(d3, d);
 
-        l.outstandingrequest(d3, new Date());
+        l.outstandingRequest(d3, new Date());
 
         assertTrue(d3.queue.isEmpty());
+        assertEquals("You was removed from waiting list of document Null References: The Billion Dollar Mistake", s.getNotification());
+        assertEquals("You was removed from waiting list of document Null References: The Billion Dollar Mistake", v.getNotification());
+        assertEquals("You was removed from waiting list of document Null References: The Billion Dollar Mistake", p3.getNotification());
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter("out.txt"));
             bw.write(p1.getNotification() + p2.getNotification() + s.getNotification() + v.getNotification() + p3.getNotification());

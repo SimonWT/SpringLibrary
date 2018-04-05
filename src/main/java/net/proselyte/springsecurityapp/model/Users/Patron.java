@@ -88,7 +88,8 @@ public class Patron extends User {
             return 1;
         }
         //TODO: Check branches, Copies of Doc -1
-        History historyByIdAndDocId = historyService.getHistoryByIdAndDocId(this.getId(),doc.getId());
+        Long id = userService.findByUsername(this.getUsername()).getId();
+        History historyByIdAndDocId = historyService.getHistoryByIdAndDocId(id,doc.getId());
 
         if (historyByIdAndDocId!=null && historyByIdAndDocId.getStatus() == 0 ){
             System.out.println("user " + getName() + " already have this document");
@@ -128,7 +129,7 @@ public class Patron extends User {
             }
             checkedDoc.setCheckoutDate(checkoutDate);
             if (historyByIdAndDocId == null)
-                historyService.save(new History(checkedDoc.getId(), this.getId(), checkoutDate, checkedDoc.getDueDate(), 0, 0));
+                historyService.save(new History(checkedDoc.getId(), id, checkoutDate, checkedDoc.getDueDate(), 0, 0));
             else {
                 historyByIdAndDocId.setStatus(0);
                 historyByIdAndDocId.setCheckOutDate(checkoutDate);
@@ -149,7 +150,8 @@ public class Patron extends User {
     }
 
     public int toReturn(Document doc, Date returnDate){
-        History h = historyService.getHistoryByIdAndDocId(this.getId(), doc.getId());
+        Long id = userService.findByUsername(this.getUsername()).getId();
+        History h = historyService.getHistoryByIdAndDocId(id, doc.getId());
         h.setStatus(1); //Close status
         historyService.updateHistory(h);
         doc.setCopies(doc.getCopies() + 1);
@@ -201,7 +203,8 @@ public class Patron extends User {
     }
 
     public List<Document> getDocuments() {
-        List<History> histories = this.historyService.getListOfHistoryByUser(this.getId());
+        Long id = userService.findByUsername(this.getUsername()).getId();
+        List<History> histories = this.historyService.getListOfHistoryByUser(id);
         List<Document> docs = new ArrayList<>();
         for (int i = 0; i < histories.size(); i++){
             if (histories.get(i).status == 0) {
