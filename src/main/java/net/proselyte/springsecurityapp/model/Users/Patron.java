@@ -130,6 +130,7 @@ public class Patron extends User {
             if (historyByIdAndDocId == null)
                 historyService.save(new History(checkedDoc.getId(), this.getId(), checkoutDate, checkedDoc.getDueDate(), 0, 0));
             else {
+
                 historyByIdAndDocId.setStatus(0);
                 historyByIdAndDocId.setCheckOutDate(checkoutDate);
                 historyByIdAndDocId.setReturnDate(checkedDoc.getDueDate());
