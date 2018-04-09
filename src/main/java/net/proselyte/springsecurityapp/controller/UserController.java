@@ -1,5 +1,6 @@
 package net.proselyte.springsecurityapp.controller;
 
+import javafx.animation.ParallelTransition;
 import net.proselyte.springsecurityapp.model.Booking.History;
 import net.proselyte.springsecurityapp.model.Booking.Queue;
 import net.proselyte.springsecurityapp.model.Documents.Article;
@@ -346,6 +347,7 @@ public class UserController {
         if(user instanceof Patron) {
             ((Patron) user).setDocumentService(documentService);
             ((Patron) user).setHistoryService(historyService);
+            ((Patron) user).setUserService(userService);
             status = ((Patron) user).toReturn(documentService.getDocumentById(docId), new Date(System.currentTimeMillis()));
         }
 
