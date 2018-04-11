@@ -2,7 +2,6 @@ package net.proselyte.springsecurityapp.model.Documents;
 
 import net.proselyte.springsecurityapp.model.Users.Patron;
 import net.proselyte.springsecurityapp.model.Users.PatronComparator;
-import org.springframework.stereotype.Service;
 
 import javax.persistence.*;
 import java.text.DateFormat;
@@ -47,13 +46,15 @@ public class Document {
     public Queue<Patron> queue;
     @Transient
     private int status;
-
+    @Transient
+    private boolean renewed;
 
     //public Document( String title, int price, ArrayList<String> authors, ArrayList<String> keys) {
     public Document(){
         //authors = new ArrayList<String>();
         //keys = new ArrayList<String >();
         queue = new PriorityQueue<>(1, new PatronComparator());
+        renewed = false;
     }
 
     public Document(int copies, String title, int price, String authors) {
@@ -191,6 +192,14 @@ public class Document {
         copy.queue = queue;
         //this.copies--;
         return copy;
+    }
+
+    public boolean wasRenewed() {
+        return renewed;
+    }
+
+    public void setRenewed(boolean renewed) {
+        this.renewed = renewed;
     }
 
     @Override

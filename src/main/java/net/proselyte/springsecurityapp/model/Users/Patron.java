@@ -155,7 +155,7 @@ public class Patron extends User {
         h.setStatus(1); //Close status
         historyService.updateHistory(h);
         doc.setCopies(doc.getCopies() + 1);
-        //doc.setRenewed(false);
+        doc.setRenewed(false);
         documentService.update(doc);
 
         if (!doc.queue.isEmpty()){
@@ -182,8 +182,11 @@ public class Patron extends User {
     }
 
     public void renew(Document doc, Date renewDate){
-        toReturn(doc, renewDate);
-        checkout(doc, renewDate);
+        if (!doc.wasRenewed()) {
+            toReturn(doc, renewDate);
+            checkout(doc, renewDate);
+            doc.setRenewed(true);
+        }
 //        History history = historyService.getHistoryByIdAndDocId(this.getId(), doc.getId());
 //        if (history.status == 0 && !doc.isRenewed()){
 //            Calendar c = Calendar.getInstance();
