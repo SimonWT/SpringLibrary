@@ -34,8 +34,10 @@ public class Document {
 
     @Transient
     private String keys;
+
     @Transient
     private int daysRemained;
+
     @Transient
     private Date checkoutDate;
     @Transient
@@ -48,6 +50,7 @@ public class Document {
     private int status;
     @Transient
     private boolean renewed;
+
 
     //public Document( String title, int price, ArrayList<String> authors, ArrayList<String> keys) {
     public Document(){

@@ -89,7 +89,11 @@ public class Patron extends User {
         }
         //TODO: Check branches, Copies of Doc -1
         Long id = userService.findByUsername(this.getUsername()).getId();
-        History historyByIdAndDocId = historyService.getHistoryByIdAndDocId(id,doc.getId());
+        List<History> historyList= historyService.getListHistoriesByIdAndDocId(this.getId(),doc.getId());
+        History historyByIdAndDocId = null;
+        if(historyList!=null && !historyList.isEmpty()) {
+            historyByIdAndDocId = historyList.get(historyList.size() - 1);
+         }
 
         if (historyByIdAndDocId!=null && historyByIdAndDocId.getStatus() == 0 ){
             System.out.println("user " + getName() + " already have this document");
@@ -131,6 +135,7 @@ public class Patron extends User {
             if (historyByIdAndDocId == null)
                 historyService.save(new History(checkedDoc.getId(), id, checkoutDate, checkedDoc.getDueDate(), 0, 0));
             else {
+
                 historyByIdAndDocId.setStatus(0);
                 historyByIdAndDocId.setCheckOutDate(checkoutDate);
                 historyByIdAndDocId.setReturnDate(checkedDoc.getDueDate());
@@ -151,7 +156,11 @@ public class Patron extends User {
 
     public int toReturn(Document doc, Date returnDate){
         Long id = userService.findByUsername(this.getUsername()).getId();
-        History h = historyService.getHistoryByIdAndDocId(id, doc.getId());
+        List<History> historyList= historyService.getListHistoriesByIdAndDocId(this.getId(),doc.getId());
+        History h = new History();
+        if(historyList!=null && !historyList.isEmpty()) {
+          h = historyList.get(historyList.size() - 1);
+        }
         h.setStatus(1); //Close status
         historyService.updateHistory(h);
         doc.setCopies(doc.getCopies() + 1);

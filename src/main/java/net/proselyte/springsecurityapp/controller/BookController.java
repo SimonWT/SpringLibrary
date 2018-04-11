@@ -119,7 +119,6 @@ public class BookController {
         Long userId = user.getId();
         History userHistory = historyService.getHistoryByIdAndDocId(userId, bookId);
         int status = userHistory.getStatus();
-
         return "Success";
     }
 

@@ -54,7 +54,7 @@ font-style: normal">My Documents</div>
                     </div>
                 </div>
 
-                    <c:forEach items="${historyList}" var="history">
+                   <%-- <c:forEach items="${historyList}" var="history">
                         <br>
                         <br>
                         <p>${history.document.id}</p>
@@ -62,7 +62,55 @@ font-style: normal">My Documents</div>
                         <p>${history.document.authors}</p>
                         <p>Check out date: ${history.checkOutDate}</p>
 
+                    </c:forEach>--%>
+
+
+                    <c:forEach items="${openHistories}" var="history">
+                        <br>
+                        <br>
+                        <p>ID: ${history.document.id}</p>
+                        <p>Order ID: ${history.id}</p>
+                        <p>Title: ${history.document.title}</p>
+                        <p>Authors: ${history.document.authors}</p>
+                        <p>Check out date: ${history.checkOutDate}</p>
+                        <p>Deadline of return: ${history.returnDate}</p>
+
+                        <c:if test="${history.penaltyDays > 0}">
+                            <p>Penalty days: ${history.penaltyDays}</p>
+                            <p>Fine: </p>
+                        </c:if>
+                        <button><a href="/return/${history.document.id}">
+                            Return back </a>
+                        </button>
                     </c:forEach>
+
+                        <%--Здесь должны быть очереди--%>
+
+
+                    <c:forEach items="${closeHistories}" var="history">
+                        <br>
+                        <br>
+                        <p>ID: ${history.document.id}</p>
+                        <p>Order ID: ${history.id}</p>
+                        <p>Title: ${history.document.title}</p>
+                        <p>Authors: ${history.document.authors}</p>
+                        <p>Check out date: ${history.checkOutDate}</p>
+                        <p>Returned date: ${history.returnDate}</p>
+                        <c:if test="${history.penaltyDays > 0}">
+                            <p>Penalty days: ${history.penaltyDays}</p>
+                            <p>Fine: ${history.document.fine} </p>
+                        </c:if>
+                        <div style = "float:right; margin-right:4%">
+                            <button type="submit"><a href="/booking/${history.document.id}"> Book </a></button>
+                        </div>
+
+                    </c:forEach>
+
+
+
+
+
+
 
 
 

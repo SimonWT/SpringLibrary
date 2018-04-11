@@ -34,6 +34,9 @@ public class History{
     @Transient
     private Document document;
 
+    @Transient
+    private int fine;
+
     public History(Long docId, Long userId, Date checkOutDate, Date returnDate, int penaltyDays, int status) {
         this.docId = docId;
         this.userId = userId;
@@ -108,5 +111,13 @@ public class History{
 
     public void setDocument(Document document) {
         this.document = document;
+    }
+
+    public int getFine() {
+        return fine;
+    }
+
+    public void setFine(int fine) {
+        this.fine = fine;
     }
 }
