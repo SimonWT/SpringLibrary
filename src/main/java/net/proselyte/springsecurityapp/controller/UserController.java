@@ -14,6 +14,7 @@ import net.proselyte.springsecurityapp.validator.ArticleValidator;
 import net.proselyte.springsecurityapp.validator.AudioVideoValidator;
 import net.proselyte.springsecurityapp.validator.BookValidator;
 import net.proselyte.springsecurityapp.validator.UserValidator;
+import org.hibernate.Query;
 import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +27,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Controller for {@link User}'s pages.
@@ -273,31 +271,68 @@ public class UserController {
     public String history(Model model){
         String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userService.findByUsername(currentUser);
-
         Long userId = user.getId();
+        List<History> openHistories = new LinkedList<>();
+        List<History> closeHistories = new LinkedList<>();
         List<History> historyList = historyService.getListOfHistoryByUser(userId);
+
+       // List<Queue> queueList = queueService.getListOfQueueByUser(userId);
+        List<Queue> queueList = null; // Не работает верхняя строка
+
         if(historyList !=null && historyList.size()>0 ) {
 
-            for (History history : historyList) {
+            for (int j =historyList.size()-1; j>=0; j--) {
+                History history = historyList.get(j);
                 Document document = documentService.getDocumentById(history.getDocId());
+
+
+
                 int status = history.getStatus();
+                if(status == 0){
+                    openHistories.add(history);
+                    document.setStatus(status);
+                    history.setDocument(document);
+                }
+                else{
 
-//                if (status != 0) {
-//                    if (document.getCopies() == 0) status = 2; //Go to Queue
-//                    else status = 3;                      //Simple CheckOut
-//                }                                         //else Renew + Return
 
-                document.setStatus(status);
-                history.setDocument(document);
+                    //Calculate Fine
+
+                    if (100 * (history.getPenaltyDays()) < document.getPrice()) {
+                        document.setFine(100 * (history.getPenaltyDays()));
+                    }else
+                        document.setFine(document.getPrice());
+
+                    document.setStatus(status);
+                    history.setDocument(document);
+                    closeHistories.add(history);
+
+                    //history.setFine();
+
+                }
+
+//                document.setStatus(status);
+//                history.setDocument(document);
+
             }
 
         }
+
+        if(queueList != null){
+            for(Queue queue: queueList){
+                Document document = documentService.getDocumentById(queue.docId);
+                queue.setDocument(document);
+            }
+        }
+
         model.addAttribute(historyList);
+        model.addAttribute("openHistories",openHistories);
+        model.addAttribute("closeHistories",closeHistories);
         return  "mydoc";
     }
 
     @RequestMapping(value = "/booking/{docId}")
-    public String booking(@PathVariable Long docId){
+    public String booking(@PathVariable Long docId, Model model){
         String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userService.findByUsername(currentUser);
         Long userId = user.getId();
@@ -312,7 +347,8 @@ public class UserController {
             ((Patron) user).setHistoryService(historyService);
             ((Patron) user).setUserService(userService);
              status = ((Patron) user).checkout(documentService.getDocumentById(docId), new Date(System.currentTimeMillis()));
-        }
+
+        }else return "redirect:/error";
         //Status ==0 - Success
         return "redirect:/status/booking/"+docId;
     }

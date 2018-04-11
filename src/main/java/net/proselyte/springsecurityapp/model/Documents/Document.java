@@ -35,8 +35,10 @@ public class Document {
 
     @Transient
     private String keys;
+
     @Transient
     private int daysRemained;
+
     @Transient
     private Date checkoutDate;
     @Transient
@@ -47,6 +49,7 @@ public class Document {
     public Queue<Patron> queue;
     @Transient
     private int status;
+
 
 
     //public Document( String title, int price, ArrayList<String> authors, ArrayList<String> keys) {

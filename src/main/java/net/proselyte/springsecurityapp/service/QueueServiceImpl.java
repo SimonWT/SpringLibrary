@@ -20,7 +20,7 @@ public class QueueServiceImpl implements QueueService {
 
     @Override
     public List<Queue> getListOfQueueByUser(Long id) {
-        return queueDao.findAllByUserId(id);
+        return queueDao.getAllByUserId(id);
     }
 
     @Override

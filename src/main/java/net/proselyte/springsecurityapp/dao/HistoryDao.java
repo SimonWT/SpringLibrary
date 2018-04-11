@@ -13,5 +13,6 @@ public interface HistoryDao extends JpaRepository<History, Long> {
     History getHistoryByUserIdAndDocId(Long userId, Long docId);
 
     List<History> getHistoriesByUserIdAndDocIdOrderById(Long userId,Long docId);
+    List<History> getHistoriesByUserIdAndStatus(Long userId, int status );
 
 }
