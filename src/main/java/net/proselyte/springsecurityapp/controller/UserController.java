@@ -103,9 +103,24 @@ public class UserController {
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
-    public String registration(Model model) {
+    public ModelAndView registration(Model model) {
         model.addAttribute("userForm", new User());
-        return "registration";
+        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.findByUsername(currentUser);
+        ModelAndView mav = new ModelAndView();
+
+        Map<String, String> userData = new HashMap<>();
+        userData.put("username", user.getUsername());
+        userData.put("name", user.getName());
+        userData.put("surname", user.getSurname());
+        userData.put("phone", user.getPhone());
+        userData.put("email", user.getEmail());
+        userData.put("type", user.getType());
+        mav.setViewName("registration");
+
+        mav.addObject("user", userData);
+
+        return mav;
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
@@ -164,9 +179,24 @@ public class UserController {
     }
 
     @RequestMapping(value = "/listOfUsers", method = RequestMethod.GET)
-    public String listOfUsers() {
+    public ModelAndView listOfUsers() {
 
-        return "listOfUsers";
+        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.findByUsername(currentUser);
+        ModelAndView mav = new ModelAndView();
+
+        Map<String, String> userData = new HashMap<>();
+        userData.put("username", user.getUsername());
+        userData.put("name", user.getName());
+        userData.put("surname", user.getSurname());
+        userData.put("phone", user.getPhone());
+        userData.put("email", user.getEmail());
+        userData.put("type", user.getType());
+        mav.setViewName("listOfUsers");
+
+        mav.addObject("user", userData);
+
+        return mav;
     }
 
     @RequestMapping(value="/editUser/{id}", method = RequestMethod.GET)
@@ -268,7 +298,7 @@ public class UserController {
 
 
     @RequestMapping(value = "/mydoc", method = RequestMethod.GET)
-    public String history(Model model){
+    public ModelAndView history(Model model){
         String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userService.findByUsername(currentUser);
         Long userId = user.getId();
@@ -328,7 +358,20 @@ public class UserController {
         model.addAttribute(historyList);
         model.addAttribute("openHistories",openHistories);
         model.addAttribute("closeHistories",closeHistories);
-        return  "mydoc";
+        ModelAndView mav = new ModelAndView();
+
+        Map<String, String> userData = new HashMap<>();
+        userData.put("username", user.getUsername());
+        userData.put("name", user.getName());
+        userData.put("surname", user.getSurname());
+        userData.put("phone", user.getPhone());
+        userData.put("email", user.getEmail());
+        userData.put("type", user.getType());
+        mav.setViewName("mydoc");
+
+        mav.addObject("user", userData);
+
+        return mav;
     }
 
     @RequestMapping(value = "/booking/{docId}")

@@ -45,10 +45,25 @@ public class ArticleController {
     private HistoryService historyService;
 
     @RequestMapping(value = "/addArticle", method = RequestMethod.GET)
-    public String addArticle(Model model) {
+    public ModelAndView addArticle(Model model) {
         model.addAttribute("articleForm", new Article());
 
-        return "addArticle";
+        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.findByUsername(currentUser);
+        ModelAndView mav = new ModelAndView();
+
+        Map<String, String> userData = new HashMap<>();
+        userData.put("username", user.getUsername());
+        userData.put("name", user.getName());
+        userData.put("surname", user.getSurname());
+        userData.put("phone", user.getPhone());
+        userData.put("email", user.getEmail());
+        userData.put("type", user.getType());
+        mav.setViewName("addArticle");
+
+        mav.addObject("user", userData);
+
+        return mav;
 
     }
 
@@ -71,7 +86,7 @@ public class ArticleController {
 
 
     @RequestMapping(value = "/editArticle/{id}", method = RequestMethod.GET)
-    public String editInfo(@PathVariable("id") Long id , Model model) {
+    public ModelAndView editInfo(@PathVariable("id") Long id , Model model) {
         Document article = docService.getDocumentById(id);
 
         if(article!=null) {
@@ -84,7 +99,22 @@ public class ArticleController {
 
         model.addAttribute("articleForm", article);
 
-        return "editArticle";
+        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.findByUsername(currentUser);
+        ModelAndView mav = new ModelAndView();
+
+        Map<String, String> userData = new HashMap<>();
+        userData.put("username", user.getUsername());
+        userData.put("name", user.getName());
+        userData.put("surname", user.getSurname());
+        userData.put("phone", user.getPhone());
+        userData.put("email", user.getEmail());
+        userData.put("type", user.getType());
+        mav.setViewName("editArticle");
+
+        mav.addObject("user", userData);
+
+        return mav;
     }
 
     @RequestMapping(value = "/editArticle/{id}",method = RequestMethod.POST)
@@ -105,7 +135,7 @@ public class ArticleController {
     }
 
     @RequestMapping(value = "/listOfArticlesForPatron", method = RequestMethod.GET)
-    public String listOfArticlesForPatron(Model model) {
+    public ModelAndView listOfArticlesForPatron(Model model) {
         //TODO: user Cookie for that
         String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userService.findByUsername(currentUser);
@@ -132,7 +162,24 @@ public class ArticleController {
         }
 
         model.addAttribute(articleList);
-        return "listOfArticlesForPatron";
+
+        ModelAndView mav = new ModelAndView();
+        /*Map<String, String> message1 = new HashMap<String, String>();
+        message1.put("message1", "Hello World");
+        mav.setViewName("welcome");
+        mav.addObject("message", message1);*/
+        Map<String, String> userData = new HashMap<>();
+        userData.put("username", user.getUsername());
+        userData.put("name", user.getName());
+        userData.put("surname", user.getSurname());
+        userData.put("phone", user.getPhone());
+        userData.put("email", user.getEmail());
+        userData.put("type", user.getType());
+        mav.setViewName("listOfArticlesForPatron");
+
+        mav.addObject("user", userData);
+        model.addAttribute(articleList);
+        return mav;
     }
 
     @RequestMapping(value = "/listOfArticles", method = RequestMethod.GET)
