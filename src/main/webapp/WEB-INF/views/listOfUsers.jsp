@@ -18,9 +18,12 @@
 <html>
 <head>
     <title>List of users</title>
+    <link rel="stylesheet" href="${contextPath}/resources/cssNew/bootstrap.css">
+    <link rel="stylesheet" href="${contextPath}/resources/cssNew/font-awesome.css">
+    <link rel="stylesheet" href="${contextPath}/resources/cssNew/welcomeform.css">
+    <link rel="stylesheet" href="${contextPath}/resources/cssNew/admin.css">
 
-    <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
-</head>
+    </head>
 <body>
 <%@ include file ="topnav.jsp" %>
 

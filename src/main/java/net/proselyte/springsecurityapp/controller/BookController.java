@@ -299,8 +299,24 @@ public class BookController {
     }
 
     @RequestMapping("/addnewdocument")
-    public String addNewDocument(){
-        return "addnewdocument";
+    public ModelAndView addNewDocument(){
+        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.findByUsername(currentUser);
+        ModelAndView mav = new ModelAndView();
+
+        Map<String, String> userData = new HashMap<>();
+        userData.put("username", user.getUsername());
+        userData.put("name", user.getName());
+        userData.put("surname", user.getSurname());
+        userData.put("phone", user.getPhone());
+        userData.put("email", user.getEmail());
+        userData.put("type", user.getType());
+        mav.setViewName("addnewdocument");
+
+        mav.addObject("user", userData);
+
+        return mav;
+
     }
 
     @RequestMapping("/test/getHistory/")
