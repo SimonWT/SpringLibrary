@@ -125,7 +125,7 @@ public class AudioVideoController {
 
     //TODO:
     @RequestMapping(value = "/listOfAudioVideoMaterialForPatron", method = RequestMethod.GET)
-    public String listOfAVForPatron(Model model) {
+    public ModelAndView listOfAVForPatron(Model model) {
         //TODO: user Cookie for that
         String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userService.findByUsername(currentUser);
@@ -153,7 +153,22 @@ public class AudioVideoController {
 
         model.addAttribute(audioVideoList);
 
-        return "listOfAudioVideoMaterialForPatron";
+        ModelAndView mav = new ModelAndView();
+        /*Map<String, String> message1 = new HashMap<String, String>();
+        message1.put("message1", "Hello World");
+        mav.setViewName("welcome");
+        mav.addObject("message", message1);*/
+        Map<String, String> userData = new HashMap<>();
+        userData.put("username", user.getUsername());
+        userData.put("name", user.getName());
+        userData.put("surname", user.getSurname());
+        userData.put("phone", user.getPhone());
+        userData.put("email", user.getEmail());
+        userData.put("type", user.getType());
+        mav.setViewName("listOfAudioVideoMaterialForPatron");
+
+        mav.addObject("user", userData);
+        return mav;
     }
 
     @RequestMapping(value="/listOfAudioVideoMaterial", method = RequestMethod.GET)

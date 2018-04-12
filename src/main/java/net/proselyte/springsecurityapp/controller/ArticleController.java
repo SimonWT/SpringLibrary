@@ -135,7 +135,7 @@ public class ArticleController {
     }
 
     @RequestMapping(value = "/listOfArticlesForPatron", method = RequestMethod.GET)
-    public String listOfArticlesForPatron(Model model) {
+    public ModelAndView listOfArticlesForPatron(Model model) {
         //TODO: user Cookie for that
         String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userService.findByUsername(currentUser);
@@ -162,7 +162,24 @@ public class ArticleController {
         }
 
         model.addAttribute(articleList);
-        return "listOfArticlesForPatron";
+
+        ModelAndView mav = new ModelAndView();
+        /*Map<String, String> message1 = new HashMap<String, String>();
+        message1.put("message1", "Hello World");
+        mav.setViewName("welcome");
+        mav.addObject("message", message1);*/
+        Map<String, String> userData = new HashMap<>();
+        userData.put("username", user.getUsername());
+        userData.put("name", user.getName());
+        userData.put("surname", user.getSurname());
+        userData.put("phone", user.getPhone());
+        userData.put("email", user.getEmail());
+        userData.put("type", user.getType());
+        mav.setViewName("listOfArticlesForPatron");
+
+        mav.addObject("user", userData);
+        model.addAttribute(articleList);
+        return mav;
     }
 
     @RequestMapping(value = "/listOfArticles", method = RequestMethod.GET)
