@@ -23,9 +23,30 @@
         <h1>Returning complete </h1>
         <h2>Fine: ${history.penaltyDays}</h2>
     </c:if>
+
+    <c:if test="${history.status == 2}">
+        <h1>Renewing complete </h1>
+        <h2>Returning date: ${history.returnDate}</h2>
+    </c:if>
+
     <c:if test="${history.status==3}">
         <h1>You are in a queue for the book now</h1>
         <h2>Please wait for a notification during 3 days</h2>
+    </c:if>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <p>ID: ${history.document.id}</p>
+    <p>Order ID: ${history.id}</p>
+    <p>Title: ${history.document.title}</p>
+    <p>Authors: ${history.document.authors}</p>
+    <p>Check out date: ${history.checkOutDate}</p>
+    <p>Returned date: ${history.returnDate}</p>
+    <c:if test="${history.penaltyDays > 0}">
+        <p>Penalty days: ${history.penaltyDays}</p>
+        <p>Fine: ${history.document.fine} </p>
     </c:if>
 
 </div>

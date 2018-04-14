@@ -91,6 +91,13 @@ public class UserController {
         return "redirect:/listOfUsers";
     }
 
+    private Long getCurrentUserId(){
+        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.findByUsername(currentUser);
+        Long userId = user.getId();
+        return userId;
+    }
+
     public User selecType(User user){
         User newUser = new Patron();
         if(user.getTypeString().equals("Librarian")) newUser = new Librarian(user.getUsername(), user.getPassword(),user.getName(), user.getSurname(), user.getPhone(), user.getEmail(), "Librarian");
@@ -438,6 +445,33 @@ public class UserController {
             model.addAttribute("document", documentService.getDocumentById(history.getDocId()));
         }
                                                         //Status ==0 - Success
+        return "status";
+    }
+
+
+    @RequestMapping("/renew/{docId}")
+    public String renewDoc(@PathVariable Long docId, Model model){
+        Long userId = getCurrentUserId();
+        User user = userService.getUserById(userId);
+        Document document = documentService.getDocumentById(docId);
+        if(document==null) return "redirect:/error/wrongid";
+
+        int status = -2;
+        if(user instanceof Patron) {
+            ((Patron) user).setDocumentService(documentService);
+            ((Patron) user).setHistoryService(historyService);
+            ((Patron) user).setUserService(userService);
+            ((Patron) user).renew(document, new Date(System.currentTimeMillis()));
+        }
+
+        List<History> historyList= historyService.getListHistoriesByIdAndDocId(userId,docId);
+        History history = historyList.get(historyList.size()-1);
+        if(history == null || history.status==0) return "error";
+        else{
+            history.setDocument(document);
+            model.addAttribute("history", history );
+            //model.addAttribute("document", document);
+        }
         return "status";
     }
 

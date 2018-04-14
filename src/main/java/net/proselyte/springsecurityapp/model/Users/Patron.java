@@ -195,6 +195,11 @@ public class Patron extends User {
             toReturn(doc, renewDate);
             checkout(doc, renewDate);
             doc.setRenewed(true);
+            List<History> historyList= historyService.getListHistoriesByIdAndDocId(this.getId(),doc.getId());
+            History history = historyList.get(historyList.size()-1);
+            history.setStatus(2);
+            historyService.updateHistory(history);
+
         }
 //        History history = historyService.getHistoryByIdAndDocId(this.getId(), doc.getId());
 //        if (history.status == 0 && !doc.isRenewed()){

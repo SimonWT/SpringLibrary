@@ -100,6 +100,7 @@ font-style: normal">My Documents</div>
                             <p>Penalty days: ${history.penaltyDays}</p>
                             <p>Fine: ${history.document.fine} </p>
                         </c:if>
+
                         <div style = "float:right; margin-right:4%">
                             <button type="submit"><a href="/booking/${history.document.id}"> Book </a></button>
                         </div>

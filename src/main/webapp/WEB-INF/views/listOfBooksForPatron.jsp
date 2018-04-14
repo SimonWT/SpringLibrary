@@ -88,8 +88,8 @@
 
                 </div>
                 <div style = "float:left; margin-left:4%">
-                <button>
-                Renew </button>
+                <button><a href="/renew/${book.id}">
+                    Renew </a></button>
                 </div>
             </c:if>
 

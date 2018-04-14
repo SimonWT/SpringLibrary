@@ -152,10 +152,12 @@ public class ArticleController {
                 status = userHistory.getStatus();
             }
 
-            if(status != 0 ){
-                if(article.getCopies() == 0) status = 2;  //Go to Queue
-                else status = 3;                            //Simple CheckOut
-            }
+            if(article.getCopies() == 0 ) status = 4;
+
+//            if(status != 0){
+//                if(article.getCopies() == 0) status = 4;  //Go to Queue
+//                else status = 1;                            //Simple CheckOut
+//            }
                                                             //else Renew + Return
             article.setStatus(status);
             article.setDateString(DateToString(article.getDate(),0,10));
@@ -188,10 +190,12 @@ public class ArticleController {
         String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userService.findByUsername(currentUser);
         ModelAndView mav = new ModelAndView();
+
         /*Map<String, String> message1 = new HashMap<String, String>();
         message1.put("message1", "Hello World");
         mav.setViewName("welcome");
         mav.addObject("message", message1);*/
+
         Map<String, String> userData = new HashMap<>();
         userData.put("username", user.getUsername());
         userData.put("name", user.getName());
