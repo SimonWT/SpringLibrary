@@ -141,10 +141,13 @@ public class BookController {
                 status = userHistory.getStatus();
             }
 
-            if(status != 0 ){
-                if(book.getCopies() == 0) status = 2; //Go to Queue
-                else status = 3;                      //Simple CheckOut
-            }                                         //else Renew + Return
+//            if(status != 0 ){
+//                if(book.getCopies() == 0) status = 2; //Go to Queue
+//                else status = 3;                      //Simple CheckOut
+//            }                                         //else Renew + Return
+
+            if(book.getCopies() == 0 && (status!=0 && status!=2)) status = 4;
+
             book.setStatus(status);
             book.setYearString(DateToString(book.getYear(),0,4));
         }

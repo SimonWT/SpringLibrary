@@ -67,40 +67,40 @@
                         <br>
                         <div class = "row">
 
-                            <c:if test="${article.status==0 || article.status==2} " >
-                                <div style = "float:left; margin-left:4%;">
-                                    <form action="/booking/${article.id}">
-                                    <button><a href="/return/${article.id}">
-                                        Return back</a></button>
-                                    </form>
-                                </div>
-                                <div style = "float:left; margin-left:4%">
-                                    <button><a href="/renew/${article.id}">
-                                        Renew </a> </button>
-                                </div>
+                            <c:if test="${article.status==0 || article.status ==2}">
+                            <div style = "float:left; margin-left:4%;">
+                                <button><a href="/return/${article.id}">
+                                    Return back </a>
+                                </button>
+
+                            </div>
+                            <div style = "float:left; margin-left:4%">
+                                <button><a href="/renew/${article.id}">
+                                    Renew </a></button>
+                            </div>
                             </c:if>
 
-                            <c:if test="${article.status==4}" >
-                                <div style = "float:right; margin-right:4%">
-                                    <form action="/queue/${article.id}">
-                                    <button >
-                                        Queue  </button>
-                                    </form>
-                                </div>
-                            </c:if>
+                        <c:if test="${article.status==4}" >
+                            <div style = "float:right; margin-right:4%">
+                                <button ><a href = "/queue/${article.id}">
+                                    Queue </a>  </button>
+                                </form>
+                            </div>
+                        </c:if>
 
-                            <c:if test="${article.status==1}" >
-                                <div style = "float:right; margin-right:4%">
+                        <c:if test="${article.status==1}" >
+                            <div style = "float:right; margin-right:4%">
 
-                                    <button><a href="/booking/${article.id}"> Book  </a>
-                                       </button>
+                                <button><a href="/booking/${article.id}"> Book  </a>
+                                   </button>
 
-                                </div>
-                            </c:if>
+                            </div>
+                        </c:if>
 
-                            <c:if test="${article.status == 3}">
-                                Here list of Queue
-                            </c:if>
+                        <c:if test="${article.status == 3}">
+                            Here list of Queue
+                        </c:if>
+
                         </div>
 
                     </div>

@@ -145,14 +145,17 @@ public class ArticleController {
         for(Article article: articleList){
             Long articleId  = article.getId();
             List<History> historyList= historyService.getListHistoriesByIdAndDocId(userId,articleId);
-            int status = -1;
+            int status = 1;
 
             if (historyList!=null && !historyList.isEmpty()){
                 History userHistory = historyList.get(historyList.size()-1);
                 status = userHistory.getStatus();
             }
 
-            if(article.getCopies() == 0 ) status = 4;
+
+            if(article.getCopies() == 0 && (status!=0 && status!=2)) status = 4;
+//
+//            status = 0;
 
 //            if(status != 0){
 //                if(article.getCopies() == 0) status = 4;  //Go to Queue

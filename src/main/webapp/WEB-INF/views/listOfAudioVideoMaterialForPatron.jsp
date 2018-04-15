@@ -72,11 +72,9 @@
                         <br>
                         <div class = "row">
 
-                            <c:if test="${av.status==0}" >
+                            <c:if test="${av.status==0 || av.status==2}">
                                 <div style = "float:left; margin-left:4%;">
-
-                                    <button>
-                                        <a href="/return/${av.id}">
+                                    <button><a href="/return/${av.id}">
                                         Return back </a>
                                     </button>
 
@@ -87,20 +85,24 @@
                                 </div>
                             </c:if>
 
-                            <c:if test="${av.status==2}" >
+                            <c:if test="${av.status==4}" >
                                 <div style = "float:right; margin-right:4%">
                                     <button >
                                         Queue  </button>
                                 </div>
                             </c:if>
 
-                            <c:if test="${av.status==3}" >
+                            <c:if test="${av.status==1}" >
                                 <div style = "float:right; margin-right:4%">
                                     <button>
                                     <a href="/booking/${av.id}">
                                         Book </a>
                                     </button>
                                 </div>
+                            </c:if>
+
+                            <c:if test="${av.status == 3}">
+                                Here list of Queue
                             </c:if>
                         </div>
 
