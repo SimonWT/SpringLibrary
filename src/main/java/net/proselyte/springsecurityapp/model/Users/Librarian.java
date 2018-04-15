@@ -55,8 +55,14 @@ public class Librarian extends User {
     @Transient
     public HistoryServiceImpl historyService;
 
+    @Transient
+    private int privilege;
+
     public void addPatron(Patron newPatron){
-        userService.save(newPatron);
+        if (privilege >= 2)
+            userService.save(newPatron);
+        else
+            System.out.println("Permission denied");
     }
 
     public Librarian() {
@@ -68,11 +74,17 @@ public class Librarian extends User {
     }
 
     public void addDoc(Document doc, int copiesAmount){
-        if (docService.getListOfArticle().contains(doc) || docService.getListOfAudioVideo().contains(doc) || docService.getListOfBook().contains(doc))
-            doc.setCopies(doc.getCopies() + copiesAmount);
-        else {
-            doc.setCopies(copiesAmount);
-            docService.save(doc);
+        if (privilege >= 2) {
+            if (docService.getListOfArticle().contains(doc) || docService.getListOfAudioVideo().contains(doc) || docService.getListOfBook().contains(doc))
+                doc.setCopies(doc.getCopies() + copiesAmount);
+            else {
+                doc.setCopies(copiesAmount);
+                docService.save(doc);
+            }
+        }
+
+        else{
+            System.out.println("Permission denied");
         }
 
     }
@@ -99,16 +111,22 @@ public class Librarian extends User {
     }
 
     public void removeDoc(Document doc, int copies){
-        //get list of documents
-        doc.setCopies(doc.getCopies() - copies);
-        docService.update(doc);
-        if (doc.getCopies() < 0)
-            docService.delete(doc.getId());
-        //rewrite list of documents
+        if (privilege == 3) {
+            doc.setCopies(doc.getCopies() - copies);
+            docService.update(doc);
+            if (doc.getCopies() < 0)
+                docService.delete(doc.getId());
+        }
+        else{
+            System.out.println("Permission denied");
+        }
     }
 
     public void removePatron(Patron p){
-        userService.delete(p.getId());
+        if (privilege == 3)
+            userService.delete(p.getId());
+        else
+            System.out.println("Permission denied");
     }
 
     public String checkInfo(Patron p){
@@ -160,5 +178,13 @@ public class Librarian extends User {
             res[i] = doc.queue.poll().getId();
         }
         return res;
+    }
+
+    public int getPrivilege() {
+        return privilege;
+    }
+
+    public void setPrivilege(int privilege) {
+        this.privilege = privilege;
     }
 }
