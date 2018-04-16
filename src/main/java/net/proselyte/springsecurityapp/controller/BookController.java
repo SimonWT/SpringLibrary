@@ -141,10 +141,13 @@ public class BookController {
                 status = userHistory.getStatus();
             }
 
-            if(status != 0 ){
-                if(book.getCopies() == 0) status = 2; //Go to Queue
-                else status = 3;                      //Simple CheckOut
-            }                                         //else Renew + Return
+//            if(status != 0 ){
+//                if(book.getCopies() == 0) status = 2; //Go to Queue
+//                else status = 3;                      //Simple CheckOut
+//            }                                         //else Renew + Return
+
+            if(book.getCopies() == 0 && (status!=0 && status!=2)) status = 4;
+
             book.setStatus(status);
             book.setYearString(DateToString(book.getYear(),0,4));
         }
@@ -234,28 +237,6 @@ public class BookController {
         return "checkOutedBooks";
     }
 
-    @RequestMapping("/bookingBook/{id}")
-    public String bookBook(@PathVariable("id") Long id, Principal principal){
-        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
-        User user = userService.findByUsername(currentUser);
-        Long user_id = user.getId();
-
-        try{
-            DriverManagerDataSource dataSource = new DriverManagerDataSource();
-            dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-            dataSource.setUrl("jdbc:mysql://localhost:3306/deep_library");
-            dataSource.setUsername("root");
-            dataSource.setPassword("root");
-            String query="INSERT INTO user_books VALUES ('"+user_id+",'"+id+"', '2018-03-07')";
-            Connection conn= DriverManager.getConnection(dataSource.getUrl(), dataSource.getUsername(), dataSource.getPassword());
-            Statement stmt=conn.createStatement();
-            stmt.executeQuery(query);
-        }catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return "welcome";
-    }
 
     @RequestMapping("/deleteBook/{id}")
     public String deleteBook(@PathVariable("id") Long id){

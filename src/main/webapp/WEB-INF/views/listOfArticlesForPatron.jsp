@@ -119,36 +119,40 @@ border-radius: 17px;"
                         <br>
                         <div class = "row">
 
-                            <c:if test="${article.status==0}" >
-                                <div style = "float:left; margin-left:3%; width:45%">
-                                    <button style = "width:100%;"><a href="/return/${article.id}" style = "font-size:2vw; text-decoration: none; color:#d58512;" >
-                                        Return back </a>
-                                    </button>
+                            <c:if test="${article.status==0 || article.status ==2}">
+                            <div style = "float:left; margin-left:4%;">
+                                <button><a href="/return/${article.id}">
+                                    Return back </a>
+                                </button>
 
-                                </div>
-                                <div style = "float:right; margin-right: 3%; width:45%;">
-                                    <button style = "width:100%; float:right; font-size:2vw; color: #d58512" >
-                                        Renew </button>
-                                </div>
-
+                            </div>
+                            <div style = "float:left; margin-left:4%">
+                                <button><a href="/renew/${article.id}">
+                                    Renew </a></button>
+                            </div>
                             </c:if>
 
-                            <c:if test="${article.status==2}" >
-                                <div style = "float:right; margin-right:4%">
-                                    <form action="/queue/${article.id}">
-                                        <button >
-                                            Queue  </button>
-                                    </form>>
-                                </div>
-                            </c:if>
+                        <c:if test="${article.status==4}" >
+                            <div style = "float:right; margin-right:4%">
+                                <button ><a href = "/queue/${article.id}">
+                                    Queue </a>  </button>
+                                </form>
+                            </div>
+                        </c:if>
 
-                            <c:if test="${article.status==3}" >
-                                <div style = "text-align: center; font-size:70%;">
-                                    <button class = "name" style = "width:80%; text-align:center;"><a style = "text-decoration: none;"href="/booking/${article.id}"> Check Out </a>
-                                    </button>
-                                </div>
+                        <c:if test="${article.status==1}" >
+                            <div style = "float:right; margin-right:4%">
 
-                            </c:if>
+                                <button><a href="/booking/${article.id}"> Book  </a>
+                                   </button>
+
+                            </div>
+                        </c:if>
+
+                        <c:if test="${article.status == 3}">
+                            Here list of Queue
+                        </c:if>
+
                         </div>
 
                     </div>

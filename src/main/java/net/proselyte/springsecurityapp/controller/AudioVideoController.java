@@ -137,17 +137,20 @@ public class AudioVideoController {
             Long avId  = audioVideo.getId();
             List<History> historyList= historyService.getListHistoriesByIdAndDocId(userId,avId);
 
-            int status = -1;
+            int status = 1;
 
             if (historyList!=null && !historyList.isEmpty()){
                 History userHistory = historyList.get(historyList.size()-1);
                 status = userHistory.getStatus();
             }
 
-            if(status != 0 ){
-                if(audioVideo.getCopies() == 0) status = 2;  //Go to Queue
-                else status = 3;                            //Simple CheckOut
-            }                                                 //else Renew + Return
+//            if(status != 0 ){
+//                if(audioVideo.getCopies() == 0) status = 2;  //Go to Queue
+//                else status = 3;                            //Simple CheckOut
+//            }                                                 //else Renew + Return
+
+            if(audioVideo.getCopies() == 0 && (status!=0 && status!=2)) status = 4;
+
             audioVideo.setStatus(status);
         }
 
