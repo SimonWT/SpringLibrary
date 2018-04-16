@@ -90,4 +90,4 @@
 <script src="${contextPath}/resources/jsNew/bootstrap.js"></script>
 <script src="${contextPath}/resources/jsNew/scripts.js"></script>
 </body>
-</html>
+</html
