@@ -18,40 +18,94 @@
 <html>
 <head>
 
-    <title>Articles | DeepLib</title>
-    <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
+    <title>Articles || DeepLib</title>
+    <link href="${contextPath}/resources/cssNew/listbook.css" rel="stylesheet">
+    <link rel="stylesheet" href="${contextPath}/resources/cssNew/bootstrap.css">
+    <link rel="stylesheet" href="${contextPath}/resources/cssNew/font-awesome.css">
+    <link rel="stylesheet" href="${contextPath}/resources/cssNew/welcomeform.css">
 </head>
 <body>
 <%@ include file ="topnav.jsp" %>
-
-<form method="POST">
+<div class = "book">
     <br>
-    <br>
-    <div class = "row">
-        <div class = "one" style = "float:left; margin-left:2%;">
+    <div class = "search2">
 
-        </div>
+        <input type="search" id="mySearch" style = "width:80%; font-size:2vw; text-align:center; outline:#d9534f; border:none;
+border-radius: 17px;"
+               placeholder="Search article by keywords..." required>
+        <button style = "">Search</button>
+        <br>
+    </div>
+    <c:forEach items="${articleList}" var="article">
+        <c:if test = "${articleList.indexOf(article) % 4 == 0}">
 
-        <c:forEach items="${articleList}" var = "article">
+            <button
+                    type="button" data-toggle="modal"
+                    data-target="#my${article.id}">
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+            </button>
+        </c:if>
+        <c:if test = "${articleList.indexOf(article) % 4 == 1}">
 
-        <button style = "background: #2e6da4; margin-left:2%;border:1px; height: 30%; text-align: center; width:20%;
-    color: #ddd8c4; font-size:13px;"
-                type="button" data-toggle="modal"
-                data-target="#my${article.id}">${article.title}</button>
-        <br><br>
+            <button
+                    type="button" data-toggle="modal"
+                    data-target="#my${article.id}">
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+            </button>
+        </c:if>
+        <c:if test = "${articleList.indexOf(article) % 4 == 2}">
+
+            <button
+                    type="button" data-toggle="modal"
+                    data-target="#my${article.id}">
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+            </button>
+        </c:if>
+        <c:if test = "${articleList.indexOf(article) % 4 == 3}">
+
+            <button
+                    type="button" data-toggle="modal"
+                    data-target="#my${article.id}">
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+            </button>
+        </c:if>
 
         <div id="my${article.id}" class="modal fade"  >
-            <div class="modal-dialog" style = "margin-left:calc(50%- 8px); width: 470px;">
-                <div class="modal-content" >
-                    <div class="modal-body" style = "height:410px; background:#9d9d9d">
+            <div class="modal-dialog">
+                <div class = "modal-body" style = "width:100%">
                         <div class = "row" >
-                            <button class="close" type="button" data-dismiss="modal"><i class="fa fa-window-close-o" aria-hidden="true" style = "font-size:45px; padding-right:4px;"></i></button>
-                            <br>
-                            <br>
                             <br>
 
-                            <div style = "float:left; margin-left:4px;">  <img src = "${contextPath}/resources/imgNew/images.png" style = "width:160px; height:200px;"></div>
-                            <div style = "float:right; margin-right:20%;">
+
+                            <div style = "float:left; margin-left:6%; width:40%;">
+                                <img src = "${contextPath}/resources/imgNew/viewb.jpg" style =
+                                    "width:150%; height:57%;"></div>
+                            <div style = "float:right; margin-right:4%; color:#d58512; font-size:1vw;">
+                                <br>
                                 <p>ID: ${article.id}</p>
                                 <p>Title: ${article.title}</p>
                                 <p>Authors: ${article.authors}</p>
@@ -63,51 +117,50 @@
                             </div>
                         </div>
                         <br>
-                        <br>
-                        <br>
                         <div class = "row">
 
                             <c:if test="${article.status==0}" >
-                                <div style = "float:left; margin-left:4%;">
-                                    <form action="/booking/${article.id}">
-                                    <button><a href="/return/${article.id}">
-                                        Return back</a></button>
-                                    </form>
+                                <div style = "float:left; margin-left:3%; width:45%">
+                                    <button style = "width:100%;"><a href="/return/${article.id}" style = "font-size:2vw; text-decoration: none; color:#d58512;" >
+                                        Return back </a>
+                                    </button>
+
                                 </div>
-                                <div style = "float:left; margin-left:4%">
-                                    <button>
-                                        Renew  </button>
+                                <div style = "float:right; margin-right: 3%; width:45%;">
+                                    <button style = "width:100%; float:right; font-size:2vw; color: #d58512" >
+                                        Renew </button>
                                 </div>
+
                             </c:if>
 
                             <c:if test="${article.status==2}" >
                                 <div style = "float:right; margin-right:4%">
                                     <form action="/queue/${article.id}">
-                                    <button >
-                                        Queue  </button>
+                                        <button >
+                                            Queue  </button>
                                     </form>>
                                 </div>
                             </c:if>
 
                             <c:if test="${article.status==3}" >
-                                <div style = "float:right; margin-right:4%">
-
-                                    <button><a href="/booking/${article.id}"> Book  </a>
-                                       </button>
-
+                                <div style = "text-align: center; font-size:70%;">
+                                    <button class = "name" style = "width:80%; text-align:center;"><a style = "text-decoration: none;"href="/booking/${article.id}"> Check Out </a>
+                                    </button>
                                 </div>
+
                             </c:if>
                         </div>
 
                     </div>
-                </div>
             </div>
         </div>
 
-        </c:forEach>
+    </c:forEach>
+</div>
 
 
-</form>
+
+
 <script src="${contextPath}/resources/jsNew/jquery.js"></script>
 <script src="${contextPath}/resources/jsNew/bootstrap.js"></script>
 <script src="${contextPath}/resources/jsNew/scripts.js"></script>

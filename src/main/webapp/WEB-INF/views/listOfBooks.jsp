@@ -18,15 +18,41 @@
 <html>
 <head>
 
-    <title>All Books | DeepLib</title>
+    <title>Manage Books || DeepLib</title>
 
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/bootstrap.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/font-awesome.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/loginform.css"></head>
+<style>
+    .ftable{
+        width:60%;
+        margin-left:20%;
+        margin-top:4%;
+        background: #d5d5d5;
+    }
+    .ftable th{
+        color:#337ab7;
+        font-size: 1.3vw;
+        text-align: center;
+    }
+    .ftable td{
+        color:#d58512;
+        font-size:1.3vw;
+        text-align: center;
+    }
+    .ftable a{
+        color:#d58512;
+    }
+    .ftable a:hover{
+        outline:none;
+        text-decoration: none;
+        color:black;
+    }
+</style>
 <body>
 <%@ include file ="topnav.jsp" %>
 
-<form method="POST">
+<div class = "ftable">
     <table class="table table-condensed">
         <thead>
         <tr>
@@ -37,6 +63,8 @@
             <th>Edition</th>
             <th>Price</th>
             <th>Copies</th>
+            <th></th>
+            <th></th>
             <th></th>
         </tr>
         </thead>
@@ -51,23 +79,23 @@
         <td>${book.edition}</td>
         <td>${book.price}</td>
         <td>${book.copies}</td>
-          <td>  <c:if test="${book.bestSeller == true}" >
+          <td>
+              <c:if test="${book.bestSeller == false}" >
             </c:if>
-            <c:if test="${book.bestSeller == false} " >
-                <i class="fa fa-star" aria-hidden="true" style = "background: yellow"></i>
+            <c:if test="${book.bestSeller == true}" >
+                <i class="fa fa-star" aria-hidden="true" style = "color: yellow; font-size: 2vw;"></i>
 
             </c:if>
-        </td
-        <td><a href="/editBook/${book.id}">Edit</a>
-            <a href="/deleteBook/${book.id}">Delete</a></td>
+        </td>
+            <td><a href="/editBook/${book.id}">Edit</a> </td>
+         <td>   <a href="/deleteBook/${book.id}">Delete</a></td>
         </tr>
         </c:forEach>
 
         </tbody>
 
     </table>
-
-</form>
+</div>
 
 
 <script src="${contextPath}/resources/jsNew/jquery.js"></script>

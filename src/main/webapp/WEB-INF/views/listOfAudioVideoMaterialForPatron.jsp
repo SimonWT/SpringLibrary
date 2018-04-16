@@ -22,7 +22,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Audio & Video | DeepLib</title>
+    <title>Audio & Video || DeepLib</title>
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/bootstrap.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/font-awesome.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/welcomeform.css">
@@ -31,87 +31,135 @@
 </head>
 <body>
 <%@ include file ="topnav.jsp" %>
-
-<form method="POST">
+<div class = "book">
     <br>
-    <br>
-    <div class = "row">
-        <div class = "one" style = "float:left; margin-left:2%;">
+    <div class = "search2">
 
-        </div>
+        <input type="search" id="mySearch" style = "width:80%; font-size:2vw; text-align:center; outline:#d9534f; border:none;
+border-radius: 17px;"
+               placeholder="Search media by keywords..." required>
+        <button style = "">Search</button>
+        <br>
+    </div>
+    <c:forEach items="${audioVideoList}" var="av">
+        <c:if test = "${audioVideoList.indexOf(av) % 4 == 0}">
 
-        <c:forEach items="${audioVideoList}" var="av">
+            <button
+                    type="button" data-toggle="modal"
+                    data-target="#my${av.id}">
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+            </button>
+        </c:if>
+        <c:if test = "${audioVideoList.indexOf(av) % 4 == 1}">
 
-        <button style = "background: #f44444; border:1px; height: 90px; text-align: center; width:50%;
-    margin-left:calc(50%- 200px); color: #ddd8c4; font-size:13px;"
-                type="button" data-toggle="modal"
-                data-target="#my${av.id}">${av.title}</button>
-        <br><br>
+            <button
+                    type="button" data-toggle="modal"
+                    data-target="#my${av.id}">
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+            </button>
+        </c:if>
+        <c:if test = "${audioVideoList.indexOf(av) % 4 == 2}">
+
+            <button
+                    type="button" data-toggle="modal"
+                    data-target="#my${av.id}">
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+            </button>
+        </c:if>
+        <c:if test = "${audioVideoList.indexOf(av) % 4 == 3}">
+
+            <button
+                    type="button" data-toggle="modal"
+                    data-target="#my${av.id}">
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+            </button>
+        </c:if>
 
         <div id="my${av.id}" class="modal fade"  >
-            <div class="modal-dialog" style = "margin-left:calc(50%- 8px); width: 470px;">
-                <div class="modal-content" >
-                    <div class="modal-body" style = "height:410px; background:#9d9d9d">
-                        <div class = "row" >
-                            <button class="close" type="button" data-dismiss="modal"><i class="fa fa-window-close-o" aria-hidden="true" style = "font-size:45px; padding-right:4px;"></i></button>
-                            <br>
-                            <br>
-                            <br>
+            <div class="modal-dialog">
+                <div class = "modal-body" style = "width:100%">
+                    <div class = "row" >
+                        <br>
 
-                            <div style = "float:left; margin-left:4px;">  <img src = "${contextPath}/resources/imgNew/images.png" style = "width:160px; height:200px;"></div>
-                            <div style = "float:right; margin-right:20%;">
-                                <p>ID: ${av.id}</p>
-                                <p>Title: ${av.title}</p>
-                                <p>Authors: ${av.authors}</p>
-                                <p>Price: ${av.price}</p>
-                                <p>Copies: ${av.copies}</p>
+
+                        <div style = "float:left; margin-left:6%; width:40%;">
+                            <img src = "${contextPath}/resources/imgNew/audio.jpg" style =
+                                    "width:150%; height:57%;"></div>
+                        <div style = "float:right; width:27%; height:57%;margin-right:4%; color:#d58512; font-size:1vw;">
+                            <div style = "margin-top:100%;">
+                            Title: ${av.title}
+                            <br>
+                            Authors: ${av.authors}
                             </div>
-                        </div>
-                        <br>
-                        <br>
-                        <br>
-                        <div class = "row">
-
-                            <c:if test="${av.status==0}" >
-                                <div style = "float:left; margin-left:4%;">
-
-                                    <button>
-                                        <a href="/return/${av.id}">
-                                        Return back </a>
-                                    </button>
-
-                                </div>
-                                <div style = "float:left; margin-left:4%">
-                                    <button>
-                                        Renew  </button>
-                                </div>
-                            </c:if>
-
-                            <c:if test="${av.status==2}" >
-                                <div style = "float:right; margin-right:4%">
-                                    <button >
-                                        Queue  </button>
-                                </div>
-                            </c:if>
-
-                            <c:if test="${av.status==3}" >
-                                <div style = "float:right; margin-right:4%">
-                                    <button>
-                                    <a href="/booking/${av.id}">
-                                        Book </a>
-                                    </button>
-                                </div>
-                            </c:if>
                         </div>
 
                     </div>
+                    <br>
+                    <div class = "row">
+
+                        <c:if test="${av.status==0}" >
+                            <div style = "float:left; margin-left:3%; width:45%">
+                                <button style = "width:100%;"><a href="/return/${av.id}" style = "font-size:2vw; text-decoration: none; color:#d58512;" >
+                                    Return back </a>
+                                </button>
+
+                            </div>
+                            <div style = "float:right; margin-right: 3%; width:45%;">
+                                <button style = "width:100%; float:right; font-size:2vw; color: #d58512" >
+                                    Renew </button>
+                            </div>
+
+                        </c:if>
+
+                        <c:if test="${av.status==2}" >
+                            <div style = "float:right; margin-right:4%">
+                                <form action="/queue/${av.id}">
+                                    <button >
+                                        Queue  </button>
+                                </form>>
+                            </div>
+                        </c:if>
+
+                        <c:if test="${av.status==3}" >
+                            <div style = "text-align: center; font-size:70%;">
+                                <button class = "name" style = "width:80%; text-align:center;"><a style = "text-decoration: none;"href="/booking/${av.id}"> Check Out </a>
+                                </button>
+                            </div>
+
+                        </c:if>
+                    </div>
+
                 </div>
             </div>
         </div>
 
-        </c:forEach>
+    </c:forEach>
+</div>
 
-</form>
 
 <script src="${contextPath}/resources/jsNew/jquery.js"></script>
 <script src="${contextPath}/resources/jsNew/bootstrap.js"></script>

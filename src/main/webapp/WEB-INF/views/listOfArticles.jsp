@@ -16,17 +16,42 @@
 <html>
 <head>
 
-    <title>All Articles | DeepLib</title>
+    <title>Manage Articles || DeepLib</title>
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/bootstrap.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/font-awesome.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/loginform.css">
-
+    <style>
+        .ftable{
+            width:60%;
+            margin-left:20%;
+            margin-top:4%;
+            background: #d5d5d5;
+        }
+        .ftable th{
+            color:#337ab7;
+            font-size: 1.3vw;
+            text-align: center;
+        }
+        .ftable td{
+            color:#d58512;
+            font-size:1.3vw;
+            text-align: center;
+        }
+        .ftable a{
+            color:#d58512;
+        }
+        .ftable a:hover{
+            outline:none;
+            text-decoration: none;
+            color:black;
+        }
+    </style>
 </head>
 
 <body>
 <%@ include file ="topnav.jsp" %>
 
-<form method="POST">
+<div class = "ftable">
 
     <table class="table table-condensed">
         <thead>
@@ -38,6 +63,8 @@
             <th>Date</th>
             <th>Price</th>
             <th>Copies</th>
+            <th></th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -51,7 +78,8 @@
         <td>${article.date}</td>
         <td>${article.price}</td>
         <td>${article.copies}</td>
-        <td><a href="/editArticle/${article.id}">Edit</a><a href="/deleteArticle/${article.id}">Delete</a></td>
+            <td><a href="/editArticle/${article.id}">Edit</a></td>
+            <td><a href="/deleteArticle/${article.id}">Delete</a></td>
         </tr>
         </c:forEach>
 
@@ -60,7 +88,7 @@
     </table>
 
 
-</form>
+</div>
 
 <script src="${contextPath}/resources/jsNew/jquery.js"></script>
 <script src="${contextPath}/resources/jsNew/bootstrap.js"></script>

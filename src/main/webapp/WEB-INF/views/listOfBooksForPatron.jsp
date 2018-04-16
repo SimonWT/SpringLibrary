@@ -1,9 +1,4 @@
-    xmlns:c="http://www.w3.org/1999/XSL/Transform" xmlns:c="http://www.hibernate.org/xsd/hibernate-mapping"
-        xmlns:c="http://www.hibernate.org/xsd/hibernate-mapping"
-        xmlns:c="http://www.w3.org/1999/XSL/Transform"
-        xmlns:c="http://www.w3.org/1999/XSL/Transform"
-        xmlns:c="http://www.w3.org/1999/XSL/Transform"
-        xmlns:c="http://www.w3.org/1999/XSL/Transform"
+
         <%@ page import="java.sql.Connection" %>
         <%@ page import="java.sql.DriverManager" %>
         <%@ page import="java.sql.Statement" %>
@@ -26,7 +21,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Books | DeepLib</title>
+        <title>Books || DeepLib</title>
         <link rel="stylesheet" href="${contextPath}/resources/cssNew/bootstrap.css">
         <link rel="stylesheet" href="${contextPath}/resources/cssNew/font-awesome.css">
         <link rel="stylesheet" href="${contextPath}/resources/cssNew/welcomeform.css">
@@ -36,37 +31,91 @@
         </head>
         <body>
         <%@ include file="topnav.jsp" %>
+        <div class = "book">
+            <br>
+            <div class = "search2">
 
-        <form method="GET">
-        <br>
-        <br>
-        <div class = "row">
-        <div class = "one" style = "float:left; margin-left:2%;">
-
-        </div>
-
+            <input type="search" id="mySearch" style = "width:80%; font-size:2vw; text-align:center; outline:#d9534f; border:none;
+border-radius: 17px;"
+                   placeholder="Search book by keywords..." required>
+            <button style = "">Search</button>
+            <br>
+            </div>
         <c:forEach items="${bookList}" var="book">
+            <c:if test = "${bookList.indexOf(book) % 4 == 0}">
 
-            <button style = "background: #f44444; border:1px; height: 90px; text-align: center; width:50%;
-            margin-left:calc(50%- 200px); color: #ddd8c4; font-size:13px;"
+            <button
             type="button" data-toggle="modal"
-            data-target="#my${book.id}">${book.title}</button>
-            <br><br>
+            data-target="#my${book.id}">
+                    <br>
+                    <br>
+                <br>
+            <br>
+                <br>
+            <br>
+                <br>
+            </button>
+            </c:if>
+            <c:if test = "${bookList.indexOf(book) % 4 == 1}">
 
+                <button
+                        type="button" data-toggle="modal"
+                        data-target="#my${book.id}">
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </button>
+            </c:if>
+            <c:if test = "${bookList.indexOf(book) % 4 == 2}">
+
+                <button
+                        type="button" data-toggle="modal"
+                        data-target="#my${book.id}">
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </button>
+            </c:if>
+            <c:if test = "${bookList.indexOf(book) % 4 == 3}">
+
+                <button
+                        type="button" data-toggle="modal"
+                        data-target="#my${book.id}">
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </button>
+            </c:if>
             <div id="my${book.id}" class="modal fade" >
-            <div class="modal-dialog" style = "margin-left:calc(50%- 8px); width: 470px;">
-            <div class="modal-content" >
-            <div class="modal-body" style = "height:410px; background:#9d9d9d">
-            <div class = "row" >
-            <button class="close" type="button" data-dismiss="modal"><i class="fa fa-window-close-o" aria-hidden="true"
-            style = "font-size:45px; padding-right:4px;"></i></button>
-            <br>
-            <br>
-            <br>
+            <div class="modal-dialog">
+            <div class = "modal-title">
+                <button class="close" type="button" style = "top:0" data-dismiss="modal">
+                    <i class="fa fa-window-close-o" aria-hidden="true"
+                       style = "font-size:150%; margin-right:4px;width: 100%;"></i></button>
 
-            <div style = "float:left; margin-left:4px;"> <img src = "${contextPath}/resources/imgNew/images.png" style =
-            "width:160px; height:200px;"></div>
-            <div style = "float:right; margin-right:20%;">
+            </div>
+            <div class="modal-body">
+            <div class = "row" >
+                <br>
+
+
+                <div style = "float:left; margin-left:6%; width:40%;">
+                    <img src = "${contextPath}/resources/imgNew/book.JPG" style =
+                            "width:120%; height:270px;"></div>
+                <div style = "float:right; width:34%; height:250px;margin-right:4%; color:#d58512; font-size:1vw;">
+                    <div style = "margin-top:0;">
             <p>ID: ${book.id}</p>
             <p>Title: ${book.title}</p>
             <p>Edition: ${book.edition} </p>
@@ -75,48 +124,48 @@
             <p>Publish Year: ${book.yearString} </p>
             </div>
             </div>
-            <br>
-            <br>
-            <br>
-            <div class = "row">
-
-            <c:if test="${book.status==0}">
-                <div style = "float:left; margin-left:4%;">
-                <button><a href="/return/${book.id}">
-                Return back </a>
-                </button>
-
-                </div>
-                <div style = "float:left; margin-left:4%">
-                <button>
-                Renew </button>
-                </div>
-            </c:if>
-
-            <c:if test="${book.status==2}">
-                <div style = "float:right; margin-right:4%">
-                <button type="submit"><a href="/queue/${book.id}"> Queue </a></button>
-                </div>
-
-            </c:if>
-
-            <c:if test="${book.status==3}">
-                <div style = "float:right; margin-right:4%">
-                <button type="submit"><a href="/booking/${book.id}"> Book </a></button>
-                </div>
-
-            </c:if>
-
             </div>
+            <br>
+                <div class = "row">
 
-            </div>
+                    <c:if test="${book.status==0}" >
+                        <div style = "float:left; margin-left:3%; width:45%">
+                            <button style = "width:100%;"><a href="/return/${book.id}" style = "font-size:2vw; text-decoration: none; color:#d58512;" >
+                                Return back </a>
+                            </button>
+
+                        </div>
+                        <div style = "float:right; margin-right: 3%; width:45%;">
+                            <button style = "width:100%; float:right; font-size:2vw; color: #d58512" >
+                                Renew </button>
+                        </div>
+
+                    </c:if>
+
+                    <c:if test="${book.status==2}" >
+                        <div style = "float:right; margin-right:4%">
+                            <form action="/queue/${book.id}">
+                                <button >
+                                    Queue  </button>
+                            </form>>
+                        </div>
+                    </c:if>
+
+                    <c:if test="${book.status==3}" >
+                        <div style = "text-align: center; font-size:70%;">
+                            <button class = "name" style = "width:80%; text-align:center;"><a style = "text-decoration: none;"href="/booking/${book.id}"> Check Out </a>
+                            </button>
+                        </div>
+
+                    </c:if>
+                </div>
+
             </div>
             </div>
             </div>
 
         </c:forEach>
-
-        </form>
+        </div>
         <script src="${contextPath}/resources/jsNew/jquery.js"></script>
         <script src="${contextPath}/resources/jsNew/bootstrap.js"></script>
         </body>

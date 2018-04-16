@@ -17,29 +17,73 @@
 
 <html>
 <head>
-    <title>Manage Users | Deeplib</title>
+    <title>Manage Media || Deeplib</title>
 
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/bootstrap.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/font-awesome.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/loginform.css"></head>
+<style>
+    .ftable{
+        width:60%;
+        margin-left:20%;
+        margin-top:4%;
+        background: #d5d5d5;
+    }
+    .ftable th{
+        color:#337ab7;
+        font-size: 1.3vw;
+        text-align: center;
+    }
+    .ftable td{
+        color:#d58512;
+        font-size:1.3vw;
+        text-align: center;
+    }
+    .ftable a{
+        color:#d58512;
+    }
+    .ftable a:hover{
+        outline:none;
+        text-decoration: none;
+        color:black;
+    }
+</style>
 <body>
 <%@ include file ="topnav.jsp" %>
 
-<form method="POST">
+
+<div class = "ftable">
 
 
-        <c:forEach items="${audioVideoList}" var="av">
-            <div style = "background: #ddd8c4; margin-left:calc(50%- 6px);width:50%">
-                <img src ="${contextPath}/resources/imgNew/logo7.png" width = 20% height = 10%>
-        <p>${av.authors}</p>
-        <p>${av.title}</p>
-        <p>${av.price}</p>
-        <p>${av.copies}</p>
-        <p><a href="/editAudioVideo/${av.id}">Edit</a><a href="/deleteAudioVideo/${av.id}">Delete</a></p>
-            </div>
-            <br>
-        </c:forEach>
-</form>
+            <table class="table table-condensed">
+                <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+
+                    <th>Price</th>
+                    <th>Copies</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <c:forEach items="${audioVideoList}" var="av">
+                    <tr>
+                        <td>${av.authors}</td>
+                        <td>${av.title}</td>
+                        <td>${av.price}</td>
+                        <td>${av.copies}</td>
+                        <td><a href="/editAudioVideo/${av.id}">Edit</a></td>
+                          <td>  <a href="/deleteAudioVideo/${av.id}">Delete</a></td>
+
+                    </tr>
+                </c:forEach>
+
+                </tbody>
+            </table>
+</div>
 
 
 <script src="${contextPath}/resources/jsNew/jquery.js"></script>

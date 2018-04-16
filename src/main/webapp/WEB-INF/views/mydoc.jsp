@@ -22,89 +22,132 @@
 
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/bootstrap.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/font-awesome.css">
-    <link rel="stylesheet" href="${contextPath}/resources/cssNew/loginform.css"></head>
+    <link rel="stylesheet" href="${contextPath}/resources/cssNew/mydoc.css"></head>
 <body>
 <%@ include file ="topnav.jsp" %>
 <br>
 <br>
-<div style = "background: #8c8c8c; text-align: center;color:#ddd8c4; font-size:30px; width:60%;margin-left:21.5%;
-font-style: normal">My Documents</div>
-<br>
-<br>
+<div class = "table">
+<div class = "now">
+<div class = "b" style = "">My Documents</div>
+    <c:if test= "${empty openHistories}">
+        <div style = "background: #d4d4d4">
+            <br>
+            <br>
+        </div>
+        <div  class = "vp" style = "background:#d5d5d5; margin-top:5%;  margin-left:3%; margin-right:3%; margin-bottom:5%;">
+            <p> Now you don't have documents.</p>
+            <p> Choose new document:</p>
+            <br>
+            <div class = "formoc">
+                <a href="/listOfAudioVideoMaterialForPatron" style = ""><i class="fa fa-file-audio-o" aria-hidden="true"></i>
+                    Media</a>
+                <a href="/listOfArticlesForPatron" style = ""><i class="fa fa-newspaper-o" aria-hidden="true"></i>
+                    Journal Article</a>
+                <a href="/listOfBooksForPatron" style = ""><i class="fa fa-book" aria-hidden="true"></i> Books</a>
+            </div>
+            <br>
+            <br>
+        </div>
+    </c:if>
+    <c:forEach items="${openHistories}" var="history">
+        <c:if test="${openHistories.indexOf(history) % 2 == 0}">
+            <div style = "background: #d4d4d4">
+                <br>
+                <br>
+            </div>
+        </c:if>
+        <c:if test = "${openHistories.indexOf(history) % 2 == 0}">
+            <div style = "float:left; margin-left:5%; width:43%; border: none; border-radius:17px;background: #d4d4d4; margin-top:5%; margin-bottom:5%;">
+        <br>
+        <p>Title: ${history.document.title}</p>
+        <p>Authors: ${history.document.authors}</p>
+        <p>Check out date: ${history.checkOutDate}</p>
+        <p>Deadline of return: ${history.returnDate}</p>
 
-                <div class = "row" style = "background: #ebccd1; width: 40%; margin-left:32%;  ">
-                    <div style = "float:left; margin-top:3%; margin-left:4px;">  <img src = "${contextPath}/resources/imgNew/images.png" style = "width:100%; height:25%;"></div>
-                    <br>
-                    <br>
-
-                    <div style = "float:right; margin-right:10%;">
-                        <p>
-                            How to forgot about girls
-                            and learn masturbate
-           <hr style = "height:2px;border:none;color:black; background: black;">
-                    </p>
-                            <br>
-                            <br>
-                        <p style = "color:darkred;font-size:1vw;">DO  NOT FORGET TO RETURN
-                    <p style = "color:darkred;"> UNTIL 04.04.2018</p>
-                        <div>Fine: </div>
-                    </div>
-                    <div style = "float:right;  font-size:20px;" >
-                        <button style = "border: none !important; float:top; margin-top:25%;border-radius: 10px;">Return Document</button>
-                    </div>
+        <c:if test="${history.penaltyDays > 0}">
+            <p>Penalty days: ${history.penaltyDays}</p>
+            <p>Fine: </p>
+        </c:if>
+                <div class = "b2">
+        <button><a href="/return/${history.document.id}">
+            Return back </a>
+        </button>
                 </div>
 
-                   <%-- <c:forEach items="${historyList}" var="history">
-                        <br>
-                        <br>
-                        <p>${history.document.id}</p>
-                        <p>${history.document.title}</p>
-                        <p>${history.document.authors}</p>
-                        <p>Check out date: ${history.checkOutDate}</p>
+<br>
+            </div>
+        </c:if>
+        <c:if test = "${openHistories.indexOf(history) % 2 == 1}">
+            <div style = "float:right; margin-right:5%;width:43%; border:none; border-radius: 17px; background: #d4d4d4; margin-top:5%; margin-bottom:5%;">
+                <br>
+                <p>Title: ${history.document.title}</p>
+                <p>Authors: ${history.document.authors}</p>
+                <p>Check out date: ${history.checkOutDate}</p>
+                <p>Deadline of return: ${history.returnDate}</p>
 
-                    </c:forEach>--%>
+                <c:if test="${history.penaltyDays > 0}">
+                    <p>Penalty days: ${history.penaltyDays}</p>
+                    <p>Fine: </p>
+                </c:if>
+                <div class = "b2">
+                <button ><a href="/return/${history.document.id}">
+                    Return back </a>
+                </button>
+                </div>
+                <br>
+            </div>
+        </c:if>
+    </c:forEach>
+</div>
+
+<div class = "after" style = "">
+    <div class = "b" style = "font-family: 'Cambria Math'">History</div>
+    <c:if test= "${empty closeHistories}">
+        <div style = "background: #d4d4d4">
+            <br>
+            <br>
+        </div>
+        <div  class = "vp" style = "background:#d5d5d5; margin-top:5%;  margin-left:3%; margin-right:3%; margin-bottom:5%;">
+            <br>
+            <br>
+            <p> User story is empty</p>
+            <br>
+            <br>
+        </div>
+    </c:if>
+    <c:forEach items="${closeHistories}" var="history">
+        <div style = "background: #d4d4d4">
+            <br>
+            <br>
+        </div>
+        <div class = "closeh">
+            <br>
+        <p>Title: ${history.document.title}</p>
+        <p>Authors: ${history.document.authors}</p>
+        <p>Check out date: ${history.checkOutDate}</p>
+        <p>Returned date: ${history.returnDate}</p>
+        <c:if test="${history.penaltyDays > 0}">
+            <p>Penalty days: ${history.penaltyDays}</p>
+            <p>Fine: ${history.document.fine} </p>
+        </c:if>
+        <div class = "b2">
+            <button  type="submit"><a style = "outline:none;" href="/booking/${history.document.id}"> Check Out </a></button>
+        </div>
+        <br>
+        </div>
+
+    </c:forEach>
+
+</div>
+<br>
+<br>
+
+                <div>
+
+                </div>
 
 
-                    <c:forEach items="${openHistories}" var="history">
-                        <br>
-                        <br>
-                        <p>ID: ${history.document.id}</p>
-                        <p>Order ID: ${history.id}</p>
-                        <p>Title: ${history.document.title}</p>
-                        <p>Authors: ${history.document.authors}</p>
-                        <p>Check out date: ${history.checkOutDate}</p>
-                        <p>Deadline of return: ${history.returnDate}</p>
-
-                        <c:if test="${history.penaltyDays > 0}">
-                            <p>Penalty days: ${history.penaltyDays}</p>
-                            <p>Fine: </p>
-                        </c:if>
-                        <button><a href="/return/${history.document.id}">
-                            Return back </a>
-                        </button>
-                    </c:forEach>
-
-                        <%--Здесь должны быть очереди--%>
-
-
-                    <c:forEach items="${closeHistories}" var="history">
-                        <br>
-                        <br>
-                        <p>ID: ${history.document.id}</p>
-                        <p>Order ID: ${history.id}</p>
-                        <p>Title: ${history.document.title}</p>
-                        <p>Authors: ${history.document.authors}</p>
-                        <p>Check out date: ${history.checkOutDate}</p>
-                        <p>Returned date: ${history.returnDate}</p>
-                        <c:if test="${history.penaltyDays > 0}">
-                            <p>Penalty days: ${history.penaltyDays}</p>
-                            <p>Fine: ${history.document.fine} </p>
-                        </c:if>
-                        <div style = "float:right; margin-right:4%">
-                            <button type="submit"><a href="/booking/${history.document.id}"> Book </a></button>
-                        </div>
-
-                    </c:forEach>
 
 
 

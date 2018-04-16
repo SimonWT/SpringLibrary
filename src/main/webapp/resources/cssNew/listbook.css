@@ -1,0 +1,50 @@
+.modal-body{
+    background:#c4e3f3;
+}
+.modal-dialog{
+    width:30%;
+}
+.book{
+    background: #c4e3f3;
+    margin-top:2%;
+    width:60%;
+    margin-left:20%;
+}
+.book .name a:hover{
+    color:black;
+
+}
+.book .name a{
+    color:#d58512;
+
+}
+.book .search2{
+    text-align: center;
+    margin-top:2%;
+}
+.book .search2 button{
+    background: #f2dede;
+    color: #d58512;
+    font-size:150%;
+}
+
+.book button{
+    font-size:2vw;
+    margin-top:3%;
+    margin-bottom:3%;
+    margin-left:2.2%;
+    background-image: url("/resources/imgNew/book.JPG");
+    opacity:60%;
+    background-size: cover;
+    border:none;
+    text-align: center;
+    width: 21.9%;
+    color: #d58512;
+    border-radius: 17px;
+    outline:none;
+}
+.modal-body .row button{
+    border:none;
+    background: #f2dede;
+    border-radius:17px;
+}

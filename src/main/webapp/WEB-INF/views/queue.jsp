@@ -7,24 +7,10 @@
 <html lang="en">
 <head>
 
-    <title>Queue | DeepLib</title>
+    <title>Queue || DeepLib</title>
 </head>
 <body>
 <%@ include file ="topnav.jsp" %>
-<table class="table table-condensed">
-    <thead>
-    <h>Название документа</h>
-    <tr>
-        <th style = "width:10px;"> Какой в очереди </th>
-        <th>Данные пользователя</th>
 
-    </tr>
-    </thead>
-    <tbody>
-
-
-    </tbody>
-
-</table>
 </body>
 </html>
