@@ -1,6 +1,9 @@
 package net.proselyte.springsecurityapp.model.Users;
 
 import net.proselyte.springsecurityapp.model.Documents.Role;
+import net.proselyte.springsecurityapp.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -16,6 +19,7 @@ import java.util.Set;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "type")
 @Table(name = "users")
+@Component
 public class User {
 
     @Id
@@ -48,6 +52,10 @@ public class User {
 
     @Transient
     private String confirmPassword;
+
+    @Transient
+    @Autowired
+    public UserService userService;
 
     @ManyToMany
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),

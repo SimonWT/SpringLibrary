@@ -33,6 +33,7 @@
 
     </a>
     <c:choose>
+
         <c:when test="${user.type=='Librarian'}">
             <div class  = "hell2">
                 <a href="/listOfAudioVideoMaterial" style = ""><i class="fa fa-file-audio-o" aria-hidden="true"></i>
@@ -43,6 +44,12 @@
                 <a href="/admin" style = ""><i class="fa fa-user-secret" aria-hidden="true"></i> ADMINKA</a>
             </div>
         </c:when>
+
+        <c:when test="${user.type = 'Admin'}">
+            <a href="/admin" style = ""><i class="fa fa-user-secret" aria-hidden="true"></i> ADMINKA</a>
+            <a href="/logs" style = ""><i class="fa fa-user-secret" aria-hidden="true"></i> Logs</a>
+        </c:when>
+
         <c:otherwise>
             <div class  = "hell">
                 <a href="/listOfAudioVideoMaterialForPatron" style = ""><i class="fa fa-file-audio-o" aria-hidden="true"></i>
@@ -53,6 +60,7 @@
             </div>
         </c:otherwise>
     </c:choose>
+
     <div class="dropdown3" >
         <button class="dropbtn3">
             <i class="fa fa-envelope" aria-hidden="true"></i>

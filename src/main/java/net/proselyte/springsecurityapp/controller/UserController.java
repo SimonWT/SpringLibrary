@@ -26,6 +26,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+
 import java.security.Principal;
 import java.util.*;
 
@@ -157,6 +158,54 @@ public class UserController {
         return "redirect:/admin";
     }
 
+    @RequestMapping(value = "/registerLibrarian", method = RequestMethod.GET)
+    public ModelAndView registrationOfLibrarian(Model model) {
+        model.addAttribute("userForm", new Librarian());
+        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.findByUsername(currentUser);
+        ModelAndView mav = new ModelAndView();
+
+        Map<String, String> userData = new HashMap<>();
+        userData.put("username", user.getUsername());
+        userData.put("name", user.getName());
+        userData.put("surname", user.getSurname());
+        userData.put("phone", user.getPhone());
+        userData.put("email", user.getEmail());
+        userData.put("type", user.getType());
+
+        mav.setViewName("registerLibrarian");
+        mav.addObject("user", userData);
+
+        return mav;
+    }
+
+    @RequestMapping(value = "/registerLibrarian", method = RequestMethod.POST)
+    public String registrationOfLibrarian(@ModelAttribute("userForm") Librarian user, BindingResult bindingResult, Model model) {
+        //userValidator.validate(userForm, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            return "registration";
+        }
+
+        //userService.save((Librarian)user);
+        userService.save(user);
+
+        //send a notification
+        try {
+            notificationService.sendNotification(user);
+        } catch (MailException e) {
+            //catch error
+            logger.info("Error Sending Email:" + e.getMessage());
+        }
+
+        /*
+            this action authorizate new user after addition (it is useful in our case, but let it be here)
+         */
+        //securityService.autoLogin(userForm.getUsername(), userForm.getConfirmPassword());
+
+        return "redirect:/admin";
+    }
+
     @RequestMapping(value = "/ProfilePage", method = RequestMethod.GET)
     public String ProfilePage(Model model) {
         model.addAttribute("userForm", new User());
@@ -186,11 +235,13 @@ public class UserController {
     }
 
     @RequestMapping(value = "/listOfUsers", method = RequestMethod.GET)
-    public ModelAndView listOfUsers() {
+    public ModelAndView listOfUsers(Model model) {
 
         String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userService.findByUsername(currentUser);
         ModelAndView mav = new ModelAndView();
+
+        model.addAttribute("listUser", userService.getAllPatrons());
 
         Map<String, String> userData = new HashMap<>();
         userData.put("username", user.getUsername());
@@ -200,6 +251,32 @@ public class UserController {
         userData.put("email", user.getEmail());
         userData.put("type", user.getType());
         mav.setViewName("listOfUsers");
+
+        mav.addObject("user", userData);
+
+        return mav;
+    }
+
+    @RequestMapping(value = "/listOfLibrarians", method = RequestMethod.GET)
+    public ModelAndView listOfLibrarians(Model model) {
+
+        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.findByUsername(currentUser);
+        ModelAndView mav = new ModelAndView();
+
+        List<Librarian> librarianList = userService.getAllLibrarians();
+
+        model.addAttribute("librarianList", librarianList);
+
+        Map<String, String> userData = new HashMap<>();
+        userData.put("username", user.getUsername());
+        userData.put("name", user.getName());
+        userData.put("surname", user.getSurname());
+        userData.put("phone", user.getPhone());
+        userData.put("email", user.getEmail());
+        userData.put("type", user.getType());
+
+        mav.setViewName("listOfLibrarians");
 
         mav.addObject("user", userData);
 
@@ -241,6 +318,45 @@ public class UserController {
         return "redirect:/listOfUsers";
     }
 
+    @RequestMapping(value="/editLibrarian/{id}", method = RequestMethod.GET)
+    public ModelAndView editLibrarian(@PathVariable("id") Long id, Model model) {
+        User user1 = userService.getUserById(id);
+
+        if (user1 != null)
+            logger.info("Users got by ID: " + user1.toString());
+
+        user1 = (Librarian) user1;
+
+        model.addAttribute("userForm", user1);
+        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.findByUsername(currentUser);
+        ModelAndView mav = new ModelAndView();
+
+        Map<String, String> userData = new HashMap<>();
+        userData.put("username", user.getUsername());
+        userData.put("name", user.getName());
+        userData.put("surname", user.getSurname());
+        userData.put("phone", user.getPhone());
+        userData.put("email", user.getEmail());
+        userData.put("type", user.getType());
+
+        mav.setViewName("editLibrarian");
+
+        mav.addObject("user", userData);
+
+        return mav;
+    }
+
+    @RequestMapping(value = "/editLibrarian/{id}",method = RequestMethod.POST)
+    public String editLibrarian(@ModelAttribute("userForm") Librarian userForm, BindingResult bindingResult, Model model){
+
+       // userService.delete(userService.findByUsername(userForm.getUsername()).getId());
+        userService.delete(userForm.getId());
+        userService.update(userForm);
+
+        logger.info("Users updated: "+ userForm.toString());
+        return "redirect:/listOfUsers";
+    }
 
 
     @RequestMapping(value = "/testId", method = RequestMethod.GET)
@@ -417,7 +533,9 @@ public class UserController {
             Queue queue = new Queue(new Date(System.currentTimeMillis()), docId, userId);
             queueService.save(queue);
         }
+
         //Status ==0 - Success
+
         return "redirect:/listOfBooksForPatron";
     }
 

@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
@@ -30,6 +31,9 @@ import java.util.concurrent.TimeUnit;
 @Component
 @DiscriminatorValue("Librarian")
 public class Librarian extends User {
+
+    @Column(name = "privilege")
+    private int privilege;
 
     @Transient
     @Autowired
@@ -54,9 +58,6 @@ public class Librarian extends User {
     @Autowired
     @Transient
     public HistoryServiceImpl historyService;
-
-    @Transient
-    private int privilege;
 
     public void addPatron(Patron newPatron){
         if (privilege >= 2)

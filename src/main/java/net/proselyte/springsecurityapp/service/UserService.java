@@ -1,5 +1,6 @@
 package net.proselyte.springsecurityapp.service;
 
+import net.proselyte.springsecurityapp.model.Users.Librarian;
 import net.proselyte.springsecurityapp.model.Users.Patron;
 import net.proselyte.springsecurityapp.model.Users.User;
 
@@ -24,4 +25,6 @@ public interface UserService {
     void update(User user);
 
     List<Patron> getAllPatrons();
+
+    List<Librarian> getAllLibrarians();
 }

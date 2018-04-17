@@ -1,5 +1,6 @@
 package net.proselyte.springsecurityapp.dao;
 
+import net.proselyte.springsecurityapp.model.Users.Librarian;
 import net.proselyte.springsecurityapp.model.Users.Patron;
 import net.proselyte.springsecurityapp.model.Users.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -23,6 +24,10 @@ public interface UserDao extends JpaRepository<User, Long> {
 
     @Query("select u from Patron u")
     List<Patron> getAllPatron();
+
+    @Query("select u from Librarian u")
+    List<Librarian> getAllLibrarian();
+
 
 
 

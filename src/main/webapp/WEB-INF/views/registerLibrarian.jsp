@@ -13,76 +13,73 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Edit User information</title>
+    <title>Create an account of Librarian | DeepLib</title>
 
-    <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
     <link href="${contextPath}/resources/css/common.css" rel="stylesheet">
-
-
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <link rel="stylesheet" href="${contextPath}/resources/cssNew/bootstrap.css">
+    <link rel="stylesheet" href="${contextPath}/resources/cssNew/font-awesome.css">
+    <link rel="stylesheet" href="${contextPath}/resources/cssNew/loginform.css">
 
 </head>
 
 <body>
+<%@ include file ="topnav.jsp" %>
 
 <div class="container">
-    <%@ include file ="topnav.jsp" %>
 
     <form:form method="POST" modelAttribute="userForm" class="form-signin">
-        <h2 class="form-signin-heading">Edit a User</h2>
+        <h2 class="form-signin-heading">Create an account of a Librarian</h2>
         <spring:bind path="username">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input value="${userForm.username}" type="text" path="username" class="form-control" placeholder="Username"
-                            autofocus="true"></form:input>
+                <form:input type="text" path="username" class="form-control" placeholder="Username" autofocus="true"></form:input>
                 <form:errors path="username"></form:errors>
             </div>
         </spring:bind>
 
         <spring:bind path="password">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input  value="${userForm.password}" type="password" path="password" class="form-control" placeholder="Password" onFocus="disabled=1" ></form:input>
+                <form:input type="password" path="password" class="form-control" placeholder="Password"></form:input>
                 <form:errors path="password"></form:errors>
             </div>
         </spring:bind>
 
         <spring:bind path="confirmPassword">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input value="${userForm.password}" type="password" path="confirmPassword" class="form-control"
-                            placeholder="Confirm your password" onFocus="disabled=1"></form:input>
+                <form:input type="password" path="confirmPassword" class="form-control"
+                            placeholder="Confirm your password"></form:input>
                 <form:errors path="confirmPassword"></form:errors>
             </div>
         </spring:bind>
 
         <spring:bind path="name">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input value="${userForm.name}" type="text" path="name" class="form-control" placeholder="Name"></form:input>
+                <form:input type="text" path="name" class="form-control" placeholder="Name"></form:input>
                 <form:errors path="name"></form:errors>
             </div>
         </spring:bind>
 
         <spring:bind path="surname">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input value="${userForm.surname}" type="text" path="surname" class="form-control" placeholder="Surname"></form:input>
+                <form:input type="text" path="surname" class="form-control" placeholder="Surname"></form:input>
                 <form:errors path="surname"></form:errors>
             </div>
         </spring:bind>
 
         <spring:bind path="phone">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input value="${userForm.phone}" type="text" path="phone" class="form-control" placeholder="Phone number"></form:input>
+                <form:input type="text" path="phone" class="form-control" placeholder="Phone number"></form:input>
                 <form:errors path="phone"></form:errors>
             </div>
         </spring:bind>
 
         <spring:bind path="email">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input value="${userForm.email}" type="text" path="email" class="form-control" placeholder="E-mail"></form:input>
+                <form:input type="text" path="email" class="form-control" placeholder="E-mail"></form:input>
                 <form:errors path="email"></form:errors>
             </div>
         </spring:bind>
 
-        <spring:bind path="typeString">
+        <spring:bind path="privilege">
 
             <%--<div class="form-group ${status.error ? 'has-error' : ''}">--%>
             <%--<form:input type="text" path="type" class="form-control" placeholder="Type of user"></form:input>--%>
@@ -90,25 +87,22 @@
             <%--</div>--%>
 
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:select path="typeString" itemValue="${userForm.typeString}">
-                    <form:option value="Librarian">Librarian</form:option>
-                    <form:option value="Student">Student</form:option>
-                    <form:option value="Professor">Professor</form:option>
-                    <form:option value="TA">TA</form:option>
-                    <form:option value="Visiting Professor">Visiting Professor</form:option>
-                    <form:option value="Instructor">Instructor</form:option>
+                <form:select path="privilege">
+                    <form:option value="1">Privilege 1</form:option>
+                    <form:option value="2">Privilege 2</form:option>
+                    <form:option value="3">Privilege 3</form:option>
                 </form:select>
             </div>
         </spring:bind>
-
 
 
         <button class="btn btn-block" type="submit">Submit</button>
     </form:form>
 
 </div>
-<!-- /container -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
+
+<script src="${contextPath}/resources/jsNew/jquery.js"></script>
+<script src="${contextPath}/resources/jsNew/bootstrap.js"></script>
+<script src="${contextPath}/resources/jsNew/scripts.js"></script>
 </body>
 </html>

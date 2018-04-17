@@ -71,4 +71,9 @@ public class UserServiceImpl implements UserService{
     public List<Patron> getAllPatrons() {
         return userDao.getAllPatron();
     }
+
+    @Override
+    public List<Librarian> getAllLibrarians() {
+        return userDao.getAllLibrarian();
+    }
 }

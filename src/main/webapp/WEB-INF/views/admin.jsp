@@ -35,16 +35,26 @@
 <div class="container">
 
     <div class="alert2" align = "center">
+        <c:choose>
+            <c:when test="${user.type = 'Admin'}">
+                <div class = "row">
+                    <a href="/registration/Librarian" > <button  class = "form1" >Register librarian </button></a>
+                    <a href="/listOfLibrarians"> <button class = "form2"> View librarians </button> </a>
+                </div>
 
-        <div class = "row" >
-           <a href="/registration" > <button  class = "form1" >Register somebody  </button></a>
-            <a href="/listOfUsers"> <button class = "form2">View users</button> </a>
-        </div>
-        <br>
-        <div class = "row" >
-            <a href="/addnewdocument"> <button  class = "form3" >Add New Document  </button></a>
-        </div>
-        </div>
+            </c:when>
+            <c:otherwise>
+                <div class = "row" >
+                    <a href="/registration" > <button  class = "form1" >Register somebody  </button></a>
+                    <a href="/listOfUsers"> <button class = "form2">View users</button> </a>
+                </div>
+                <br>
+                <div class = "row" >
+                    <a href="/addnewdocument"> <button  class = "form3" >Add New Document  </button></a>
+                </div>
+            </c:otherwise>
+        </c:choose>
+    </div>
     </div>
 </div>
 

@@ -13,7 +13,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Edit User information</title>
+    <title>Edit Librarian information | Deeplib </title>
 
     <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
     <link href="${contextPath}/resources/css/common.css" rel="stylesheet">
@@ -82,7 +82,7 @@
             </div>
         </spring:bind>
 
-        <spring:bind path="typeString">
+        <spring:bind path="privilege">
 
             <%--<div class="form-group ${status.error ? 'has-error' : ''}">--%>
             <%--<form:input type="text" path="type" class="form-control" placeholder="Type of user"></form:input>--%>
@@ -90,13 +90,10 @@
             <%--</div>--%>
 
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:select path="typeString" itemValue="${userForm.typeString}">
-                    <form:option value="Librarian">Librarian</form:option>
-                    <form:option value="Student">Student</form:option>
-                    <form:option value="Professor">Professor</form:option>
-                    <form:option value="TA">TA</form:option>
-                    <form:option value="Visiting Professor">Visiting Professor</form:option>
-                    <form:option value="Instructor">Instructor</form:option>
+                <form:select path="privilege">
+                    <form:option value="1">Privilege 1</form:option>
+                    <form:option value="2">Privilege 2</form:option>
+                    <form:option value="3">Privilege 3</form:option>
                 </form:select>
             </div>
         </spring:bind>
