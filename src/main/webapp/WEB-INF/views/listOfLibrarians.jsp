@@ -43,7 +43,7 @@
 
         <c:forEach items="${librarianList}" var="librarian">
 
-
+        <tr>
         <td>${librarian.name}</td>
         <td>${librarian.surname}</td>
         <td>${librarian.username}</td>
@@ -52,6 +52,7 @@
 
         <td><a href="/editLibrarian/${librarian.id}">Modify</a><a href="/deleteUser/${librarian.id}">Delete</a></td>
 
+        </tr>
         </c:forEach>
 
         </tbody>

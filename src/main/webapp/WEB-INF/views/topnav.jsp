@@ -45,7 +45,7 @@
             </div>
         </c:when>
 
-        <c:when test="${user.type = 'Admin'}">
+        <c:when test="${user.type == 'Admin'}">
             <a href="/admin" style = ""><i class="fa fa-user-secret" aria-hidden="true"></i> ADMINKA</a>
             <a href="/logs" style = ""><i class="fa fa-user-secret" aria-hidden="true"></i> Logs</a>
         </c:when>

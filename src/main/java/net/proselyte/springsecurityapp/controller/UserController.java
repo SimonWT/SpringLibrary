@@ -25,6 +25,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import sun.rmi.log.LogHandler;
 
 
 import java.security.Principal;
@@ -41,7 +42,6 @@ import java.util.*;
 @Controller
 public class UserController {
     private final Logger logger = LoggerFactory.logger(UserController.class);
-
 
     @Autowired
     private UserService userService;
