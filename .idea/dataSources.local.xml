@@ -1,38 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="dataSourceStorageLocal">
-    <data-source name="spring_library_app@localhost" uuid="037657f6-4b4b-499c-9502-533f6e697bb7">
-      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" />
-      <introspection-schemas>*:spring_library_app</introspection-schemas>
-    </data-source>
-    <data-source name="heroku_f76d6fb9e659782@eu-cdbr-west-02.cleardb.net" uuid="5bd3a31b-d912-496f-b17d-f3e641f94391">
-      <database-info product="MySQL" version="5.6.38-log" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.45 ( Revision: 9131eefa398531c7dc98776e8a3fe839e544c5b2 )">
-        <extra-name-characters>#@</extra-name-characters>
-        <identifier-quote-string>`</identifier-quote-string>
-      </database-info>
-      <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower" />
-      <user-name>baff532465d8d9</user-name>
-      <introspection-schemas>*:heroku_f76d6fb9e659782</introspection-schemas>
-    </data-source>
-    <data-source name="deep_library@localhost" uuid="fe8f75dd-a604-4644-924e-7e203e86c774">
-      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" />
-      <introspection-schemas>*:deep_library</introspection-schemas>
-    </data-source>
-    <data-source name="deep_test_lib@localhost" uuid="d24cea59-b0b8-47cc-83b9-e40036e1dc1c">
-      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" />
-      <introspection-schemas>*:deep_test_lib</introspection-schemas>
-    </data-source>
-    <data-source name="deep_library_3rd_delivery@127.0.0.1" uuid="c9269d02-09fc-4a3a-b0ad-b56e40b2f068">
-      <database-info product="MySQL" version="5.7.21-log" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.45 ( Revision: 9131eefa398531c7dc98776e8a3fe839e544c5b2 )">
-        <extra-name-characters>#@</extra-name-characters>
-        <identifier-quote-string>`</identifier-quote-string>
-      </database-info>
-      <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower" />
-      <user-name>root</user-name>
-      <introspection-schemas>*:deep_library_3rd_delivery</introspection-schemas>
-    </data-source>
-    <data-source name="deep_library_3rd_delivery@127.0.0.1 [2]" uuid="ceed4191-202d-4873-b962-1dadb690f457">
-      <database-info product="MySQL" version="5.7.21-log" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.45 ( Revision: 9131eefa398531c7dc98776e8a3fe839e544c5b2 )">
+    <data-source name="deep_library_3rd_delivery@127.0.0.1" uuid="9200b1ed-93c1-4246-89ad-c3f5f81d51cb">
+      <database-info product="MySQL" version="5.7.21-log" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.46 ( Revision: 9cc87a48e75c2d2e87c1a293b2862ce651cb256e )">
         <extra-name-characters>#@</extra-name-characters>
         <identifier-quote-string>`</identifier-quote-string>
       </database-info>

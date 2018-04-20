@@ -8,29 +8,29 @@
 		http://www.springframework.org/schema/security/spring-security.xsd">
 
     <http auto-config="true">
-        <intercept-url pattern="/" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')"/>
-        <intercept-url pattern="/welcome" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')"/>
-        <intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')"/>
-        <intercept-url pattern="/registration" access="permitAll"/>
+        <intercept-url pattern="/" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_LIBRARIAN_3', 'ROLE_LIBRARIAN_2', 'ROLE_LIBRARIAN_1')"/>
+        <intercept-url pattern="/welcome" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_LIBRARIAN_3', 'ROLE_LIBRARIAN_2', 'ROLE_LIBRARIAN_1')"/>
+        <intercept-url pattern="/admin" access="hasAnyRole('ROLE_LIBRARIAN_3', 'ROLE_LIBRARIAN_2', 'ROLE_LIBRARIAN_1')"/>
+        <intercept-url pattern="/registration" access="hasAnyRole('ROLE_LIBRARIAN_3', 'ROLE_LIBRARIAN_2')"/>
         <intercept-url pattern="/loginNew" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')"/>
-        <intercept-url pattern="/listOfUsers" access="hasRole('ROLE_ADMIN')"/>
-        <intercept-url pattern="/addBook" access="hasRole('ROLE_ADMIN')"/>
-        <intercept-url pattern="/addArticle" access="hasRole('ROLE_ADMIN')"/>
-        <intercept-url pattern="/addAudioVideoMaterial" access="hasRole('ROLE_ADMIN')"/>
-        <intercept-url pattern="/listOfBooks" access="hasRole('ROLE_ADMIN')"/>
-        <intercept-url pattern="/listOfArticles" access="hasRole('ROLE_ADMIN')"/>
-        <intercept-url pattern="/listOfAudioVideoMaterial" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/listOfUsers" access="hasAnyRole('ROLE_LIBRARIAN_3', 'ROLE_LIBRARIAN_2', 'ROLE_LIBRARIAN_1')"/>
+        <intercept-url pattern="/addBook" access="hasAnyRole('ROLE_LIBRARIAN_3', 'ROLE_LIBRARIAN_2')"/>
+        <intercept-url pattern="/addArticle" access="hasAnyRole('ROLE_LIBRARIAN_3', 'ROLE_LIBRARIAN_2')"/>
+        <intercept-url pattern="/addAudioVideoMaterial" access="hasAnyRole('ROLE_LIBRARIAN_3', 'ROLE_LIBRARIAN_2')"/>
+        <intercept-url pattern="/listOfBooks" access="hasAnyRole('ROLE_LIBRARIAN_3', 'ROLE_LIBRARIAN_2', 'ROLE_LIBRARIAN_1')"/>
+        <intercept-url pattern="/listOfArticles" access="hasAnyRole('ROLE_LIBRARIAN_3', 'ROLE_LIBRARIAN_2', 'ROLE_LIBRARIAN_1')"/>
+        <intercept-url pattern="/listOfAudioVideoMaterial" access="hasAnyRole('ROLE_LIBRARIAN_3', 'ROLE_LIBRARIAN_2', 'ROLE_LIBRARIAN_1')"/>
         <intercept-url pattern="/editUser" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')"/>
         <intercept-url pattern="/listOfBooksForPatron" access="hasRole('ROLE_USER')"/>
         <intercept-url pattern="/listOfArticlesForPatron" access="hasRole('ROLE_USER')"/>
         <intercept-url pattern="/listOfAudioVideoMaterialForPatron" access="hasRole('ROLE_USER')"/>
         <intercept-url pattern="/user" access="hasRole('ROLE_USER')"/>
-        <intercept-url pattern="/ProfilePage" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')"/>
-        <intercept-url pattern="/listOfBooksForPatron" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')"/>
-        <intercept-url pattern="/addnewdocument" access="hasRole('ROLE_ADMIN')"/>
-        <intercept-url pattern="/mydoc" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')"/>
-        <intercept-url pattern="/queue" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')"/>
-
+        <intercept-url pattern="/ProfilePage" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN', '')"/>
+        <intercept-url pattern="/listOfBooksForPatron" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_LIBRARIAN_3', 'ROLE_LIBRARIAN_2', 'ROLE_LIBRARIAN_1')"/>
+        <intercept-url pattern="/addnewdocument" access="hasAnyRole('ROLE_LIBRARIAN_3', 'ROLE_LIBRARIAN_2')"/>
+        <intercept-url pattern="/mydoc" access="hasAnyRole('ROLE_USER')"/>
+        <intercept-url pattern="/queue" access="hasAnyRole('ROLE_USER')"/>
+        <intercept-url pattern="/registerLibrarian" access="hasRole('ROLE_ADMIN')"/>
 
 
 
