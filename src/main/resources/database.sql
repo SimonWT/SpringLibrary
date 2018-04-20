@@ -1,8 +1,8 @@
 -- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
--- Host: eu-cdbr-west-02.cleardb.net    Database: heroku_f76d6fb9e659782
+-- Host: 127.0.0.1    Database: deep_library_3rd_delivery
 -- ------------------------------------------------------
--- Server version	5.6.38-log
+-- Server version	5.7.21-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -272,7 +272,7 @@ CREATE TABLE `roles` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -281,7 +281,7 @@ CREATE TABLE `roles` (
 
 LOCK TABLES `roles` WRITE;
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
-INSERT INTO `roles` VALUES (1,'ROLE_USER'),(2,'ROLE_ADMIN');
+INSERT INTO `roles` VALUES (1,'ROLE_USER'),(2,'ROLE_ADMIN'),(3,'ROLE_LIBRARIAN_1'),(4,'ROLE_LIBRARIAN_2'),(5,'ROLE_LIBRARIAN_3');
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -414,7 +414,7 @@ CREATE TABLE `user_roles` (
 
 LOCK TABLES `user_roles` WRITE;
 /*!40000 ALTER TABLE `user_roles` DISABLE KEYS */;
-INSERT INTO `user_roles` VALUES (31,1),(71,2),(3221,2);
+INSERT INTO `user_roles` VALUES (31,1),(71,2),(3221,2),(3712,3),(3713,4),(3711,5);
 /*!40000 ALTER TABLE `user_roles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -435,9 +435,10 @@ CREATE TABLE `users` (
   `email` varchar(255) NOT NULL,
   `type` varchar(255) NOT NULL,
   `address` varchar(255) DEFAULT NULL,
+  `privilege` int(11) DEFAULT NULL,
   `documents` tinyblob,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3711 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3714 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -446,7 +447,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (31,'i.vakhula_user','$2a$11$KaBxQDYikh.EWsYw5Bo0B.6G7FYWZN2rVdelaZWT6.zDHXwlJCju6','Igor','Vakhula','89179232662','darklinhamb@gmail.com','Patron',NULL,NULL),(71,'DamskiyUgodnik','$2a$11$MQmxKWlWuYkDcPSaFS74I.rOa0GZndris3irnebhwPD4s0cuaauFi','Carvalio','Daniel','88005553535','kekdan@innopolis.ru','Librarian',NULL,NULL),(3221,'admin','$2a$11$gTmIhAY5BjLHS.ktd7T48e.TKou5IzqohJcDeloEpp6Uo/n0hYzHO','admin','admin','00000000000','innodeeplib@innopolis.ru','Librarian',NULL,NULL);
+INSERT INTO `users` VALUES (31,'i.vakhula_user','$2a$11$KaBxQDYikh.EWsYw5Bo0B.6G7FYWZN2rVdelaZWT6.zDHXwlJCju6','Igor','Vakhula','89179232662','darklinhamb@gmail.com','Patron',NULL,NULL,''),(71,'DamskiyUgodnik','$2a$11$MQmxKWlWuYkDcPSaFS74I.rOa0GZndris3irnebhwPD4s0cuaauFi','Carvalio','Daniel','88005553535','kekdan@innopolis.ru','Admin',NULL,NULL,''),(3221,'admin','$2a$11$gTmIhAY5BjLHS.ktd7T48e.TKou5IzqohJcDeloEpp6Uo/n0hYzHO','admin','admin','00000000000','innodeeplib@innopolis.ru','Admin',NULL,NULL,''),(3711,'Igor\'an','$2a$11$ZKBhz6QHUmwaErKfdz.UYulhs3J2mjxjCYDqMr4m8tzthvCltcWni','Igor','Igor','89179232662','darklinhamb@gmail.com','Librarian',NULL,3,NULL),(3712,'aaaaaaaaaaaaaaa','$2a$11$HGeOEolHp9ggAt0gI4gF0.5auKruaoLRPAhGc4D6YlawoGWIwTciu','aaaaaaaaaaaaaaa','aaaaaaaaaaaaaaa','aaaaaaaaaaaaaaa','aaaaaaaaaaaaaaa','Librarian',NULL,1,NULL),(3713,'bbbbbbbbbbbbb','$2a$11$GYHaLg3qgQ11Kaw7aXkX3enyM5pYI2.KD63xoIXZGMYaKw6rH3CMW','bbbbbbbbbbbbb','bbbbbbbbbbbbb','bbbbbbbbbbbbb','bbbbbbbbbbbbb','Librarian',NULL,2,NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -474,16 +475,3 @@ CREATE TABLE `users_all` (
 LOCK TABLES `users_all` WRITE;
 /*!40000 ALTER TABLE `users_all` DISABLE KEYS */;
 INSERT INTO `users_all` VALUES (1,'admin','admin','admin','LIBRARIAN'),(2,'test','test','test','PATRON'),(11,'Sukka','Sukka','Sukka','PATRON'),(21,'Keksik','Keksik','Keksik','PATRON'),(31,'Libra','Libra','Libra','LIBRARIAN');
-/*!40000 ALTER TABLE `users_all` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2018-04-04 13:27:56

@@ -47,6 +47,8 @@ public class User {
     @Column(name = "type", insertable = false, updatable = false)
     private String type;
 
+
+
     @Transient
     private String typeString;
 
