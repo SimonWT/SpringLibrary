@@ -29,6 +29,7 @@
 <br>
 <br>
 <br>
+
 <div class="container">
 
     <div class="alert" align = "center">
@@ -38,9 +39,7 @@ ${pageContext.request.userPrincipal.name}</strong>,
         Welcome to DeepLib!
     <br>
         <br>
-        <input type="search" id="mySearch" name="q"
-               placeholder="Search the document..." required>
-        <button>Search</button>
+
         <br>
         <br>
         <h5 style = "font-size:25px;">How to use this sourse:</h5>
@@ -71,6 +70,7 @@ ${pageContext.request.userPrincipal.name}</strong>,
         the item needs to be returned immediately
         <br>
         <br>
+        You can text to support service:
         <br>
     </div>
 </div>

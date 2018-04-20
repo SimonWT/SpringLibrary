@@ -21,6 +21,8 @@
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/font-awesome.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/welcomeform.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/listbook.css">
+<style>
+</style>
 </head>
 <body>
 <div class="topnav" id="myTopnav">
@@ -104,7 +106,20 @@
         </div>
     </div>
 
+    <form>
 
+
+        <input type="text" placeholder="Search the document">
+        <select id="selcolor">
+            <option value=""></option>
+            <option value="">By Title</option>
+            <option value="">By Authors</option>
+            <option value="">By Title and Authors</option>
+            <option value="">By Description</option>
+        </select>
+        <button onclick="ifelsefunction()">Apply</button>
+
+    </form>
 
     <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
 </div>
