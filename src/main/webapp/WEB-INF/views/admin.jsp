@@ -36,10 +36,9 @@
 
     <div class="alert2" align = "center">
         <c:choose>
-            <c:when test="${user.type = 'Admin'}">
+            <c:when test="${user.privilege = '1'}">
                 <div class = "row">
-                    <a href="/registration/Librarian" > <button  class = "form1" >Register librarian </button></a>
-                    <a href="/listOfLibrarians"> <button class = "form2"> View librarians </button> </a>
+                    <a href="/listOfUsers" > <button  class = "form1" >Register librarian </button></a>
                 </div>
 
             </c:when>
