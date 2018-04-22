@@ -17,7 +17,6 @@
 </head>
 <body>
 <%@ include file ="topnav.jsp" %>
-    jkjkk
     ${logs}
 
 </body>
