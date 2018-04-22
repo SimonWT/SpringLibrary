@@ -60,7 +60,7 @@ public class TestCases_04_04 {
     DateFormat format;
 
     @Before
-    public void createItems(){
+    public void createItems() throws IOException {
         format = new SimpleDateFormat("dd MMM", Locale.ENGLISH);
 
         l = new Librarian();
@@ -228,13 +228,15 @@ public class TestCases_04_04 {
             assertEquals(expectedResult, l.checkOverdue(p1, format.parse("02 April")));
         } catch (ParseException e) {
             e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
 
     }
 
     @Test
-    public void testCase2(){
+    public void testCase2() throws IOException {
         Date date = new Date();
         try {
             date = format.parse("05 March");
@@ -294,6 +296,8 @@ public class TestCases_04_04 {
             v.checkout(d2, date);
         } catch (ParseException e) {
             e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
 
@@ -303,6 +307,8 @@ public class TestCases_04_04 {
             s.renew(d2, date);
             v.renew(d2, date);
         } catch (ParseException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -346,6 +352,8 @@ public class TestCases_04_04 {
             l.outstandingRequest(d2, date);
         } catch (ParseException e) {
             e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
 
@@ -372,7 +380,7 @@ public class TestCases_04_04 {
     }
 
     @Test
-    public void testCase5(){
+    public void testCase5() throws IOException {
         p1.checkout(d3, new Date());
         s.checkout(d3, new Date());
         v.checkout(d3, new Date());
@@ -380,7 +388,7 @@ public class TestCases_04_04 {
     }
 
     @Test
-    public void testCase6(){
+    public void testCase6() throws IOException {
         Date d = new Date(2018, 3, 5);
         p1.checkout(d3, d);
         p2.checkout(d3, d);
@@ -394,7 +402,7 @@ public class TestCases_04_04 {
     }
 
     @Test
-    public void testCase7(){
+    public void testCase7() throws IOException {
         Date d = new Date(2018, 3, 5);
         p1.checkout(d3, d);
         p2.checkout(d3, d);
@@ -418,7 +426,7 @@ public class TestCases_04_04 {
     }
 
     @Test
-    public void testCase8(){
+    public void testCase8() throws IOException {
         Date d = new Date(2018, 3, 5);
         p1.checkout(d3, d);
         p2.checkout(d3, d);
@@ -435,7 +443,7 @@ public class TestCases_04_04 {
     }
 
     @Test
-    public void testCase9(){
+    public void testCase9() throws IOException {
         Date d = new Date();
         try {
             d = format.parse("02 April");
@@ -472,7 +480,7 @@ public class TestCases_04_04 {
     }
 
     @Test
-    public void testCase10(){
+    public void testCase10() throws IOException {
 
         Date date = new Date();
 
