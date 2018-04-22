@@ -445,6 +445,8 @@ public class UserController {
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public String user(Model model) { return "user"; }
 
+    @RequestMapping(value = "/Logs", method = RequestMethod.GET)
+    public String logs(Model model) { return "Logs"; }
 
     @RequestMapping(value = "/mydoc", method = RequestMethod.GET)
     public ModelAndView history(Model model){
