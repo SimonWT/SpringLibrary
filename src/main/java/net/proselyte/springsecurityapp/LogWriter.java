@@ -10,6 +10,8 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 
 public class LogWriter {
@@ -39,21 +41,33 @@ public class LogWriter {
 
     }
 
-    public String read(){
-        String result="nihuya";
-        try {
-            String file = "src\\main\\java\\net\\proselyte\\springsecurityapp\\log.txt";
+    public List<String> read(){
+        List<String> result= new LinkedList<>();
 
-            result = readUsingFiles(file);
+        String file = "src\\main\\java\\net\\proselyte\\springsecurityapp\\log.txt";
 
-        }catch (IOException e){
-            e.printStackTrace();
-        }
+        //result = readUsingFiles(file);
+        result = readLines(file);
+
         return result;
     }
 
     private static String readUsingFiles(String fileName) throws IOException {
         return new String(Files.readAllBytes(Paths.get(fileName)));
+    }
+
+    private static List<String> readLines(String fileName){
+        List<String> stringList = new LinkedList<>();
+        try {
+            Scanner sc = new Scanner(new FileReader(fileName));
+            while(sc.hasNext()){
+                stringList.add(sc.nextLine());
+            }
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+        return stringList;
     }
 
     private String info(User user, String action, Document document, User userOP) {
@@ -69,7 +83,6 @@ public class LogWriter {
             docS = " "+type +" " +"[ "+document.getId()+" , "+document.getTitle() +" ] ";
         }
         else if (userOP != null) {
-            String userType = "User";
 
             userOps = " " + getStringUserType(userOP) + " [ " + userOP.getId() + " , " + userOP.getUsername() + " ] ";
         }

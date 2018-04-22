@@ -17,8 +17,11 @@
 </head>
 <body>
 <%@ include file ="topnav.jsp" %>
-    jkjkk
-    ${logs}
+    <c:forEach items="${logs}" var="log">
+
+    <p>${log}</p>
+
+    </c:forEach>
 
 </body>
 </html>
