@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2018-04-18T19:01:47</date>
+  <millis>1524067307508</millis>
+  <sequence>0</sequence>
+  <logger>net.proselyte.springsecurityapp.WriteLogToFile</logger>
+  <level>INFO</level>
+  <class>net.proselyte.springsecurityapp.WriteLogToFile</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>Information message</message>
+</record>
+<record>
+  <date>2018-04-18T19:01:47</date>
+  <millis>1524067307567</millis>
+  <sequence>1</sequence>
+  <logger>net.proselyte.springsecurityapp.WriteLogToFile</logger>
+  <level>WARNING</level>
+  <class>net.proselyte.springsecurityapp.WriteLogToFile</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>Warning message</message>
+</record>
+</log>
