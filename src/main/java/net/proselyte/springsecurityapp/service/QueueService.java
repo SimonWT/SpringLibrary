@@ -10,4 +10,5 @@ public interface QueueService {
     List<Queue> getListOfQueueByUser(Long id);
     void updateQueue(Queue queue);
     void save(Queue queue);
+    java.util.Queue getPriorityQueue(Long docId);
 }

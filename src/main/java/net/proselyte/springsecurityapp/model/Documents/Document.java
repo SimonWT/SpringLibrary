@@ -2,6 +2,8 @@ package net.proselyte.springsecurityapp.model.Documents;
 
 import net.proselyte.springsecurityapp.model.Users.Patron;
 import net.proselyte.springsecurityapp.model.Users.PatronComparator;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 
 import javax.persistence.*;
 import java.text.DateFormat;
@@ -13,6 +15,7 @@ import java.util.concurrent.TimeUnit;
 @Entity
 @Table(name = "documents")
 @Inheritance(strategy = InheritanceType.JOINED)
+@EnableScheduling
 public class Document {
 
     @Id
@@ -31,7 +34,6 @@ public class Document {
     @Column(name = "authors")
     public String authors;
 
-
     @Transient
     private String keys;
 
@@ -44,8 +46,10 @@ public class Document {
     private int fine;
     @Transient
     private int overdue;
+
     @Transient
     public Queue<Patron> queue;
+
     @Transient
     private int status;
     @Transient
@@ -203,6 +207,22 @@ public class Document {
 
     public void setRenewed(boolean renewed) {
         this.renewed = renewed;
+    }
+
+    //TODO: Add "send Notification"
+    @Scheduled(fixedDelay = 5000)
+    private void checkQueue(){
+        //Check Notification of Top Patron in Queue
+        //If not than send and wait 1 day
+        if(this.queue.peek().getNotification().equals("")) {
+            wait1dayUntilDrop();
+            //Send Notification
+        }
+    }
+
+    @Scheduled(initialDelay = 86400000 )
+    private void wait1dayUntilDrop(){
+        this.queue.poll();
     }
 
     @Override

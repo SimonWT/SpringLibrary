@@ -175,7 +175,7 @@ public class ArticleController {
             }
 
 
-            if(article.getCopies() == 0 && (status!=0 && status!=2)) status = 4;
+            if(article.getCopies() == 0 && (status!=0 && status!=2 && status!=3)) status = 4;
 //
 //            status = 0;
 

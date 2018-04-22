@@ -61,7 +61,7 @@
           </c:if>
 
         <c:if test="${history.status==3}">
-            <h1>You are in a  <a class = "ab" href = "/queue" style = ""> queue </a> for checking out now</h1>
+            <h1>You are in a  <a class = "ab" href = "/viewQueue/${history.docId}" style = ""> queue </a> for checking out now</h1>
             <h2>Please wait notification</h2>
         </c:if>
 

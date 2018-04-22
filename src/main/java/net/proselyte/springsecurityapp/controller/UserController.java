@@ -550,25 +550,44 @@ public class UserController {
     }
 
     @RequestMapping(value = "/queue/{docId}")
-    public String queue(@PathVariable Long docId) throws IOException {
+    public String queue(@PathVariable Long docId, Model model) throws IOException {
+
         String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userService.findByUsername(currentUser);
         Long userId = user.getId();
-        if(documentService.getDocumentById(docId)==null) return "redirect:/error/wrongid";
+
+        Document document = documentService.getDocumentById(docId);
+
+        if(document==null) return "redirect:/error/wrongid";
         int status = -2;
         if(user instanceof Patron){
             Library library = new Library();
+
             library.patrons.add((Patron) user);
             ((Patron) user).setQueueService(queueService);
-            Queue queue = new Queue(new Date(System.currentTimeMillis()), docId, userId);
-            queueService.save(queue);
+            ((Patron) user).setDocumentService(documentService);
+            ((Patron) user).setHistoryService(historyService);
+            ((Patron) user).setUserService(userService);
+
+            //Queue queue = new Queue(new Date(System.currentTimeMillis()), docId, userId);
+
+            status = ((Patron) user).checkout(document, new Date(System.currentTimeMillis()));
+
+            //queueService.save(queue);
             log.write(getCurrentUser(), " added to queue " , documentService.getDocumentById(docId),
                     null);
         }
 
         //Status ==0 - Success
+        List<History> historyList= historyService.getListHistoriesByIdAndDocId(userId,docId);
+        History history = historyList.get(historyList.size()-1);
+        if(history == null || history.status==0) return "error";
+        else{
+            model.addAttribute("history", history );
+            model.addAttribute("document", documentService.getDocumentById(history.getDocId()));
+        }
 
-        return "redirect:/listOfBooksForPatron";
+        return "status";
     }
 
 
@@ -648,16 +667,14 @@ public class UserController {
         return "status";
     }
     
-    @RequestMapping(value = "/queue", method = RequestMethod.GET)
-    public ModelAndView queue(Model model) {
+    @RequestMapping(value = "/viewQueue/{docId}", method = RequestMethod.GET)
+    public ModelAndView viewQueue(@PathVariable Long docId, Model model) {
 
         String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userService.findByUsername(currentUser);
         ModelAndView mav = new ModelAndView();
-        /*Map<String, String> message1 = new HashMap<String, String>();
-        message1.put("message1", "Hello World");
-        mav.setViewName("welcome");
-        mav.addObject("message", message1);*/
+
+
         Map<String, String> userData = new HashMap<>();
         userData.put("username", user.getUsername());
         userData.put("name", user.getName());
@@ -666,8 +683,9 @@ public class UserController {
         userData.put("email", user.getEmail());
         userData.put("type", user.getType());
 
-        mav.setViewName("queue");
+        mav.setViewName("viewQueue");
 
+        model.addAttribute("queue", queueService.getPriorityQueue(docId));
         mav.addObject("user", userData);
 
         return mav;

@@ -119,7 +119,7 @@
 
                                 </div>
                                 <div style = "width:45%;float:right; margin-right:4%">
-                                    <button style = "width:100%;  color: #d58512"><a href="/renew/${av.id}" style = "font-size:2vw; text-decoration:none; color:#d58512">
+                                    <button style = "width:100%; float:right; font-size:2vw; color: #d58512"><a href="/renew/${book.id}" style = "font-size:2vw; text-decoration:none; color:#d58512">
                                         Renew </a></button>
                                 </div>
                             </c:if>
@@ -138,8 +138,8 @@
                                 </div>
                             </c:if>
 
-                            <c:if test="${av.status == 3}">
-                                Here list of Queue
+                            <c:if test="${book.status == 3}">
+                                Here list of <a class = "ab" href = "/viewQueue/${book.id}" style = ""> Queue </a>
                             </c:if>
 
                         </div>

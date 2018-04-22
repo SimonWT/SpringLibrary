@@ -23,11 +23,7 @@
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/bootstrap.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/font-awesome.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/listbook.css">
-<style>
-    .book .need{
 
-    }
-</style>
 </head>
 
 <body>
@@ -107,6 +103,14 @@ border-radius: 17px;"
                                 <p>Price: <p1> ${article.price}</p1></p>
                                 <p>Copies:<p1> ${article.copies}</p1></p>
                                 <br>
+                                <p>ID: ${article.id}</p>
+                                <p>Title: ${article.title}</p>
+                                <p>Authors: ${article.authors}</p>
+                                <p>Journal: ${article.journal}</p>
+                                <p>Editors: ${article.editors}</p>
+                                <p>Date: ${article.dateString}</p>
+                                <p>Price: ${article.price}</p>
+                                <p>Copies: ${article.copies}</p>
                             </div>
 
                         <br>
@@ -138,9 +142,9 @@ border-radius: 17px;"
                                 </div>
                             </c:if>
 
-                            <c:if test="${article.status == 3}">
-                                Here list of Queue
-                            </c:if>
+                        <c:if test="${article.status == 3}">
+                            Here list of <a class = "ab" href = "/viewQueue/${article.id}" style = ""> Queue </a>
+                        </c:if>
 
                         </div>
 
