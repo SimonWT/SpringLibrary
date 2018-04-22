@@ -218,6 +218,7 @@ public class Document {
             wait1dayUntilDrop();
             //Send Notification
         }
+        System.out.println("Check");
     }
 
     @Scheduled(initialDelay = 86400000 )
