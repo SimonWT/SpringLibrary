@@ -93,6 +93,8 @@ public class UserController {
 
     @RequestMapping("/deleteUser/{id}")
     public String deleteUser(@PathVariable("id") Long id){
+
+        log.write(getCurrentUser(), "delete", null, userService.getUserById(id));
         userService.delete(id);
 
         return "redirect:/listOfUsers";
@@ -333,7 +335,7 @@ public class UserController {
 
         logger.info("Users updated: "+ userForm.toString());
         log.write(getCurrentUser(), "edit" , null,
-                userForm);
+                userService.findByUsername(userForm.getUsername()));
 
         return "redirect:/listOfUsers";
     }
@@ -464,19 +466,15 @@ public class UserController {
                 History history = historyList.get(j);
                 Document document = documentService.getDocumentById(history.getDocId());
 
-
-
                 int status = history.getStatus();
-                if(status == 0){
+                if(status == 0 || status == 2 || status == 3){
                     openHistories.add(history);
                     document.setStatus(status);
                     history.setDocument(document);
                 }
+
                 else{
-
-
                     //Calculate Fine
-
                     if (100 * (history.getPenaltyDays()) < document.getPrice()) {
                         document.setFine(100 * (history.getPenaltyDays()));
                     }else

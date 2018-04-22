@@ -57,7 +57,7 @@
     <td>${user.type}</td>
     <td>
 
-    <td><a href="/editLibrarian/${user.id}">Modify</a><a href="/deleteUser/${user.id}">Delete</a></td>
+    <td><a href="/editUser/${user.id}">Modify</a><a href="/deleteUser/${user.id}">Delete</a></td>
 
     </tr>
 </c:forEach>

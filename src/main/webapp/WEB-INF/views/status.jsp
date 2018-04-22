@@ -45,19 +45,26 @@
 <div style = "margin-left:25%;width:50%;background: #84b59f; border:none; border-radius:10px; text-align: center; font-size:1vw">
     <br>
     <div style = "margin-top:5%;">
-    <c:if test="${history.status==0}">
-        <h1>Checking out complete </h1>
-        <h2>Returning date: ${history.returnDate}</h2>
+        <c:if test="${history.status==0}">
+            <h1>Checking out complete </h1>
+            <h2>Returning date: ${history.returnDate}</h2>
 
-    </c:if>
-    <c:if test="${history.status==1}">
-        <h1>Returning complete </h1>
-        <h2>Fine: ${history.penaltyDays}</h2>
-    </c:if>
-    <c:if test="${history.status==3}">
-        <h1>You are in a  <a class = "ab" href = "/queue" style = ""> queue </a> for checking out now</h1>
-        <h2>Please wait notification</h2>
-    </c:if>
+        </c:if>
+        <c:if test="${history.status==1}">
+            <h1>Returning complete </h1>
+            <h2>Fine: ${history.penaltyDays}</h2>
+        </c:if>
+
+         <c:if test="${history.status==2}">
+             <h1>Renew complete </h1>
+             <h2>Returning date: ${history.returnDate}</h2>
+          </c:if>
+
+        <c:if test="${history.status==3}">
+            <h1>You are in a  <a class = "ab" href = "/queue" style = ""> queue </a> for checking out now</h1>
+            <h2>Please wait notification</h2>
+        </c:if>
+
     </div>
 
     <br>

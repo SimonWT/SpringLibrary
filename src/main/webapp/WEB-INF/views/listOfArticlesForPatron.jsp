@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/listbook.css">
 
 </head>
+
 <body>
 <%@ include file ="topnav.jsp" %>
 
@@ -53,6 +54,7 @@ border-radius: 17px;"
                 <br>
             </button>
         </c:if>
+
         <c:if test = "${articleList.indexOf(article) % 4 == 1}">
 
             <button
@@ -122,7 +124,7 @@ border-radius: 17px;"
                         <br>
                         <div class = "row">
 
-                            <c:if test="${article.status==0 || article.status ==2}">
+                            <c:if test="${article.status==0 || article.status == 2}">
                             <div style = "float:left; margin-left:4%;">
                                 <button style = "width:100%;"><a href="/return/${article.id}" style = "font-size:2vw; text-decoration: none; color:#d58512;" >
                                     Return back </a>

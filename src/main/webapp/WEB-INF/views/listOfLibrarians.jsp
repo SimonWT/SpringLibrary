@@ -40,6 +40,7 @@
             <th>Email</th>
             <th>View</th>
         </tr>
+
         </thead>
         <tbody>
 
