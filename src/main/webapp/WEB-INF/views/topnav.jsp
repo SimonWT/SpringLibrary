@@ -47,6 +47,7 @@
 
         <c:when test="${user.type == 'Admin'}">
             <a href="/registerLibrarian" style = ""><i class="fa fa-user-secret" aria-hidden="true"></i> Add new Librarian</a>
+            <a href="/listOfLibrarians" style="" ><i class="fa fa-user-secret" aria-hidden="true"></i> List Of Librarians</a>
             <a href="/logs" style = ""><i class="fa fa-user-secret" aria-hidden="true"></i> Logs</a>
         </c:when>
 

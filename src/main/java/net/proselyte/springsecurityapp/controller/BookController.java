@@ -238,6 +238,8 @@ public class BookController {
     }
 
 
+
+
     @RequestMapping("/deleteBook/{id}")
     public String deleteBook(@PathVariable("id") Long id){
         docService.delete(id);
@@ -294,6 +296,9 @@ public class BookController {
         }
         return "Success";
     }
+
+
+
 
     @RequestMapping("/addnewdocument")
     public ModelAndView addNewDocument(){

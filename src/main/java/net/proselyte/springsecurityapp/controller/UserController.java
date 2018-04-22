@@ -18,6 +18,7 @@ import org.hibernate.Query;
 import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.mail.MailException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -29,7 +30,9 @@ import sun.rmi.log.LogHandler;
 
 
 import java.security.Principal;
+import java.sql.*;
 import java.util.*;
+import java.util.Date;
 
 /**
  * Controller for {@link User}'s pages.
@@ -641,5 +644,40 @@ public class UserController {
     }
 
 
+  /*  @RequestMapping(value = "/search", method = RequestMethod.GET)
+    public String search(Principal principal, Model model) throws SQLException {
+
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+        dataSource.setUrl("jdbc:mysql://127.0.0.1/deep_library_3rd_delivery");
+        dataSource.setUsername("root");
+        dataSource.setPassword("root");
+        String query="SELECT * FROM books WHERE title LIKE ' "+title+" ' ";;
+        Connection conn= DriverManager.getConnection(dataSource.getUrl(), dataSource.getUsername(), dataSource.getPassword());
+        Statement stmt=conn.createStatement();
+        ResultSet rs=stmt.executeQuery(query);
+        List<Book> list = new LinkedList<>();
+        while(rs.next()){
+
+            String title = rs.getString("title");
+            String author = rs.getString("author");
+            Integer price = rs.getInt("price");
+*/
+            //Assuming you have a user object
+  /*          Book book = new Book();
+            book.setAuthors(author);
+            book.setTitle(title);
+            book.setPrice(price);
+
+            list.add(book);
+
+        }
+
+
+        model.addAttribute("listOfbooks", list );
+
+        return "checkOutedBooks";
+    }
+*/
 
 }

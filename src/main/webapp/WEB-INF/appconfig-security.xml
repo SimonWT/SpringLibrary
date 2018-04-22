@@ -31,6 +31,7 @@
         <intercept-url pattern="/mydoc" access="hasAnyRole('ROLE_USER')"/>
         <intercept-url pattern="/queue" access="hasAnyRole('ROLE_USER')"/>
         <intercept-url pattern="/registerLibrarian" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/listOfLibrarians" access="hasRole('ROLE_ADMIN')"/>
 
 
 
