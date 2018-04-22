@@ -32,7 +32,7 @@
         <intercept-url pattern="/queue" access="hasAnyRole('ROLE_USER')"/>
         <intercept-url pattern="/registerLibrarian" access="hasRole('ROLE_ADMIN')"/>
         <intercept-url pattern="/listOfLibrarians" access="hasRole('ROLE_ADMIN')"/>
-
+        <intercept-url pattern="/Logs" access="hasRole('ROLE_ADMIN')"/>
 
 
         <form-login login-page="/login" default-target-url="/welcome" authentication-failure-url="/login?error"
