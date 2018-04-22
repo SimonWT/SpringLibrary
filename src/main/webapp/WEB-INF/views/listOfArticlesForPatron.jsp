@@ -152,7 +152,7 @@ border-radius: 17px;"
                         </c:if>
 
                         <c:if test="${article.status == 3}">
-                            Here list of Queue
+                            Here list of <a class = "ab" href = "/viewQueue/${article.id}" style = ""> Queue </a>
                         </c:if>
 
                         </div>

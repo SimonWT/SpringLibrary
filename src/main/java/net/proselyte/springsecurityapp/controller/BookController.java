@@ -148,7 +148,7 @@ public class BookController {
 //                else status = 3;                      //Simple CheckOut
 //            }                                         //else Renew + Return
 
-            if(book.getCopies() == 0 && (status!=0 && status!=2)) status = 4;
+            if(book.getCopies() == 0 && (status!=0 && status!=2 && status!=3)) status = 4;
 
             book.setStatus(status);
             book.setYearString(DateToString(book.getYear(),0,4));

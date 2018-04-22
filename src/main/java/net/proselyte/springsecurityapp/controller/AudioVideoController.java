@@ -168,7 +168,7 @@ public class AudioVideoController {
 //                else status = 3;                            //Simple CheckOut
 //            }                                                 //else Renew + Return
 
-            if(audioVideo.getCopies() == 0 && (status!=0 && status!=2)) status = 4;
+            if(audioVideo.getCopies() == 0 && (status!=0 && status!=2 && status!=3)) status = 4;
 
             audioVideo.setStatus(status);
         }

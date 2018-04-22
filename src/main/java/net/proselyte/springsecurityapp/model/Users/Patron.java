@@ -147,7 +147,7 @@ public class Patron extends User {
                 historyService.updateHistory(historyByIdAndDocId);
             }
             System.out.println("The book \"" + doc.getTitle() + "\" are checked out by " + getName());
-            log.write(this, " booke " , doc, null);
+            log.write(this, "check out" , doc, null);
 
             return 0;
         }
@@ -155,6 +155,19 @@ public class Patron extends User {
         else{
             if (doc.getCopies() == 0){
                 doc.queue.add(this);
+                Queue queueS = new Queue(new Date(System.currentTimeMillis()), doc.getId(), this.getId());
+                queueService.save(queueS);
+
+                if (historyByIdAndDocId == null)
+                    historyService.save(new History(doc.getId(), id, null, null, 0, 3));
+                else {
+
+                    historyByIdAndDocId.setStatus(3);
+                    historyByIdAndDocId.setCheckOutDate(null);
+                    historyByIdAndDocId.setReturnDate(null);
+                    historyService.updateHistory(historyByIdAndDocId);
+                }
+
             }
             System.out.println("No available documents for " + getName());
             return 3;
