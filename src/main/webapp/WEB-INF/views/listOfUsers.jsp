@@ -31,57 +31,39 @@
 <table class="table table-condensed">
     <thead>
     <tr>
+        <th>ID</th>
+        <th>Username</th>
         <th>Firstname</th>
         <th>Lastname</th>
-        <th>Username</th>
         <th>Phone number</th>
         <th>Email</th>
+        <th>adress</th>
         <th>Type</th>
         <th>View</th>
     </tr>
     </thead>
     <tbody>
-    <%
-        try
-        {
-            DriverManagerDataSource dataSource = new DriverManagerDataSource();
-            dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-            dataSource.setUrl("jdbc:mysql://127.0.0.1/deep_library_3rd_delivery");
-            dataSource.setUsername("root");
-            dataSource.setPassword("root");
-            String query="SELECT id, name, surname, username, phone, email, type FROM users";
-            Connection conn=DriverManager.getConnection(dataSource.getUrl(), dataSource.getUsername(), dataSource.getPassword());
-            Statement stmt=conn.createStatement();
-            ResultSet rs=stmt.executeQuery(query);
-            while(rs.next())
-            {
-    %>
 
+<c:forEach items="${listUser}" var="user">
 
-        <td><%=rs.getString("name") %></td>
-        <td><%=rs.getString("surname") %></td>
-        <td><%=rs.getString("username") %></td>
-        <td><%=rs.getString("phone") %></td>
-        <td><%=rs.getString("email") %></td>
-        <td><%=rs.getString("type") %></td>
-        <td><a href="/editUser/<%=rs.getLong("id")%>">Modify</a><a href="/deleteUser/<%=rs.getLong("id")%>">Delete</a></td>
+    <tr>
+    <td>${user.id}</td>
+    <td>${user.username}</td>
+    <td>${user.name}</td>
+    <td>${user.surname}</td>
+    <td>${user.phone}</td>
+    <td>${user.email}</td>
+    <td>${user.address}</td>
+    <td>${user.type}</td>
+    <td>
 
+    <td><a href="/editLibrarian/${user.id}">Modify</a><a href="/deleteUser/${user.id}">Delete</a></td>
 
+    </tr>
+</c:forEach>
     </tbody>
-   <%
-            }
-   %>
+
 </table>
-    <%
-            rs.close();
-            stmt.close();
-            conn.close();
-        }
-            catch(Exception e) {
-                e.printStackTrace();
-                System.out.println("<h1> error: "+ e.getMessage()+"</h1>");
-            }
-    %>
 </form>
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 </body>
