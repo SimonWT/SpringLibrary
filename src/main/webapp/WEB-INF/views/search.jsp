@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Searching page || DeepLib</title>
+    <title>Searching page || DeepLib </title>
 </head>
 <body>
 
