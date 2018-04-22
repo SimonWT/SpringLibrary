@@ -60,10 +60,14 @@
         <c:otherwise>
             <div class="box">
                 <div class="container-1">
-            <span class="icon"><i class="fa fa-search" aria-hidden="true"></i>
+            <span class="icon">
 </span>
                     <input type="search" id="search" placeholder="Search..." />
-                    <i class="fa fa-pencil-square-o" aria-hidden="true" style = "font-size: 20px;top:20px;"></i>
+                    <select placeholder = "Choose category to search here" > <option>By Description</option>
+                        <option>By Authors</option>
+                        <option>By Label</option>
+                        <option>By Label and Authors</option>
+                    </select>
 
                 </div>
             </div>
