@@ -20,3 +20,4 @@
 [Apr 22 13:39:17] (Admin) DamskiyUgodnik[ 71 ] :  register  null [ 3719 , Librarian3test ] 
 [Apr 22 13:40:45] (Admin) DamskiyUgodnik[ 71 ] :  edit  null [ 3719 , Librarian3test ] 
 [Apr 22 13:49:06] (Admin) DamskiyUgodnik[ 71 ] :  edit  Librarian [ 3720 , Librarian3test ] 
+[Apr 22 14:24:55] (Librarian) bbbbbbbbbbbbb[ 3713 ] :  add new  User [ null , Yarik ] 

@@ -166,7 +166,7 @@ public class UserController {
         //securityService.autoLogin(userForm.getUsername(), userForm.getConfirmPassword());
 
         log.write(getCurrentUser(), "add new" , null,
-                user);
+                userService.findByUsername(user.getUsername()));
 
         return "redirect:/admin";
     }
