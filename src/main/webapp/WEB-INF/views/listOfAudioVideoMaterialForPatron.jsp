@@ -60,7 +60,6 @@
 border-radius: 17px;"
                placeholder="Search book by keywords..." required>
         <button style = "">Search</button> !-->
-        <br>
     </div></c:if>
 
     <c:forEach items="${audioVideoList}" var="av">

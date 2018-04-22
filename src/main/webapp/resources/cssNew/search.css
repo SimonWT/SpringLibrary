@@ -1,0 +1,22 @@
+.search{
+    margin-top:2%;
+    width:50%;
+    margin-left:25%;
+    background: #a94442;
+}
+.search .group{
+    width:100%;
+    margin-top:5%;
+    padding-top: 5px;
+    padding-bottom:5px;
+    background: #50808e;
+
+}
+.group input{
+    margin-left:7%;
+    background: #f2dede;
+    color: #ec971f;
+    border:none;
+    outline:none;
+
+}

@@ -57,6 +57,8 @@
         </c:when>
 
         <c:otherwise>
+            <input type="text" name="search" placeholder="   Search..">
+
             <div class  = "hell">
                 <a href="/listOfAudioVideoMaterialForPatron" style = ""><i class="fa fa-file-audio-o" aria-hidden="true"></i>
                     Media</a>
@@ -121,52 +123,33 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <i class="fa fa-window-close-o" aria-hidden="true" style = "font-size:45px; padding-right:4px;"></i>
                     </button>
-                    <br>
-                    <br>
-                    <div class="row">
-                        <div class="cont1">
-                        <span class = "photprof">
-                    <img src="${contextPath}/resources/imgNew/user2.png" height = "auto"; width = "auto";>
 
-                    <p style = "padding-left:25%; padding-top:5%;">Deep Library ID: ${user.username}</p>
-                </span>
-                        </div>
-                        <div class="cont2">
-                            <p>${user.name}  ${user.surname}</p>
-                            <a href="tel:${user.phone}">${user.phone}</a>
-                            <p><a href="mailto:${user.email}">
-                                ${user.email}</a></p>
-                            <p>Type: ${user.type}</p>
+                </div>
+                <p style = "margin-left:7%; font-size: 2vw;">${user.type}</p>
 
-                            <button  style = "background:#8a6d3b; outline:none; border: none; font-size:25px;"><a href="#" style = "color:#ddd8c4">
-                                <i class="fa fa-bookmark" aria-hidden="true" style = "padding-right:5px;"></i>My Documents</a></button>
-                        </div>
-                    </div>
-                    <div class = "row">
-                        <div class = "button1">
-                            <button> <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                Edit </button>
-                        </div>
+                <div class = "hatep">
+                <p>${user.name}</p>
+                <p>${user.surname}</p>
+                <p>${user.address}</p>
+                <p>${user.id}</p>
+                <p>                            <a href="tel:${user.phone}">${user.phone}</a>
+                </p>
+                  <p>  <a href="mailto:${user.email}">
+                      ${user.email}</a> </p>
+                </div>
+
                         <div class = "button2">
                             <c:if test="${pageContext.request.userPrincipal.name != null}">
                                 <form id="logoutForm" method="POST" action="${contextPath}/logout">
                                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                                    <a href = "#" onclick="document.forms['logoutForm'].submit()"> <button ><i class="fa fa-sign-out" aria-hidden="true"></i>
-                                        Logout </button></a>
+                                     <button > <a href = "#" onclick="document.forms['logoutForm'].submit()"><i class="fa fa-sign-out" aria-hidden="true"></i>
+                                         Logout </a></button>
                                 </form>
 
 
                             </c:if>
-                        </div>
+                            <br>
                     </div>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-
-
-                    <br>
                 </div>
 
 

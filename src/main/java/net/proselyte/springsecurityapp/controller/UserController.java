@@ -249,6 +249,10 @@ public class UserController {
 
         return "login";
     }
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    public String search(Model model){
+        return "search";
+    }
 
     @RequestMapping(value = "/loginNew", method = RequestMethod.GET)
     public String test(){
