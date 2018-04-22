@@ -31,28 +31,35 @@
     <table class="table table-condensed">
         <thead>
         <tr>
+            <th>ID</th>
             <th>Firstname</th>
             <th>Lastname</th>
             <th>Username</th>
+            <th>Privilege</th>
             <th>Phone number</th>
             <th>Email</th>
+            <th>Privilege</th>
             <th>View</th>
         </tr>
+
         </thead>
         <tbody>
 
         <c:forEach items="${librarianList}" var="librarian">
 
         <tr>
+        <td>${librarian.id}</td>
         <td>${librarian.name}</td>
         <td>${librarian.surname}</td>
         <td>${librarian.username}</td>
+        <td>${librarian.privilege}</td>
         <td>${librarian.phone}</td>
         <td>${librarian.email}</td>
-
+        <td>${librarian.privilege}</td>
         <td><a href="/editLibrarian/${librarian.id}">Modify</a><a href="/deleteUser/${librarian.id}">Delete</a></td>
 
         </tr>
+
         </c:forEach>
 
         </tbody>

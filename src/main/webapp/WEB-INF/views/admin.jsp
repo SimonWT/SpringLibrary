@@ -36,7 +36,7 @@
 
     <div class="alert2" align = "center">
         <c:choose>
-            <c:when test="${user.privilege = '1'}">
+            <c:when test="${user.privilege == 1}">
                 <div class = "row">
                     <a href="/listOfUsers" > <button  class = "form1" >Register librarian </button></a>
                 </div>

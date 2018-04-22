@@ -1,23 +1,26 @@
-[Sat A] (TA) Testik:  booked Document 431
-[Sat A] (TA) Testik:  booked Document 635
-[Sat A] (TA) Testik:  returned Document 635
-[pr 21] (Student) Petya: writeTEST
-[pr 21] (Student) Petya: writeTEST2
-[Sat Apr 21 23:54:09 MSK 2018] (Student) Petya: writeTEST
-[Sat Apr 21 23:54:09 MSK 2018] (Student) Petya: writeTEST2
-[Apr 22 00:21:55] (Student) Petya: writeTEST
-[Apr 22 00:21:55] (Student) Petya: writeTEST2
-[Apr 22 00:23:33] (TA) Testik:  booked Document 635
-[Apr 22 00:23:41] (TA) Testik:  returned Document 431
-[Apr 22 10:48:28] (Admin) DamskiyUgodnik: registratenew Librarian[3714, SimonWT]
-[Apr 22 10:50:46] (Librarian) SimonWT: registratenew user[null, Kukareku]
-[Apr 22 10:56:53] (Librarian) SimonWT: edituser[3715, Kukareku]
-[Apr 22 12:54:04] (Admin) DamskiyUgodnik: registratenew Librarian[3717, Librarian3]
-[Apr 22 12:55:46] (Librarian) Librarian3: add new ArticleDocument 432
-[Apr 22 12:56:59] (Librarian) Librarian3: edit an ArticleDocument 432
-[Apr 22 12:57:49] (Librarian) Librarian3: add BookDocument 433
-[Apr 22 13:36:53] (Admin) DamskiyUgodnik[ 71 ] :  registrate  Admin [ 71 , DamskiyUgodnik ] 
+[Apr 22 13:36:53] (Admin) DamskiyUgodnik[ 71 ] :  registrate  Admin [ 71 , DamskiyUgodnik ]
 [Apr 22 13:39:17] (Admin) DamskiyUgodnik[ 71 ] :  register  null [ 3719 , Librarian3test ] 
 [Apr 22 13:40:45] (Admin) DamskiyUgodnik[ 71 ] :  edit  null [ 3719 , Librarian3test ] 
 [Apr 22 13:49:06] (Admin) DamskiyUgodnik[ 71 ] :  edit  Librarian [ 3720 , Librarian3test ] 
 [Apr 22 14:24:55] (Librarian) bbbbbbbbbbbbb[ 3713 ] :  add new  User [ null , Yarik ] 
+[Apr 22 15:33:48] (Admin) DamskiyUgodnik[ 71 ] :  register  Librarian [ 3723 , TestLibra3 ] 
+[Apr 22 15:34:44] (Librarian) TestLibra3[ 3723 ] :  add new  AV material [ 434 , Pron ]  
+[Apr 22 15:54:02] (Librarian) TestLibra3[ 3723 ] :  add new  Student [ 3724 , ForDelete ] 
+[Apr 22 15:54:26] (Librarian) TestLibra3[ 3723 ] :  delete  Student [ 3724 , ForDelete ] 
+[Apr 22 15:57:47] (Librarian) TestLibra3[ 3723 ] :  edit  User [ 3716 , Kukareku ] 
+[Apr 22 16:00:55] (Librarian) TestLibra3[ 3723 ] :  edit  Student [ null , Yarik ] 
+[Apr 22 16:06:43] (Librarian) TestLibra3[ 3723 ] :  edit  Instructor [ 3727 , Yarik ] 
+[Apr 22 16:10:38] (Librarian) TestLibra3[ 3723 ] :  delete  Instructor [ 3727 , Yarik ] 
+[Apr 22 16:10:58] (Librarian) TestLibra3[ 3723 ] :  add new  Student [ 3728 , Yarik ] 
+[Apr 22 16:11:37] (Student) Yarik[ 3728 ] :   booke   Book [ 421 , SomeBook ]  
+[Apr 22 16:12:07] (Student) Yarik[ 3728 ] :  return  Book [ 421 , SomeBook ]  
+[Apr 22 16:12:07] (Student) Yarik[ 3728 ] :   booke   Book [ 421 , SomeBook ]  
+[Apr 22 16:12:07] (Student) Yarik[ 3728 ] :  renew  Book [ 421 , SomeBook ]  
+[Apr 22 16:17:26] (Student) Yarik[ 3728 ] :  return  Book [ 421 , SomeBook ]  
+[Apr 22 16:17:26] (Student) Yarik[ 3728 ] :   booke   Book [ 421 , SomeBook ]  
+[Apr 22 16:17:26] (Student) Yarik[ 3728 ] :  renew  Book [ 421 , SomeBook ]  
+[Apr 22 16:27:45] (Student) Yarik[ 3728 ] :  return  Book [ 421 , SomeBook ]  
+[Apr 22 16:27:45] (Student) Yarik[ 3728 ] :   booke   Book [ 421 , SomeBook ]  
+[Apr 22 16:27:45] (Student) Yarik[ 3728 ] :  renew  Book [ 421 , SomeBook ]  
+[Apr 22 16:28:01] (Student) Yarik[ 3728 ] :  return  Book [ 421 , SomeBook ]  
+[Apr 22 16:28:13] (Student) Yarik[ 3728 ] :   added to queue   AV material [ 434 , Pron ]  
