@@ -220,9 +220,9 @@ public class Document {
         }
     }
 
-    @Scheduled(initialDelay = 6000 )
+    @Scheduled(initialDelay = 86400000 )
     private void wait1dayUntilDrop(){
-        
+        this.queue.poll();
     }
 
     @Override
