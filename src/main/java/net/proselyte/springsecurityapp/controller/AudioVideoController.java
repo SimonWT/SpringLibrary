@@ -1,6 +1,7 @@
 package net.proselyte.springsecurityapp.controller;
 
 
+import net.proselyte.springsecurityapp.LogWriter;
 import net.proselyte.springsecurityapp.model.Booking.History;
 import net.proselyte.springsecurityapp.model.Documents.AudioVideo;
 import net.proselyte.springsecurityapp.model.Documents.Book;
@@ -29,6 +30,7 @@ import java.util.Map;
 @Controller
 public class AudioVideoController {
     private final org.jboss.logging.Logger logger = LoggerFactory.logger(AudioVideoController.class);
+    private final LogWriter log = new LogWriter();
 
     @Autowired
     private AudioVideoMaterialService audioVideoMaterialService;
@@ -41,6 +43,18 @@ public class AudioVideoController {
 
     @Autowired
     private HistoryService historyService;
+
+    private Long getCurrentUserId(){
+        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.findByUsername(currentUser);
+        return user.getId();
+    }
+
+    private User getCurrentUser(){
+        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.findByUsername(currentUser);
+        return user;
+    }
 
     @RequestMapping(value = "/addAudioVideoMaterial", method = RequestMethod.GET)
     public ModelAndView addAudioVideoMaterial(Model model) {
@@ -61,6 +75,7 @@ public class AudioVideoController {
 
         mav.addObject("user", userData);
 
+
         return mav;
 
     }
@@ -75,6 +90,7 @@ public class AudioVideoController {
         }
 
         docService.save(audioVideoForm);
+        log.write(getCurrentUser(), "add new", audioVideoForm, null);
         return "redirect:/admin";
     }
 
@@ -112,12 +128,15 @@ public class AudioVideoController {
         docService.update(AVForm);
 
         logger.info("AV updated: "+ AVForm.toString());
+        log.write(getCurrentUser(), "edit", AVForm,null);
+
         return "redirect:/listOfAudioVideoMaterial";
     }
 
 
     @RequestMapping("/deleteAudioVideo/{id}")
     public String deleteAudioVideo(@PathVariable("id") Long id){
+        log.write(getCurrentUser(), "delete", docService.getDocumentById(id),null);
         docService.delete(id);
 
         return "redirect:/listOfAudioVideoMaterial";

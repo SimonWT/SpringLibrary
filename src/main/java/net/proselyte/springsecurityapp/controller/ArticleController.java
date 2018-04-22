@@ -1,5 +1,6 @@
 package net.proselyte.springsecurityapp.controller;
 
+import net.proselyte.springsecurityapp.LogWriter;
 import net.proselyte.springsecurityapp.model.Booking.History;
 import net.proselyte.springsecurityapp.model.Documents.Article;
 import net.proselyte.springsecurityapp.model.Documents.AudioVideo;
@@ -31,6 +32,7 @@ import java.util.Map;
 @Controller
 public class ArticleController {
     private final org.jboss.logging.Logger logger = LoggerFactory.logger(BookController.class);
+    private final LogWriter log = new LogWriter();
 
     @Autowired
     private ArticleService articleService;
@@ -43,6 +45,18 @@ public class ArticleController {
 
     @Autowired
     private HistoryService historyService;
+
+    private Long getCurrentUserId(){
+        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.findByUsername(currentUser);
+        return user.getId();
+    }
+
+    private User getCurrentUser(){
+        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.findByUsername(currentUser);
+        return user;
+    }
 
     @RequestMapping(value = "/addArticle", method = RequestMethod.GET)
     public ModelAndView addArticle(Model model) {
@@ -79,6 +93,9 @@ public class ArticleController {
 
         articleForm.parseDate();
         docService.save(articleForm);
+
+        log.write(getCurrentUser(), "add new", articleForm,null);
+
 
         return "redirect:/admin";
 
@@ -124,11 +141,16 @@ public class ArticleController {
         docService.update(articleForm);
 
         logger.info("Article updated: "+ articleForm.toString());
+
+        log.write(getCurrentUser(), "edit", articleForm,null);
+
         return "redirect:/listOfArticles";
     }
 
     @RequestMapping("/deleteArticle/{id}")
     public String deleteArticle(@PathVariable("id") Long id){
+        log.write(getCurrentUser(), "delete", docService.getDocumentById(id), null);
+
         docService.delete(id);
 
         return "redirect:/listOfArticles";
@@ -216,7 +238,7 @@ public class ArticleController {
         return mav;
     }
 
-    public String DateToString(Date date,int start, int finish){
+    private String DateToString(Date date,int start, int finish){
         String yearString = "";
         if(date!=null) yearString = date.toString().substring(start, finish);
         return yearString;

@@ -1,5 +1,6 @@
 package net.proselyte.springsecurityapp.model.Users;
 
+import net.proselyte.springsecurityapp.LogWriter;
 import net.proselyte.springsecurityapp.model.Booking.History;
 import net.proselyte.springsecurityapp.model.Booking.Queue;
 import net.proselyte.springsecurityapp.model.Documents.Book;
@@ -15,6 +16,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 import javax.print.Doc;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -58,11 +60,14 @@ public class Patron extends User {
     private QueueService queueService;
 
     @Transient
+    private LogWriter log = new LogWriter();
+
+    @Transient
     private String notification;
 
     public Patron(){};
 
-    public Patron(String username, String password, String name, String surname, String phone, String email, String type, String address) {
+    public Patron(String username, String password, String name, String surname, String phone, String email, String type, String address){
         super(username, password, name, surname, phone, email, type);
         this.address = address;
     }
@@ -81,7 +86,7 @@ public class Patron extends User {
         this.queueService = queueService;
     }
 
-    public int checkout(Document doc, Date checkoutDate){
+    public int checkout(Document doc, Date checkoutDate) throws IOException {
 
         if (userService.getAllPatrons().contains(this)){
             System.out.println("You have not registered in system. Ask librarian to register you in system");
@@ -142,6 +147,8 @@ public class Patron extends User {
                 historyService.updateHistory(historyByIdAndDocId);
             }
             System.out.println("The book \"" + doc.getTitle() + "\" are checked out by " + getName());
+            log.write(this, " booke " , doc, null);
+
             return 0;
         }
 
@@ -154,7 +161,7 @@ public class Patron extends User {
         }
     }
 
-    public int toReturn(Document doc, Date returnDate){
+    public int toReturn(Document doc, Date returnDate) throws IOException {
         Long id = userService.findByUsername(this.getUsername()).getId();
         List<History> historyList= historyService.getListHistoriesByIdAndDocId(this.getId(),doc.getId());
         History h = new History();
@@ -174,6 +181,7 @@ public class Patron extends User {
         doc.setCheckoutDate(h.getCheckOutDate());
         long dif = doc.getCheckoutDate().getTime() - returnDate.getTime();
 
+        log.write(this, "return" , doc, null);
 
         int difDays = (int)TimeUnit.DAYS.convert(dif, TimeUnit.MILLISECONDS);
         if (difDays > doc.getDue()){
@@ -190,7 +198,7 @@ public class Patron extends User {
         return -1;
     }
 
-    public void renew(Document doc, Date renewDate){
+    public void renew(Document doc, Date renewDate) throws IOException {
         if (!doc.wasRenewed()) {
             toReturn(doc, renewDate);
             checkout(doc, renewDate);
@@ -199,6 +207,7 @@ public class Patron extends User {
             History history = historyList.get(historyList.size()-1);
             history.setStatus(2);
             historyService.updateHistory(history);
+            log.write(this, "renew" , doc, null);
 
         }
 //        History history = historyService.getHistoryByIdAndDocId(this.getId(), doc.getId());

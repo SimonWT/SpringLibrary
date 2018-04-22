@@ -1,5 +1,6 @@
 package net.proselyte.springsecurityapp.controller;
 
+import net.proselyte.springsecurityapp.LogWriter;
 import net.proselyte.springsecurityapp.model.Booking.History;
 import net.proselyte.springsecurityapp.model.Booking.Queue;
 import net.proselyte.springsecurityapp.model.Documents.Article;
@@ -22,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import sun.util.calendar.BaseCalendar;
 
 import javax.print.Doc;
+import java.io.IOException;
 import java.security.Principal;
 import java.sql.*;
 import java.text.DateFormat;
@@ -37,6 +39,7 @@ import java.util.Date;
 @Controller
 public class BookController {
     final org.jboss.logging.Logger logger = LoggerFactory.logger(BookController.class);
+    private final LogWriter log = new LogWriter();
 
     @Autowired
     private BookService bookService;
@@ -53,10 +56,16 @@ public class BookController {
     @Autowired
     private QueueService queueService;
 
-    public Long getCurrentUserId(){
+    private Long getCurrentUserId(){
         String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userService.findByUsername(currentUser);
         return user.getId();
+    }
+
+    private User getCurrentUser(){
+        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.findByUsername(currentUser);
+        return user;
     }
 
     @RequestMapping(value = "/addBook", method = RequestMethod.GET)
@@ -80,6 +89,8 @@ public class BookController {
         bookForm.parseDate();
         docService.save(bookForm);
 
+        log.write(getCurrentUser(), "add", bookForm,null);
+
         /*
             this action authorizate new user after addition (it is useful in our case, but let it be here)
          */
@@ -88,11 +99,10 @@ public class BookController {
         return "redirect:/admin";
     }
 
-
     @RequestMapping(value = "/editBook/{id}", method = RequestMethod.GET)
     public String editInfo(@PathVariable("id") Long id , Model model) {
         Document doc = docService.getDocumentById(id);
-;
+
         if(doc!=null) {
             logger.info("Book got by ID: " + doc.toString());
             java.util.Date date = ((Book) doc).getYear();
@@ -100,6 +110,7 @@ public class BookController {
             if (date != null) yearString = date.toString().substring(0, 10);
             ((Book) doc).setYearString(yearString);
         }
+
         model.addAttribute("bookForm", doc);
         return "editBook";
     }
@@ -109,17 +120,8 @@ public class BookController {
         bookForm.parseDate();
         docService.update(bookForm);
         logger.info("Book updated: "+ bookForm.toString());
+        log.write(getCurrentUser(), "edit", bookForm, null);
         return "redirect:/listOfBooks";
-    }
-
-    @RequestMapping(value = "/book/{bookId}", method = RequestMethod.POST)
-    public String book(@PathVariable Long bookId){
-        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
-        User user = userService.findByUsername(currentUser);
-        Long userId = user.getId();
-        History userHistory = historyService.getHistoryByIdAndDocId(userId, bookId);
-        int status = userHistory.getStatus();
-        return "Success";
     }
 
     @RequestMapping(value = "/listOfBooksForPatron", method = RequestMethod.GET)
@@ -241,12 +243,11 @@ public class BookController {
     @RequestMapping("/deleteBook/{id}")
     public String deleteBook(@PathVariable("id") Long id){
         docService.delete(id);
-
         return "redirect:/listOfBooks";
     }
 
     @RequestMapping("/reg/Pat")
-    public String regPat(){
+    public String regPat() throws IOException {
         User user = new Patron("TestInh","TestInh","TestInh","TestInh","TestInh","TestInh","TestInh", "testInh");
         userService.save(user);
         return "SUCCESS";
