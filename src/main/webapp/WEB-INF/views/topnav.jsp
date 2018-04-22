@@ -33,15 +33,7 @@
         DeepLib
 
     </a>
-    <div class="box">
-        <div class="container-1">
-            <span class="icon"><i class="fa fa-search" aria-hidden="true"></i>
-</span>
-            <input type="search" id="search" placeholder="Search..." />
-            <i class="fa fa-pencil-square-o" aria-hidden="true" style = "font-size: 20px;top:20px;"></i>
 
-        </div>
-    </div>
     <c:choose>
 
 
@@ -57,12 +49,26 @@
         </c:when>
 
         <c:when test="${user.type == 'Admin'}">
-            <a href="/registerLibrarian" style = ""><i class="fa fa-user-secret" aria-hidden="true"></i> Add new Librarian</a>
-            <a href="/logs" style = ""><i class="fa fa-user-secret" aria-hidden="true"></i> Logs</a>
+            <div class = "hell">
+            <a href="/registerLibrarian" style = ""><i class="fa fa-plus" aria-hidden="true"></i>
+                Add new Librarian</a>
+            <a href="/Logs" style = ""><i class="fa fa-history" aria-hidden="true"></i>
+                Logs</a>
+            </div>
         </c:when>
 
         <c:otherwise>
+            <div class="box">
+                <div class="container-1">
+            <span class="icon"><i class="fa fa-search" aria-hidden="true"></i>
+</span>
+                    <input type="search" id="search" placeholder="Search..." />
+                    <i class="fa fa-pencil-square-o" aria-hidden="true" style = "font-size: 20px;top:20px;"></i>
+
+                </div>
+            </div>
             <div class  = "hell">
+
                 <a href="/listOfAudioVideoMaterialForPatron" style = ""><i class="fa fa-file-audio-o" aria-hidden="true"></i>
                     Media</a>
                 <a href="/listOfArticlesForPatron" style = ""><i class="fa fa-newspaper-o" aria-hidden="true"></i>
@@ -97,10 +103,17 @@
         <div class="dropdown-content2">
             <a href="/ProfilePage" data-toggle="modal" data-target="#largeModal"> <i class="fa fa-address-card-o" aria-hidden="true"></i>
                 Profile</a>
-            <a href="/mydoc">
+<c:choose>
+    <c:when test="${user.type == 'Admin'}">
+
+</c:when>
+    <c:otherwise>
+    <a href="/mydoc">
                 <i class="fa fa-bookmark" aria-hidden="true"></i>
 
                 My Documents</a>
+</c:otherwise>
+</c:choose>
 
 
             <c:if test="${pageContext.request.userPrincipal.name != null}">
@@ -192,14 +205,6 @@
 </script>
     <script src="${contextPath}/resources/jsNew/jquery.js"></script>
     <script src="${contextPath}/resources/jsNew/bootstrap.js"></script>
-<div class="navba">
 
-    <button style = "background: none; border:none"  data-toggle="modal" data-target="#largeModal">
-        <i class="fa fa-history" aria-hidden="true"></i>
-
-        Logs</button>
-
-
-</div>
 </body>
 </html>

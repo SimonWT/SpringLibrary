@@ -42,8 +42,8 @@ ${pageContext.request.userPrincipal.name}</strong>,
 
         <br>
         <br>
-        <h5 style = "font-size:25px;">How to use this sourse:</h5>
-        <i class="fa fa-square" aria-hidden="true"></i> Go to Media/Jornal Articles/Books and choose document, which you want.
+        <h5 style = "font-size:25px;">How to use this source:</h5>
+        <i class="fa fa-square" aria-hidden="true"></i> Go to Media/Journal Articles/Books and choose document, which you want.
     <br>
         <i class="fa fa-square" aria-hidden="true"></i> Also you can find documents by using searching .
         <br><i class="fa fa-square" aria-hidden="true"></i>
@@ -70,7 +70,7 @@ ${pageContext.request.userPrincipal.name}</strong>,
         the item needs to be returned immediately
         <br>
         <br>
-        You can text to support service: <button style = "background: none"><a style = "outline:none;">i.vakhula@innopolis.ru</a></button>
+        You can text to support service: <button style = "background: none"><a style = "outline:none; text-decoration:none;">i.vakhula@innopolis.ru</a></button>
         <br>
     </div>
 </div>
