@@ -20,7 +20,6 @@
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/bootstrap.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/font-awesome.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/welcomeform.css">
-    <link rel="stylesheet" href="${contextPath}/resources/cssNew/listbook.css">
 <style>
 </style>
 </head>
@@ -34,7 +33,17 @@
         DeepLib
 
     </a>
+    <div class="box">
+        <div class="container-1">
+            <span class="icon"><i class="fa fa-search" aria-hidden="true"></i>
+</span>
+            <input type="search" id="search" placeholder="Search..." />
+            <i class="fa fa-pencil-square-o" aria-hidden="true" style = "font-size: 20px;top:20px;"></i>
+
+        </div>
+    </div>
     <c:choose>
+
 
         <c:when test="${user.type=='Librarian'}">
             <div class  = "hell2">
@@ -106,20 +115,7 @@
         </div>
     </div>
 
-    <form>
 
-
-        <input type="text" placeholder="Search the document">
-        <select id="selcolor">
-            <option value=""></option>
-            <option value="">By Title</option>
-            <option value="">By Authors</option>
-            <option value="">By Title and Authors</option>
-            <option value="">By Description</option>
-        </select>
-        <button onclick="ifelsefunction()">Apply</button>
-
-    </form>
 
     <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
 </div>
@@ -135,7 +131,7 @@
                     <div class="row">
                         <div class="cont1">
                         <span class = "photprof">
-                    <img src="${contextPath}/resources/imgNew/user2.png" height = "auto"; width = "auto";>
+                        <img src="${contextPath}/resources/imgNew/user2.png" height = "20%"; width = "20%";>
 
                     <p style = "padding-left:25%; padding-top:5%;">Deep Library ID: ${user.username}</p>
                 </span>
@@ -182,6 +178,7 @@
             </div>
         </div>
     </div>
+
 <script>
     function myFunction() {
         var x = document.getElementById("myTopnav");
@@ -191,9 +188,18 @@
             x.className = "topnav";
         }
     }
+
 </script>
     <script src="${contextPath}/resources/jsNew/jquery.js"></script>
     <script src="${contextPath}/resources/jsNew/bootstrap.js"></script>
+<div class="navba">
+
+    <button style = "background: none; border:none"  data-toggle="modal" data-target="#largeModal">
+        <i class="fa fa-history" aria-hidden="true"></i>
+
+        Logs</button>
+
+
 </div>
 </body>
 </html>

@@ -70,7 +70,7 @@ ${pageContext.request.userPrincipal.name}</strong>,
         the item needs to be returned immediately
         <br>
         <br>
-        You can text to support service:
+        You can text to support service: <button style = "background: none"><a style = "outline:none;">i.vakhula@innopolis.ru</a></button>
         <br>
     </div>
 </div>

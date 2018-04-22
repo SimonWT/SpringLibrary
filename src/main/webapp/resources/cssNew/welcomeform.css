@@ -48,6 +48,18 @@ body {margin:0;
     background-color: #d46b0e;
     color: white;
 }
+.navba {
+    position: fixed; /* Фиксированное положение */
+    left: 0; bottom: 0; /* Левый нижний угол */
+    padding: 10px; /* Поля вокруг текста */
+    background: #c4e3f3; /* Цвет фона */
+    color: #d58512; /* Цвет текста */
+    width: 100%;
+    text-align: right;
+    font-size:240%;
+
+}
+
 
 .topnav .icon {
     display: none;
@@ -142,6 +154,66 @@ body {margin:0;
 }
 .dropdown3:hover .dropdown-content3 {
     display: block;
+}
+.box{
+    width: 20%;
+    height: 50px;
+    float:left;
+    margin-top: 17px;
+    padding-left:5%;
+}
+.container-1 .icon{
+    position: absolute;
+    top: 50%;
+    margin-left: 17px;
+    margin-top: 17px;
+    z-index: 3;
+    color: #4f5b66;
+}
+.container-1 input#search:hover, .container-1 input#search:focus, .container-1 input#search:active{
+    outline:none;
+    background: #ffffff;
+}
+.container-1 input#search::-webkit-input-placeholder {
+    color: #65737e;
+}
+
+.container-1 input#search:-moz-placeholder { /* Firefox 18- */
+    color: #65737e;
+}
+
+.container-1 input#search::-moz-placeholder {  /* Firefox 19+ */
+    color: #65737e;
+}
+
+.container-1 input#search:-ms-input-placeholder {
+    color: #65737e;
+}
+.container-1{
+    width: 150px;
+    vertical-align: middle;
+    white-space: nowrap;
+    position: relative;
+    text-align: center;
+}
+.container-1 input#search{
+    width: 150px;
+    height: 37px;
+    background: #c4e3f3;
+    border: none;
+    font-size: 10pt;
+    float: left;
+    padding-left: 35px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    color: #d58512;
+
+    -webkit-transition: width .55s ease;
+    -moz-transition: width .55s ease;
+    -o-transition: width .55s ease;
+    transition: width .55s ease;
+
 }
 .modal{
     margin-top:100px;

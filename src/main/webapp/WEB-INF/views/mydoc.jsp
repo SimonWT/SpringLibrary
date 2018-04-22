@@ -18,10 +18,12 @@
 <html>
 <head>
 
-    <title>All Books | DeepLib</title>
+    <title>My Books || DeepLib</title>
 
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/bootstrap.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/font-awesome.css">
+    <link rel="stylesheet" href="${contextPath}/resources/cssNew/welcomeform.css">
+
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/mydoc.css"></head>
 <body>
 <%@ include file ="topnav.jsp" %>
@@ -143,21 +145,7 @@
 <br>
 <br>
 
-                <div>
+</div>
 
-                </div>
-
-
-
-
-
-
-
-
-
-
-
-<script src="${contextPath}/resources/jsNew/jquery.js"></script>
-<script src="${contextPath}/resources/jsNew/bootstrap.js"></script>
-<script src="${contextPath}/resources/jsNew/scripts.js"></script></body>
+</body>
 </html>
