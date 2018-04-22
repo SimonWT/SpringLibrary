@@ -23,137 +23,124 @@
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/bootstrap.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/font-awesome.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/listbook.css">
+<style>
+    .book .need{
 
+    }
+</style>
 </head>
 
 <body>
 <%@ include file ="topnav.jsp" %>
 
 <div class = "book">
+    <div class = "now">
+    <c:if test="${empty articleList}">
+        <div  class = "vp" style = "background:#d5d5d5; margin-top:5%; font-size:3vw; color: #d58512;  margin-left:3%; margin-right:3%; margin-bottom:5%;">
+            <p> Now you can't access to  have documents.</p>
+            <p> Choose new category of  document:</p>
+            <br>
+            <div class = "formoc">
+                <a href="/listOfAudioVideoMaterialForPatron" style = ""><i class="fa fa-file-audio-o" aria-hidden="true"></i>
+                    Media</a>
+                <a href="/listOfBooksForPatron" style = ""><i class="fa fa-book" aria-hidden="true"></i> Books</a>
+            </div>
+            <br>
+            <br>
+        </div>
+
+    </c:if>
+
+        </div>
+    <c:if test="${not empty articleList}">
     <br>
-    <div class = "search2">
-
-        <input type="search" id="mySearch" style = "width:80%; font-size:2vw; text-align:center; outline:#d9534f; border:none;
+        <div  class = "search2">
+            <p>Click on the article to get more information about it</p>
+            <!--<input type="search" id="mySearch" style = "width:80%; font-size:2vw; text-align:center; outline:#d9534f; border:none;
 border-radius: 17px;"
-               placeholder="Search article by keywords..." required>
-        <button style = "">Search</button>
-        <br>
-    </div>
+                   placeholder="Search book by keywords..." required>
+            <button style = "">Search</button> !-->
+            <br>
+        </div></c:if>
     <c:forEach items="${articleList}" var="article">
-        <c:if test = "${articleList.indexOf(article) % 4 == 0}">
+        <button
+                type="button" data-toggle="modal" class = "need2"
+                data-target="#my${article.id}">
+            <div class = "insi" style = " border:none; border-radius:14px;background:white; margin-top:44%; margin-bottom:44%">
+                <p style = ""> ${article.title} </p>
+            </div>
+        </button>
+    <c:if test = "${articleList.indexOf(article) % 3 == 1}">
 
-            <button
-                    type="button" data-toggle="modal"
-                    data-target="#my${article.id}">
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-            </button>
-        </c:if>
+        <button
+                type="button" data-toggle="modal" class = "need2"
+                data-target="#my${article.id}">
+            <div class = "insi" style = " border:none; border-radius:14px;background:white; margin-top:44%; margin-bottom:44%">
+                <p> ${article.title} </p>
+            </div>
+        </button>
+    </c:if>
+    <c:if test = "${articleList.indexOf(article) % 3 == 2}">
 
-        <c:if test = "${articleList.indexOf(article) % 4 == 1}">
-
-            <button
-                    type="button" data-toggle="modal"
-                    data-target="#my${article.id}">
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-            </button>
-        </c:if>
-        <c:if test = "${articleList.indexOf(article) % 4 == 2}">
-
-            <button
-                    type="button" data-toggle="modal"
-                    data-target="#my${article.id}">
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-            </button>
-        </c:if>
-        <c:if test = "${articleList.indexOf(article) % 4 == 3}">
-
-            <button
-                    type="button" data-toggle="modal"
-                    data-target="#my${article.id}">
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-            </button>
-        </c:if>
+        <button
+                type="button" data-toggle="modal" class = "need2"
+                data-target="#my${article.id}">
+            <div class = "insi" style = " border:none; border-radius:14px;background:white; margin-top:44%; margin-bottom:44%">
+                <p> ${article.title} </p>
+            </div>
+        </button>
+    </c:if>
 
         <div id="my${article.id}" class="modal fade"  >
             <div class="modal-dialog">
 
-                <div class = "modal-body" style = "width:100%">
-                        <div class = "row" >
-                            <br>
+                <div class = "modal-body" style = "width:100%; border:none; border-radius:20px;">
 
-
-                            <div style = "float:left; margin-left:6%; width:40%;">
-                                <img src = "${contextPath}/resources/imgNew/viewb.jpg" style =
-                                    "width:150%; height:57%;"></div>
-                            <div style = "float:right; margin-right:4%; color:#d58512; font-size:1vw;">
+                            <div class = "hate">
                                 <br>
-                                <p>ID: ${article.id}</p>
-                                <p>Title: ${article.title}</p>
-                                <p>Authors: ${article.authors}</p>
-                                <p>Journal: ${article.journal}</p>
-                                <p>Editors: ${article.editors}</p>
-                                <p>Date: ${article.dateString}</p>
-                                <p>Price: ${article.price}</p>
-                                <p>Copies: ${article.copies}</p>
+                                <p>ID: <p1> ${article.id}</p1> </p>
+                                <p>Title:<p1> ${article.title}</p1> </p>
+                                <p>Authors: <p1> ${article.authors}</p1> </p>
+                                <p>Journal: <p1>${article.journal}</p1> </p>
+                                <p>Editors: <p1> ${article.editors}</p1> </p>
+                                <p>Date: <p1> ${article.dateString}</p1> </p>
+                                <p>Price: <p1> ${article.price}</p1></p>
+                                <p>Copies:<p1> ${article.copies}</p1></p>
+                                <br>
                             </div>
-                        </div>
+
                         <br>
                         <div class = "row">
+                            <c:if test="${article.status==0 || article.status==2}">
+                                <div style = "width:45%;float:left; margin-left:4%;">
+                                    <button style = "width:100%;"><a href="/return/${article.id}" style = "font-size:2vw; text-decoration: none; color:#d58512;" >
+                                        Return back </a>
+                                    </button>
 
-                            <c:if test="${article.status==0 || article.status == 2}">
-                            <div style = "float:left; margin-left:4%;">
-                                <button style = "width:100%;"><a href="/return/${article.id}" style = "font-size:2vw; text-decoration: none; color:#d58512;" >
-                                    Return back </a>
-                                </button>
-
-                            </div>
-                            <div style = "float:right; margin-right:4%">
-                                <button style = "width:100%; float:right; font-size:2vw; color: #d58512"><a href="/renew/${article.id}" style = "font-size:2vw; text-decoration:none; color:#d58512">
-                                    Renew </a></button>
-                            </div>
+                                </div>
+                                <div style = "width:45%;float:right; margin-right:4%">
+                                    <button style = "width:100%;  color: #d58512"><a href="/renew/${article.id}" style = "font-size:2vw; text-decoration:none; color:#d58512">
+                                        Renew </a></button>
+                                </div>
                             </c:if>
 
-                        <c:if test="${article.status==4}" >
-                            <div style = "float:right; margin-right: 3%; width:45%;">
-                                <button><a href = "/queue/${article.id}">
-                                    Queue </a>  </button>
-                            </div>
-                        </c:if>
+                            <c:if test="${article.status==4}" >
+                                <div style = "text-align: center; font-size:70%;">
+                                    <button class = "name" style = "width:80%;"><a  style = "text-decoration: none;" href = "/queue/${article.id}">
+                                        Queue </a>  </button>
+                                </div>
+                            </c:if>
 
-                        <c:if test="${article.status==1}" >
-                            <div style = "text-align: center; font-size:70%;">
-                                <button class = "name" style = "width:80%; text-align:center;"><a style = "text-decoration: none;"href="/booking/${article.id}"> Check Out </a>
-                                </button>
-                            </div>
-                        </c:if>
+                            <c:if test="${article.status==1}" >
+                                <div style = "text-align: center; font-size:70%;">
+                                    <button class = "name" style = "width:80%;  text-align:center;"><a style = "text-decoration: none;"href="/booking/${article.id}"> Check Out </a>
+                                    </button>
+                                </div>
+                            </c:if>
 
-                        <c:if test="${article.status == 3}">
-                            Here list of Queue
-                        </c:if>
+                            <c:if test="${article.status == 3}">
+                                Here list of Queue
+                            </c:if>
 
                         </div>
 

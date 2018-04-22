@@ -70,25 +70,25 @@
         </thead>
         <tbody>
 
-        <c:forEach items="${bookList}" var="book">
+        <c:forEach items="${bookList}" var="av">
         <tr>
-        <td>${book.title}</td>
-        <td>${book.authors}</td>
-        <td>${book.year}</td>
-        <td>${book.publisher}</td>
-        <td>${book.edition}</td>
-        <td>${book.price}</td>
-        <td>${book.copies}</td>
+        <td>${av.title}</td>
+        <td>${av.authors}</td>
+        <td>${av.year}</td>
+        <td>${av.publisher}</td>
+        <td>${av.edition}</td>
+        <td>${av.price}</td>
+        <td>${av.copies}</td>
           <td>
-              <c:if test="${book.bestSeller == false}" >
+              <c:if test="${av.bestSeller == false}" >
             </c:if>
-            <c:if test="${book.bestSeller == true}" >
+            <c:if test="${av.bestSeller == true}" >
                 <i class="fa fa-star" aria-hidden="true" style = "color: yellow; font-size: 2vw;"></i>
 
             </c:if>
         </td>
-            <td><a href="/editBook/${book.id}">Edit</a> </td>
-         <td>   <a href="/deleteBook/${book.id}">Delete</a></td>
+            <td><a href="/editBook/${av.id}">Edit</a> </td>
+         <td>   <a href="/deleteBook/${av.id}">Delete</a></td>
         </tr>
         </c:forEach>
 

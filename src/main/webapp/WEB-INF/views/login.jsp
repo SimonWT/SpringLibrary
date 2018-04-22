@@ -84,7 +84,22 @@
                             <i class="fa fa-lock"></i>
                             <input type="password" class="form-control" id="registerInputPwdConfirm">
                         </div>
-                        <button type="submit" class="btn btn-block btn-default hero-btn">Sign up</button>
+                        <script type="text/javascript">
+                            function show(state){
+
+                                document.getElementById('window').style.display = state;
+                                document.getElementById('wrap').style.display = state;
+                            }
+
+                        </script>
+                        <div onclick="show('none')" id="wrap"></div>
+                        <div id="window">
+                            <img class="close" onclick="show('none')" src="http://sergey-oganesyan.ru/wp-content/uploads/2014/01/close.png">
+                            <br>
+                            <p>Please, ask about registration admins of this library
+                                or you can write to support service <button style = "border:none; background: none;outline:none;"><a style = "text-decoration: none;">i.vakhula@innopolis.ru</a></button></p>
+                        </div>
+                        <button type="submit"  onclick="show('block')" class="btn btn-block btn-default hero-btn">Sign up</button>
                     </form>
                 </div>
             </div>

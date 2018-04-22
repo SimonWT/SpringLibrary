@@ -27,7 +27,7 @@
 
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/bootstrap.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/font-awesome.css">
-    <link rel="stylesheet" href="${contextPath}/resources/cssNew/loginform.css">
+    <link rel="stylesheet" href="${contextPath}/resources/css/common.css">
 </head>
 
 <body>
@@ -42,14 +42,14 @@
         <spring:bind path="title">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <form:input type="text" path="title" class="form-control" placeholder="Article's title"
-                            autofocus="true"></form:input>
+                            autofocus="true" maxlength="22" minlength = "1"></form:input>
                 <form:errors path="title"></form:errors>
             </div>
         </spring:bind>
 
         <spring:bind path="journal">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="text" path="journal" class="form-control" placeholder="Journal's title"
+                <form:input type="text" maxlength="22" minlength = "1" path="journal" class="form-control" placeholder="Journal's title"
                             autofocus="true"></form:input>
                 <form:errors path="journal"></form:errors>
             </div>
@@ -80,26 +80,25 @@
 
         <spring:bind path="price">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="text" path="price" class="form-control" placeholder="Price"></form:input>
+                <form:input type="text" path="price" class="form-control" onfocus="if(this.value=='Price') {this.value='';}" value="Price" placeholder="Price"></form:input>
                 <form:errors path="price"></form:errors>
             </div>
         </spring:bind>
 
         <spring:bind path="copies">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="text" path="copies" class="form-control" placeholder="Copies"></form:input>
+                <form:input type="text" path="copies" class="form-control" onfocus="if(this.value=='Copies') {this.value='';}" value="Copies" placeholder="Copies"></form:input>
                 <form:errors path="copies"></form:errors>
             </div>
         </spring:bind>
 
 
 
-        <button class="btn btn-block" type="submit">Submit</button>
-    </form:form>
+        <button style = "width:300px; font-size:240%; min-height:50px; background:#adadad; border:none; outline:none; border-radius:13px;
+" type="submit">Submit</button>    </form:form>
 </div>
 
 <script src="${contextPath}/resources/jsNew/jquery.js"></script>
 <script src="${contextPath}/resources/jsNew/bootstrap.js"></script>
-<script src="${contextPath}/resources/jsNew/scripts.js"></script>
 </body>
 </html>

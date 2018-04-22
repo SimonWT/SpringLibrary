@@ -7,8 +7,8 @@
 .book{
     background: #c4e3f3;
     margin-top:2%;
-    width:60%;
-    margin-left:20%;
+    width:67%;
+    margin-left:16.5%;
 }
 .book .name a:hover{
     color:black;
@@ -22,29 +22,110 @@
     text-align: center;
     margin-top:2%;
 }
-.book .search2 button{
-    background: #f2dede;
+.book .search2{
     color: #d58512;
-    font-size:150%;
-}
+    font-size:2vw;
 
-.book button{
+}
+.formoc a:hover{
+    text-decoration: none;
+    color:black;
+
+}
+.formoc{
+    text-align:center;
+    font-size:2vw;
+
+
+}
+.formoc a{
+    color:#a94442;
+    padding:3%;
+
+
+}
+.hate{
+    border:none;
+    border-radius:17%;
+    text-align: center;  background-color: #d4d4d4;  margin-top:4%;     color: #c0c0c0;
+    margin-bottom:3%;  font-size:1vw;
+}
+.hate p{
+    font-size:167%;
+}
+.hate p1{
+    color:#d58512;
+}
+.now{
+    position: absolute;
+    width: 67%;
+
+    background: #9d9d9d;
+    text-align:center;
+
+}
+.book .need{
     font-size:2vw;
     margin-top:3%;
     margin-bottom:3%;
     margin-left:2.2%;
-    background-image: url("/resources/imgNew/book.JPG");
+    background-image: url("/resources/imgNew/book-flat.png");
     opacity:60%;
-    background-size: cover;
     border:none;
     text-align: center;
-    width: 21.9%;
+    background-size: 100%;
+    width: 30%;
+    height:auto;
     color: #d58512;
     border-radius: 17px;
     outline:none;
+
+}
+.book .need3{
+    font-size:2vw;
+    margin-top:3%;
+    margin-bottom:3%;
+    margin-left:2.2%;
+    background-image: url("/resources/imgNew/Media-movie.svg");
+    opacity:60%;
+    border:none;
+    text-align: center;
+    background-size: 100%;
+    width: 30%;
+    height:auto;
+    color: #d58512;
+    border-radius: 30px;
+    outline:none;
+
+}
+.book .need2{
+    font-size:2vw;
+    margin-top:3%;
+    margin-bottom:3%;
+    margin-left:2.2%;
+    background-image: url("/resources/imgNew/magazine.png");
+    opacity:60%;
+    border:none;
+    text-align: center;
+    background-size: 100%;
+    width: 30%;
+    height:auto;
+    color: #d58512;
+    border-radius: 30px;
+    outline:none;
+
 }
 .modal-body .row button{
     border:none;
     background: #f2dede;
     border-radius:17px;
+    font-size:2.5vw;
+    margin-bottom:3%;
+    opacity:60%;
+    text-align: center;
+    background-size: 100%;
+    width: 30%;
+    height:auto;
+    color: #d58512;
+    outline:none;
 }

@@ -14,14 +14,53 @@
     <meta name="author" content="">
 
     <title>Logs || DeepLib</title>
+    <style>
+        .block{
+            background:#c4e3f3;
+            color: #d58512;
+            width:65%;
+            margin-left:17.5%;
+            font-size:2vw;
+            margin-top:3%;
+            margin-bottom:10%;
+        }
+        .vn,.vn2{
+            background: #9d9d9d;
+            width:45%;
+            margin-bottom:4%;
+            border:none;
+            border-radius: 10px;
+            height:100px;
+            text-align:center;
+            margin-top:4%;
+        }
+        .vn2{
+            float:right;
+        }
+        .vn{
+            float:left;
+        }
+        p{
+        }
+    </style>
 </head>
 <body>
 <%@ include file ="topnav.jsp" %>
+
+<div class = "block">
+<br>
     <c:forEach items="${logs}" var="log">
-
+        <c:if test = "${logs.indexOf(log) % 2 == 0}">
+    <div class = "vn">
     <p>${log}</p>
-
+    </div>
+    </c:if>
+        <c:if test = "${logs.indexOf(log) % 2 == 1}">
+            <div class = "vn2">
+                <p>${log}</p>
+            </div>
+        </c:if>
     </c:forEach>
-
+</div>
 </body>
 </html>

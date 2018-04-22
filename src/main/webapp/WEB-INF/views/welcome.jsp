@@ -24,7 +24,6 @@
 <body>
 <%@ include file ="topnav.jsp" %>
 
-
 <br>
 <br>
 <br>
