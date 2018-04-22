@@ -1,0 +1,22 @@
+[Sat A] (TA) Testik:  booked Document 431
+[Sat A] (TA) Testik:  booked Document 635
+[Sat A] (TA) Testik:  returned Document 635
+[pr 21] (Student) Petya: writeTEST
+[pr 21] (Student) Petya: writeTEST2
+[Sat Apr 21 23:54:09 MSK 2018] (Student) Petya: writeTEST
+[Sat Apr 21 23:54:09 MSK 2018] (Student) Petya: writeTEST2
+[Apr 22 00:21:55] (Student) Petya: writeTEST
+[Apr 22 00:21:55] (Student) Petya: writeTEST2
+[Apr 22 00:23:33] (TA) Testik:  booked Document 635
+[Apr 22 00:23:41] (TA) Testik:  returned Document 431
+[Apr 22 10:48:28] (Admin) DamskiyUgodnik: registratenew Librarian[3714, SimonWT]
+[Apr 22 10:50:46] (Librarian) SimonWT: registratenew user[null, Kukareku]
+[Apr 22 10:56:53] (Librarian) SimonWT: edituser[3715, Kukareku]
+[Apr 22 12:54:04] (Admin) DamskiyUgodnik: registratenew Librarian[3717, Librarian3]
+[Apr 22 12:55:46] (Librarian) Librarian3: add new ArticleDocument 432
+[Apr 22 12:56:59] (Librarian) Librarian3: edit an ArticleDocument 432
+[Apr 22 12:57:49] (Librarian) Librarian3: add BookDocument 433
+[Apr 22 13:36:53] (Admin) DamskiyUgodnik[ 71 ] :  registrate  Admin [ 71 , DamskiyUgodnik ] 
+[Apr 22 13:39:17] (Admin) DamskiyUgodnik[ 71 ] :  register  null [ 3719 , Librarian3test ] 
+[Apr 22 13:40:45] (Admin) DamskiyUgodnik[ 71 ] :  edit  null [ 3719 , Librarian3test ] 
+[Apr 22 13:49:06] (Admin) DamskiyUgodnik[ 71 ] :  edit  Librarian [ 3720 , Librarian3test ] 
