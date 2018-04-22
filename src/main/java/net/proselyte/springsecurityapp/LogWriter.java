@@ -28,10 +28,7 @@ public class LogWriter {
 
 
         try {
-            File file = new File("C:\\Users\\simon" +
-                    "\\Documents\\Materals\\Projects & etc\\" +
-                    "ITP II\\17.4.18\\SpringLibrary\\src\\main\\java" +
-                    "\\net\\proselyte\\springsecurityapp\\log.txt");
+            File file = new File("src\\main\\java\\net\\proselyte\\springsecurityapp\\log.txt");
 
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, true));
             bufferedWriter.write(data);
@@ -45,10 +42,7 @@ public class LogWriter {
     public String read(){
         String result="nihuya";
         try {
-            String file = "C:\\Users\\simon" +
-                    "\\Documents\\Materals\\Projects & etc\\" +
-                    "ITP II\\17.4.18\\SpringLibrary\\src\\main\\java" +
-                    "\\net\\proselyte\\springsecurityapp\\log.txt";
+            String file = "src\\main\\java\\net\\proselyte\\springsecurityapp\\log.txt";
 
             result = readUsingFiles(file);
 
