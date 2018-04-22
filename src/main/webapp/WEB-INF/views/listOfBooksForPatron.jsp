@@ -98,75 +98,75 @@ border-radius: 17px;"
                     <br>
                 </button>
             </c:if>
-            <div id="my${book.id}" class="modal fade" >
-            <div class="modal-dialog">
-            <div class = "modal-title">
-                <button class="close" type="button" style = "top:0" data-dismiss="modal">
-                    <i class="fa fa-window-close-o" aria-hidden="true"
-                       style = "font-size:150%; margin-right:4px;width: 100%;"></i></button>
+            <div id="my${book.id}" class="modal fade"  >
+                <div class="modal-dialog">
 
-            </div>
-            <div class="modal-body">
-            <div class = "row" >
-                <br>
+                    <div class = "modal-body" style = "width:100%">
+                        <div class = "row" >
+                            <br>
 
 
-                <div style = "float:left; margin-left:6%; width:40%;">
-                    <img src = "${contextPath}/resources/imgNew/book.JPG" style =
-                            "width:120%; height:270px;"></div>
-                <div style = "float:right; width:34%; height:250px;margin-right:4%; color:#d58512; font-size:1vw;">
-                    <div style = "margin-top:0;">
-            <p>ID: ${book.id}</p>
-            <p>Title: ${book.title}</p>
-            <p>Edition: ${book.edition} </p>
-            <p>Authors: ${book.authors}</p>
-            <p>Publisher: ${book.publisher} </p>
-            <p>Publish Year: ${book.yearString} </p>
-            </div>
-            </div>
-            </div>
-            <br>
-                <div class = "row">
+                            <div style = "float:left; margin-left:6%; width:40%;">
+                                <img src = "${contextPath}/resources/imgNew/viewb.jpg" style =
+                                        "width:150%; height:57%;"></div>
+                            <div style = "float:right; margin-right:4%; color:#d58512; font-size:1vw;">
+                                <br>
+                                <p>ID: ${book.id}</p>
+                                <p>Title: ${book.title}</p>
+                                <p>Authors: ${book.authors}</p>
+                                <p>Price: ${book.price}</p>
+                                <p>Copies: ${book.copies}</p>
+                            </div>
+                        </div>
+                        <br>
+                        <div class = "row">
 
-                    <c:if test="${book.status==0}" >
-                        <div style = "float:left; margin-left:3%; width:45%">
-                            <button style = "width:100%;"><a href="/return/${book.id}" style = "font-size:2vw; text-decoration: none; color:#d58512;" >
-                                Return back </a>
-                            </button>
+                            <c:if test="${book.status==0 || book.status==2}">
+                                <div style = "width:45%;float:left; margin-left:4%;">
+                                    <button style = "width:100%;"><a href="/return/${book.id}" style = "font-size:2vw; text-decoration: none; color:#d58512;" >
+                                        Return back </a>
+                                    </button>
+
+                                </div>
+                                <div style = "width:45%;float:right; margin-right:4%">
+                                    <button style = "width:100%; float:right; font-size:2vw; color: #d58512"><a href="/renew/${book.id}" style = "font-size:2vw; text-decoration:none; color:#d58512">
+                                        Renew </a></button>
+                                </div>
+                            </c:if>
+
+                            <c:if test="${book.status==4}" >
+                                <div style = "float:right; margin-right: 3%; width:45%;">
+                                    <button><a href = "/queue/${book.id}">
+                                        Queue </a>  </button>
+                                </div>
+                            </c:if>
+
+                            <c:if test="${book.status==1}" >
+                                <div style = "text-align: center; font-size:70%;">
+                                    <button class = "name" style = "width:80%; text-align:center;"><a style = "text-decoration: none;"href="/booking/${book.id}"> Check Out </a>
+                                    </button>
+                                </div>
+                            </c:if>
+
+                            <c:if test="${book.status == 3}">
+                                Here list of Queue
+                            </c:if>
 
                         </div>
-                        <div style = "float:right; margin-right: 3%; width:45%;">
-                            <button style = "width:100%; float:right; font-size:2vw; color: #d58512" >
-                                Renew </button>
-                        </div>
 
-                    </c:if>
-
-                    <c:if test="${book.status==2}" >
-                        <div style = "float:right; margin-right:4%">
-                            <form action="/queue/${book.id}">
-                                <button >
-                                    Queue  </button>
-                            </form>>
-                        </div>
-                    </c:if>
-
-                    <c:if test="${book.status==3}" >
-                        <div style = "text-align: center; font-size:70%;">
-                            <button class = "name" style = "width:80%; text-align:center;"><a style = "text-decoration: none;"href="/booking/${book.id}"> Check Out </a>
-                            </button>
-                        </div>
-
-                    </c:if>
+                    </div>
                 </div>
-
-            </div>
-            </div>
             </div>
 
         </c:forEach>
         </div>
+
+
+
+
         <script src="${contextPath}/resources/jsNew/jquery.js"></script>
         <script src="${contextPath}/resources/jsNew/bootstrap.js"></script>
+        <script src="${contextPath}/resources/jsNew/scripts.js"></script>
         </body>
         </html>
+

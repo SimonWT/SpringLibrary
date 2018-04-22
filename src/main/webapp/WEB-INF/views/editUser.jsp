@@ -91,7 +91,6 @@
 
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <form:select path="typeString" itemValue="${userForm.typeString}">
-                    <form:option value="Librarian">Librarian</form:option>
                     <form:option value="Student">Student</form:option>
                     <form:option value="Professor">Professor</form:option>
                     <form:option value="TA">TA</form:option>

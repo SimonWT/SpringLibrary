@@ -46,9 +46,14 @@
         </c:when>
 
         <c:when test="${user.type == 'Admin'}">
-            <a href="/registerLibrarian" style = ""><i class="fa fa-user-secret" aria-hidden="true"></i> Add new Librarian</a>
-            <a href="/listOfLibrarians" style="" ><i class="fa fa-user-secret" aria-hidden="true"></i> List Of Librarians</a>
-            <a href="/logs" style = ""><i class="fa fa-user-secret" aria-hidden="true"></i> Logs</a>
+            <div class = "hell">
+            <a href="/registerLibrarian" style = ""><i class="fa fa-plus" aria-hidden="true"></i>
+                Add new Librarian</a>
+            <a href="/Logs" style = ""><i class="fa fa-history" aria-hidden="true"></i>
+                Logs</a>
+                <a href="/listOfLibrarians" style="" ><i class="fa fa-user-secret" aria-hidden="true"></i> List Of Librarians</a>
+
+            </div>
         </c:when>
 
         <c:otherwise>

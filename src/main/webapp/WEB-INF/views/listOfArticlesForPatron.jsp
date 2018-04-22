@@ -22,10 +22,13 @@
     <link href="${contextPath}/resources/cssNew/listbook.css" rel="stylesheet">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/bootstrap.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/font-awesome.css">
-    <link rel="stylesheet" href="${contextPath}/resources/cssNew/welcomeform.css">
+    <link rel="stylesheet" href="${contextPath}/resources/cssNew/listbook.css">
+
 </head>
+
 <body>
 <%@ include file ="topnav.jsp" %>
+
 <div class = "book">
     <br>
     <div class = "search2">
@@ -51,6 +54,7 @@ border-radius: 17px;"
                 <br>
             </button>
         </c:if>
+
         <c:if test = "${articleList.indexOf(article) % 4 == 1}">
 
             <button
@@ -96,6 +100,7 @@ border-radius: 17px;"
 
         <div id="my${article.id}" class="modal fade"  >
             <div class="modal-dialog">
+
                 <div class = "modal-body" style = "width:100%">
                         <div class = "row" >
                             <br>
@@ -119,33 +124,30 @@ border-radius: 17px;"
                         <br>
                         <div class = "row">
 
-                            <c:if test="${article.status==0 || article.status ==2}">
+                            <c:if test="${article.status==0 || article.status == 2}">
                             <div style = "float:left; margin-left:4%;">
-                                <button><a href="/return/${article.id}">
+                                <button style = "width:100%;"><a href="/return/${article.id}" style = "font-size:2vw; text-decoration: none; color:#d58512;" >
                                     Return back </a>
                                 </button>
 
                             </div>
-                            <div style = "float:left; margin-left:4%">
-                                <button><a href="/renew/${article.id}">
+                            <div style = "float:right; margin-right:4%">
+                                <button style = "width:100%; float:right; font-size:2vw; color: #d58512"><a href="/renew/${article.id}" style = "font-size:2vw; text-decoration:none; color:#d58512">
                                     Renew </a></button>
                             </div>
                             </c:if>
 
                         <c:if test="${article.status==4}" >
-                            <div style = "float:right; margin-right:4%">
-                                <button ><a href = "/queue/${article.id}">
+                            <div style = "float:right; margin-right: 3%; width:45%;">
+                                <button><a href = "/queue/${article.id}">
                                     Queue </a>  </button>
-                                </form>
                             </div>
                         </c:if>
 
                         <c:if test="${article.status==1}" >
-                            <div style = "float:right; margin-right:4%">
-
-                                <button><a href="/booking/${article.id}"> Book  </a>
-                                   </button>
-
+                            <div style = "text-align: center; font-size:70%;">
+                                <button class = "name" style = "width:80%; text-align:center;"><a style = "text-decoration: none;"href="/booking/${article.id}"> Check Out </a>
+                                </button>
                             </div>
                         </c:if>
 

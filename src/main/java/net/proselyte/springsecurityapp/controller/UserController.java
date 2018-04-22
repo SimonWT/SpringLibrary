@@ -1,6 +1,7 @@
 package net.proselyte.springsecurityapp.controller;
 
 import javafx.animation.ParallelTransition;
+import net.proselyte.springsecurityapp.LogWriter;
 import net.proselyte.springsecurityapp.model.Booking.History;
 import net.proselyte.springsecurityapp.model.Booking.Queue;
 import net.proselyte.springsecurityapp.model.Documents.Article;
@@ -29,6 +30,7 @@ import org.springframework.web.servlet.ModelAndView;
 import sun.rmi.log.LogHandler;
 
 
+import java.io.IOException;
 import java.security.Principal;
 import java.sql.*;
 import java.util.*;
@@ -45,6 +47,7 @@ import java.util.Date;
 @Controller
 public class UserController {
     private final Logger logger = LoggerFactory.logger(UserController.class);
+    private final LogWriter log = new LogWriter();
 
     @Autowired
     private UserService userService;
@@ -88,8 +91,13 @@ public class UserController {
     @Autowired
     private NotificationService notificationService;
 
+    public UserController() throws IOException {
+    }
+
     @RequestMapping("/deleteUser/{id}")
     public String deleteUser(@PathVariable("id") Long id){
+
+        log.write(getCurrentUser(), "delete", null, userService.getUserById(id));
         userService.delete(id);
 
         return "redirect:/listOfUsers";
@@ -102,14 +110,22 @@ public class UserController {
         return userId;
     }
 
+    private User getCurrentUser(){
+        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.findByUsername(currentUser);
+        return user;
+    }
+
+
+
     public User selecType(User user){
         User newUser = new Patron();
         if(user.getTypeString().equals("Librarian")) newUser = new Librarian(user.getUsername(), user.getPassword(),user.getName(), user.getSurname(), user.getPhone(), user.getEmail(), "Librarian");
         else if (user.getTypeString().equals("Student")) newUser = new Student(user.getUsername(), user.getPassword(),user.getName(), user.getSurname(), user.getPhone(), user.getEmail(), "Student", "Lenina");
-        else if (user.getTypeString().equals("TA")) newUser = new TA(user.getUsername(), user.getPassword(),user.getName(), user.getSurname(), user.getPhone(), user.getEmail(), "Student", "Lenina");
-        else if (user.getTypeString().equals("Instructor")) newUser = new Instructor(user.getUsername(), user.getPassword(),user.getName(), user.getSurname(), user.getPhone(), user.getEmail(), "Student", "Lenina");
-        else if (user.getTypeString().equals("Professor")) newUser = new Professor(user.getUsername(), user.getPassword(),user.getName(), user.getSurname(), user.getPhone(), user.getEmail(), "Student", "Lenina");
-        else if (user.getTypeString().equals("Visiting Professor")) newUser = new VisitingProfessor(user.getUsername(), user.getPassword(),user.getName(), user.getSurname(), user.getPhone(), user.getEmail(), "Student", "Lenina");
+        else if (user.getTypeString().equals("TA")) newUser = new TA(user.getUsername(), user.getPassword(),user.getName(), user.getSurname(), user.getPhone(), user.getEmail(), "TA", "Lenina");
+        else if (user.getTypeString().equals("Instructor")) newUser = new Instructor(user.getUsername(), user.getPassword(),user.getName(), user.getSurname(), user.getPhone(), user.getEmail(), "Instructor", "Lenina");
+        else if (user.getTypeString().equals("Professor")) newUser = new Professor(user.getUsername(), user.getPassword(),user.getName(), user.getSurname(), user.getPhone(), user.getEmail(), "Professor", "Lenina");
+        else if (user.getTypeString().equals("Visiting Professor")) newUser = new VisitingProfessor(user.getUsername(), user.getPassword(),user.getName(), user.getSurname(), user.getPhone(), user.getEmail(), "Visiting Professor", "Lenina");
         return newUser;
     }
 
@@ -135,16 +151,12 @@ public class UserController {
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String registration(@ModelAttribute("userForm") User user, BindingResult bindingResult, Model model) {
+    public String registration(@ModelAttribute("userForm") User user, BindingResult bindingResult, Model model) throws IOException {
         //userValidator.validate(userForm, bindingResult);
-
         if (bindingResult.hasErrors()) {
             return "registration";
         }
-
-
         userService.save(selecType(user));
-
         //send a notification
         try {
             notificationService.sendNotification(user);
@@ -157,6 +169,9 @@ public class UserController {
             this action authorizate new user after addition (it is useful in our case, but let it be here)
          */
         //securityService.autoLogin(userForm.getUsername(), userForm.getConfirmPassword());
+
+        log.write(getCurrentUser(), "add new" , null,
+                userService.findByUsername(user.getUsername()));
 
         return "redirect:/admin";
     }
@@ -183,7 +198,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/registerLibrarian", method = RequestMethod.POST)
-    public String registrationOfLibrarian(@ModelAttribute("userForm") Librarian user, BindingResult bindingResult, Model model) {
+    public String registrationOfLibrarian(@ModelAttribute("userForm") Librarian user, BindingResult bindingResult, Model model) throws IOException {
         //userValidator.validate(userForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
@@ -191,7 +206,9 @@ public class UserController {
         }
 
         //userService.save((Librarian)user);
+        user.setType("Librarian");
         userService.save(user);
+
 
         //send a notification
         try {
@@ -205,6 +222,7 @@ public class UserController {
             this action authorizate new user after addition (it is useful in our case, but let it be here)
          */
         //securityService.autoLogin(userForm.getUsername(), userForm.getConfirmPassword());
+        log.write(getCurrentUser(), "register" , null, user);
 
         return "redirect:/admin";
     }
@@ -287,7 +305,7 @@ public class UserController {
     }
 
     @RequestMapping(value="/editUser/{id}", method = RequestMethod.GET)
-    public ModelAndView editUser(@PathVariable("id") Long id, Model model){
+    public ModelAndView editUser(@PathVariable("id") Long id, Model model) throws IOException {
         User user1 = userService.getUserById(id);
 
         if(user1!=null)
@@ -309,15 +327,19 @@ public class UserController {
 
         mav.addObject("user", userData);
 
+
         return mav;
     }
 
     @RequestMapping(value = "/editUser/{id}",method = RequestMethod.POST)
-    public String editUser(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model){
+    public String editUser(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) throws IOException {
         userService.delete(userService.findByUsername(userForm.getUsername()).getId());
         userService.update(selecType(userForm));
 
         logger.info("Users updated: "+ userForm.toString());
+        log.write(getCurrentUser(), "edit" , null,
+                userService.findByUsername(userForm.getUsername()));
+
         return "redirect:/listOfUsers";
     }
 
@@ -351,14 +373,20 @@ public class UserController {
     }
 
     @RequestMapping(value = "/editLibrarian/{id}",method = RequestMethod.POST)
-    public String editLibrarian(@ModelAttribute("userForm") Librarian userForm, BindingResult bindingResult, Model model){
+    public String editLibrarian(@ModelAttribute("userForm") Librarian userForm, BindingResult bindingResult, Model model) throws IOException {
 
        // userService.delete(userService.findByUsername(userForm.getUsername()).getId());
         userService.delete(userForm.getId());
         userService.update(userForm);
+        userForm.setType(userForm.getTypeString());
 
         logger.info("Users updated: "+ userForm.toString());
+
+        log.write(getCurrentUser(), "edit" , null,
+                userForm);
+
         return "redirect:/listOfUsers";
+
     }
 
 
@@ -441,19 +469,15 @@ public class UserController {
                 History history = historyList.get(j);
                 Document document = documentService.getDocumentById(history.getDocId());
 
-
-
                 int status = history.getStatus();
-                if(status == 0){
+                if(status == 0 || status == 2 || status == 3){
                     openHistories.add(history);
                     document.setStatus(status);
                     history.setDocument(document);
                 }
+
                 else{
-
-
                     //Calculate Fine
-
                     if (100 * (history.getPenaltyDays()) < document.getPrice()) {
                         document.setFine(100 * (history.getPenaltyDays()));
                     }else
@@ -501,12 +525,13 @@ public class UserController {
     }
 
     @RequestMapping(value = "/booking/{docId}")
-    public String booking(@PathVariable Long docId, Model model){
+    public String booking(@PathVariable Long docId, Model model) throws IOException {
         String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userService.findByUsername(currentUser);
+        Document document = documentService.getDocumentById(docId);
         Long userId = user.getId();
 
-        if(documentService.getDocumentById(docId)==null) return "redirect:/error/wrongid";
+        if(document==null) return "redirect:/error/wrongid";
         int status = -2;
         if(user instanceof Patron){
             Library library = new Library();
@@ -515,15 +540,17 @@ public class UserController {
             ((Patron) user).setDocumentService(documentService);
             ((Patron) user).setHistoryService(historyService);
             ((Patron) user).setUserService(userService);
-             status = ((Patron) user).checkout(documentService.getDocumentById(docId), new Date(System.currentTimeMillis()));
+             status = ((Patron) user).checkout(document, new Date(System.currentTimeMillis()));
 
         }else return "redirect:/error";
         //Status ==0 - Success
+
+
         return "redirect:/status/booking/"+docId;
     }
 
     @RequestMapping(value = "/queue/{docId}")
-    public String queue(@PathVariable Long docId) {
+    public String queue(@PathVariable Long docId) throws IOException {
         String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userService.findByUsername(currentUser);
         Long userId = user.getId();
@@ -535,6 +562,8 @@ public class UserController {
             ((Patron) user).setQueueService(queueService);
             Queue queue = new Queue(new Date(System.currentTimeMillis()), docId, userId);
             queueService.save(queue);
+            log.write(getCurrentUser(), " added to queue " , documentService.getDocumentById(docId),
+                    null);
         }
 
         //Status ==0 - Success
@@ -544,7 +573,7 @@ public class UserController {
 
 
     @RequestMapping(value = "/return/{docId}")
-    public String returnDoc(@PathVariable Long docId, Model model){
+    public String returnDoc(@PathVariable Long docId, Model model) throws IOException {
         String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userService.findByUsername(currentUser);
         Long userId = user.getId();
@@ -571,7 +600,7 @@ public class UserController {
 
 
     @RequestMapping("/renew/{docId}")
-    public String renewDoc(@PathVariable Long docId, Model model){
+    public String renewDoc(@PathVariable Long docId, Model model) throws IOException {
         Long userId = getCurrentUserId();
         User user = userService.getUserById(userId);
         Document document = documentService.getDocumentById(docId);
@@ -636,12 +665,43 @@ public class UserController {
         userData.put("phone", user.getPhone());
         userData.put("email", user.getEmail());
         userData.put("type", user.getType());
+
         mav.setViewName("queue");
 
         mav.addObject("user", userData);
 
         return mav;
     }
+
+    @RequestMapping(value = "/Logs", method = RequestMethod.GET)
+    public ModelAndView logs(Model model){
+
+        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.findByUsername(currentUser);
+        ModelAndView mav = new ModelAndView();
+        /*Map<String, String> message1 = new HashMap<String, String>();
+        message1.put("message1", "Hello World");
+        mav.setViewName("welcome");
+        mav.addObject("message", message1);*/
+        Map<String, String> userData = new HashMap<>();
+        userData.put("username", user.getUsername());
+        userData.put("name", user.getName());
+        userData.put("surname", user.getSurname());
+        userData.put("phone", user.getPhone());
+        userData.put("email", user.getEmail());
+        userData.put("type", user.getType());
+
+        mav.setViewName("Logs");
+
+        mav.addObject("user", userData);
+
+
+        model.addAttribute("logs",log.read());
+
+        return mav;
+
+    }
+
 
 
   /*  @RequestMapping(value = "/search", method = RequestMethod.GET)
