@@ -27,12 +27,12 @@
             <th width="120">Author</th>
             <th width="120">Price</th>
         </tr>
-        <c:forEach items="${listOfbooks}" var="book">
+        <c:forEach items="${listOfbooks}" var="av">
             <tr>
-                <td>${book.id}</td>
-                <td>${book.title}</td>
+                <td>${av.id}</td>
+                <td>${av.title}</td>
                 <%--<td>${book.author}</td>--%>
-                <td>${book.price}</td>
+                <td>${av.price}</td>
                 <td><a href="#">Return</a></td>
             </tr>
         </c:forEach>

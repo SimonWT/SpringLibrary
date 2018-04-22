@@ -12,27 +12,16 @@
 </head>
 <body>
 <%@ include file ="topnav.jsp" %>
-<div class="tab">
-    <button class="tablinks" onclick="openCity(event, 'London')">London</button>
-    <button class="tablinks" onclick="openCity(event, 'Paris')">Paris</button>
-    <button class="tablinks" onclick="openCity(event, 'Tokyo')">Tokyo</button>
-</div>
+<script language="javascript">
+    function a()
+    {document.getElementById('info').innerHTML = 'kod5';}
+    function b()
+    {document.getElementById('info').innerHTML = 'kod6';}
+</script>
+<input type="button" value="Hello!" name="hello" OnClick="a();">
+<input type="button" value="Hello!" name="hello" OnClick="b();">
+<div id="info"></div>
 
-<!-- Tab content -->
-<div id="Authors" class="tabcontent">
-    <h3>By Authors</h3>
-    <p>spisok1</p>
-</div>
-
-<div id="Title" class="tabcontent">
-    <h3>By Title</h3>
-    <p>s pisok2</p>
-</div>
-
-<div id="Desk" class="tabcontent">
-    <h3>By Description</h3>
-    <p>spisok 3</p>
-</div>
 
 </body>
 </html>

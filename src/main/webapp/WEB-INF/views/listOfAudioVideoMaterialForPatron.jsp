@@ -32,129 +32,115 @@
 <body>
 <%@ include file ="topnav.jsp" %>
 <div class = "book">
-    <br>
-    <div class = "search2">
+    <div class = "now">
+        <c:if test="${empty audioVideoList}">
+            <div  class = "vp" style = "background:#d5d5d5; margin-top:5%; font-size:3vw; color: #d58512;  margin-left:3%; margin-right:3%; margin-bottom:5%;">
+                <p> Now you can't access to  have documents.</p>
+                <p> Choose new category of  document:</p>
+                <br>
+                <div class = "formoc">
+                    <a href="/listOfAudioVideoMaterialForPatron" style = ""><i class="fa fa-file-audio-o" aria-hidden="true"></i>
+                        Media</a>
+                    <a href="/listOfArticlesForPatron" style = ""><i class="fa fa-newspaper-o" aria-hidden="true"></i>
+                        Journal Article</a>
+                </div>
+                <br>
+                <br>
+            </div>
 
-        <input type="search" id="mySearch" style = "width:80%; font-size:2vw; text-align:center; outline:#d9534f; border:none;
-border-radius: 17px;"
-               placeholder="Search media by keywords..." required>
-        <button style = "">Search</button>
-        <br>
+        </c:if>
+
     </div>
+    <c:if test="${not empty audioVideoList}">
+    <br>
+    <div  class = "search2">
+
+        <p>Click on the av to get more information about it</p>
+        <!--<input type="search" id="mySearch" style = "width:80%; font-size:2vw; text-align:center; outline:#d9534f; border:none;
+border-radius: 17px;"
+               placeholder="Search book by keywords..." required>
+        <button style = "">Search</button> !-->
+        <br>
+    </div></c:if>
+
     <c:forEach items="${audioVideoList}" var="av">
-        <c:if test = "${audioVideoList.indexOf(av) % 4 == 0}">
+    <c:if test = "${audioVideoList.indexOf(av) % 3 == 0}">
 
-            <button
-                    type="button" data-toggle="modal"
-                    data-target="#my${av.id}">
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-            </button>
-        </c:if>
-        <c:if test = "${audioVideoList.indexOf(av) % 4 == 1}">
+    <button
+            type="button" data-toggle="modal" class = "need3"
+            data-target="#my${av.id}">
+        <div class = "insi" style = " border:none; border-radius:14px;background:white; margin-top:44%; margin-bottom:44%">
+            <p style = ""> ${av.title} </p>
+        </div>
+    </button>
+    </c:if>
+    <c:if test = "${audioVideoList.indexOf(av) % 3 == 1}">
 
-            <button
-                    type="button" data-toggle="modal"
-                    data-target="#my${av.id}">
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-            </button>
-        </c:if>
-        <c:if test = "${audioVideoList.indexOf(av) % 4 == 2}">
+    <button
+            type="button" data-toggle="modal" class = "need3"
+            data-target="#my${av.id}">
+        <div class = "insi" style = " border:none; border-radius:14px;background:white; margin-top:44%; margin-bottom:44%">
+            <p> ${av.title} </p>
+        </div>
+    </button>
+    </c:if>
+    <c:if test = "${audioVideoList.indexOf(av) % 3 == 2}">
 
-            <button
-                    type="button" data-toggle="modal"
-                    data-target="#my${av.id}">
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-            </button>
-        </c:if>
-        <c:if test = "${audioVideoList.indexOf(av) % 4 == 3}">
-
-            <button
-                    type="button" data-toggle="modal"
-                    data-target="#my${av.id}">
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-            </button>
-        </c:if>
+    <button
+            type="button" data-toggle="modal" class = "need3"
+            data-target="#my${av.id}">
+        <div class = "insi" style = " border:none; border-radius:14px;background:white; margin-top:44%; margin-bottom:44%">
+            <p> ${av.title} </p>
+        </div>
+    </button>
+    </c:if>
 
         <div id="my${av.id}" class="modal fade"  >
             <div class="modal-dialog">
-                <div class = "modal-body" style = "width:100%">
-                    <div class = "row" >
-                        <br>
+                <div class = "modal-body" style = "width:100%; border:none; border-radius:20px;">
 
-
-                        <div style = "float:left; margin-left:6%; width:40%;">
-                            <img src = "${contextPath}/resources/imgNew/audio.jpg" style =
-                                    "width:150%; height:57%;"></div>
-                        <div style = "float:right; width:27%; height:57%;margin-right:4%; color:#d58512; font-size:1vw;">
-                            <div style = "margin-top:100%;">
-                            Title: ${av.title}
+                        <div class = "hate" style = "border-radius:7px;margin-top:2%;">
+                            <p>Title: <p1>${av.title}</p1> </p>
                             <br>
-                            Authors: ${av.authors}
+                            <p>Authors: <p1>${av.authors}</p1></p>
                             </div>
-                        </div>
 
-                    </div>
+
+
                     <br>
                     <div class = "row">
 
-                                    <div class = "row">
+                        <c:if test="${av.status==0 || av.status==2}">
+                            <div style = "width:45%;float:left; margin-left:4%;">
+                                <button style = "width:100%;"><a href="/return/${av.id}" style = "font-size:2vw; text-decoration: none; color:#d58512;" >
+                                    Return back </a>
+                                </button>
 
-                                        <c:if test="${av.status==0 || av.status ==2}">
-                                            <div style = "float:left; margin-left:4%;">
-                                                <button style = "width:100%;"><a href="/return/${av.id}" style = "font-size:2vw; text-decoration: none; color:#d58512;" >
-                                                    Return back </a>
-                                                </button>
+                            </div>
+                            <div style = "width:45%;float:right; margin-right:4%">
+                                <button style = "width:100%;  color: #d58512"><a href="/renew/${av.id}" style = "font-size:2vw; text-decoration:none; color:#d58512">
+                                    Renew </a></button>
+                            </div>
+                        </c:if>
 
-                                            </div>
-                                            <div style = "float:right; margin-right:4%">
-                                                <button style = "width:100%; float:right; font-size:2vw; color: #d58512"><a href="/renew/${av.id}" style = "font-size:2vw; text-decoration:none; color:#d58512">
-                                                    Renew </a></button>
-                                            </div>
-                                        </c:if>
+                        <c:if test="${av.status==4}" >
+                            <div style = "text-align: center; font-size:70%;">
+                                <button class = "name" style = "width:80%;"><a  style = "text-decoration: none;" href = "/queue/${av.id}">
+                                    Queue </a>  </button>
+                            </div>
+                        </c:if>
 
-                                        <c:if test="${av.status==4}" >
-                                            <div style = "float:right; margin-right: 3%; width:45%;">
-                                                <button><a href = "/queue/${av.id}">
-                                                    Queue </a>  </button>
-                                            </div>
-                                        </c:if>
-
-                                        <c:if test="${av.status==1}" >
-                                            <div style = "text-align: center; font-size:70%;">
-                                                <button class = "name" style = "width:80%; text-align:center;"><a style = "text-decoration: none;"href="/booking/${av.id}"> Check Out </a>
-                                                </button>
-                                            </div>
-                                        </c:if>
+                        <c:if test="${av.status==1}" >
+                            <div style = "text-align: center; font-size:70%;">
+                                <button class = "name" style = "width:80%;  text-align:center;"><a style = "text-decoration: none;"href="/booking/${av.id}"> Check Out </a>
+                                </button>
+                            </div>
+                        </c:if>
 
                                         <c:if test="${av.status == 3}">
                                             Here list of <a class = "ab" href = "/viewQueue/${av.id}" style = ""> Queue </a>
                                         </c:if>
 
-                                    </div>
 
                                 </div>
                             </div>
