@@ -38,6 +38,7 @@
             <th>Privilege</th>
             <th>Phone number</th>
             <th>Email</th>
+            <th>Privilege</th>
             <th>View</th>
         </tr>
 
@@ -54,7 +55,7 @@
         <td>${librarian.privilege}</td>
         <td>${librarian.phone}</td>
         <td>${librarian.email}</td>
-
+        <td>${librarian.privilege}</td>
         <td><a href="/editLibrarian/${librarian.id}">Modify</a><a href="/deleteUser/${librarian.id}">Delete</a></td>
 
         </tr>

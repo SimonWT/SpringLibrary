@@ -20,8 +20,7 @@
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/bootstrap.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/font-awesome.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/welcomeform.css">
-<style>
-</style>
+    <link rel="stylesheet" href="${contextPath}/resources/cssNew/listbook.css">
 </head>
 <body>
 <div class="topnav" id="myTopnav">
@@ -33,9 +32,7 @@
         DeepLib
 
     </a>
-
     <c:choose>
-
 
         <c:when test="${user.type=='Librarian'}">
             <div class  = "hell2">
@@ -54,25 +51,13 @@
                 Add new Librarian</a>
             <a href="/Logs" style = ""><i class="fa fa-history" aria-hidden="true"></i>
                 Logs</a>
+                <a href="/listOfLibrarians" style="" ><i class="fa fa-user-secret" aria-hidden="true"></i> List Of Librarians</a>
+
             </div>
         </c:when>
 
         <c:otherwise>
-            <div class="box">
-                <div class="container-1">
-            <span class="icon">
-</span>
-                    <input type="search" id="search" placeholder="Search..." />
-                    <select placeholder = "Choose category to search here" > <option>By Description</option>
-                        <option>By Authors</option>
-                        <option>By Label</option>
-                        <option>By Label and Authors</option>
-                    </select>
-
-                </div>
-            </div>
             <div class  = "hell">
-
                 <a href="/listOfAudioVideoMaterialForPatron" style = ""><i class="fa fa-file-audio-o" aria-hidden="true"></i>
                     Media</a>
                 <a href="/listOfArticlesForPatron" style = ""><i class="fa fa-newspaper-o" aria-hidden="true"></i>
@@ -107,17 +92,10 @@
         <div class="dropdown-content2">
             <a href="/ProfilePage" data-toggle="modal" data-target="#largeModal"> <i class="fa fa-address-card-o" aria-hidden="true"></i>
                 Profile</a>
-<c:choose>
-    <c:when test="${user.type == 'Admin'}">
-
-</c:when>
-    <c:otherwise>
-    <a href="/mydoc">
+            <a href="/mydoc">
                 <i class="fa fa-bookmark" aria-hidden="true"></i>
 
                 My Documents</a>
-</c:otherwise>
-</c:choose>
 
 
             <c:if test="${pageContext.request.userPrincipal.name != null}">
@@ -148,7 +126,7 @@
                     <div class="row">
                         <div class="cont1">
                         <span class = "photprof">
-                        <img src="${contextPath}/resources/imgNew/user2.png" height = "20%"; width = "20%";>
+                    <img src="${contextPath}/resources/imgNew/user2.png" height = "auto"; width = "auto";>
 
                     <p style = "padding-left:25%; padding-top:5%;">Deep Library ID: ${user.username}</p>
                 </span>
@@ -195,7 +173,6 @@
             </div>
         </div>
     </div>
-
 <script>
     function myFunction() {
         var x = document.getElementById("myTopnav");
@@ -205,10 +182,9 @@
             x.className = "topnav";
         }
     }
-
 </script>
     <script src="${contextPath}/resources/jsNew/jquery.js"></script>
     <script src="${contextPath}/resources/jsNew/bootstrap.js"></script>
-
+</div>
 </body>
 </html>
