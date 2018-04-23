@@ -24,6 +24,7 @@ import org.springframework.mail.MailException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -248,10 +249,6 @@ public class UserController {
         }
 
         return "login";
-    }
-    @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public String search(Model model){
-        return "search";
     }
 
     @RequestMapping(value = "/loginNew", method = RequestMethod.GET)
@@ -554,44 +551,25 @@ public class UserController {
     }
 
     @RequestMapping(value = "/queue/{docId}")
-    public String queue(@PathVariable Long docId, Model model) throws IOException {
-
+    public String queue(@PathVariable Long docId) throws IOException {
         String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userService.findByUsername(currentUser);
         Long userId = user.getId();
-
-        Document document = documentService.getDocumentById(docId);
-
-        if(document==null) return "redirect:/error/wrongid";
+        if(documentService.getDocumentById(docId)==null) return "redirect:/error/wrongid";
         int status = -2;
         if(user instanceof Patron){
             Library library = new Library();
-
             library.patrons.add((Patron) user);
             ((Patron) user).setQueueService(queueService);
-            ((Patron) user).setDocumentService(documentService);
-            ((Patron) user).setHistoryService(historyService);
-            ((Patron) user).setUserService(userService);
-
-            //Queue queue = new Queue(new Date(System.currentTimeMillis()), docId, userId);
-
-            status = ((Patron) user).checkout(document, new Date(System.currentTimeMillis()));
-
-            //queueService.save(queue);
+            Queue queue = new Queue(new Date(System.currentTimeMillis()), docId, userId);
+            queueService.save(queue);
             log.write(getCurrentUser(), " added to queue " , documentService.getDocumentById(docId),
                     null);
         }
 
         //Status ==0 - Success
-        List<History> historyList= historyService.getListHistoriesByIdAndDocId(userId,docId);
-        History history = historyList.get(historyList.size()-1);
-        if(history == null || history.status==0) return "error";
-        else{
-            model.addAttribute("history", history );
-            model.addAttribute("document", documentService.getDocumentById(history.getDocId()));
-        }
 
-        return "status";
+        return "redirect:/listOfBooksForPatron";
     }
 
 
@@ -671,14 +649,16 @@ public class UserController {
         return "status";
     }
     
-    @RequestMapping(value = "/viewQueue/{docId}", method = RequestMethod.GET)
-    public ModelAndView viewQueue(@PathVariable Long docId, Model model) {
+    @RequestMapping(value = "/queue", method = RequestMethod.GET)
+    public ModelAndView queue(Model model) {
 
         String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userService.findByUsername(currentUser);
         ModelAndView mav = new ModelAndView();
-
-
+        /*Map<String, String> message1 = new HashMap<String, String>();
+        message1.put("message1", "Hello World");
+        mav.setViewName("welcome");
+        mav.addObject("message", message1);*/
         Map<String, String> userData = new HashMap<>();
         userData.put("username", user.getUsername());
         userData.put("name", user.getName());
@@ -687,9 +667,8 @@ public class UserController {
         userData.put("email", user.getEmail());
         userData.put("type", user.getType());
 
-        mav.setViewName("viewQueue");
+        mav.setViewName("queue");
 
-        model.addAttribute("queue", queueService.getPriorityQueue(docId));
         mav.addObject("user", userData);
 
         return mav;
@@ -726,40 +705,33 @@ public class UserController {
 
 
 
-  /*  @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public String search(Principal principal, Model model) throws SQLException {
-
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://127.0.0.1/deep_library_3rd_delivery");
-        dataSource.setUsername("root");
-        dataSource.setPassword("root");
-        String query="SELECT * FROM books WHERE title LIKE ' "+title+" ' ";;
-        Connection conn= DriverManager.getConnection(dataSource.getUrl(), dataSource.getUsername(), dataSource.getPassword());
-        Statement stmt=conn.createStatement();
-        ResultSet rs=stmt.executeQuery(query);
-        List<Book> list = new LinkedList<>();
-        while(rs.next()){
-
-            String title = rs.getString("title");
-            String author = rs.getString("author");
-            Integer price = rs.getInt("price");
-*/
-            //Assuming you have a user object
-  /*          Book book = new Book();
-            book.setAuthors(author);
-            book.setTitle(title);
-            book.setPrice(price);
-
-            list.add(book);
+    @RequestMapping(value = "/search/{title}", method = RequestMethod.GET)
+     public String search(@PathVariable String title, ModelMap model) throws SQLException {
+               List<Document> documents = documentService.getAllDocuments();
+              List<Document> documentsAnswerListByTitle = new ArrayList<>();
+               List<Document> documentsAnswerListByAuthor = new ArrayList<>();
+                List<Document> documentsAnswerListByAuthorAndTitle = new ArrayList<>();
+                List<Document> documentsAnswerListByKeyWords = new ArrayList<>();
+                for (int i = 0; i < documents.size(); i++) {
+                        Document document = documents.get(i);
+                        if (document.getTitle().equals(title)) {
+                                documentsAnswerListByTitle.add(document);
+                                documentsAnswerListByAuthorAndTitle.add(document);
+                            }
+                        if (document.getAuthors().equals(title)) {
+                                documentsAnswerListByAuthor.add(document);
+                                documentsAnswerListByAuthorAndTitle.add(document);
+                            }
 
         }
+              model.put("documentsAnswerListByTitle", documentsAnswerListByTitle);
+                model.put("documentsAnswerListByAuthor", documentsAnswerListByAuthor);
+                model.put("documentsAnswerListByAuthorAndTitle", documentsAnswerListByAuthorAndTitle);
 
 
-        model.addAttribute("listOfbooks", list );
 
-        return "checkOutedBooks";
+
+               return "search";
     }
-*/
 
 }

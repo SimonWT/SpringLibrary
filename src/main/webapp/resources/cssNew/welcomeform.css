@@ -21,7 +21,6 @@ body {margin:0;
 .hell{
     display: block;
     color: #ddd8c4;
-    position: fixed;
     text-decoration: none;
     font-size: 20px;
     margin-left:calc(50% - 200px);
@@ -49,17 +48,7 @@ body {margin:0;
     background-color: #d46b0e;
     color: white;
 }
-.navba {
-    position: fixed; /* Фиксированное положение */
-    left: 0; bottom: 0; /* Левый нижний угол */
-    padding: 10px; /* Поля вокруг текста */
-    background: #c4e3f3; /* Цвет фона */
-    color: #d58512; /* Цвет текста */
-    width: 100%;
-    text-align: right;
-    font-size:240%;
 
-}
 
 
 .topnav .icon {
