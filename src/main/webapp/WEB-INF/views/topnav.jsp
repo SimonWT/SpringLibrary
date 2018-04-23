@@ -64,20 +64,23 @@
             <span class="icon">
 </span>             <form:form method="POST">
                     <input type="search" id="search" placeholder="Search..." />
-                    <select placeholder = "Choose category to search here" > <option>By Description</option>
-                        <option>By Authors</option>
-                        <option>By Label</option>
-                        <option>By Label and Authors</option>
-                    </select>
-                    <button class="btn btn-block" type="submit">Submit</button>
+                    <button name="full"  class="btn btn-block" type="submit">Full</button></tr>
+                    <button name="part"  class="btn btn-block" type="submit">Full</button></tr>
+
                 </form:form>
                     <script>
 
-                        $("form#command").submit(function(e){
+                        $("form#command button[name=full]").click(function(e){
                             e.preventDefault();
                             if ($("form#command input#search").val() == "") return;
                             window.location.href="/search/"+$("form#command input#search").val();
                         });
+                        $("form#command button[name=part]").click(function(e){
+                            e.preventDefault();
+                            if ($("form#command input#search").val() == "") return;
+                            window.location.href="/searchPart/"+$("form#command input#search").val();
+                        });
+
                     </script>
                 </div>
             </div>
