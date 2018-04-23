@@ -38,3 +38,5 @@
 [Apr 23 00:18:19] (Patron) i.vakhula_user[ 31 ] :   booke   AV material [ 438 , Secret Chat ]  
 [Apr 23 00:22:34] (Patron) i.vakhula_user[ 31 ] :  return  AV material [ 438 , Secret Chat ]  
 [Apr 23 00:22:45] (Patron) i.vakhula_user[ 31 ] :   booke   Article [ 437 , If suggest for talk ]  
+[Apr 23 02:23:29] (Librarian) bbbbbbbbbbbbb[ 3713 ] :  delete  Patron [ 31 , i.vakhula_user ] 
+[Apr 23 02:23:32] (Librarian) bbbbbbbbbbbbb[ 3713 ] :  delete  Patron [ 31 , i.vakhula_user ] 

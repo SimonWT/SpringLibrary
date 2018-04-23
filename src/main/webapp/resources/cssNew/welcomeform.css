@@ -234,7 +234,7 @@ body {margin:0;
     text-align:center;
     color:black;
 }
-input[type=text] {
+.t {
     width: 130px;
     float:left;
     margin-left:3%;
@@ -250,7 +250,7 @@ input[type=text] {
 }
 
 /* When the input field gets focus, change its width to 100% */
-input[type=text]:focus {
+.t:focus {
     padding-left: 2%;
     width: 17%;
 }

@@ -25,12 +25,12 @@
 </head>
 
 <body>
+<%@ include file ="topnav.jsp" %>
 
 <div class="container">
-    <%@ include file ="topnav.jsp" %>
 
     <form:form method="POST" modelAttribute="userForm" class="form-signin">
-        <h2 class="form-signin-heading">Edit a User</h2>
+        <h2 class="form-signin-heading">Edit  User</h2>
         <spring:bind path="username">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <form:input value="${userForm.username}" type="text" path="username" class="form-control" placeholder="Username"
@@ -90,7 +90,7 @@
             <%--</div>--%>
 
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:select path="typeString" itemValue="${userForm.typeString}">
+                <form:select cssStyle="width:100%;  text-align: center; outline:none; border:none; border-radius: 17px; font-size: 2vw;" path="typeString" itemValue="${userForm.typeString}">
                     <form:option value="Student">Student</form:option>
                     <form:option value="Professor">Professor</form:option>
                     <form:option value="TA">TA</form:option>
@@ -100,9 +100,9 @@
             </div>
         </spring:bind>
 
+        <button class="btn btn-block" type="submit" style = "background: #ddd8c4; color:#d46b0e; font-size:30px; border:none; border-radius: 17px;">Submit</button>
 
 
-        <button class="btn btn-block" type="submit">Submit</button>
     </form:form>
 
 </div>

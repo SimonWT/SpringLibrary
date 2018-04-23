@@ -46,7 +46,7 @@
         </c:when>
 
         <c:when test="${user.type == 'Admin'}">
-            <div class = "hell">
+            <div class = "hell2">
             <a href="/registerLibrarian" style = ""><i class="fa fa-plus" aria-hidden="true"></i>
                 Add new Librarian</a>
             <a href="/Logs" style = ""><i class="fa fa-history" aria-hidden="true"></i>
@@ -57,7 +57,7 @@
         </c:when>
 
         <c:otherwise>
-            <input type="text" name="search" placeholder="   Search..">
+            <input type="text" class = "t" name="search" placeholder="   Search..">
 
             <div class  = "hell">
                 <a href="/listOfAudioVideoMaterialForPatron" style = ""><i class="fa fa-file-audio-o" aria-hidden="true"></i>
@@ -83,6 +83,12 @@
             <i class="fa fa-exclamation" aria-hidden="true" style = "color:red;"></i>
 
         </a>
+        <p style = "width:100%;color:darkred">
+        <i class="fa fa-telegram" aria-hidden="true"></i>
+
+        What happened with telegram?
+
+        </p>
     </div>
 </div>
     <div class="dropdown2" >
@@ -94,11 +100,13 @@
         <div class="dropdown-content2">
             <a href="/ProfilePage" data-toggle="modal" data-target="#largeModal"> <i class="fa fa-address-card-o" aria-hidden="true"></i>
                 Profile</a>
+
+<c:if test="${user.type != 'Admin' and user.type != 'Librarian'}" >
             <a href="/mydoc">
                 <i class="fa fa-bookmark" aria-hidden="true"></i>
 
                 My Documents</a>
-
+</c:if>
 
             <c:if test="${pageContext.request.userPrincipal.name != null}">
                 <form id="logoutForm" method="POST" action="${contextPath}/logout">

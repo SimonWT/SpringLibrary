@@ -20,7 +20,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>New Article | DeepLib</title>
+    <title>New Article || DeepLib</title>
 
     <link href="${contextPath}/resources/css/common.css" rel="stylesheet">
 

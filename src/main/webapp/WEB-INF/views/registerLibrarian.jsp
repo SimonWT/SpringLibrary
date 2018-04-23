@@ -87,7 +87,8 @@
             <%--</div>--%>
 
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:select path="privilege">
+                <form:select path="privilege" cssStyle="width: 100%;  font-size:2.5vw; text-align:center; border:none; border-radius:17px; outline:none;  background: #f2dede;">
+
                     <form:option value="1">Privilege 1</form:option>
                     <form:option value="2">Privilege 2</form:option>
                     <form:option value="3">Privilege 3</form:option>
@@ -96,13 +97,13 @@
         </spring:bind>
 
 
-        <button class="btn btn-block" type="submit">Submit</button>
-    </form:form>
+        <button style = "width:300px; font-size:240%; min-height:50px; background:#adadad; border:none; outline:none; border-radius:13px;
+" type="submit">Submit</button>    </form:form>
+
 
 </div>
 
 <script src="${contextPath}/resources/jsNew/jquery.js"></script>
 <script src="${contextPath}/resources/jsNew/bootstrap.js"></script>
-<script src="${contextPath}/resources/jsNew/scripts.js"></script>
 </body>
 </html>
