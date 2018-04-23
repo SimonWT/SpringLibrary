@@ -20,8 +20,28 @@
 
 <!-- Tab content -->
 <div id="Authors" class="tabcontent">
-    <h3>By Authors</h3>
-    <p>spisok1</p>
+    <div class="container">
+        <table class="table table-striped">
+
+            <thead>
+            <tr class="tr tr-success">
+                <td>Title</td>
+                <td>Authors</td>
+                <td>Price</td>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach items="${documentsAnswerListByTitle}" var="document">
+                <tr>
+                    <td>${document.title}</td>
+                    <td>${document.authors}</td>
+                    <td>${document.price}</td>
+
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <div id="Title" class="tabcontent">

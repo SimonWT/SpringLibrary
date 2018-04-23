@@ -20,7 +20,9 @@
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/bootstrap.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/font-awesome.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/welcomeform.css">
-    <link rel="stylesheet" href="${contextPath}/resources/cssNew/listbook.css">
+    <script src="${contextPath}/resources/jsNew/jquery.js"></script>
+    <style>
+    </style>
 </head>
 <body>
 <div class="topnav" id="myTopnav">
@@ -32,7 +34,9 @@
         DeepLib
 
     </a>
+
     <c:choose>
+
 
         <c:when test="${user.type=='Librarian'}">
             <div class  = "hell2">
@@ -47,17 +51,38 @@
 
         <c:when test="${user.type == 'Admin'}">
             <div class = "hell">
-            <a href="/registerLibrarian" style = ""><i class="fa fa-plus" aria-hidden="true"></i>
-                Add new Librarian</a>
-            <a href="/Logs" style = ""><i class="fa fa-history" aria-hidden="true"></i>
-                Logs</a>
-                <a href="/listOfLibrarians" style="" ><i class="fa fa-user-secret" aria-hidden="true"></i> List Of Librarians</a>
-
+                <a href="/registerLibrarian" style = ""><i class="fa fa-plus" aria-hidden="true"></i>
+                    Add new Librarian</a>
+                <a href="/Logs" style = ""><i class="fa fa-history" aria-hidden="true"></i>
+                    Logs</a>
             </div>
         </c:when>
 
         <c:otherwise>
+            <div class="box">
+                <div class="container-1">
+            <span class="icon">
+</span>             <form:form method="POST">
+                    <input type="search" id="search" placeholder="Search..." />
+                    <select placeholder = "Choose category to search here" > <option>By Description</option>
+                        <option>By Authors</option>
+                        <option>By Label</option>
+                        <option>By Label and Authors</option>
+                    </select>
+                    <button class="btn btn-block" type="submit">Submit</button>
+                </form:form>
+                    <script>
+
+                        $("form#command").submit(function(e){
+                            e.preventDefault();
+                            if ($("form#command input#search").val() == "") return;
+                            window.location.href="/search/"+$("form#command input#search").val();
+                        });
+                    </script>
+                </div>
+            </div>
             <div class  = "hell">
+
                 <a href="/listOfAudioVideoMaterialForPatron" style = ""><i class="fa fa-file-audio-o" aria-hidden="true"></i>
                     Media</a>
                 <a href="/listOfArticlesForPatron" style = ""><i class="fa fa-newspaper-o" aria-hidden="true"></i>
@@ -72,17 +97,17 @@
             <i class="fa fa-envelope" aria-hidden="true"></i>
 
         </button>
-    <div class="dropdown-content3" >
+        <div class="dropdown-content3" >
 
-        <p><a href="http://38.mchs.gov.ru/document/1396914" style = "width:100%;color:darkred">
-            <i class="fa fa-fire" aria-hidden="true"></i>
+            <p><a href="http://38.mchs.gov.ru/document/1396914" style = "width:100%;color:darkred">
+                <i class="fa fa-fire" aria-hidden="true"></i>
 
-            What to Do: Fire Emergency
-            <i class="fa fa-exclamation" aria-hidden="true" style = "color:red;"></i>
+                What to Do: Fire Emergency
+                <i class="fa fa-exclamation" aria-hidden="true" style = "color:red;"></i>
 
-        </a>
+            </a>
+        </div>
     </div>
-</div>
     <div class="dropdown2" >
         <button class="dropbtn"><i class="fa fa-user-circle-o" aria-hidden="true"></i>
 
@@ -92,10 +117,17 @@
         <div class="dropdown-content2">
             <a href="/ProfilePage" data-toggle="modal" data-target="#largeModal"> <i class="fa fa-address-card-o" aria-hidden="true"></i>
                 Profile</a>
-            <a href="/mydoc">
-                <i class="fa fa-bookmark" aria-hidden="true"></i>
+            <c:choose>
+                <c:when test="${user.type == 'Admin'}">
 
-                My Documents</a>
+                </c:when>
+                <c:otherwise>
+                    <a href="/mydoc">
+                        <i class="fa fa-bookmark" aria-hidden="true"></i>
+
+                        My Documents</a>
+                </c:otherwise>
+            </c:choose>
 
 
             <c:if test="${pageContext.request.userPrincipal.name != null}">
@@ -114,65 +146,66 @@
 
     <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
 </div>
-    <div class="modal" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="cont">
-                <div class="modal2">`
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <i class="fa fa-window-close-o" aria-hidden="true" style = "font-size:45px; padding-right:4px;"></i>
-                    </button>
-                    <br>
-                    <br>
-                    <div class="row">
-                        <div class="cont1">
+<div class="modal" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="cont">
+            <div class="modal2">`
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="fa fa-window-close-o" aria-hidden="true" style = "font-size:45px; padding-right:4px;"></i>
+                </button>
+                <br>
+                <br>
+                <div class="row">
+                    <div class="cont1">
                         <span class = "photprof">
-                    <img src="${contextPath}/resources/imgNew/user2.png" height = "auto"; width = "auto";>
+                        <img src="${contextPath}/resources/imgNew/user2.png" height = "20%"; width = "20%";>
 
                     <p style = "padding-left:25%; padding-top:5%;">Deep Library ID: ${user.username}</p>
                 </span>
-                        </div>
-                        <div class="cont2">
-                            <p>${user.name}  ${user.surname}</p>
-                            <a href="tel:${user.phone}">${user.phone}</a>
-                            <p><a href="mailto:${user.email}">
-                                ${user.email}</a></p>
-                            <p>Type: ${user.type}</p>
-
-                            <button  style = "background:#8a6d3b; outline:none; border: none; font-size:25px;"><a href="#" style = "color:#ddd8c4">
-                                <i class="fa fa-bookmark" aria-hidden="true" style = "padding-right:5px;"></i>My Documents</a></button>
-                        </div>
                     </div>
-                    <div class = "row">
-                        <div class = "button1">
-                            <button> <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                Edit </button>
-                        </div>
-                        <div class = "button2">
-                            <c:if test="${pageContext.request.userPrincipal.name != null}">
-                                <form id="logoutForm" method="POST" action="${contextPath}/logout">
-                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                                    <a href = "#" onclick="document.forms['logoutForm'].submit()"> <button ><i class="fa fa-sign-out" aria-hidden="true"></i>
-                                        Logout </button></a>
-                                </form>
+                    <div class="cont2">
+                        <p>${user.name}  ${user.surname}</p>
+                        <a href="tel:${user.phone}">${user.phone}</a>
+                        <p><a href="mailto:${user.email}">
+                            ${user.email}</a></p>
+                        <p>Type: ${user.type}</p>
 
-
-                            </c:if>
-                        </div>
+                        <button  style = "background:#8a6d3b; outline:none; border: none; font-size:25px;"><a href="#" style = "color:#ddd8c4">
+                            <i class="fa fa-bookmark" aria-hidden="true" style = "padding-right:5px;"></i>My Documents</a></button>
                     </div>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-
-
-                    <br>
                 </div>
+                <div class = "row">
+                    <div class = "button1">
+                        <button> <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            Edit </button>
+                    </div>
+                    <div class = "button2">
+                        <c:if test="${pageContext.request.userPrincipal.name != null}">
+                            <form id="logoutForm" method="POST" action="${contextPath}/logout">
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                <a href = "#" onclick="document.forms['logoutForm'].submit()"> <button ><i class="fa fa-sign-out" aria-hidden="true"></i>
+                                    Logout </button></a>
+                            </form>
 
 
+                        </c:if>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+
+
+                <br>
             </div>
+
+
         </div>
     </div>
+</div>
+
 <script>
     function myFunction() {
         var x = document.getElementById("myTopnav");
@@ -183,8 +216,8 @@
         }
     }
 </script>
-    <script src="${contextPath}/resources/jsNew/jquery.js"></script>
-    <script src="${contextPath}/resources/jsNew/bootstrap.js"></script>
-</div>
+
+<script src="${contextPath}/resources/jsNew/bootstrap.js"></script>
+
 </body>
 </html>

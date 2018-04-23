@@ -24,12 +24,14 @@ import org.springframework.mail.MailException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import sun.rmi.log.LogHandler;
 
 
+import javax.print.Doc;
 import java.io.IOException;
 import java.security.Principal;
 import java.sql.*;
@@ -450,7 +452,6 @@ public class UserController {
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public String user(Model model) { return "user"; }
 
-
     @RequestMapping(value = "/mydoc", method = RequestMethod.GET)
     public ModelAndView history(Model model){
         String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -648,8 +649,9 @@ public class UserController {
         return "status";
     }
     
-    @RequestMapping(value = "/queue", method = RequestMethod.GET)
-    public ModelAndView queue(Model model) {
+    @RequestMapping(value = "/queue/{docId}", method = RequestMethod.GET)
+    public ModelAndView queue(@PathVariable Long docId, Model model) throws IOException {
+        Document document = documentService.getDocumentById(docId);
 
         String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userService.findByUsername(currentUser);
@@ -667,6 +669,7 @@ public class UserController {
         userData.put("type", user.getType());
 
         mav.setViewName("queue");
+        List<User> users = new ArrayList<>();
 
         mav.addObject("user", userData);
 
@@ -704,40 +707,33 @@ public class UserController {
 
 
 
-  /*  @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public String search(Principal principal, Model model) throws SQLException {
-
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://127.0.0.1/deep_library_3rd_delivery");
-        dataSource.setUsername("root");
-        dataSource.setPassword("root");
-        String query="SELECT * FROM books WHERE title LIKE ' "+title+" ' ";;
-        Connection conn= DriverManager.getConnection(dataSource.getUrl(), dataSource.getUsername(), dataSource.getPassword());
-        Statement stmt=conn.createStatement();
-        ResultSet rs=stmt.executeQuery(query);
-        List<Book> list = new LinkedList<>();
-        while(rs.next()){
-
-            String title = rs.getString("title");
-            String author = rs.getString("author");
-            Integer price = rs.getInt("price");
-*/
-            //Assuming you have a user object
-  /*          Book book = new Book();
-            book.setAuthors(author);
-            book.setTitle(title);
-            book.setPrice(price);
-
-            list.add(book);
+    @RequestMapping(value = "/search/{title}", method = RequestMethod.GET)
+    public String search(@PathVariable String title, ModelMap model) throws SQLException {
+        List<Document> documents = documentService.getAllDocuments();
+        List<Document> documentsAnswerListByTitle = new ArrayList<>();
+        List<Document> documentsAnswerListByAuthor = new ArrayList<>();
+        List<Document> documentsAnswerListByAuthorAndTitle = new ArrayList<>();
+        List<Document> documentsAnswerListByKeyWords = new ArrayList<>();
+        for (int i = 0; i < documents.size(); i++) {
+            Document document = documents.get(i);
+            if (document.getTitle().equals(title)) {
+                documentsAnswerListByTitle.add(document);
+                documentsAnswerListByAuthorAndTitle.add(document);
+            }
+            if (document.getAuthors().equals(title)) {
+                documentsAnswerListByAuthor.add(document);
+                documentsAnswerListByAuthorAndTitle.add(document);
+            }
 
         }
+        model.put("documentsAnswerListByTitle", documentsAnswerListByTitle);
+        model.put("documentsAnswerListByAuthor", documentsAnswerListByAuthor);
+        model.put("documentsAnswerListByAuthorAndTitle", documentsAnswerListByAuthorAndTitle);
 
 
-        model.addAttribute("listOfbooks", list );
 
-        return "checkOutedBooks";
+        return "search";
     }
-*/
+
 
 }

@@ -24,3 +24,7 @@
 [Apr 22 16:27:45] (Student) Yarik[ 3728 ] :  renew  Book [ 421 , SomeBook ]  
 [Apr 22 16:28:01] (Student) Yarik[ 3728 ] :  return  Book [ 421 , SomeBook ]  
 [Apr 22 16:28:13] (Student) Yarik[ 3728 ] :   added to queue   AV material [ 434 , Pron ]  
+[Apr 22 16:53:28] (Patron) i.vakhula_user[ 31 ] :   booke   Book [ 421 , SomeBook ]  
+[Apr 22 16:53:51] (Patron) i.vakhula_user[ 31 ] :  return  Book [ 421 , SomeBook ]  
+[Apr 22 16:55:02] (Patron) i.vakhula_user[ 31 ] :   added to queue   Book [ 421 , SomeBook ]  
+[Apr 22 18:13:42] (Librarian) bbbbbbbbbbbbb[ 3713 ] :  add new  Student [ 3714 , student ] 
