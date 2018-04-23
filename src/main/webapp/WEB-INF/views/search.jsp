@@ -18,22 +18,54 @@
     <title>Searching page || DeepLib </title>
 </head>
 <body>
-<%@ include file ="topnav.jsp" %>
-<div class="tab">
-    <button class="tablinks" onclick="openCity(event, 'London')">London</button>
-    <button class="tablinks" onclick="openCity(event, 'Paris')">Paris</button>
-    <button class="tablinks" onclick="openCity(event, 'Tokyo')">Tokyo</button>
-</div>
+<%@ include file ="topnav.jsp" %><script language="javascript">
+    function a()
+    {document.getElementById('info').innerHTML = document.getElementById('Authors').innerHTML;}
+    function b()
+    {document.getElementById('info').innerHTML = document.getElementById('Titles').innerHTML;}
+    function c()
+    {document.getElementById('info').innerHTML = document.getElementById('TitlesAndAuthors').innerHTML;}
+    function d()
+    {document.getElementById('info').innerHTML = document.getElementById('Description').innerHTML;}
+</script>
+<div style = "text-align: center;font-size:2vw; margin-top:2%; text-decoration: underline chocolate "><p>Your searching topic:  >>>>>>>>></p></div>
+<div class = "search">
 
-    <div class = "group">
-<input type="button" value="By_Authors" name="hello" OnClick="a();">
-<input type="button" value="By_Title" name="hello" OnClick="b();">
-<input type="button" value="By_Title & By_Authors" name="hello" OnClick="c();">
-<input type="button" value="By_Description" name="hello" OnClick="d();">
+    <div class = "groups">
+        <input type="button" value="By_Authors" name="hello" OnClick="a();">
+        <input type="button" value="By_Title" name="hello" OnClick="b();">
+        <input type="button" value="By_Title & By_Authors" name="hello" OnClick="c();">
+        <input type="button" value="By_Description" name="hello" OnClick="d();">
     </div>
-<!-- Tab content -->
-<div id="Authors" class="tabcontent">
-    <div class="container">
+
+    <div id="info"></div>
+</div>
+<div  style = "display:none" id="Authors">
+    <div class = "ftable">
+        <table class="table table-striped">
+
+            <thead>
+            <tr class="tr tr-success">
+                <td>Title</td>
+                <td>Authors</td>
+                <td>Price</td>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach items="${documentsAnswerListByAuthor}" var="document">
+                <tr>
+                    <td>${document.title}</td>
+                    <td>${document.authors}</td>
+                    <td>${document.price}</td>
+
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div  style = "display:none" id="Titles">
+    <div class = "ftable">
         <table class="table table-striped">
 
             <thead>
@@ -56,16 +88,31 @@
         </table>
     </div>
 </div>
+<div  style = "display:none" id="TitlesAndAuthors">
+    <div class = "ftable">
+        <table class="table table-striped">
 
-<div id="Title" class="tabcontent">
-    <h3>By Title</h3>
-    <p>s pisok2</p>
+            <thead>
+            <tr class="tr tr-success">
+                <td>Title</td>
+                <td>Authors</td>
+                <td>Price</td>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach items="${documentsAnswerListByAuthorAndTitle}" var="document">
+                <tr>
+                    <td>${document.title}</td>
+                    <td>${document.authors}</td>
+                    <td>${document.price}</td>
+
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
 </div>
 
-<div id="Desk" class="tabcontent">
-    <h3>By Description</h3>
-    <p>spisok 3</p>
-</div>
 
 </body>
 </html>

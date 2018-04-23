@@ -31,7 +31,6 @@ import org.springframework.web.servlet.ModelAndView;
 import sun.rmi.log.LogHandler;
 
 
-import javax.print.Doc;
 import java.io.IOException;
 import java.security.Principal;
 import java.sql.*;
@@ -569,13 +568,6 @@ public class UserController {
         }
 
         //Status ==0 - Success
-        List<History> historyList= historyService.getListHistoriesByIdAndDocId(userId,docId);
-        History history = historyList.get(historyList.size()-1);
-        if(history == null || history.status==0) return "error";
-        else{
-            model.addAttribute("history", history );
-            model.addAttribute("document", documentService.getDocumentById(history.getDocId()));
-        }
 
         return "redirect:/listOfBooksForPatron";
     }
@@ -677,7 +669,6 @@ public class UserController {
 
         mav.setViewName("queue");
 
-        model.addAttribute("queue", queueService.getPriorityQueue(docId));
         mav.addObject("user", userData);
 
         return mav;
@@ -715,33 +706,32 @@ public class UserController {
 
 
     @RequestMapping(value = "/search/{title}", method = RequestMethod.GET)
-    public String search(@PathVariable String title, ModelMap model) throws SQLException {
-        List<Document> documents = documentService.getAllDocuments();
-        List<Document> documentsAnswerListByTitle = new ArrayList<>();
-        List<Document> documentsAnswerListByAuthor = new ArrayList<>();
-        List<Document> documentsAnswerListByAuthorAndTitle = new ArrayList<>();
-        List<Document> documentsAnswerListByKeyWords = new ArrayList<>();
-        for (int i = 0; i < documents.size(); i++) {
-            Document document = documents.get(i);
-            if (document.getTitle().equals(title)) {
-                documentsAnswerListByTitle.add(document);
-                documentsAnswerListByAuthorAndTitle.add(document);
-            }
-            if (document.getAuthors().equals(title)) {
-                documentsAnswerListByAuthor.add(document);
-                documentsAnswerListByAuthorAndTitle.add(document);
-            }
+     public String search(@PathVariable String title, ModelMap model) throws SQLException {
+               List<Document> documents = documentService.getAllDocuments();
+              List<Document> documentsAnswerListByTitle = new ArrayList<>();
+               List<Document> documentsAnswerListByAuthor = new ArrayList<>();
+                List<Document> documentsAnswerListByAuthorAndTitle = new ArrayList<>();
+                List<Document> documentsAnswerListByKeyWords = new ArrayList<>();
+                for (int i = 0; i < documents.size(); i++) {
+                        Document document = documents.get(i);
+                        if (document.getTitle().equals(title)) {
+                                documentsAnswerListByTitle.add(document);
+                                documentsAnswerListByAuthorAndTitle.add(document);
+                            }
+                        if (document.getAuthors().equals(title)) {
+                                documentsAnswerListByAuthor.add(document);
+                                documentsAnswerListByAuthorAndTitle.add(document);
+                            }
 
         }
-        model.put("documentsAnswerListByTitle", documentsAnswerListByTitle);
-        model.put("documentsAnswerListByAuthor", documentsAnswerListByAuthor);
-        model.put("documentsAnswerListByAuthorAndTitle", documentsAnswerListByAuthorAndTitle);
+              model.put("documentsAnswerListByTitle", documentsAnswerListByTitle);
+                model.put("documentsAnswerListByAuthor", documentsAnswerListByAuthor);
+                model.put("documentsAnswerListByAuthorAndTitle", documentsAnswerListByAuthorAndTitle);
 
 
-        model.addAttribute("listOfbooks", list );
 
-        return "checkOutedBooks";
+
+               return "search";
     }
-*/
 
 }
