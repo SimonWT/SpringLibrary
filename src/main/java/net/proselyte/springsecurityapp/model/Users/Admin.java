@@ -23,7 +23,7 @@ public class Admin extends User{
 
     public void addLibrarian(Librarian librarian) throws IOException {
         userService.save(librarian);
-        log.write(this, "register new" , null,
+        log.write(this, "created" , null,
                 librarian);
     }
 

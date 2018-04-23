@@ -1,6 +1,7 @@
 package net.proselyte.springsecurityapp.model.Users;
 
 import jdk.nashorn.internal.ir.annotations.Ignore;
+import net.proselyte.springsecurityapp.LogWriter;
 import net.proselyte.springsecurityapp.dao.ForTesting.DocDao;
 import net.proselyte.springsecurityapp.dao.ForTesting.DocDaoImpl;
 import net.proselyte.springsecurityapp.model.Booking.History;
@@ -58,6 +59,9 @@ public class Librarian extends User {
     @Autowired
     @Transient
     public HistoryServiceImpl historyService;
+
+    @Transient
+    private LogWriter log = new LogWriter();
 
     public void addPatron(Patron newPatron){
         if (privilege >= 2)
@@ -156,21 +160,31 @@ public class Librarian extends User {
     }
 
     public void outstandingRequest(Document doc, Date curDate){
-        while (!doc.queue.isEmpty()){
-            doc.queue.poll().setNotification("You was removed from waiting list of document " + doc.getTitle());
-        }
-        List<Patron> patrons = userService.getAllPatrons();
-        for (int i = 0; i < patrons.size(); i++){
-            History history = historyService.getHistoryByIdAndDocId(patrons.get(i).getId(), doc.getId());
-            if (history != null && history.status == 0){
-                long dif =   history.getReturnDate().getTime() - curDate.getTime();
-                int difDays = (int) TimeUnit.DAYS.convert(dif, TimeUnit.MILLISECONDS);
-                patrons.get(i).setNotification("You must return document " + doc.getTitle());
-                docService.getDocumentById(history.getDocId()).setDue(docService.getDocumentById(history.getDocId()).getDue() - difDays);
-                history.setReturnDate(curDate);
-                historyService.updateHistory(history);
+        if(this.privilege > 1) {
+            while (!doc.queue.isEmpty()) {
+                doc.queue.poll().setNotification("You was removed from waiting list of document " + doc.getTitle());
             }
-        }
+
+            List<Patron> patrons = userService.getAllPatrons();
+
+            for (int i = 0; i < patrons.size(); i++) {
+                History history = historyService.getHistoryByIdAndDocId(patrons.get(i).getId(), doc.getId());
+                if (history != null && history.status == 0) {
+                    long dif = history.getReturnDate().getTime() - curDate.getTime();
+                    int difDays = (int) TimeUnit.DAYS.convert(dif, TimeUnit.MILLISECONDS);
+                    patrons.get(i).setNotification("You must return document " + doc.getTitle());
+                    docService.getDocumentById(history.getDocId()).setDue(docService.getDocumentById(history.getDocId()).getDue() - difDays);
+                    history.setReturnDate(curDate);
+                    historyService.updateHistory(history);
+                }
+            }
+
+            this.log.write(this, "placed an outstanding request on" , doc, null);
+
+        }else this.log.writeAddition(this, "placed an outstanding request on" ,
+                doc, null, "request was denied");
+
+
     }
 
     public long[] checkQueue(Document doc){

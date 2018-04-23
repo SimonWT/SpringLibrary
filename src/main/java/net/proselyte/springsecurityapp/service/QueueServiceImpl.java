@@ -62,33 +62,30 @@ public class QueueServiceImpl implements QueueService {
     }
 
     @Override
+    @Scheduled(fixedDelay = 86400000)
     public void sendNotificationToPeekOfQueue() {
-//        //List<Queue> docIdQueue = queueDao.findQueuesUnicByDocId();
-//        List<java.util.Queue<Patron>> listOfQueues = new LinkedList<>();
-//        for (Queue docQ: docIdQueue) {
-//             listOfQueues.add(getPriorityQueue(docQ.getDocId()));
-//        }
-//
-//        for (java.util.Queue<Patron> queue: listOfQueues) {
-//            if( queue.peek().getNotification().equals("") ){
-               wait1dayUntilDrop();
-//            }
-//        }
+        //List<Queue> docIdQueue = queueDao.findQueuesUnicByDocId();
+        List<Long> docIds = queueDao.findUnicDocId();
+        List<java.util.Queue<Patron>> listOfQueues = new LinkedList<>();
+        for (Long docId: docIds) {
+             listOfQueues.add(getPriorityQueue(docId));
+        }
+
+        for (int i = 0; listOfQueues.size()!=0 && i<listOfQueues.size(); i++) {
+            java.util.Queue<Patron> queue = listOfQueues.get(i);
+
+            if(false && queue.size()!=0 && queue.peek().getNotification()!=null )
+                if(queue.peek().getNotification().equals("") ){
+                    //send notifications
+                    //TODO: send notification and how to check it (above)
+                } else{
+                    queueDao.deleteByUserIdAndDocId(queue.peek().getId(), docIds.get(i));
+                    queue.poll();
+                    //TODO: send notification
+                }
+        }
 
     }
-
-
-    private void wait1dayUntilDrop(){
-//        List<Queue> docIdQueue = queueDao.findQueuesUnicByDocId();
-//        List<java.util.Queue<Patron>> listOfQueues = new LinkedList<>();
-//        for (Queue docQ: docIdQueue) {
-//            listOfQueues.add(getPriorityQueue(docQ.getDocId()));
-//        }
-//
-//        for (java.util.Queue<Patron> queue: listOfQueues) {
-//            queueDao.deleteByUserId(queue.peek().getId());
-//        }
-    }
-
-
 }
+
+

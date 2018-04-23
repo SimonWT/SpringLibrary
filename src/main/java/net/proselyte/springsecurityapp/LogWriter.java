@@ -28,7 +28,6 @@ public class LogWriter {
     public void write(User user, String action, Document document, User userOp) {
         String data = info(user, action, document, userOp);
 
-
         try {
             File file = new File("src\\main\\java\\net\\proselyte\\springsecurityapp\\log.txt");
 
@@ -40,6 +39,22 @@ public class LogWriter {
         }
 
     }
+
+    public void writeAddition(User user, String action, Document document, User userOp, String addition){
+        String data = info(user, action, document, userOp);
+
+        try {
+            File file = new File("src\\main\\java\\net\\proselyte\\springsecurityapp\\log.txt");
+
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, true));
+            bufferedWriter.write(data+addition);
+            bufferedWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
     public List<String> read(){
         List<String> result= new LinkedList<>();
