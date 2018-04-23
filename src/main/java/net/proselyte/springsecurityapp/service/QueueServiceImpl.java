@@ -62,33 +62,32 @@ public class QueueServiceImpl implements QueueService {
     }
 
     @Override
-    @Scheduled(fixedDelay = 10000 )
     public void sendNotificationToPeekOfQueue() {
-        List<Queue> docIdQueue = queueDao.findQueuesByUnicDocId();
-        List<java.util.Queue<Patron>> listOfQueues = new LinkedList<>();
-        for (Queue docQ: docIdQueue) {
-             listOfQueues.add(getPriorityQueue(docQ.getDocId()));
-        }
-
-        for (java.util.Queue<Patron> queue: listOfQueues) {
-            if( queue.peek().getNotification().equals("") ){
-                wait1dayUntilDrop();
-            }
-        }
+//        //List<Queue> docIdQueue = queueDao.findQueuesUnicByDocId();
+//        List<java.util.Queue<Patron>> listOfQueues = new LinkedList<>();
+//        for (Queue docQ: docIdQueue) {
+//             listOfQueues.add(getPriorityQueue(docQ.getDocId()));
+//        }
+//
+//        for (java.util.Queue<Patron> queue: listOfQueues) {
+//            if( queue.peek().getNotification().equals("") ){
+               wait1dayUntilDrop();
+//            }
+//        }
 
     }
 
-    @Scheduled(initialDelay = 86400000 )
-    private void wait1dayUntilDrop(){
-        List<Queue> docIdQueue = queueDao.findQueuesByUnicDocId();
-        List<java.util.Queue<Patron>> listOfQueues = new LinkedList<>();
-        for (Queue docQ: docIdQueue) {
-            listOfQueues.add(getPriorityQueue(docQ.getDocId()));
-        }
 
-        for (java.util.Queue<Patron> queue: listOfQueues) {
-            queueDao.deleteByUserId(queue.peek().getId());
-        }
+    private void wait1dayUntilDrop(){
+//        List<Queue> docIdQueue = queueDao.findQueuesUnicByDocId();
+//        List<java.util.Queue<Patron>> listOfQueues = new LinkedList<>();
+//        for (Queue docQ: docIdQueue) {
+//            listOfQueues.add(getPriorityQueue(docQ.getDocId()));
+//        }
+//
+//        for (java.util.Queue<Patron> queue: listOfQueues) {
+//            queueDao.deleteByUserId(queue.peek().getId());
+//        }
     }
 
 
