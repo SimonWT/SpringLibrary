@@ -4,7 +4,7 @@
     margin-left:25%;
     background: #a94442;
 }
-.search .group{
+.search .groups{
     width:100%;
     margin-top:5%;
     padding-top: 5px;
@@ -12,7 +12,7 @@
     background: #50808e;
 
 }
-.group input{
+.groups input{
     margin-left:7%;
     background: #f2dede;
     color: #ec971f;
