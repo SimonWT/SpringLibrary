@@ -546,6 +546,12 @@ public class UserController {
         }else return "redirect:/error";
         //Status ==0 - Success
 
+        try {
+            notificationService.sendNotificationBooking(user, document);
+        } catch (MailException e) {
+            //catch error
+            logger.info("Error Sending Email:" + e.getMessage());
+        }
 
         return "redirect:/status/booking/"+docId;
     }
@@ -730,8 +736,43 @@ public class UserController {
 
 
 
+                return "search";
+    }
 
-               return "search";
+    @RequestMapping(value = "/searchPart/{title}", method = RequestMethod.GET)
+    public String searchPart(@PathVariable String title, ModelMap model) throws SQLException {
+        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.findByUsername(currentUser);
+        logger.info("ID: "+user.getId());
+        Long idd = user.getId();
+
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+        dataSource.setUrl("jdbc:mysql://127.0.0.1/deep_library_3rd_delivery");
+        dataSource.setUsername("root");
+        dataSource.setPassword("root");
+        String query1="SELECT * FROM documents WHERE title regexp '[[:<:]]"+ title +"[[:>:]]'";
+
+        Connection conn= DriverManager.getConnection(dataSource.getUrl(), dataSource.getUsername(), dataSource.getPassword());
+        Statement stmt=conn.createStatement();
+        ResultSet rs=stmt.executeQuery(query1);
+        List<Document> documentsPartialTitle = new LinkedList<>();
+        while(rs.next()){
+
+            String titlePart = rs.getString("title");
+            String authorPart = rs.getString("authors");
+            Integer pricePart = rs.getInt("price");
+
+            //Assuming you have a user object
+            Document document = new Document();
+            document.setAuthors(authorPart);
+            document.setTitle(titlePart);
+            document.setPrice(pricePart);
+
+            documentsPartialTitle.add(document);
+        }
+    model.put("documentsPartialTitle", documentsPartialTitle);
+        return "searchPart";
     }
 
 }

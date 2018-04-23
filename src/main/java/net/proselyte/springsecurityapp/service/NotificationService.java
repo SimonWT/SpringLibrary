@@ -1,5 +1,6 @@
 package net.proselyte.springsecurityapp.service;
 
+import net.proselyte.springsecurityapp.model.Documents.Document;
 import net.proselyte.springsecurityapp.model.Users.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -52,4 +53,33 @@ public class NotificationService {
 
         javaMailSender.send(mail);
     }
+
+    public void sendNotificationBooking(User user, Document document) throws MailException {
+        JavaMailSender javaMailSender = getJavaMailSender();
+        SimpleMailMessage mail = new SimpleMailMessage();
+        mail.setTo(user.getEmail());
+        mail.setFrom("innodeeplib@gmail.com");
+        mail.setSubject("Deep Library");
+        if (user.getType().equals("Student") || user.getType().equals("TA")) {
+            mail.setText("You have just checked out the book and you should return it in 3 weeks." +
+                    "Please be careful with " + document.getTitle() + ". Remeber that people will use it after you" +
+                    "Thank you in advance");
+        } else {
+            mail.setText("You have just checked out the book and you should return it in 4 weeks." +
+                    "Please be careful with"+ document.getTitle() +"Remeber that people will use it after you" +
+                    "Thank you in advance");
+        }
+        javaMailSender.send(mail);
+    }
+
+    public void sendNotificationQueue(User user, Document document) throws MailException {
+        JavaMailSender javaMailSender = getJavaMailSender();
+        SimpleMailMessage mail = new SimpleMailMessage();
+        mail.setTo(user.getEmail());
+        mail.setFrom("innodeeplib@gmail.com");
+        mail.setSubject("Deep Library");
+        mail.setText("You are in queue for book" + document.getTitle() + " which is written by" + document.getAuthors());
+        javaMailSender.send(mail);
+    }
+
 }
