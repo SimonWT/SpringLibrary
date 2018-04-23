@@ -9,7 +9,8 @@ import java.util.List;
 public interface QueueDao extends JpaRepository<Queue, Long> {
 
     Queue getQueueById(Long id);
-
     List<Queue> getAllByUserId(Long id);
+    
+    List<Queue> getAllByDocId(Long docId);
 
 }

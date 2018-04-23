@@ -47,20 +47,20 @@
 <table class="table table-condensed">
     <thead>
     <tr>
-        <th>Number</th>
-        <th>Name Surname </th>
         <th></th>
-        <th></th>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Name</th>
     </tr>
     </thead>
     <tbody>
 
-    <!--<c:forEach items="${audioVideoList}" var="av"> -->
+    <!--<c:forEach items="${queue}" var="patron"> -->
         <tr>
             <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>${patron.id}</td>
+            <td>${patron.username}</td>
+            <td>${patron.name}</td>
 
 
         </tr>

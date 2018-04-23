@@ -14,14 +14,44 @@
     <meta name="author" content="">
 
     <title>Logs || DeepLib</title>
+    <style>
+        .block{
+            background:#d4d4d4;
+            color: #d58512;
+            width:65%;
+            margin-left:17.5%;
+            font-size:1.3vw;
+            margin-top:3%;
+            margin-bottom:10%;
+        }
+        .vn{
+            width:95%;
+            border:none;
+            border-radius: 10px;
+            text-align:center;
+            margin-top:2%;
+            margin-left: 2.5%;
+
+        }
+        p{
+            text-align: center;
+            font-size:2vw;
+        }
+    </style>
 </head>
 <body>
 <%@ include file ="topnav.jsp" %>
+
+<div class = "block">
+    <p>History of Library</p>
     <c:forEach items="${logs}" var="log">
 
-    <p>${log}</p>
+    <div class = "vn">
+        <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+            ${log}
+    </div>
 
     </c:forEach>
-
+</div>
 </body>
 </html>

@@ -17,17 +17,42 @@
 
 <html>
 <head>
-    <title>List of users</title>
+    <title>List of users || DeppLib</title>
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/bootstrap.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/font-awesome.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/welcomeform.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/admin.css">
+    <style>
+        .ftable{
+            width:80%;
+            margin-left:10%;
+            margin-top:4%;
+            background: #d5d5d5;
+        }
+        .ftable th{
+            color:#337ab7;
+            font-size: 1.3vw;
+            text-align: center;
+        }
+        .ftable td{
+            color:#d58512;
+            font-size:1.3vw;
+            text-align: center;
+        }
+        .ftable a{
+            color:#d58512;
+        }
+        .ftable a:hover{
+            outline:none;
+            text-decoration: none;
+            color:black;
+        }
 
+    </style>
     </head>
 <body>
 <%@ include file ="topnav.jsp" %>
-
-<form method="POST">
+<div class = "ftable">
 <table class="table table-condensed">
     <thead>
     <tr>
@@ -37,9 +62,10 @@
         <th>Lastname</th>
         <th>Phone number</th>
         <th>Email</th>
-        <th>adress</th>
+        <th>Adress</th>
         <th>Type</th>
-        <th>View</th>
+        <th></th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
@@ -55,16 +81,15 @@
     <td>${user.email}</td>
     <td>${user.address}</td>
     <td>${user.type}</td>
-    <td>
-
-    <td><a href="/editUser/${user.id}">Modify</a><a href="/deleteUser/${user.id}">Delete</a></td>
+        <td><a href="/editUser/${user.id}">Edit</a></td>
+        <td><a href="/deleteUser/${user.id}">Delete</a></td>
 
     </tr>
 </c:forEach>
     </tbody>
 
 </table>
-</form>
+</div>
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 </body>
 </html>

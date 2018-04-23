@@ -18,12 +18,16 @@
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/font-awesome.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/welcomeform.css">
     <style>
-
+        #animat {
+            position: relative;
+            cursor: pointer;
+        }
     </style>
+    <script src="https://js.cx/libs/animate.js"></script>
+
 </head>
 <body>
 <%@ include file ="topnav.jsp" %>
-
 
 <br>
 <br>
@@ -42,6 +46,87 @@ ${pageContext.request.userPrincipal.name}</strong>,
 
         <br>
         <br>
+        <div id = "animat" style = "position:fixed;">
+             <textarea
+             style = "background: none; border:none; border-radius:17px; font-size:2vw; display:none;  outline:none; color:darkred;"
+             id="textExample" rows="4" cols="21"> Mrrrrrr, Hello in DeepLib.     It is the most credible source. I love it!
+             </textarea>
+            <p id = "serd" style = "color:red;"><i class="fa fa-heart" aria-hidden="true"></i>
+            <i class="fa fa-heart" aria-hidden="true"></i>
+
+                <i class="fa fa-heart" aria-hidden="true"></i></p>
+
+
+            <img style = "position:fixed" id="train" src="${contextPath}/resources/imgNew/99-animals-cat-2.jpg">
+
+
+        </div>
+
+        <script>
+            function animateText(textArea) {
+
+                var text = textArea.value;
+                var to = text.length,
+                    from = 0;
+
+                animate({
+                    duration: 4000,
+                    timing: bounce,
+                    draw: function(progress) {
+                        var result = (to - from) * progress + from;
+                        textArea.value = text.substr(0, Math.ceil(result))
+                    }
+                });
+            }
+
+
+            function bounce(timeFraction) {
+                for (var a = 0, b = 1, result; 1; a += b, b /= 2) {
+                    if (timeFraction >= (7 - 4 * a) / 11) {
+                        return -Math.pow((11 - 6 * a - 11 * timeFraction) / 4, 2) + Math.pow(b, 2)
+                    }
+                }
+            }
+            function demoDisplay(textArea,p) {
+                textArea.style.background= "white";
+                textArea.style.display = "block";
+                p.style.display = "none";
+
+
+
+            }
+            animat.onclick = function fr() {
+                var start = Date.now();
+
+                var timer = setInterval(function() {
+                    var timePassed = Date.now() - start;
+                    animat.style.left = timePassed / 5 + 'px';
+
+                    if (timePassed > 5500) { clearInterval(timer); demoDisplay(textExample,serd); animateText(textExample);
+                    }
+
+
+                }, 20);
+
+
+
+            };
+            function fr2() {
+                var start = Date.now();
+
+                var timer = setInterval(function() {
+                    var timePassed = Date.now() - start;
+
+                    animat.style.right = timePassed / 5 + 'px';
+
+                    if (timePassed > 6200){
+                        clearInterval(timer);
+
+                    }
+
+                }, 20);
+            }
+        </script>
         <h5 style = "font-size:25px;">How to use this source:</h5>
         <i class="fa fa-square" aria-hidden="true"></i> Go to Media/Journal Articles/Books and choose document, which you want.
     <br>

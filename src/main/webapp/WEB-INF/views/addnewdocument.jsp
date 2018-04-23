@@ -31,12 +31,6 @@
 
 <br>
 
-<div class="search">
-    <input type="search" id="mySearch" name="q"
-           placeholder="Search the document..." required>
-    <button>Search</button>
-</div>
-<br>
 <br>
 <br>
 <div class="container">
@@ -45,13 +39,13 @@
         <sec:csrfMetaTags/>
         <div class = "row" >
             <a href="/addArticle" > <button style = "border: none !important;
-  border-radius: 17px;" class = "form1" > New Article </button></a>
+  border-radius: 17px;text-decoration:none;" class = "form1" > New Article </button></a>
              <button class = "form2" style = "border: none !important;
-  border-radius: 17px;"> <a href="/addBook"> New Book </a> </button>
+  border-radius: 17px; text-decoration:none"> <a  style = "text-decoration: none; color:black; outline:none;" href="/addBook"> New Book </a> </button>
             <br>
             <br>
             <a href="/addAudioVideoMaterial"> <button class = "form4" style = "border: none !important;
-  border-radius: 17px;"> New Media </button></a>
+  border-radius: 17px; text-decoration:none;"> New Media </button></a>
         </div>
     </div>
 </div>

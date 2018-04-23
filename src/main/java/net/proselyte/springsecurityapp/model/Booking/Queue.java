@@ -25,6 +25,8 @@ public class Queue {
     @Transient
     private Document document;
 
+    public Queue() { }
+
     public Queue(Long docId, Long userId, Date date) {
         this.docId = docId;
         this.userId = userId;

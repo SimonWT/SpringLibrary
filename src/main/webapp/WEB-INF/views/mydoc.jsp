@@ -22,15 +22,13 @@
 
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/bootstrap.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/font-awesome.css">
-    <link rel="stylesheet" href="${contextPath}/resources/cssNew/welcomeform.css">
 
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/mydoc.css"></head>
 <body>
 <%@ include file ="topnav.jsp" %>
 <br>
 <br>
-<div class = "table">
-<div class = "now">
+<div class = "now2">
 <div class = "b" style = "">My Documents</div>
     <c:if test= "${empty openHistories}">
         <div style = "background: #d4d4d4">
@@ -101,50 +99,6 @@
             </div>
         </c:if>
     </c:forEach>
-</div>
-
-<div class = "after" style = "">
-    <div class = "b" style = "font-family: 'Cambria Math'">History</div>
-    <c:if test= "${empty closeHistories}">
-        <div style = "background: #d4d4d4">
-            <br>
-            <br>
-        </div>
-        <div  class = "vp" style = "background:#d5d5d5; margin-top:5%;  margin-left:3%; margin-right:3%; margin-bottom:5%;">
-            <br>
-            <br>
-            <p> User story is empty</p>
-            <br>
-            <br>
-        </div>
-    </c:if>
-    <c:forEach items="${closeHistories}" var="history">
-        <div style = "background: #d4d4d4">
-            <br>
-            <br>
-        </div>
-        <div class = "closeh">
-            <br>
-        <p>Title: ${history.document.title}</p>
-        <p>Authors: ${history.document.authors}</p>
-        <p>Check out date: ${history.checkOutDate}</p>
-        <p>Returned date: ${history.returnDate}</p>
-        <c:if test="${history.penaltyDays > 0}">
-            <p>Penalty days: ${history.penaltyDays}</p>
-            <p>Fine: ${history.document.fine} </p>
-        </c:if>
-        <div class = "b2">
-            <button  type="submit"><a style = "outline:none;" href="/booking/${history.document.id}"> Check Out </a></button>
-        </div>
-        <br>
-        </div>
-
-    </c:forEach>
-
-</div>
-<br>
-<br>
-
 </div>
 
 </body>

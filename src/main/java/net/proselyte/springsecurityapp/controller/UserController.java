@@ -452,6 +452,7 @@ public class UserController {
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public String user(Model model) { return "user"; }
 
+
     @RequestMapping(value = "/mydoc", method = RequestMethod.GET)
     public ModelAndView history(Model model){
         String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -568,6 +569,13 @@ public class UserController {
         }
 
         //Status ==0 - Success
+        List<History> historyList= historyService.getListHistoriesByIdAndDocId(userId,docId);
+        History history = historyList.get(historyList.size()-1);
+        if(history == null || history.status==0) return "error";
+        else{
+            model.addAttribute("history", history );
+            model.addAttribute("document", documentService.getDocumentById(history.getDocId()));
+        }
 
         return "redirect:/listOfBooksForPatron";
     }
@@ -649,9 +657,8 @@ public class UserController {
         return "status";
     }
     
-    @RequestMapping(value = "/queue/{docId}", method = RequestMethod.GET)
-    public ModelAndView queue(@PathVariable Long docId, Model model) throws IOException {
-        Document document = documentService.getDocumentById(docId);
+    @RequestMapping(value = "/queue", method = RequestMethod.GET)
+    public ModelAndView queue(Model model) {
 
         String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userService.findByUsername(currentUser);
@@ -669,8 +676,8 @@ public class UserController {
         userData.put("type", user.getType());
 
         mav.setViewName("queue");
-        List<User> users = new ArrayList<>();
 
+        model.addAttribute("queue", queueService.getPriorityQueue(docId));
         mav.addObject("user", userData);
 
         return mav;
@@ -731,9 +738,10 @@ public class UserController {
         model.put("documentsAnswerListByAuthorAndTitle", documentsAnswerListByAuthorAndTitle);
 
 
+        model.addAttribute("listOfbooks", list );
 
-        return "search";
+        return "checkOutedBooks";
     }
-
+*/
 
 }

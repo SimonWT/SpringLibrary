@@ -13,22 +13,24 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Create an account | DeepLib</title>
+    <title>Create an account || DeepLib</title>
 
     <link href="${contextPath}/resources/css/common.css" rel="stylesheet">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/bootstrap.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/font-awesome.css">
-    <link rel="stylesheet" href="${contextPath}/resources/cssNew/loginform.css">
 
 </head>
 
 <body>
 <%@ include file ="topnav.jsp" %>
+<br>
+<div style = "text-align: center;" >
+<p style = "font-size:2vw;" >Create an account of a patron</p>
+</div>
 
 <div class="container">
 
     <form:form method="POST" modelAttribute="userForm" class="form-signin">
-        <h2 class="form-signin-heading">Create an account of a patron</h2>
         <spring:bind path="username">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <form:input type="text" path="username" class="form-control" placeholder="Username"
@@ -88,7 +90,7 @@
             <%--</div>--%>
 
         <div class="form-group ${status.error ? 'has-error' : ''}">
-            <form:select path="typeString">
+            <form:select cssStyle="width:100%;  text-align: center; outline:none; border:none; border-radius: 17px; font-size: 2vw;" path="typeString">
                 <form:option value="Student">Student</form:option>
                 <form:option value="Professor">Professor</form:option>
                 <form:option value="TA">TA</form:option>
@@ -98,14 +100,13 @@
         </div>
         </spring:bind>
 
+        <button style = "width:300px; font-size:240%; min-height:50px; background:#adadad; border:none; outline:none; border-radius:13px;
+" type="submit">Submit</button>    </form:form>
 
-        <button class="btn btn-block" type="submit">Submit</button>
-    </form:form>
 
 </div>
 
 <script src="${contextPath}/resources/jsNew/jquery.js"></script>
 <script src="${contextPath}/resources/jsNew/bootstrap.js"></script>
-<script src="${contextPath}/resources/jsNew/scripts.js"></script>
 </body>
 </html>

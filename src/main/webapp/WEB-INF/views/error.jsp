@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title> | DeepLib</title>
+    <title> || DeepLib</title>
 </head>
 <body>
 <%@ include file ="topnav.jsp" %>
