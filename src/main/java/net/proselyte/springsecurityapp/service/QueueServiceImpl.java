@@ -1,5 +1,6 @@
 package net.proselyte.springsecurityapp.service;
 
+import net.proselyte.springsecurityapp.dao.DocDao;
 import net.proselyte.springsecurityapp.dao.QueueDao;
 import net.proselyte.springsecurityapp.dao.UserDao;
 import net.proselyte.springsecurityapp.model.Booking.Queue;
@@ -7,12 +8,16 @@ import net.proselyte.springsecurityapp.model.Users.Patron;
 import net.proselyte.springsecurityapp.model.Users.PatronComparator;
 import net.proselyte.springsecurityapp.model.Users.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.PriorityQueue;
 
 @Service
+@EnableScheduling
 public class QueueServiceImpl implements QueueService {
 
     @Autowired
@@ -20,6 +25,9 @@ public class QueueServiceImpl implements QueueService {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private DocDao docDao;
 
     @Override
     public Queue getQueueById(Long id) {
@@ -51,6 +59,36 @@ public class QueueServiceImpl implements QueueService {
         }
 
         return queue;
+    }
+
+    @Override
+    @Scheduled(fixedDelay = 10000 )
+    public void sendNotificationToPeekOfQueue() {
+        List<Queue> docIdQueue = queueDao.findQueuesByUnicDocId();
+        List<java.util.Queue<Patron>> listOfQueues = new LinkedList<>();
+        for (Queue docQ: docIdQueue) {
+             listOfQueues.add(getPriorityQueue(docQ.getDocId()));
+        }
+
+        for (java.util.Queue<Patron> queue: listOfQueues) {
+            if( queue.peek().getNotification().equals("") ){
+                wait1dayUntilDrop();
+            }
+        }
+
+    }
+
+    @Scheduled(initialDelay = 86400000 )
+    private void wait1dayUntilDrop(){
+        List<Queue> docIdQueue = queueDao.findQueuesByUnicDocId();
+        List<java.util.Queue<Patron>> listOfQueues = new LinkedList<>();
+        for (Queue docQ: docIdQueue) {
+            listOfQueues.add(getPriorityQueue(docQ.getDocId()));
+        }
+
+        for (java.util.Queue<Patron> queue: listOfQueues) {
+            queueDao.deleteByUserId(queue.peek().getId());
+        }
     }
 
 
