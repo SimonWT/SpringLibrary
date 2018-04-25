@@ -68,7 +68,7 @@
             <button
             type="button" data-toggle="modal" class = "need"
             data-target="#my${av.id}">
-            <div class = "insi" style = " border:none; border-radius:14px;background:white; margin-top:44%; margin-bottom:44%">
+            <div class = "insi" style = " border:none; border-radius:14px; text-align:center;background:white; margin-top:37%; height:80px; margin-bottom:32%;">
                 <p style = ""> ${av.title} </p>
             </div>
             </button>
@@ -78,17 +78,17 @@
                 <button
                         type="button" data-toggle="modal" class = "need"
                         data-target="#my${av.id}">
-                    <div class = "insi" style = " border:none; border-radius:14px;background:white; margin-top:44%; margin-bottom:44%">
+                    <div class = "insi" style = " border:none; border-radius:14px;  text-align:center;background:white; margin-top:37%; height:80px; margin-bottom:32%;">
                         <p> ${av.title} </p>
                     </div>
                 </button>
             </c:if>
-            <c:if test = "${bookList.indexOf(av) % 3 == 2}">
+            <c:if test = "${bookList.indexOf(av) % 3 == 0}">
 
                 <button
                         type="button" data-toggle="modal" class = "need"
                         data-target="#my${av.id}">
-                    <div class = "insi" style = " border:none; border-radius:14px;background:white; margin-top:44%; margin-bottom:44%">
+                    <div class = "insi" style = " border:none; border-radius:14px;  text-align:center;background:white; margin-top:37%; height:80px; margin-bottom:32%;">
                         <p> ${av.title} </p>
                     </div>
                 </button>

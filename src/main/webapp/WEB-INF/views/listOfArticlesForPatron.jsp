@@ -58,20 +58,24 @@ border-radius: 17px;"
             <button style = "">Search</button> !-->
         </div></c:if>
     <c:forEach items="${articleList}" var="article">
+        <c:if test = "${articleList.indexOf(article) % 3 == 0}">
+
         <button
                 type="button" data-toggle="modal" class = "need2"
                 data-target="#my${article.id}">
-            <div class = "insi" style = " border:none; border-radius:14px;background:white; margin-top:44%; margin-bottom:44%">
+            <div class = "insi" style = " border:none; border-radius:14px;background:white; text-align:center;margin-top:37%; height:80px; margin-bottom:32%;">
                 <p style = ""> ${article.title} </p>
+
             </div>
         </button>
+        </c:if>
     <c:if test = "${articleList.indexOf(article) % 3 == 1}">
 
         <button
                 type="button" data-toggle="modal" class = "need2"
                 data-target="#my${article.id}">
-            <div class = "insi" style = " border:none; border-radius:14px;background:white; margin-top:44%; margin-bottom:44%">
-                <p> ${article.title} </p>
+            <div class = "insi" style = " border:none; border-radius:14px;background:white;text-align:center;margin-top:37%; height:80px; margin-bottom:32%;">
+                <p> ${article.title}  </p>
             </div>
         </button>
     </c:if>
@@ -80,7 +84,7 @@ border-radius: 17px;"
         <button
                 type="button" data-toggle="modal" class = "need2"
                 data-target="#my${article.id}">
-            <div class = "insi" style = " border:none; border-radius:14px;background:white; margin-top:44%; margin-bottom:44%">
+            <div class = "insi" style = " border:none; border-radius:14px; text-align:center;background:white; margin-top:37%; height:80px; margin-bottom:32%;">
                 <p> ${article.title} </p>
             </div>
         </button>

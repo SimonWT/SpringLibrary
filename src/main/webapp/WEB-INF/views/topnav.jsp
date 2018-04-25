@@ -1,11 +1,3 @@
-<%--
-
-  Created by IntelliJ IDEA.
-  User: Катя
-  Date: 01.04.2018
-  Time: 23:31
-  To change this template use File | Settings | File Templates.
---%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -22,6 +14,10 @@
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/font-awesome.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/welcomeform.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/listbook.css">
+
+    <script src="${contextPath}/resources/jsNew/jquery.js"></script>
+    <style>
+    </style>
 </head>
 <body>
 <div class="topnav" id="myTopnav">
@@ -33,7 +29,9 @@
         DeepLib
 
     </a>
+
     <c:choose>
+
 
         <c:when test="${user.type=='Librarian'}">
             <div class  = "hell2">
@@ -47,23 +45,35 @@
         </c:when>
 
         <c:when test="${user.type == 'Admin'}">
-            <div class = "hell2">
+            <div class = "hell">
                 <a href="/registerLibrarian" style = ""><i class="fa fa-plus" aria-hidden="true"></i>
                     Add new Librarian</a>
                 <a href="/Logs" style = ""><i class="fa fa-history" aria-hidden="true"></i>
                     Logs</a>
-                <a href="/listOfLibrarians" style="" ><i class="fa fa-user-secret" aria-hidden="true"></i> List Of Librarians</a>
-
             </div>
         </c:when>
 
         <c:otherwise>
-            <form:form method="POST">
-                <input type="text" class = "t" id="search" name = "search" placeholder="   Search..">
+                <form:form method="POST">
+                    <input type="search" class = "t" id="search" placeholder="Search..." />
+                    <button name="full"  class="btn btn-block" style = "display:none"type="submit">Full</button></tr>
+                    <button name="part"  class="btn btn-block" type="submit" style = "display:none;">Full</button></tr>
 
-
-            </form:form>
+                </form:form>
+                    <script>
+                        $("form#command button[name=full]").click(function(e){
+                            e.preventDefault();
+                            if ($("form#command input#search").val() == "") return;
+                            window.location.href="/search/"+$("form#command input#search").val();
+                        });
+                        $("form#command button[name=part]").click(function(e){
+                            e.preventDefault();
+                            if ($("form#command input#search").val() == "") return;
+                            window.location.href="/searchPart/"+$("form#command input#search").val();
+                        });
+                    </script>
             <div class  = "hell">
+
                 <a href="/listOfAudioVideoMaterialForPatron" style = ""><i class="fa fa-file-audio-o" aria-hidden="true"></i>
                     Media</a>
                 <a href="/listOfArticlesForPatron" style = ""><i class="fa fa-newspaper-o" aria-hidden="true"></i>
@@ -87,12 +97,13 @@
                 <i class="fa fa-exclamation" aria-hidden="true" style = "color:red;"></i>
 
             </a>
-            <p style = "width:100%;color:darkred">
-                <i class="fa fa-telegram" aria-hidden="true"></i>
+            <p style = "font-size:1.5vw;width:100%;color:darkred; margin-left:10%;">
 
                 What happened with telegram?
+            <i class="fa fa-telegram" aria-hidden="true"></i>
 
-            </p>
+
+        </p>
         </div>
     </div>
     <div class="dropdown2" >
@@ -104,13 +115,18 @@
         <div class="dropdown-content2">
             <a href="/ProfilePage" data-toggle="modal" data-target="#largeModal"> <i class="fa fa-address-card-o" aria-hidden="true"></i>
                 Profile</a>
+            <c:choose>
+                <c:when test="${user.type == 'Admin'}">
 
-            <c:if test="${user.type != 'Admin' and user.type != 'Librarian'}" >
-                <a href="/mydoc">
-                    <i class="fa fa-bookmark" aria-hidden="true"></i>
+                </c:when>
+                <c:otherwise>
+                    <a href="/mydoc">
+                        <i class="fa fa-bookmark" aria-hidden="true"></i>
 
-                    My Documents</a>
-            </c:if>
+                        My Documents</a>
+                </c:otherwise>
+            </c:choose>
+
 
             <c:if test="${pageContext.request.userPrincipal.name != null}">
                 <form id="logoutForm" method="POST" action="${contextPath}/logout">
@@ -128,6 +144,19 @@
 
     <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
 </div>
+
+<script>
+    function myFunction() {
+        var x = document.getElementById("myTopnav");
+        if (x.className === "topnav") {
+            x.className += " responsive";
+        } else {
+            x.className = "topnav";
+        }
+    }
+</script>
+
+<script src="${contextPath}/resources/jsNew/bootstrap.js"></script>
 <div class="modal" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="cont">
@@ -166,19 +195,6 @@
 
 
     </div>
-</div>
-<script>
-    function myFunction() {
-        var x = document.getElementById("myTopnav");
-        if (x.className === "topnav") {
-            x.className += " responsive";
-        } else {
-            x.className = "topnav";
-        }
-    }
-</script>
-<script src="${contextPath}/resources/jsNew/jquery.js"></script>
-<script src="${contextPath}/resources/jsNew/bootstrap.js"></script>
 </div>
 </body>
 </html>

@@ -68,7 +68,7 @@ border-radius: 17px;"
     <button
             type="button" data-toggle="modal" class = "need3"
             data-target="#my${av.id}">
-        <div class = "insi" style = " border:none; border-radius:14px;background:white; margin-top:44%; margin-bottom:44%">
+        <div class = "insi" style = " border:none; border-radius:14px;background:white;text-align:center; margin-top:25%; height:80px; margin-bottom:49%; ">
             <p style = ""> ${av.title} </p>
         </div>
     </button>
@@ -78,7 +78,7 @@ border-radius: 17px;"
     <button
             type="button" data-toggle="modal" class = "need3"
             data-target="#my${av.id}">
-        <div class = "insi" style = " border:none; border-radius:14px;background:white; margin-top:44%; margin-bottom:44%">
+        <div class = "insi" style = " border:none; border-radius:14px; text-align:center;background:white; margin-top:30%; height:80px; margin-bottom:40%;">
             <p> ${av.title} </p>
         </div>
     </button>
@@ -88,7 +88,7 @@ border-radius: 17px;"
     <button
             type="button" data-toggle="modal" class = "need3"
             data-target="#my${av.id}">
-        <div class = "insi" style = " border:none; border-radius:14px;background:white; margin-top:44%; margin-bottom:44%">
+        <div class = "insi" style = " border:none; border-radius:14px; text-align:center;background:white; margin-top:30%; height:80px; margin-bottom:40%;">
             <p> ${av.title} </p>
         </div>
     </button>
