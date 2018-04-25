@@ -65,6 +65,8 @@ public class Patron extends User {
     @Transient
     private String notification;
 
+
+
     public Patron(){};
 
     public Patron(String username, String password, String name, String surname, String phone, String email, String type, String address){

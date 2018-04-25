@@ -225,7 +225,7 @@ public class UserController {
         //securityService.autoLogin(userForm.getUsername(), userForm.getConfirmPassword());
         log.write(getCurrentUser(), "register" , null, user);
 
-        return "redirect:/admin";
+        return "redirect:/listOfLibrarians";
     }
 
     @RequestMapping(value = "/ProfilePage", method = RequestMethod.GET)
@@ -581,25 +581,29 @@ public class UserController {
 
     @RequestMapping(value = "/return/{docId}")
     public String returnDoc(@PathVariable Long docId, Model model) throws IOException {
-        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
-        User user = userService.findByUsername(currentUser);
-        Long userId = user.getId();
-        if(documentService.getDocumentById(docId)==null) return "redirect:/error/wrongid";
+        try {
+            String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+            User user = userService.findByUsername(currentUser);
+            Long userId = user.getId();
+            if (documentService.getDocumentById(docId) == null) return "redirect:/error/wrongid";
 
-        int status = -2;
-        if(user instanceof Patron) {
-            ((Patron) user).setDocumentService(documentService);
-            ((Patron) user).setHistoryService(historyService);
-            ((Patron) user).setUserService(userService);
-            status = ((Patron) user).toReturn(documentService.getDocumentById(docId), new Date(System.currentTimeMillis()));
-        }
+            int status = -2;
+            if (user instanceof Patron) {
+                ((Patron) user).setDocumentService(documentService);
+                ((Patron) user).setHistoryService(historyService);
+                ((Patron) user).setUserService(userService);
+                status = ((Patron) user).toReturn(documentService.getDocumentById(docId), new Date(System.currentTimeMillis()));
+            }
 
-        List<History> historyList= historyService.getListHistoriesByIdAndDocId(userId,docId);
-        History history = historyList.get(historyList.size()-1);
-        if(history == null || history.status==0) return "error";
-        else{
-            model.addAttribute("history", history );
-            model.addAttribute("document", documentService.getDocumentById(history.getDocId()));
+            List<History> historyList = historyService.getListHistoriesByIdAndDocId(userId, docId);
+            History history = historyList.get(historyList.size() - 1);
+            if (history == null || history.status == 0) return "error";
+            else {
+                model.addAttribute("history", history);
+                model.addAttribute("document", documentService.getDocumentById(history.getDocId()));
+            }
+        }catch (NullPointerException e){
+            return "error";
         }
                                                         //Status ==0 - Success
         return "status";
@@ -713,11 +717,11 @@ public class UserController {
 
     @RequestMapping(value = "/search/{title}", method = RequestMethod.GET)
      public String search(@PathVariable String title, ModelMap model) throws SQLException {
-               List<Document> documents = documentService.getAllDocuments();
-              List<Document> documentsAnswerListByTitle = new ArrayList<>();
-               List<Document> documentsAnswerListByAuthor = new ArrayList<>();
-                List<Document> documentsAnswerListByAuthorAndTitle = new ArrayList<>();
-                List<Document> documentsAnswerListByKeyWords = new ArrayList<>();
+            List<Document> documents = documentService.getAllDocuments();
+            List<Document> documentsAnswerListByTitle = new ArrayList<>();
+            List<Document> documentsAnswerListByAuthor = new ArrayList<>();
+            List<Document> documentsAnswerListByAuthorAndTitle = new ArrayList<>();
+            List<Document> documentsAnswerListByKeyWords = new ArrayList<>();
                 for (int i = 0; i < documents.size(); i++) {
                         Document document = documents.get(i);
                         if (document.getTitle().equals(title)) {
@@ -731,8 +735,8 @@ public class UserController {
 
         }
               model.put("documentsAnswerListByTitle", documentsAnswerListByTitle);
-                model.put("documentsAnswerListByAuthor", documentsAnswerListByAuthor);
-                model.put("documentsAnswerListByAuthorAndTitle", documentsAnswerListByAuthorAndTitle);
+              model.put("documentsAnswerListByAuthor", documentsAnswerListByAuthor);
+              model.put("documentsAnswerListByAuthorAndTitle", documentsAnswerListByAuthorAndTitle);
 
 
 
