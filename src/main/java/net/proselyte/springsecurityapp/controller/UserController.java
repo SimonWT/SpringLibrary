@@ -581,25 +581,29 @@ public class UserController {
 
     @RequestMapping(value = "/return/{docId}")
     public String returnDoc(@PathVariable Long docId, Model model) throws IOException {
-        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
-        User user = userService.findByUsername(currentUser);
-        Long userId = user.getId();
-        if(documentService.getDocumentById(docId)==null) return "redirect:/error/wrongid";
+        try {
+            String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+            User user = userService.findByUsername(currentUser);
+            Long userId = user.getId();
+            if (documentService.getDocumentById(docId) == null) return "redirect:/error/wrongid";
 
-        int status = -2;
-        if(user instanceof Patron) {
-            ((Patron) user).setDocumentService(documentService);
-            ((Patron) user).setHistoryService(historyService);
-            ((Patron) user).setUserService(userService);
-            status = ((Patron) user).toReturn(documentService.getDocumentById(docId), new Date(System.currentTimeMillis()));
-        }
+            int status = -2;
+            if (user instanceof Patron) {
+                ((Patron) user).setDocumentService(documentService);
+                ((Patron) user).setHistoryService(historyService);
+                ((Patron) user).setUserService(userService);
+                status = ((Patron) user).toReturn(documentService.getDocumentById(docId), new Date(System.currentTimeMillis()));
+            }
 
-        List<History> historyList= historyService.getListHistoriesByIdAndDocId(userId,docId);
-        History history = historyList.get(historyList.size()-1);
-        if(history == null || history.status==0) return "error";
-        else{
-            model.addAttribute("history", history );
-            model.addAttribute("document", documentService.getDocumentById(history.getDocId()));
+            List<History> historyList = historyService.getListHistoriesByIdAndDocId(userId, docId);
+            History history = historyList.get(historyList.size() - 1);
+            if (history == null || history.status == 0) return "error";
+            else {
+                model.addAttribute("history", history);
+                model.addAttribute("document", documentService.getDocumentById(history.getDocId()));
+            }
+        }catch (NullPointerException e){
+            return "error";
         }
                                                         //Status ==0 - Success
         return "status";
