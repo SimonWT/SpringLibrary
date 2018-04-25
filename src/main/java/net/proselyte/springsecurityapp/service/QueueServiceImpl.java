@@ -5,7 +5,6 @@ import net.proselyte.springsecurityapp.dao.QueueDao;
 import net.proselyte.springsecurityapp.dao.UserDao;
 import net.proselyte.springsecurityapp.model.Booking.Queue;
 import net.proselyte.springsecurityapp.model.Users.Patron;
-import net.proselyte.springsecurityapp.model.Users.PatronComparator;
 import net.proselyte.springsecurityapp.model.Users.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
