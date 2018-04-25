@@ -22,7 +22,6 @@
 
     <title>New Article || DeepLib</title>
 
-    <link href="${contextPath}/resources/css/common.css" rel="stylesheet">
 
 
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/bootstrap.css">
@@ -32,7 +31,6 @@
 
 <body>
 <%@ include file ="topnav.jsp" %>
-
 
 <div class="container">
 
@@ -57,10 +55,10 @@
 
 
         <spring:bind path="dateString">
-        <div class="form-group ${status.error ? 'has-error' : ''}">
-        <form:input type="date" path="dateString" class="form-control" placeholder="Publication Date"></form:input>
-        <form:errors path="dateString"></form:errors>
-        </div>
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <form:input type="date" path="dateString" class="form-control" placeholder="Publication Date"></form:input>
+                <form:errors path="dateString"></form:errors>
+            </div>
         </spring:bind>
 
         <spring:bind path="authors">
@@ -97,7 +95,6 @@
         <button style = "width:300px; font-size:240%; min-height:50px; background:#adadad; border:none; outline:none; border-radius:13px;
 " type="submit">Submit</button>    </form:form>
 </div>
-
 <script src="${contextPath}/resources/jsNew/jquery.js"></script>
 <script src="${contextPath}/resources/jsNew/bootstrap.js"></script>
 </body>

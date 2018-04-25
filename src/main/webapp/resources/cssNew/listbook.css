@@ -72,7 +72,7 @@
     background-image: url("/resources/imgNew/book-flat.png");
     opacity:60%;
     border:none;
-    text-align: center;
+    background-repeat: no-repeat;
     background-size: 100%;
     width: 30%;
     height:auto;
@@ -87,9 +87,9 @@
     margin-bottom:3%;
     margin-left:2.2%;
     background-image: url("/resources/imgNew/Media-movie.svg");
+    background-repeat: no-repeat;
     opacity:60%;
     border:none;
-    text-align: center;
     background-size: 100%;
     width: 30%;
     height:auto;
@@ -100,13 +100,12 @@
 }
 .book .need2{
     font-size:2vw;
-    margin-top:3%;
     margin-bottom:3%;
     margin-left:2.2%;
     background-image: url("/resources/imgNew/magazine.png");
+    background-repeat: no-repeat;
     opacity:60%;
     border:none;
-    text-align: center;
     background-size: 100%;
     width: 30%;
     height:auto;

@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Катя
-  Date: 01.04.2018
-  Time: 23:31
-  To change this template use File | Settings | File Templates.
---%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -20,6 +13,8 @@
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/bootstrap.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/font-awesome.css">
     <link rel="stylesheet" href="${contextPath}/resources/cssNew/welcomeform.css">
+    <link rel="stylesheet" href="${contextPath}/resources/cssNew/listbook.css">
+
     <script src="${contextPath}/resources/jsNew/jquery.js"></script>
     <style>
     </style>
@@ -59,17 +54,13 @@
         </c:when>
 
         <c:otherwise>
-            <div class="box">
-                <div class="container-1">
-            <span class="icon">
-</span>             <form:form method="POST">
-                    <input type="search" id="search" placeholder="Search..." />
-                    <button name="full"  class="btn btn-block" type="submit">Full</button></tr>
-                    <button name="part"  class="btn btn-block" type="submit">Full</button></tr>
+                <form:form method="POST">
+                    <input type="search" class = "t" id="search" placeholder="Search..." />
+                    <button name="full"  class="btn btn-block" style = "display:none"type="submit">Full</button></tr>
+                    <button name="part"  class="btn btn-block" type="submit" style = "display:none;">Full</button></tr>
 
                 </form:form>
                     <script>
-
                         $("form#command button[name=full]").click(function(e){
                             e.preventDefault();
                             if ($("form#command input#search").val() == "") return;
@@ -80,10 +71,7 @@
                             if ($("form#command input#search").val() == "") return;
                             window.location.href="/searchPart/"+$("form#command input#search").val();
                         });
-
                     </script>
-                </div>
-            </div>
             <div class  = "hell">
 
                 <a href="/listOfAudioVideoMaterialForPatron" style = ""><i class="fa fa-file-audio-o" aria-hidden="true"></i>
@@ -109,6 +97,13 @@
                 <i class="fa fa-exclamation" aria-hidden="true" style = "color:red;"></i>
 
             </a>
+            <p style = "font-size:1.5vw;width:100%;color:darkred; margin-left:10%;">
+
+                What happened with telegram?
+            <i class="fa fa-telegram" aria-hidden="true"></i>
+
+
+        </p>
         </div>
     </div>
     <div class="dropdown2" >
@@ -149,65 +144,6 @@
 
     <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
 </div>
-<div class="modal" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="cont">
-            <div class="modal2">`
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <i class="fa fa-window-close-o" aria-hidden="true" style = "font-size:45px; padding-right:4px;"></i>
-                </button>
-                <br>
-                <br>
-                <div class="row">
-                    <div class="cont1">
-                        <span class = "photprof">
-                        <img src="${contextPath}/resources/imgNew/user2.png" height = "20%"; width = "20%";>
-
-                    <p style = "padding-left:25%; padding-top:5%;">Deep Library ID: ${user.username}</p>
-                </span>
-                    </div>
-                    <div class="cont2">
-                        <p>${user.name}  ${user.surname}</p>
-                        <a href="tel:${user.phone}">${user.phone}</a>
-                        <p><a href="mailto:${user.email}">
-                            ${user.email}</a></p>
-                        <p>Type: ${user.type}</p>
-
-                        <button  style = "background:#8a6d3b; outline:none; border: none; font-size:25px;"><a href="#" style = "color:#ddd8c4">
-                            <i class="fa fa-bookmark" aria-hidden="true" style = "padding-right:5px;"></i>My Documents</a></button>
-                    </div>
-                </div>
-                <div class = "row">
-                    <div class = "button1">
-                        <button> <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                            Edit </button>
-                    </div>
-                    <div class = "button2">
-                        <c:if test="${pageContext.request.userPrincipal.name != null}">
-                            <form id="logoutForm" method="POST" action="${contextPath}/logout">
-                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                                <a href = "#" onclick="document.forms['logoutForm'].submit()"> <button ><i class="fa fa-sign-out" aria-hidden="true"></i>
-                                    Logout </button></a>
-                            </form>
-
-
-                        </c:if>
-                    </div>
-                </div>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-
-
-                <br>
-            </div>
-
-
-        </div>
-    </div>
-</div>
 
 <script>
     function myFunction() {
@@ -221,6 +157,44 @@
 </script>
 
 <script src="${contextPath}/resources/jsNew/bootstrap.js"></script>
+<div class="modal" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="cont">
+            <div class="modal2">`
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="fa fa-window-close-o" aria-hidden="true" style = "font-size:45px; padding-right:4px;"></i>
+                </button>
 
+            </div>
+            <p style = "margin-left:7%; font-size: 2vw;">${user.type}</p>
+
+            <div class = "hatep">
+                <p>${user.name}</p>
+                <p>${user.surname}</p>
+                <p>${user.address}</p>
+                <p>${user.id}</p>
+                <p>                            <a href="tel:${user.phone}">${user.phone}</a>
+                </p>
+                <p>  <a href="mailto:${user.email}">
+                    ${user.email}</a> </p>
+            </div>
+
+            <div class = "button2">
+                <c:if test="${pageContext.request.userPrincipal.name != null}">
+                    <form id="logoutForm" method="POST" action="${contextPath}/logout">
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                        <button > <a href = "#" onclick="document.forms['logoutForm'].submit()"><i class="fa fa-sign-out" aria-hidden="true"></i>
+                            Logout </a></button>
+                    </form>
+
+
+                </c:if>
+                <br>
+            </div>
+        </div>
+
+
+    </div>
+</div>
 </body>
 </html>

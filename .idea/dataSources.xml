@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="deep_library_3rd_delivery@127.0.0.1" uuid="363900e3-6228-4a17-93db-51d8fb6a8ba9">
+    <data-source source="LOCAL" name="deep_library_3rd_delivery@localhost" uuid="42d6601e-ad20-4196-a96d-ee7ab98eb06b">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://127.0.0.1:3306/deep_library_3rd_delivery</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost:3306/deep_library_3rd_delivery</jdbc-url>
       <driver-properties>
         <property name="autoReconnect" value="true" />
         <property name="zeroDateTimeBehavior" value="convertToNull" />
