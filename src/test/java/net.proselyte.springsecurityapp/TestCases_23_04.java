@@ -5,6 +5,7 @@ import net.proselyte.springsecurityapp.dao.UserDao;
 import net.proselyte.springsecurityapp.model.Booking.Queue;
 import net.proselyte.springsecurityapp.model.Documents.AudioVideo;
 import net.proselyte.springsecurityapp.model.Documents.Book;
+import net.proselyte.springsecurityapp.model.Documents.Document;
 import net.proselyte.springsecurityapp.model.Users.*;
 import net.proselyte.springsecurityapp.service.*;
 
@@ -19,6 +20,7 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import javax.annotation.Resource;
+import javax.print.Doc;
 import javax.transaction.Transactional;
 
 import java.io.BufferedWriter;
@@ -28,6 +30,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import static org.junit.Assert.*;
@@ -210,7 +213,7 @@ public class TestCases_23_04 {
 
         DateFormat format1 = new SimpleDateFormat("mm yyyy");
         d1 = new Book();
-        d1.setTitle("Intoduction to Algorithms");
+        d1.setTitle("Introduction to Algorithms");
         d1.setAuthors("Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest and Clifford Stein");
         d1.setPublisher("MIT Press");
         try {
@@ -436,7 +439,10 @@ public class TestCases_23_04 {
             l1.outstandingRequest(d3, d);
 
             BufferedWriter bw = new BufferedWriter(new FileWriter("out.txt"));
-            bw.write(admin.getLog().toString());
+            List <String> s = admin.getLog().read();
+            for (int i = 0; i < s.size(); i++){
+                bw.write(s.get(i) + "\n");
+            }
             bw.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -444,8 +450,172 @@ public class TestCases_23_04 {
     }
 
 
+    @Test
+    public void testCase9(){
+        try {
+            admin.addLibrarian(l1);
+            admin.addLibrarian(l2);
+            admin.addLibrarian(l3);
+
+            l2.addDoc(d1, 3);
+            l2.addDoc(d2, 3);
+            l2.addDoc(d3, 3);
+
+            l2.addPatron(s);
+            l2.addPatron(p1);
+            l2.addPatron(p2);
+            l2.addPatron(p3);
+            l2.addPatron(v);
+
+            Date d = new Date();
+            p1.checkout(d3, d);
+            p2.checkout(d3, d);
+            s.checkout(d3, d);
+            v.checkout(d3, d);
+            p3.checkout(d3, d);
+
+            l3.outstandingRequest(d3, d);
+
+            BufferedWriter bw = new BufferedWriter(new FileWriter("out.txt"));
+            List <String> s = admin.getLog().read();
+            for (int i = 0; i < s.size(); i++){
+                bw.write(s.get(i) + "\n");
+            }
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
+    @Test
+    public void testCase10(){
+        try {
+            admin.addLibrarian(l1);
+            admin.addLibrarian(l2);
+            admin.addLibrarian(l3);
 
+            l2.addDoc(d1, 3);
+            l2.addDoc(d2, 3);
+            l2.addDoc(d3, 3);
+
+            l2.addPatron(s);
+            l2.addPatron(p1);
+            l2.addPatron(p2);
+            l2.addPatron(p3);
+            l2.addPatron(v);
+
+            List<Document> searchRes = v.searchByFullTitle("Introduction to Algorithms");
+            assertEquals(1, searchRes.size());
+            assertEquals("Introduction to Algorithms", searchRes.get(0).getTitle());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Test
+    public void testCase11(){
+        try {
+            admin.addLibrarian(l1);
+            admin.addLibrarian(l2);
+            admin.addLibrarian(l3);
+
+            l2.addDoc(d1, 3);
+            l2.addDoc(d2, 3);
+            l2.addDoc(d3, 3);
+
+            l2.addPatron(s);
+            l2.addPatron(p1);
+            l2.addPatron(p2);
+            l2.addPatron(p3);
+            l2.addPatron(v);
+
+            List<Document> searchRes = v.searchByPartTitle("Algorithms");
+            assertEquals(2, searchRes.size());
+            assertEquals("Introduction to Algorithms", searchRes.get(0).getTitle());
+            assertEquals("Algorithms + Data Structures = Programs", searchRes.get(1).getTitle());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testCase12(){
+        try {
+            admin.addLibrarian(l1);
+            admin.addLibrarian(l2);
+            admin.addLibrarian(l3);
+
+            l2.addDoc(d1, 3);
+            l2.addDoc(d2, 3);
+            l2.addDoc(d3, 3);
+
+            l2.addPatron(s);
+            l2.addPatron(p1);
+            l2.addPatron(p2);
+            l2.addPatron(p3);
+            l2.addPatron(v);
+
+            List<Document> searchRes = v.searchByKeywords("Algorithms");
+            assertEquals(3, searchRes.size());
+            assertEquals("Introduction to Algorithms", searchRes.get(0).getTitle());
+            assertEquals("Algorithms + Data Structures = Programs", searchRes.get(1).getTitle());
+            assertEquals("The Art of Computer Programming", searchRes.get(2).getTitle());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testCase13(){
+        try {
+            admin.addLibrarian(l1);
+            admin.addLibrarian(l2);
+            admin.addLibrarian(l3);
+
+            l2.addDoc(d1, 3);
+            l2.addDoc(d2, 3);
+            l2.addDoc(d3, 3);
+
+            l2.addPatron(s);
+            l2.addPatron(p1);
+            l2.addPatron(p2);
+            l2.addPatron(p3);
+            l2.addPatron(v);
+
+            List<Document> searchRes = v.searchByPartTitle("Algorithms AND Programming");
+            assertEquals(0, searchRes.size());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testCase14(){
+        try {
+            admin.addLibrarian(l1);
+            admin.addLibrarian(l2);
+            admin.addLibrarian(l3);
+
+            l2.addDoc(d1, 3);
+            l2.addDoc(d2, 3);
+            l2.addDoc(d3, 3);
+
+            l2.addPatron(s);
+            l2.addPatron(p1);
+            l2.addPatron(p2);
+            l2.addPatron(p3);
+            l2.addPatron(v);
+
+            List<Document> searchRes = v.searchByPartTitle("Algorithms OR Programming");
+            assertEquals(3, searchRes.size());
+            assertEquals("Introduction to Algorithms", searchRes.get(0).getTitle());
+            assertEquals("Algorithms + Data Structures = Programs", searchRes.get(1).getTitle());
+            assertEquals("The Art of Computer Programming", searchRes.get(2).getTitle());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

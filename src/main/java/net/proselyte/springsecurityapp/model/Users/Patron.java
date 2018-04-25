@@ -292,4 +292,62 @@ public class Patron extends User {
     public void setUserService(UserService userService) {
         this.userService = userService;
     }
+
+    public List<Document> searchByFullTitle(String searchString){
+        List<Document> documentsAnswerListBySearchString = new ArrayList<>();
+        List<Document> documents = documentService.getAllDocuments();
+        for (int i = 0; i < documents.size(); i++) {
+            Document document = documents.get(i);
+            if (document.getTitle().equals(searchString)) {
+                documentsAnswerListBySearchString.add(document);
+            }
+        }
+        return documentsAnswerListBySearchString;
+    }
+
+    public List<Document> searchByPartTitle(String searchString) {
+        List<Document> documentsAnswerListBySearchString = new ArrayList<>();
+        List<Document> documents = documentService.getAllDocuments();
+        if (searchString.contains(" AND ")) {
+            String word1 = searchString.split(" ")[0];
+            String word2 = searchString.split(" ")[2];
+            for (int i = 0; i < documents.size(); i++) {
+                Document document = documents.get(i);
+                if (document.getTitle().contains(word1) && document.getTitle().contains(word2)) {
+                    documentsAnswerListBySearchString.add(document);
+                }
+            }
+        } else if (searchString.contains(" OR ")) {
+            String word1 = searchString.split(" ")[0];
+            String word2 = searchString.split(" ")[2];
+            for (int i = 0; i < documents.size(); i++) {
+                Document document = documents.get(i);
+                if (document.getTitle().contains(word1) || document.getTitle().contains(word2)) {
+                    documentsAnswerListBySearchString.add(document);
+                }
+            }
+        } else {
+            for (int i = 0; i < documents.size(); i++) {
+                Document document = documents.get(i);
+                if (document.getTitle().contains(searchString)) {
+                    documentsAnswerListBySearchString.add(document);
+                }
+            }
+        }
+        return documentsAnswerListBySearchString;
+    }
+
+    public List<Document> searchByKeywords(String searchString){
+        List<Document> documentsAnswerListBySearchString = new ArrayList<>();
+        List<Document> documents = documentService.getAllDocuments();
+        for (int i = 0; i < documents.size(); i++) {
+            Document document = documents.get(i);
+            if (document.getKeys().contains(searchString)) {
+                documentsAnswerListBySearchString.add(document);
+            }
+        }
+        return documentsAnswerListBySearchString;
+    }
+
+
 }

@@ -47,7 +47,7 @@ public class Admin extends User{
         this.userService = userService;
     }
 
-    public List<String> getLog() {
-        return log.read();
+    public LogWriter getLog() {
+        return log;
     }
 }
