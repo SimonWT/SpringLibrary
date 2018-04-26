@@ -175,9 +175,11 @@ public class Librarian extends User {
             this.log.write(this, "waiting list delted", doc, null);
             while (!queue.isEmpty()) {
                 Patron p = (Patron) queue.poll();
+                doc.queue.poll();
                 p.setNotification("You was removed from waiting list of document " + doc.getTitle());
                 this.log.write(this, "user " + p.getName() + " " + p.getSurname() +" notified about removing from waiting list for", doc, null);
             }
+            queueService.clearQeueByDocId(doc.getId());
 
             List<Patron> patrons = userService.getAllPatrons();
             for (int i = 0; i < patrons.size(); i++) {

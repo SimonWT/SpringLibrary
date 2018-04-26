@@ -82,7 +82,7 @@
         <td>${librarian.phone}</td>
         <td>${librarian.email}</td>
         <td>${librarian.privilege}</td>
-            <td><a href="/editLibrarians/${librarian.id}">Edit</a></td>
+            <td><a href="/editLibrarian/${librarian.id}">Edit</a></td>
             <td><a href="/deleteUser/${librarian.id}">Delete</a></td>
         </tr>
 

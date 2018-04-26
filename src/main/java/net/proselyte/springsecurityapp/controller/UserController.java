@@ -101,7 +101,9 @@ public class UserController {
 
         log.write(getCurrentUser(), "delete", null, userService.getUserById(id));
         userService.delete(id);
-
+        if (getCurrentUser().getType().equals("Admin")) {
+            return "redirect:/listOfLibrarians";
+        } else
         return "redirect:/listOfUsers";
     }
 
@@ -387,7 +389,7 @@ public class UserController {
         log.write(getCurrentUser(), "edit" , null,
                 userForm);
 
-        return "redirect:/listOfUsers";
+        return "redirect:/listOfLibrarians";
 
     }
 

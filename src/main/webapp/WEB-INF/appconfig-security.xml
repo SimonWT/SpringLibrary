@@ -33,6 +33,7 @@
         <intercept-url pattern="/registerLibrarian" access="hasRole('ROLE_ADMIN')"/>
         <intercept-url pattern="/listOfLibrarians" access="hasRole('ROLE_ADMIN')"/>
         <intercept-url pattern="/Logs" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/listOfAllDocuments" access="hasAnyRole('ROLE_LIBRARIAN_2, ROLE_LIBRARIAN_3')"/>
 
 
         <form-login login-page="/login" default-target-url="/welcome" authentication-failure-url="/login?error"
