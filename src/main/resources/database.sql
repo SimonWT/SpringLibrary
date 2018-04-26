@@ -436,6 +436,7 @@ CREATE TABLE `users` (
   `type` varchar(255) NOT NULL,
   `address` varchar(255) DEFAULT NULL,
   `privilege` int(11) DEFAULT NULL,
+  `notifications` varchar(255) DEFAULT NULL,
   `documents` tinyblob,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3714 DEFAULT CHARSET=utf8;

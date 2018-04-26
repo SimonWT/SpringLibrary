@@ -47,5 +47,10 @@ public class HistoryServiceImpl implements HistoryService {
         return historyDao.getHistoriesByUserIdAndStatus(userId, status);
     }
 
+    @Override
+    public List<History> getListHistoriesByDocIdAndStatus(Long docId, int status) {
+        return historyDao.getHistoriesByDocIdAndStatus(docId, status);
+    }
+
 
 }
