@@ -62,7 +62,7 @@ public class Patron extends User {
     @Transient
     private LogWriter log = new LogWriter();
 
-    @Transient
+    @Column(name = "notifications")
     private String notification;
 
     public Patron(){};
@@ -86,7 +86,7 @@ public class Patron extends User {
         this.queueService = queueService;
     }
 
-    public int checkout(Document doc, Date checkoutDate) throws IOException {
+    public int checkout(Document doc, Date checkoutDate){
 
         if (userService.getAllPatrons().contains(this)){
             System.out.println("You have not registered in system. Ask librarian to register you in system");
@@ -174,7 +174,7 @@ public class Patron extends User {
         }
     }
 
-    public int toReturn(Document doc, Date returnDate) throws IOException {
+    public int toReturn(Document doc, Date returnDate)  {
         Long id = userService.findByUsername(this.getUsername()).getId();
         List<History> historyList= historyService.getListHistoriesByIdAndDocId(this.getId(),doc.getId());
         History h = new History();
@@ -211,7 +211,7 @@ public class Patron extends User {
         return -1;
     }
 
-    public void renew(Document doc, Date renewDate) throws IOException {
+    public void renew(Document doc, Date renewDate) {
         if (!doc.wasRenewed()) {
             toReturn(doc, renewDate);
             checkout(doc, renewDate);
@@ -290,4 +290,62 @@ public class Patron extends User {
     public void setUserService(UserService userService) {
         this.userService = userService;
     }
+
+    public List<Document> searchByFullTitle(String searchString){
+        List<Document> documentsAnswerListBySearchString = new ArrayList<>();
+        List<Document> documents = documentService.getAllDocuments();
+        for (int i = 0; i < documents.size(); i++) {
+            Document document = documents.get(i);
+            if (document.getTitle().equals(searchString)) {
+                documentsAnswerListBySearchString.add(document);
+            }
+        }
+        return documentsAnswerListBySearchString;
+    }
+
+    public List<Document> searchByPartTitle(String searchString) {
+        List<Document> documentsAnswerListBySearchString = new ArrayList<>();
+        List<Document> documents = documentService.getAllDocuments();
+        if (searchString.contains(" AND ")) {
+            String word1 = searchString.split(" ")[0];
+            String word2 = searchString.split(" ")[2];
+            for (int i = 0; i < documents.size(); i++) {
+                Document document = documents.get(i);
+                if (document.getTitle().contains(word1) && document.getTitle().contains(word2)) {
+                    documentsAnswerListBySearchString.add(document);
+                }
+            }
+        } else if (searchString.contains(" OR ")) {
+            String word1 = searchString.split(" ")[0];
+            String word2 = searchString.split(" ")[2];
+            for (int i = 0; i < documents.size(); i++) {
+                Document document = documents.get(i);
+                if (document.getTitle().contains(word1) || document.getTitle().contains(word2)) {
+                    documentsAnswerListBySearchString.add(document);
+                }
+            }
+        } else {
+            for (int i = 0; i < documents.size(); i++) {
+                Document document = documents.get(i);
+                if (document.getTitle().contains(searchString)) {
+                    documentsAnswerListBySearchString.add(document);
+                }
+            }
+        }
+        return documentsAnswerListBySearchString;
+    }
+
+    public List<Document> searchByKeywords(String searchString){
+        List<Document> documentsAnswerListBySearchString = new ArrayList<>();
+        List<Document> documents = documentService.getAllDocuments();
+        for (int i = 0; i < documents.size(); i++) {
+            Document document = documents.get(i);
+            if (document.getKeys().contains(searchString)) {
+                documentsAnswerListBySearchString.add(document);
+            }
+        }
+        return documentsAnswerListBySearchString;
+    }
+
+
 }

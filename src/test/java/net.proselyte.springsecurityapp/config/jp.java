@@ -44,7 +44,7 @@ public class jp {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         final LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource());
-        em.setPackagesToScan(new String[]{ "net.proselyte.springsecurityapp.model","net.proselyte.springsecurityapp.dao","net.proselyte.springsecurityapp.service" });
+        em.setPackagesToScan(new String[]{"net.proselyte.springsecurityapp.service"  ,"net.proselyte.springsecurityapp.model","net.proselyte.springsecurityapp.dao"});
         em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
         em.setJpaProperties(additionalProperties());
         return em;

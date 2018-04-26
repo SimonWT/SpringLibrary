@@ -2,8 +2,6 @@ package net.proselyte.springsecurityapp.model.Users;
 
 import jdk.nashorn.internal.ir.annotations.Ignore;
 import net.proselyte.springsecurityapp.LogWriter;
-import net.proselyte.springsecurityapp.dao.ForTesting.DocDao;
-import net.proselyte.springsecurityapp.dao.ForTesting.DocDaoImpl;
 import net.proselyte.springsecurityapp.model.Booking.History;
 import net.proselyte.springsecurityapp.model.Documents.Article;
 import net.proselyte.springsecurityapp.model.Documents.AudioVideo;
@@ -201,5 +199,12 @@ public class Librarian extends User {
 
     public void setPrivilege(int privilege) {
         this.privilege = privilege;
+    }
+
+    public String checkSysytem(){
+        String res = String.valueOf((userService.getAllPatrons().size() + userService.getAllLibrarians().size())) + " users "
+                + String.valueOf(docService.getAllDocuments().size()) + " documents";
+        this.log.write(this, "checked system information", null, null);
+        return res;
     }
 }

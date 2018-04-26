@@ -228,8 +228,6 @@ public class TestCases_04_04 {
             assertEquals(expectedResult, l.checkOverdue(p1, format.parse("02 April")));
         } catch (ParseException e) {
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
 
 
@@ -296,8 +294,6 @@ public class TestCases_04_04 {
             v.checkout(d2, date);
         } catch (ParseException e) {
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
 
 
@@ -307,8 +303,6 @@ public class TestCases_04_04 {
             s.renew(d2, date);
             v.renew(d2, date);
         } catch (ParseException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -352,9 +346,9 @@ public class TestCases_04_04 {
             l.outstandingRequest(d2, date);
         } catch (ParseException e) {
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+
+
 
 
         String expectedRes = "Name: Sergey\n" +

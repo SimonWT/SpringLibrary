@@ -55,7 +55,6 @@ public class LogWriter {
 
     }
 
-
     public List<String> read(){
         List<String> result= new LinkedList<>();
 
@@ -65,6 +64,19 @@ public class LogWriter {
         result = readLines(file);
 
         return result;
+    }
+
+    public void clean(){
+
+        try {
+            File file = new File("src\\main\\java\\net\\proselyte\\springsecurityapp\\log.txt");
+
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
+            bufferedWriter.write("");
+            bufferedWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private static String readUsingFiles(String fileName) throws IOException {
