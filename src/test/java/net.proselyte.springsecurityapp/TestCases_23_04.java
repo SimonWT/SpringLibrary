@@ -266,29 +266,26 @@ public class TestCases_23_04 {
     @Test
     public void testCase2(){
         int oldLibrariansAmount = userService.getAllLibrarians().size();
-        try {
+
             admin.addLibrarian(l1);
             admin.addLibrarian(l2);
             admin.addLibrarian(l3);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+
         assertEquals(3, userService.getAllLibrarians().size() - oldLibrariansAmount);
     }
 
     @Test
     public void testCase3(){
         int oldDocAmount = documentService.getAllDocuments().size();
-        try {
             admin.addLibrarian(l1);
             admin.addLibrarian(l2);
             admin.addLibrarian(l3);
             l1.addDoc(d1, 3);
             l1.addDoc(d2, 3);
             l1.addDoc(d3, 3);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+
         l1.checkSysytem();
         assertEquals(0, documentService.getAllDocuments().size() - oldDocAmount);
 
@@ -298,7 +295,6 @@ public class TestCases_23_04 {
     public void testCase4(){
         int oldDocAmount = documentService.getAllDocuments().size();
         int oldPatronsAmount = userService.getAllPatrons().size();
-        try {
             admin.addLibrarian(l1);
             admin.addLibrarian(l2);
             admin.addLibrarian(l3);
@@ -312,9 +308,7 @@ public class TestCases_23_04 {
             l2.addPatron(p2);
             l2.addPatron(p3);
             l2.addPatron(v);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
         l2.checkSysytem();
         assertEquals(5, userService.getAllPatrons().size() - oldPatronsAmount);
         assertEquals(3, documentService.getAllDocuments().size() - oldDocAmount);
@@ -322,7 +316,6 @@ public class TestCases_23_04 {
 
     @Test
     public void testCase5(){
-        try {
             admin.addLibrarian(l1);
             admin.addLibrarian(l2);
             admin.addLibrarian(l3);
@@ -338,16 +331,14 @@ public class TestCases_23_04 {
             l2.addPatron(v);
 
             l3.removeDoc(d1, 1);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
         l2.checkSysytem();
         assertEquals(2, d1.getCopies());
     }
 
     @Test
     public void testCase6(){
-         try {
+
             admin.addLibrarian(l1);
             admin.addLibrarian(l2);
             admin.addLibrarian(l3);
@@ -370,16 +361,13 @@ public class TestCases_23_04 {
             p3.checkout(d3, d);
 
             l1.outstandingRequest(d3, d);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         assertTrue(!d3.queue.isEmpty());
     }
 
     @Test
     public void testCase7(){
-        try {
+
             admin.addLibrarian(l1);
             admin.addLibrarian(l2);
             admin.addLibrarian(l3);
@@ -401,14 +389,14 @@ public class TestCases_23_04 {
             v.checkout(d3, d);
             p3.checkout(d3, d);
 
+            System.out.println(historyService.getHistoryByIdAndDocId(p1.getId(), d3.getId()).getReturnDate());
             l3.outstandingRequest(d3, d);
+            System.out.println(historyService.getHistoryByIdAndDocId(p1.getId(), d3.getId()).getReturnDate());
 
             assertTrue(d3.queue.isEmpty());
             assertEquals("You was removed from waiting list of document The Art of Computer Programming", v.getNotification());
             assertEquals("You was removed from waiting list of document The Art of Computer Programming", p3.getNotification());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
 
     }
 
@@ -490,7 +478,7 @@ public class TestCases_23_04 {
 
     @Test
     public void testCase10(){
-        try {
+
             admin.addLibrarian(l1);
             admin.addLibrarian(l2);
             admin.addLibrarian(l3);
@@ -508,15 +496,13 @@ public class TestCases_23_04 {
             List<Document> searchRes = v.searchByFullTitle("Introduction to Algorithms");
             assertEquals(1, searchRes.size());
             assertEquals("Introduction to Algorithms", searchRes.get(0).getTitle());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
     }
 
 
     @Test
     public void testCase11(){
-        try {
+
             admin.addLibrarian(l1);
             admin.addLibrarian(l2);
             admin.addLibrarian(l3);
@@ -535,14 +521,12 @@ public class TestCases_23_04 {
             assertEquals(2, searchRes.size());
             assertEquals("Introduction to Algorithms", searchRes.get(0).getTitle());
             assertEquals("Algorithms + Data Structures = Programs", searchRes.get(1).getTitle());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
     }
 
     @Test
     public void testCase12(){
-        try {
+
             admin.addLibrarian(l1);
             admin.addLibrarian(l2);
             admin.addLibrarian(l3);
@@ -562,14 +546,12 @@ public class TestCases_23_04 {
             assertEquals("Introduction to Algorithms", searchRes.get(0).getTitle());
             assertEquals("Algorithms + Data Structures = Programs", searchRes.get(1).getTitle());
             assertEquals("The Art of Computer Programming", searchRes.get(2).getTitle());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
     }
 
     @Test
     public void testCase13(){
-        try {
+
             admin.addLibrarian(l1);
             admin.addLibrarian(l2);
             admin.addLibrarian(l3);
@@ -586,14 +568,12 @@ public class TestCases_23_04 {
 
             List<Document> searchRes = v.searchByPartTitle("Algorithms AND Programming");
             assertEquals(0, searchRes.size());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
     }
 
     @Test
     public void testCase14(){
-        try {
+
             admin.addLibrarian(l1);
             admin.addLibrarian(l2);
             admin.addLibrarian(l3);
@@ -613,9 +593,7 @@ public class TestCases_23_04 {
             assertEquals("Introduction to Algorithms", searchRes.get(0).getTitle());
             assertEquals("Algorithms + Data Structures = Programs", searchRes.get(1).getTitle());
             assertEquals("The Art of Computer Programming", searchRes.get(2).getTitle());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
     }
 
 }

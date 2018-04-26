@@ -88,7 +88,7 @@ public class Patron extends User {
         this.queueService = queueService;
     }
 
-    public int checkout(Document doc, Date checkoutDate) throws IOException {
+    public int checkout(Document doc, Date checkoutDate){
 
         if (userService.getAllPatrons().contains(this)){
             System.out.println("You have not registered in system. Ask librarian to register you in system");
@@ -176,7 +176,7 @@ public class Patron extends User {
         }
     }
 
-    public int toReturn(Document doc, Date returnDate) throws IOException {
+    public int toReturn(Document doc, Date returnDate)  {
         Long id = userService.findByUsername(this.getUsername()).getId();
         List<History> historyList= historyService.getListHistoriesByIdAndDocId(this.getId(),doc.getId());
         History h = new History();
@@ -213,7 +213,7 @@ public class Patron extends User {
         return -1;
     }
 
-    public void renew(Document doc, Date renewDate) throws IOException {
+    public void renew(Document doc, Date renewDate) {
         if (!doc.wasRenewed()) {
             toReturn(doc, renewDate);
             checkout(doc, renewDate);
