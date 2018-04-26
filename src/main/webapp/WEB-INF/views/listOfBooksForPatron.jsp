@@ -83,7 +83,7 @@
                     </div>
                 </button>
             </c:if>
-            <c:if test = "${bookList.indexOf(av) % 3 == 0}">
+            <c:if test = "${bookList.indexOf(av) % 3 == 2}">
 
                 <button
                         type="button" data-toggle="modal" class = "need"

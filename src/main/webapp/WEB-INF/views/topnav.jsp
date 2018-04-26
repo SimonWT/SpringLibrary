@@ -54,10 +54,13 @@
         </c:when>
 
         <c:otherwise>
+
                 <form:form method="POST">
-                    <input type="search" class = "t" id="search" placeholder="Search..." />
-                    <button name="full"  class="btn btn-block" style = "display:none"type="submit">Full</button></tr>
-                    <button name="part"  class="btn btn-block" type="submit" style = "display:none;">Full</button></tr>
+                     <input type="search" class = "t" id="search" placeholder="Search..." />
+                    <button name="full"   style = "float:left; margin-top:2%; border:none;border-radius: 10px;" type="submit">Full Search</button></tr>
+                    <button name="part" type="submit" style = "float:left;margin-top:2%;border-radius: 10px; border:none;">By Title</button></tr>
+
+
 
                 </form:form>
                     <script>
