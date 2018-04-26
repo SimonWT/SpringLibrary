@@ -67,10 +67,11 @@ public class LogWriter {
     }
 
     public void clean(){
+
         try {
             File file = new File("src\\main\\java\\net\\proselyte\\springsecurityapp\\log.txt");
 
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, true));
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
             bufferedWriter.write("");
             bufferedWriter.close();
         } catch (IOException e) {
