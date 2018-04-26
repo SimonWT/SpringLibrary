@@ -67,10 +67,15 @@ public class Librarian extends User {
     private LogWriter log = new LogWriter();
 
     public void addPatron(Patron newPatron){
-        if (privilege >= 2)
+        if (privilege >= 2) {
             userService.save(newPatron);
-        else
+            this.log.write(this, "added user", null, newPatron);
+        }
+        else {
+            this.log.writeAddition(this, "added user", null, newPatron, "request was denied");
             System.out.println("Permission denied");
+        }
+
     }
 
     public Librarian() {
@@ -89,12 +94,13 @@ public class Librarian extends User {
                 doc.setCopies(copiesAmount);
                 docService.save(doc);
             }
+            this.log.write(this, "added " + copiesAmount + " copies of doc" , doc, null);
         }
 
         else{
             System.out.println("Permission denied");
+            this.log.writeAddition(this, "added " + copiesAmount + " copies of doc" , doc, null, "request was denied");
         }
-
     }
 
     public void modify(Document doc){
@@ -164,15 +170,19 @@ public class Librarian extends User {
 
     public void outstandingRequest(Document doc, Date curDate){
         if(this.privilege > 1) {
+            this.log.write(this, "placed an outstanding request on" , doc, null);
             Queue<Patron> queue = doc.queue;
+            this.log.write(this, "waiting list delted", doc, null);
             while (!queue.isEmpty()) {
-                queue.poll().setNotification("You was removed from waiting list of document " + doc.getTitle());
+                Patron p = queue.poll();
+                p.setNotification("You was removed from waiting list of document " + doc.getTitle());
+                this.log.write(this, "user " + p.getName() + " " + p.getSurname() +" notified about removing from waiting list for", doc, null);
             }
 
             List<Patron> patrons = userService.getAllPatrons();
             for (int i = 0; i < patrons.size(); i++) {
                 History history = historyService.getHistoryByIdAndDocId(userService.findByUsername(patrons.get(i).getUsername()).getId(), doc.getId());
-                if (history != null && history.status == 0) {
+                if (history != null && (history.status == 0 || history.status == 2)) {
                     long dif = history.getReturnDate().getTime() - curDate.getTime();
                     int difDays = (int) TimeUnit.DAYS.convert(dif, TimeUnit.MILLISECONDS);
                     patrons.get(i).setNotification("You must return document " + doc.getTitle());
@@ -180,10 +190,9 @@ public class Librarian extends User {
                     history.setReturnDate(curDate);
                     historyService.updateHistory(history);
                     userService.update(patrons.get(i));
+                    this.log.write(this, "user " + patrons.get(i).getName() + " " + patrons.get(i).getSurname() + " notified to return document", doc, null);
                 }
             }
-
-            this.log.write(this, "placed an outstanding request on" , doc, null);
 
         }else this.log.writeAddition(this, "placed an outstanding request on" ,
                 doc, null, "request was denied");
