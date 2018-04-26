@@ -12,5 +12,6 @@ public interface HistoryService {
     History getHistoryByIdAndDocId(Long userId, Long docId);
     List<History> getListHistoriesByIdAndDocId(Long userId, Long docId);
     List<History> userHistoriesByStatus(Long userId, int status);
+    List<History> getListHistoriesByDocIdAndStatus(Long docId, int status);
 
 }

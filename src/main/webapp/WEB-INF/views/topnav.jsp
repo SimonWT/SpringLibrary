@@ -41,6 +41,8 @@
                     Journal Article</a>
                 <a href="/listOfBooks" style = ""><i class="fa fa-book" aria-hidden="true"></i> Books</a>
                 <a href="/admin" style = ""><i class="fa fa-user-secret" aria-hidden="true"></i> ADMINKA</a>
+                <a href="/listOfAllDocuments" style = ""><i class="fa fa-user-secret" aria-hidden="true"></i> Outstanding</a>
+
             </div>
         </c:when>
 
