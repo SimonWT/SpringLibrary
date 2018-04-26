@@ -12,9 +12,9 @@
 2. Uzbekova Ekaterina - Frontend (HTML, CSS, JS, Bootstrap and etc.)
 3. Yudinskikh Yaroslav - Database and Backend (Java, MySQL, Spring and etc.)
 4. Vakhula Igor - Database and Backend (Java, MySQL, Spring and etc.)
-![image]
- 
-###How to use DeepLib
+###How to use DeepLib:
+
+
 [all documentation](/Documentation.md) you can find there.
 
 ### **How to install our project on your PC** 
