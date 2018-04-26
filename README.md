@@ -14,7 +14,7 @@
 4. Vakhula Igor - Database and Backend (Java, MySQL, Spring and etc.)
 ###How to use DeepLib:
 
-
+![alt text](documentation_screenshoots/Lofin.PNG "Description goes here")
 [all documentation](/Documentation.md) you can find there.
 
 ### **How to install our project on your PC** 
