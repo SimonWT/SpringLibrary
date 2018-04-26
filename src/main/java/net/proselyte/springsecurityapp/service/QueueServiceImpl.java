@@ -87,6 +87,11 @@ public class QueueServiceImpl implements QueueService {
         }
 
     }
+
+    @Override
+    public void clearQeueByDocId(Long docId) {
+        queueDao.deleteAllByDocId(docId);
+    }
 }
 
 

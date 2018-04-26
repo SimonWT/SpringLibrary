@@ -779,4 +779,28 @@ public class UserController {
         return "searchPart";
     }
 
+    @RequestMapping(value = "/viewQueue/{docId}", method = RequestMethod.GET)
+    public ModelAndView viewQueue(@PathVariable Long docId, Model model) {
+
+        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.findByUsername(currentUser);
+        ModelAndView mav = new ModelAndView();
+
+
+        Map<String, String> userData = new HashMap<>();
+        userData.put("username", user.getUsername());
+        userData.put("name", user.getName());
+        userData.put("surname", user.getSurname());
+        userData.put("phone", user.getPhone());
+        userData.put("email", user.getEmail());
+        userData.put("type", user.getType());
+
+        mav.setViewName("viewQueue");
+
+        model.addAttribute("queue", queueService.getPriorityQueue(docId));
+        mav.addObject("user", userData);
+
+        return mav;
+    }
+
 }

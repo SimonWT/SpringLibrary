@@ -12,4 +12,5 @@ public interface QueueService {
     void save(Queue queue);
     java.util.Queue getPriorityQueue(Long docId);
     void sendNotificationToPeekOfQueue();
+    void clearQeueByDocId(Long docId);
 }
