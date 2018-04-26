@@ -24,80 +24,39 @@
 </head>
 
 <body>
-<%@ include file="topnav.jsp" %>
+<%@ include file ="topnav.jsp" %>
 <div class = "book">
-    <br>
-    <c:forEach items="${bookList}" var="av">
+    <c:forEach items="${}" var="av">
+    <c:if test = "${.indexOf(av) % 3 == 0}">
 
-            <button
-                    type="button" data-toggle="modal" class = "need"
-                    data-target="#my${av.id}">
-                <div class = "insi" style = " border:none; border-radius:14px; text-align:center;background:white; margin-top:37%; height:80px; margin-bottom:32%;">
-                    <p style = ""> ${av.title} </p>
-                </div>
-            </button>
-        <div id="my${av.id}" class="modal fade"  >
-            <div class="modal-dialog">
-
-                <div class = "modal-body" style = "width:100%; border:none; border-radius:20px;">
-                    <br>
-
-                    <div class = "hate" style = "">
-                        <br>
-                        <p><a href="/editArticle/${article.id}">Edit</a></p>
-                        <p><a href="/deleteArticle/${article.id}">Delete</a></p>
-                        <p>ID: <p1>${av.id}</p1></p>
-                        <p>Title: <p1>${av.title}</p1></p>
-                        <p>Authors:<p1>${av.authors}</p1></p>
-                        <p>Price: <p1>${av.price}</p1></p>
-                        <p>Copies: <p1>${av.copies}</p1></p>
-                        <br>
-                    </div>
-                    <br>
-
-        </div>
-            </div>
-        </div>
-
-    </c:forEach>
-<c:forEach items="${articleList}" var="article">
-
-        <button
-                type="button" data-toggle="modal" class = "need2"
-                data-target="#my${article.id}">
-            <div class = "insi" style = " border:none; border-radius:14px;background:white;text-align:center;margin-top:37%; height:80px; margin-bottom:32%;">
-                <p> ${article.title}  </p>
-            </div>
-        </button
-    <div id="my${article.id}" class="modal fade"  >
-        <div class="modal-dialog">
-
-            <div class = "modal-body" style = "width:100%; border:none; border-radius:20px;">
-
-                <div class = "hate">
-                    <br>
-                    <p>ID: <p1> ${article.id}</p1> </p>
-                    <p>Title:<p1> ${article.title}</p1> </p>
-                    <p>Authors: <p1> ${article.authors}</p1> </p>
-                    <p>Journal: <p1>${article.journal}</p1> </p>
-                    <p>Editors: <p1> ${article.editors}</p1> </p>
-                    <p>Date: <p1> ${article.dateString}</p1> </p>
-                    <p>Price: <p1> ${article.price}</p1></p>
-                    <p>Copies:<p1> ${article.copies}</p1></p>
-                    <br>
-                </div>
-            </div>
-        </div>
-    </div>
-</c:forEach>
-    <c:forEach items="${audioVideoList}" var="av">
     <button
-            type="button" data-toggle="modal" class = "need3"
+            type="button" data-toggle="modal" class = "need"
+            data-target="#my${av.id}">
+        <div class = "insi" style = " border:none; border-radius:14px;background:white;text-align:center; margin-top:25%; height:80px; margin-bottom:49%; ">
+            <p style = ""> ${av.title} </p>
+        </div>
+    </button>
+    </c:if>
+    <c:if test = "${.indexOf(av) % 3 == 1}">
+
+    <button
+            type="button" data-toggle="modal" class = "need"
             data-target="#my${av.id}">
         <div class = "insi" style = " border:none; border-radius:14px; text-align:center;background:white; margin-top:30%; height:80px; margin-bottom:40%;">
             <p> ${av.title} </p>
         </div>
     </button>
+    </c:if>
+    <c:if test = "${.indexOf(av) % 3 == 2}">
+
+    <button
+            type="button" data-toggle="modal" class = "need"
+            data-target="#my${av.id}">
+        <div class = "insi" style = " border:none; border-radius:14px; text-align:center;background:white; margin-top:30%; height:80px; margin-bottom:40%;">
+            <p> ${av.title} </p>
+        </div>
+    </button>
+    </c:if>
 
     <div id="my${av.id}" class="modal fade"  >
         <div class="modal-dialog">
@@ -108,15 +67,19 @@
                     <br>
                     <p>Authors: <p1>${av.authors}</p1></p>
                 </div>
+                <p><a href="/editAudioVideo/${av.id}">Edit</a></p>
+                <p> <a href="/deleteAudioVideo/${av.id}">Delete</a></p>
 
 
 
                 <br>
+
             </div>
         </div>
 
         </c:forEach>
-</div>
+    </div>
+
 
 
 
