@@ -225,7 +225,8 @@ body {margin:0;
     color:black;
 }
 .t {
-    width: 130px;
+    padding-left: 2%;
+    width: 17%;
     float:left;
     margin-top:1.5%;
     background: #d9edf7;
@@ -239,10 +240,10 @@ body {margin:0;
 }
 
 /* When the input field gets focus, change its width to 100% */
-.t:focus {
+/*.t:focus {
     padding-left: 2%;
     width: 17%;
-}
+}*/
 .hatep{
     border:none;
     width:80%;

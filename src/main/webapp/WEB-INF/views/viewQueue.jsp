@@ -39,7 +39,11 @@
 <body>
 <%@ include file ="topnav.jsp" %>
 <br>
-<div style = "font-size:20px; text-align:center">You are on the 2nd place now</div>
+
+<div style = "font-size:20px; text-align:center">
+    <a href="/queueLib/${docId}">outstanding request</a></div>
+
+</div>
 
 <div class = "ftable">
 

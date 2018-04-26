@@ -19,7 +19,9 @@ public interface QueueDao extends JpaRepository<Queue, Long> {
     @Query(value = "select distinct docId from Queue")
     List<Long> findUnicDocId();
 
+
     void deleteByUserId(Long userId);
+    void deleteAllByDocId(Long docId);
     void deleteByUserIdAndDocId(Long userId, Long docId);
 
 }

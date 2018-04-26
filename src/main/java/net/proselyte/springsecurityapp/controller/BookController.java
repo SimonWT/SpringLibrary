@@ -251,7 +251,10 @@ public class BookController {
     @RequestMapping("/reg/Pat")
     public String regPat() throws IOException {
         User user = new Patron("TestInh","TestInh","TestInh","TestInh","TestInh","TestInh","TestInh", "testInh");
+        ((Patron) user).setNotification("Check Notification");
         userService.save(user);
+
+        User test = userService.findByUsername(user.getUsername());
         return "SUCCESS";
     }
 
