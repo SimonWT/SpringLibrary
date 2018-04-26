@@ -19,5 +19,22 @@ After authorization you can have different pages, depends on your role.
     ***in section "My documents" you can see documents, which you choose, and also you can manage it 
         ![alt text](documentation_screenshoots/my_doc.PNG "Description goes here")
     ***"Log Out" to exit from DeepLib
+    ***Search bar for doc
+        ![alt text](documentation_screenshoots/search.PNG "Description goes here")
+
   2.Librarian
-    
+            ![alt text](documentation_screenshoots/libra.PNG "Description goes here")
+            ***"Logs" means all actions in library
+            ![alt text](documentation_screenshoots/history.PNG "Description goes here")
+            ***"Add new Librarians"
+            there you can choose the Privilege and write all information
+            ![alt text](documentation_screenshoots/createlibr.PNG "Description goes here")
+            ***"Admins" there you can find the list of all librarians and manage it by using edit and delete
+            ![alt text](documentation_screenshoots/libr.PNG "Description goes here")
+   3.Admin
+        ***         Media/Journal Article/ Books there admin can manage all documents![alt text](documentation_screenshoots/ad_doc.PNG "Description goes here")
+        ***Adminka, there you can manage the most important part of library
+                    ![alt text](documentation_screenshoots/admin_man.PNG "Description goes here")
+        ***"Outstanding" 
+                manage the queues for all docs
+        
