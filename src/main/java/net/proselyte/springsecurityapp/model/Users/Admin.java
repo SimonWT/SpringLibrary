@@ -22,13 +22,13 @@ public class Admin extends User{
     public Admin() throws IOException {
     }
 
-    public void addLibrarian(Librarian librarian) throws IOException {
+    public void addLibrarian(Librarian librarian){
         userService.save(librarian);
         log.write(this, "created" , null,
                 librarian);
     }
 
-    public void deleteLibrarian(Librarian librarian) throws IOException {
+    public void deleteLibrarian(Librarian librarian){
         userService.delete(librarian.getId());
         log.write(this, "delete" , null,
                 librarian);

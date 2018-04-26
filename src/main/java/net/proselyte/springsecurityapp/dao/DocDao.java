@@ -13,6 +13,7 @@ import java.util.List;
 
 public interface DocDao  extends JpaRepository<Document, Long> {
     Document getDocumentById(Long id);
+    Document getDocumentByTitle(String title);
 
     List<Document> getAllByIdIsNotNull();
 
