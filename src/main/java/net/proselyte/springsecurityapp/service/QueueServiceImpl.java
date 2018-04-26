@@ -7,6 +7,7 @@ import net.proselyte.springsecurityapp.model.Booking.Queue;
 import net.proselyte.springsecurityapp.model.Users.Patron;
 import net.proselyte.springsecurityapp.model.Users.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.annotation.Transient;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,10 @@ public class QueueServiceImpl implements QueueService {
 
     @Autowired
     private DocDao docDao;
+
+    @Autowired
+    @Transient
+    private UserServiceImpl userService;
 
     @Override
     public Queue getQueueById(Long id) {
@@ -54,7 +59,6 @@ public class QueueServiceImpl implements QueueService {
     public java.util.Queue getPriorityQueue(Long docId) {
         java.util.Queue<Patron> queue = new PriorityQueue<>(1, new PatronComparator());
         List<Queue> queueList = queueDao.getAllByDocId(docId);
-
         for (Queue qUser: queueList){
             queue.add((Patron) userDao.getUserById(qUser.getUserId()));
         }

@@ -88,19 +88,19 @@ public class Patron extends User {
 
     public int checkout(Document doc, Date checkoutDate){
 
-        if (userService.getAllPatrons().contains(this)){
-            System.out.println("You have not registered in system. Ask librarian to register you in system");
-            return 1;
-        }
+//        if (userService.getAllPatrons().contains(this)){
+//            System.out.println("You have not registered in system. Ask librarian to register you in system");
+//            return 1;
+//        }
         //TODO: Check branches, Copies of Doc -1
         Long id = userService.findByUsername(this.getUsername()).getId();
         List<History> historyList= historyService.getListHistoriesByIdAndDocId(this.getId(),doc.getId());
         History historyByIdAndDocId = null;
-        if(historyList!=null && !historyList.isEmpty()) {
+        if(historyList != null && !historyList.isEmpty()) {
             historyByIdAndDocId = historyList.get(historyList.size() - 1);
          }
 
-        if (historyByIdAndDocId!=null && historyByIdAndDocId.getStatus() == 0 ){
+        if (historyByIdAndDocId != null && historyByIdAndDocId.getStatus() == 0 ){
             System.out.println("user " + getName() + " already have this document");
             return 2;
         }

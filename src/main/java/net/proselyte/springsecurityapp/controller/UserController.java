@@ -31,6 +31,7 @@ import org.springframework.web.servlet.ModelAndView;
 import sun.rmi.log.LogHandler;
 
 
+import javax.print.Doc;
 import java.io.IOException;
 import java.security.Principal;
 import java.sql.*;
@@ -450,6 +451,8 @@ public class UserController {
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public String user(Model model) { return "user"; }
+    @RequestMapping(value = "/All_doc", method = RequestMethod.GET)
+    public String documents(Model model) { return "All_doc"; }
 
 
     @RequestMapping(value = "/mydoc", method = RequestMethod.GET)
@@ -779,6 +782,52 @@ public class UserController {
         return "searchPart";
     }
 
+
+    @RequestMapping("/queueLib/{docId}")
+    public String outstandingRequest(@PathVariable Long docId, Model model) throws IOException, SQLException {
+
+        List<History> histories0 = historyService.getListHistoriesByDocIdAndStatus(docId, 0);
+        List<History> histories2 = historyService.getListHistoriesByDocIdAndStatus(docId, 2);
+        for (int i = 0; i < histories0.size(); i++) {
+            try {
+                notificationService.sendReturnQuery(userService.getUserById(histories0.get(i).getUserId()), documentService.getDocumentById(histories0.get(i).getDocId()));
+                histories0.get(i).setReturnDate(new Date(System.currentTimeMillis()));
+            } catch (MailException e) {
+                //catch error
+                logger.info("Error Sending Email:" + e.getMessage());
+            }
+        }
+        for (int i = 0; i < histories2.size(); i++) {
+            try {
+                notificationService.sendReturnQuery(userService.getUserById(histories2.get(i).getUserId()), documentService.getDocumentById(histories2.get(i).getDocId()));
+                histories2.get(i).setReturnDate(new Date(System.currentTimeMillis()));
+            } catch (MailException e) {
+                //catch error
+                logger.info("Error Sending Email:" + e.getMessage());
+            }
+        }
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+        dataSource.setUrl("jdbc:mysql://127.0.0.1/deep_library_3rd_delivery");
+        dataSource.setUsername("root");
+        dataSource.setPassword("root");
+        String query1="DELETE FROM queue WHERE doc_id=" + docId;
+
+        Connection conn= DriverManager.getConnection(dataSource.getUrl(), dataSource.getUsername(), dataSource.getPassword());
+        Statement stmt=conn.createStatement();
+        stmt.executeUpdate(query1);
+
+        return "redirect:/listOfAllDocuments";
+    }
+
+
+    @RequestMapping(value = "/listOfAllDocuments", method = RequestMethod.GET)
+    public String listOfAllDocuments(ModelMap model) {
+        List<Document> documents = documentService.getAllDocuments();
+        model.put("documents", documents);
+        return "listOfAllDocuments";
+    }
+
     @RequestMapping(value = "/viewQueue/{docId}", method = RequestMethod.GET)
     public ModelAndView viewQueue(@PathVariable Long docId, Model model) {
 
@@ -798,9 +847,9 @@ public class UserController {
         mav.setViewName("viewQueue");
 
         model.addAttribute("queue", queueService.getPriorityQueue(docId));
+        model.addAttribute("docId", docId);
         mav.addObject("user", userData);
 
         return mav;
     }
-
 }

@@ -32,7 +32,7 @@ public class LogWriter {
             File file = new File("src\\main\\java\\net\\proselyte\\springsecurityapp\\log.txt");
 
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, true));
-            bufferedWriter.write(data);
+            bufferedWriter.write(data + "\n");
             bufferedWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -47,7 +47,7 @@ public class LogWriter {
             File file = new File("src\\main\\java\\net\\proselyte\\springsecurityapp\\log.txt");
 
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, true));
-            bufferedWriter.write(data+addition);
+            bufferedWriter.write(data+addition + "\n");
             bufferedWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -113,7 +113,7 @@ public class LogWriter {
 
             userOps = " " + getStringUserType(userOP) + " [ " + userOP.getId() + " , " + userOP.getUsername() + " ] ";
         }
-        return time + userS +" "+ action +" " + docS + userOps + "\n";
+        return time + userS +" "+ action +" " + docS + userOps;
     }
 
     private String getStringUserType(User user){
