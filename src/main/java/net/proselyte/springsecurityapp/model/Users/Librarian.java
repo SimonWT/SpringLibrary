@@ -87,7 +87,8 @@ public class Librarian extends User {
     }
 
     public void addDoc(Document doc, int copiesAmount){
-        if (privilege >= 2) {
+        if (privilege >= 2) { // check that this librarian can add documents
+            // if library contains copies of this documents just increase number of copies; otherwise to create object of this document
             if (docService.getListOfArticle().contains(doc) || docService.getListOfAudioVideo().contains(doc) || docService.getListOfBook().contains(doc))
                 doc.setCopies(doc.getCopies() + copiesAmount);
             else {
@@ -103,14 +104,7 @@ public class Librarian extends User {
         }
     }
 
-    public void modify(Document doc){
-        //new attributes for documents get from the input window on site
-        int price = 0;
-        String authors = null, title = null, keys = null;
-        doc.setDoc(title, price, authors, keys);
-    }
-
-    public ArrayList<Document> overdueDocuments(Patron p, Date today) {
+    public ArrayList<Document> overdueDocuments(Patron p, Date today) { // get list of overdue documents
         ArrayList<Document> overdueDocuments = new ArrayList<>();
         List<Document> docs = p.getDocuments();
         for (int i = 0; i < docs.size(); i++){
@@ -125,7 +119,8 @@ public class Librarian extends User {
     }
 
     public void removeDoc(Document doc, int copies){
-        if (privilege == 3) {
+        if (privilege == 3) { // check that librarian have permission for removing documents
+            // if not all copies were removed => just decrease number of copies; remove object of this document otherwise
             doc.setCopies(doc.getCopies() - copies);
             docService.update(doc);
             if (doc.getCopies() < 0)
@@ -143,7 +138,7 @@ public class Librarian extends User {
             System.out.println("Permission denied");
     }
 
-    public String checkInfo(Patron p){
+    public String checkInfo(Patron p){ // check information about patron (bibliographical info + docs which this patron checked out)
 //        if (!userService.getAllPatrons().contains(p)){
 //            return "Information not available, patron does not exist.";
 //        }
@@ -169,25 +164,27 @@ public class Librarian extends User {
     }
 
     public void outstandingRequest(Document doc, Date curDate){
-        if(this.privilege > 1) {
+        if(this.privilege > 1) { // check that this librarian has permission for outstanding request
             this.log.write(this, "placed an outstanding request on" , doc, null);
             Queue queue = queueService.getPriorityQueue(doc.getId());
             this.log.write(this, "waiting list delted", doc, null);
-            while (!queue.isEmpty()) {
+            while (!queue.isEmpty()) { // to send notifications to patrons which were in queue that they were removed from it
                 Patron p = (Patron) queue.poll();
+                doc.queue.poll();
                 p.setNotification("You was removed from waiting list of document " + doc.getTitle());
                 this.log.write(this, "user " + p.getName() + " " + p.getSurname() +" notified about removing from waiting list for", doc, null);
             }
+            queueService.clearQeueByDocId(doc.getId()); // clear queue
 
             List<Patron> patrons = userService.getAllPatrons();
-            for (int i = 0; i < patrons.size(); i++) {
+            for (int i = 0; i < patrons.size(); i++) { // find patrons which checked out tis doc
                 History history = historyService.getHistoryByIdAndDocId(userService.findByUsername(patrons.get(i).getUsername()).getId(), doc.getId());
                 if (history != null && (history.status == 0 || history.status == 2)) {
                     long dif = history.getReturnDate().getTime() - curDate.getTime();
                     int difDays = (int) TimeUnit.DAYS.convert(dif, TimeUnit.MILLISECONDS);
-                    patrons.get(i).setNotification("You must return document " + doc.getTitle());
+                    patrons.get(i).setNotification("You must return document " + doc.getTitle()); // send notification that patron must return this document
                     docService.getDocumentById(history.getDocId()).setDue(docService.getDocumentById(history.getDocId()).getDue() - difDays);
-                    history.setReturnDate(curDate);
+                    history.setReturnDate(curDate); // reset return date
                     historyService.updateHistory(history);
                     userService.update(patrons.get(i));
                     this.log.write(this, "user " + patrons.get(i).getName() + " " + patrons.get(i).getSurname() + " notified to return document", doc, null);

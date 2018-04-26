@@ -88,37 +88,23 @@ public class Patron extends User {
 
     public int checkout(Document doc, Date checkoutDate){
 
-//        if (userService.getAllPatrons().contains(this)){
-//            System.out.println("You have not registered in system. Ask librarian to register you in system");
-//            return 1;
-//        }
-        //TODO: Check branches, Copies of Doc -1
         Long id = userService.findByUsername(this.getUsername()).getId();
-        List<History> historyList= historyService.getListHistoriesByIdAndDocId(this.getId(),doc.getId());
+        List<History> historyList= historyService.getListHistoriesByIdAndDocId(this.getId(),doc.getId());  // get history for this patron and checked doc
         History historyByIdAndDocId = null;
         if(historyList != null && !historyList.isEmpty()) {
             historyByIdAndDocId = historyList.get(historyList.size() - 1);
          }
 
-        if (historyByIdAndDocId != null && historyByIdAndDocId.getStatus() == 0 ){
+        if (historyByIdAndDocId != null && historyByIdAndDocId.getStatus() == 0 ){ // check whether user already have this doc
             System.out.println("user " + getName() + " already have this document");
             return 2;
         }
-        if (documentService.getDocumentById(doc.getId()) != null && doc.getCopies() > 0) {
+        if (documentService.getDocumentById(doc.getId()) != null && doc.getCopies() > 0) { //check whether this document available for checkout
             Document checkedDoc = doc.toCopy();
 
-//            History h = historyService.getHistoryByIdAndDocId(this.getId(), doc.getId());
-//            h.status = 0;
-//            historyService.updateHistory(h);
-
-            //doc.setCopies(doc.getCopies()-1);
             documentService.update(doc);
 
-            //doc.patron = this;
-            //doc.resetDate();
-            //doc.setCopies(doc.getCopies() - 1);
-
-
+            //set due days and return date
             if (!(doc instanceof Book)){
                 checkedDoc.setDue(14);
             }
@@ -137,11 +123,11 @@ public class Patron extends User {
                 checkedDoc.setDue(7);
             }
             checkedDoc.setCheckoutDate(checkoutDate);
-            if (historyByIdAndDocId == null)
+            if (historyByIdAndDocId == null) // if history wasn't created before to create it
                 historyService.save(new History(checkedDoc.getId(), id, checkoutDate, checkedDoc.getDueDate(), 0, 0));
             else {
 
-                historyByIdAndDocId.setStatus(0);
+                historyByIdAndDocId.setStatus(0); // in history mark that user checked out this document
                 historyByIdAndDocId.setCheckOutDate(checkoutDate);
                 historyByIdAndDocId.setReturnDate(checkedDoc.getDueDate());
                 historyService.updateHistory(historyByIdAndDocId);
@@ -152,7 +138,7 @@ public class Patron extends User {
             return 0;
         }
 
-        else{
+        else{ // if there are no available copies put this patron to queue
             if (doc.getCopies() == 0){
                 doc.queue.add(this);
                 Queue queueS = new Queue(new Date(System.currentTimeMillis()), doc.getId(), this.getId());
@@ -181,13 +167,13 @@ public class Patron extends User {
         if(historyList!=null && !historyList.isEmpty()) {
           h = historyList.get(historyList.size() - 1);
         }
-        h.setStatus(1); //Close status
+        h.setStatus(1); // in history mark that user returned this document
         historyService.updateHistory(h);
         doc.setCopies(doc.getCopies() + 1);
         doc.setRenewed(false);
         documentService.update(doc);
 
-        if (!doc.queue.isEmpty()){
+        if (!doc.queue.isEmpty()){ // to notify patron which is in queue for returned doc that this doc is available
             doc.queue.peek().setNotification("Document " + doc.getTitle() + " is available for you to checkout");
         }
 
@@ -196,6 +182,7 @@ public class Patron extends User {
 
         log.write(this, "return" , doc, null);
 
+        // check overdue and set fine
         int difDays = (int)TimeUnit.DAYS.convert(dif, TimeUnit.MILLISECONDS);
         if (difDays > doc.getDue()){
             doc.setOverdue(difDays - doc.getDue());
@@ -212,7 +199,7 @@ public class Patron extends User {
     }
 
     public void renew(Document doc, Date renewDate) {
-        if (!doc.wasRenewed()) {
+        if (!doc.wasRenewed()) { // ensure that patron did not renew this document before
             toReturn(doc, renewDate);
             checkout(doc, renewDate);
             doc.setRenewed(true);
@@ -223,25 +210,9 @@ public class Patron extends User {
             log.write(this, "renew" , doc, null);
 
         }
-//        History history = historyService.getHistoryByIdAndDocId(this.getId(), doc.getId());
-//        if (history.status == 0 && !doc.isRenewed()){
-//            Calendar c = Calendar.getInstance();
-//            c.setTime(new Date()); // Now use today date.
-//            c.add(Calendar.DATE, doc.getDue()); // Adding 5 day
-//            Date newReturnDate = c.getTime();
-//
-//            long diffInMillies = Math.abs(newReturnDate.getTime() - history.getCheckOutDate().getTime());
-//            long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
-//            doc.setDue((int) diff);
-//
-//            documentService.update(doc);
-//            history.setReturnDate(newReturnDate);
-//            historyService.updateHistory(history);
-//            doc.setRenewed(true);
-//        }
     }
 
-    public List<Document> getDocuments() {
+    public List<Document> getDocuments() { // get list of documents checked by this patron
         Long id = userService.findByUsername(this.getUsername()).getId();
         List<History> histories = this.historyService.getListOfHistoryByUser(id);
         List<Document> docs = new ArrayList<>();

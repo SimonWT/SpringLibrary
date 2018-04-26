@@ -54,11 +54,7 @@ public class Document {
     @Transient
     private boolean renewed;
 
-
-    //public Document( String title, int price, ArrayList<String> authors, ArrayList<String> keys) {
     public Document(){
-        //authors = new ArrayList<String>();
-        //keys = new ArrayList<String >();
         queue = new PriorityQueue<>(1, new PatronComparator());
         renewed = false;
     }

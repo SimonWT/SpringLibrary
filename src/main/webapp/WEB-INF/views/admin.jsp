@@ -24,13 +24,6 @@
 <%@ include file ="topnav.jsp" %>
 
 <br>
-
-<div class="search">
-    <input type="search" id="mySearch" name="q"
-           placeholder="Search the document..." required>
-    <button>Search</button>
-</div>
-<br>
 <br>
 <div class="container">
 
