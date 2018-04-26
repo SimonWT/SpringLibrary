@@ -98,6 +98,7 @@ public class TestCases_23_04 {
         userService.save(l1);
         l1.historyService = historyService;
         l1.setPrivilege(1);
+        l1.queueService = queueService;
 
         l2 = new Librarian();
         l2.setName("Luie");
@@ -114,6 +115,7 @@ public class TestCases_23_04 {
         userService.save(l2);
         l2.historyService = historyService;
         l2.setPrivilege(2);
+        l2.queueService = queueService;
 
         l3 = new Librarian();
         l3.setName("Ramon");
@@ -130,6 +132,7 @@ public class TestCases_23_04 {
         userService.save(l3);
         l3.historyService = historyService;
         l3.setPrivilege(3);
+        l3.queueService = queueService;
 
         p1 = new Professor();
         p1.setName("Sergey");
@@ -337,6 +340,8 @@ public class TestCases_23_04 {
             l2.addPatron(p3);
             l2.addPatron(v);
 
+            l2.checkSysytem();
+
             l3.removeDoc(d1, 1);
         } catch (IOException e) {
             e.printStackTrace();
@@ -361,6 +366,7 @@ public class TestCases_23_04 {
             l2.addPatron(p2);
             l2.addPatron(p3);
             l2.addPatron(v);
+            l2.checkSysytem();
 
             Date d = new Date();
             p1.checkout(d3, d);
@@ -393,6 +399,7 @@ public class TestCases_23_04 {
             l2.addPatron(p2);
             l2.addPatron(p3);
             l2.addPatron(v);
+            l2.checkSysytem();
 
             Date d = new Date();
             p1.checkout(d3, d);
@@ -402,6 +409,8 @@ public class TestCases_23_04 {
             p3.checkout(d3, d);
 
             l3.outstandingRequest(d3, d);
+
+            System.out.println(p1.getNotification());
 
             assertTrue(d3.queue.isEmpty());
             assertEquals("You was removed from waiting list of document The Art of Computer Programming", v.getNotification());
@@ -428,6 +437,7 @@ public class TestCases_23_04 {
             l2.addPatron(p2);
             l2.addPatron(p3);
             l2.addPatron(v);
+            l2.checkSysytem();
 
             Date d = new Date();
             p1.checkout(d3, d);
@@ -466,6 +476,7 @@ public class TestCases_23_04 {
             l2.addPatron(p2);
             l2.addPatron(p3);
             l2.addPatron(v);
+            l2.checkSysytem();
 
             Date d = new Date();
             p1.checkout(d3, d);

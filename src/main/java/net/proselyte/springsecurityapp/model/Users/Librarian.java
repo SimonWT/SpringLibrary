@@ -20,6 +20,7 @@ import javax.persistence.Transient;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Queue;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -57,6 +58,10 @@ public class Librarian extends User {
     @Autowired
     @Transient
     public HistoryServiceImpl historyService;
+
+    @Transient
+    @Autowired
+    public QueueService queueService;
 
     @Transient
     private LogWriter log = new LogWriter();
@@ -159,14 +164,14 @@ public class Librarian extends User {
 
     public void outstandingRequest(Document doc, Date curDate){
         if(this.privilege > 1) {
-            while (!doc.queue.isEmpty()) {
-                doc.queue.poll().setNotification("You was removed from waiting list of document " + doc.getTitle());
+            Queue<Patron> queue = doc.queue;
+            while (!queue.isEmpty()) {
+                queue.poll().setNotification("You was removed from waiting list of document " + doc.getTitle());
             }
 
             List<Patron> patrons = userService.getAllPatrons();
-
             for (int i = 0; i < patrons.size(); i++) {
-                History history = historyService.getHistoryByIdAndDocId(patrons.get(i).getId(), doc.getId());
+                History history = historyService.getHistoryByIdAndDocId(userService.findByUsername(patrons.get(i).getUsername()).getId(), doc.getId());
                 if (history != null && history.status == 0) {
                     long dif = history.getReturnDate().getTime() - curDate.getTime();
                     int difDays = (int) TimeUnit.DAYS.convert(dif, TimeUnit.MILLISECONDS);
@@ -174,6 +179,7 @@ public class Librarian extends User {
                     docService.getDocumentById(history.getDocId()).setDue(docService.getDocumentById(history.getDocId()).getDue() - difDays);
                     history.setReturnDate(curDate);
                     historyService.updateHistory(history);
+                    userService.update(patrons.get(i));
                 }
             }
 

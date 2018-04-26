@@ -62,7 +62,7 @@ public class Patron extends User {
     @Transient
     private LogWriter log = new LogWriter();
 
-    @Transient
+    @Column(name = "notifications")
     private String notification;
 
 
@@ -98,11 +98,11 @@ public class Patron extends User {
         Long id = userService.findByUsername(this.getUsername()).getId();
         List<History> historyList= historyService.getListHistoriesByIdAndDocId(this.getId(),doc.getId());
         History historyByIdAndDocId = null;
-        if(historyList!=null && !historyList.isEmpty()) {
+        if(historyList != null && !historyList.isEmpty()) {
             historyByIdAndDocId = historyList.get(historyList.size() - 1);
          }
 
-        if (historyByIdAndDocId!=null && historyByIdAndDocId.getStatus() == 0 ){
+        if (historyByIdAndDocId != null && historyByIdAndDocId.getStatus() == 0 ){
             System.out.println("user " + getName() + " already have this document");
             return 2;
         }
