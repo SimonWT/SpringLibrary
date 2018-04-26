@@ -13,7 +13,7 @@
 4. Vakhula Igor - Database and Backend (Java, MySQL, Spring and etc.)
 ![image]
 
-[all documentation](/log.txt)
+[all documentation](/Documentation)
 ### **How to install our project on your PC** 
 
 + Install:
