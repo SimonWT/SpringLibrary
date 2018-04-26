@@ -6,14 +6,17 @@
 
 ------------------------------
 ### There are 4 contributors in our Team (DeepLib Team)
+
 1. Maksimychev Evgenij - Test Cases and Java Classes that are connected with Objects such as Librarian, Patron and etc.
  
 2. Uzbekova Ekaterina - Frontend (HTML, CSS, JS, Bootstrap and etc.)
 3. Yudinskikh Yaroslav - Database and Backend (Java, MySQL, Spring and etc.)
 4. Vakhula Igor - Database and Backend (Java, MySQL, Spring and etc.)
 ![image]
+ 
+###How to use DeepLib
+[all documentation](/Documentation.md) you can find there.
 
-[all documentation](/Documentation)
 ### **How to install our project on your PC** 
 
 + Install:
