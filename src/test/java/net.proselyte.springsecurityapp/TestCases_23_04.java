@@ -448,17 +448,17 @@ public class TestCases_23_04 {
         assertTrue(log.get(4).contains("(Librarian) dfghjkl,fghjkzxx[ 2222 ] :  added 3 copies of doc  Book [ " + d2.getId() + " , Algorithms + Data Structures = Programs ]"));
         assertTrue(log.get(5).contains("(Librarian) dfghjkl,fghjkzxx[ 2222 ] :  added 3 copies of doc  Book [ " + d3.getId() + " , The Art of Computer Programming ]"));
 
-        assertTrue(log.get(6).contains("(Librarian) dfghjkl,fghjkzxx[ 2222 ] :  added user  Student [ 1101 , dfghjkl,fghjkaq ] "));
-        assertTrue(log.get(7).contains("(Librarian) dfghjkl,fghjkzxx[ 2222 ] :  added user  Professor [ 1010 , dfghjkl,fghjk ]"));
-        assertTrue(log.get(8).contains("(Librarian) dfghjkl,fghjkzxx[ 2222 ] :  added user  Professor [ 1011 , dfghjkl,fghjks ]"));
-        assertTrue(log.get(9).contains("(Librarian) dfghjkl,fghjkzxx[ 2222 ] :  added user  Professor [ 1100 , dfghjkl,fghjka ]"));
-        assertTrue(log.get(10).contains("(Librarian) dfghjkl,fghjkzxx[ 2222 ] :  added user  VisitingProfessor [ 1110 , dfghjkl,fghjkaqppee ]"));
+        assertTrue(log.get(6).contains("(Librarian) dfghjkl,fghjkzxx[ 2222 ] :  added user  Student [ " + s.getId() + " , dfghjkl,fghjkaq ] "));
+        assertTrue(log.get(7).contains("(Librarian) dfghjkl,fghjkzxx[ 2222 ] :  added user  Professor [ " + p1.getId() + " , dfghjkl,fghjk ]"));
+        assertTrue(log.get(8).contains("(Librarian) dfghjkl,fghjkzxx[ 2222 ] :  added user  Professor [ " + p2.getId() + " , dfghjkl,fghjks ]"));
+        assertTrue(log.get(9).contains("(Librarian) dfghjkl,fghjkzxx[ 2222 ] :  added user  Professor [ " + p3.getId() + " , dfghjkl,fghjka ]"));
+        assertTrue(log.get(10).contains("(Librarian) dfghjkl,fghjkzxx[ 2222 ] :  added user  VisitingProfessor [ " + v.getId() + " , dfghjkl,fghjkaqppee ]"));
 
         assertTrue(log.get(11).contains("(Librarian) dfghjkl,fghjkzxx[ 2222 ] :  checked system information"));
 
-        assertTrue(log.get(12).contains("(Professor) dfghjkl,fghjk[ 1010 ] :  check out  Book [ " + d3.getId() + " , The Art of Computer Programming ]"));
-        assertTrue(log.get(13).contains("(Professor) dfghjkl,fghjks[ 1011 ] :  check out  Book [ " + d3.getId() + " , The Art of Computer Programming ]"));
-        assertTrue(log.get(14).contains("(Student) dfghjkl,fghjkaq[ 1101 ] :  check out  Book [ " + d3.getId() + " , The Art of Computer Programming ]"));
+        assertTrue(log.get(12).contains("(Professor) dfghjkl,fghjk[ " + p1.getId() + " ] :  check out  Book [ " + d3.getId() + " , The Art of Computer Programming ]"));
+        assertTrue(log.get(13).contains("(Professor) dfghjkl,fghjks[ " + p2.getId() + " ] :  check out  Book [ " + d3.getId() + " , The Art of Computer Programming ]"));
+        assertTrue(log.get(14).contains("(Student) dfghjkl,fghjkaq[ " + s.getId() + " ] :  check out  Book [ " + d3.getId() + " , The Art of Computer Programming ]"));
 
         assertTrue(log.get(15).contains("(Librarian) dfghjkl,fghjkxx[ 1111 ] :  placed an outstanding request on  Book [ " + d3.getId() + " , The Art of Computer Programming ]  request was denied"));
     }
