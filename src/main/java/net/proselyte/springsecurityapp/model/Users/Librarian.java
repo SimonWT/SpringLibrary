@@ -171,10 +171,10 @@ public class Librarian extends User {
     public void outstandingRequest(Document doc, Date curDate){
         if(this.privilege > 1) {
             this.log.write(this, "placed an outstanding request on" , doc, null);
-            Queue<Patron> queue = doc.queue;
+            Queue queue = queueService.getPriorityQueue(doc.getId());
             this.log.write(this, "waiting list delted", doc, null);
             while (!queue.isEmpty()) {
-                Patron p = queue.poll();
+                Patron p = (Patron) queue.poll();
                 p.setNotification("You was removed from waiting list of document " + doc.getTitle());
                 this.log.write(this, "user " + p.getName() + " " + p.getSurname() +" notified about removing from waiting list for", doc, null);
             }
