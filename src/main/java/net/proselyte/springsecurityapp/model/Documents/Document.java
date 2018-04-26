@@ -1,7 +1,6 @@
 package net.proselyte.springsecurityapp.model.Documents;
 
 import net.proselyte.springsecurityapp.model.Users.Patron;
-import net.proselyte.springsecurityapp.model.Users.PatronComparator;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 

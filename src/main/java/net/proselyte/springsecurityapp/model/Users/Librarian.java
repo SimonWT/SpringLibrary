@@ -168,7 +168,6 @@ public class Librarian extends User {
             for (int i = 0; i < patrons.size(); i++) {
                 History history = historyService.getHistoryByIdAndDocId(patrons.get(i).getId(), doc.getId());
                 if (history != null && history.status == 0) {
-
                     long dif = history.getReturnDate().getTime() - curDate.getTime();
                     int difDays = (int) TimeUnit.DAYS.convert(dif, TimeUnit.MILLISECONDS);
                     patrons.get(i).setNotification("You must return document " + doc.getTitle());
@@ -200,5 +199,12 @@ public class Librarian extends User {
 
     public void setPrivilege(int privilege) {
         this.privilege = privilege;
+    }
+
+    public String checkSysytem(){
+        String res = String.valueOf((userService.getAllPatrons().size() + userService.getAllLibrarians().size())) + " users "
+                + String.valueOf(docService.getAllDocuments().size()) + " documents";
+        this.log.write(this, "checked system information", null, null);
+        return res;
     }
 }

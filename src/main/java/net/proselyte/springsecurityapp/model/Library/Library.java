@@ -1,7 +1,5 @@
 package net.proselyte.springsecurityapp.model.Library;
 
-import net.proselyte.springsecurityapp.dao.ForTesting.DocDao;
-import net.proselyte.springsecurityapp.dao.ForTesting.DocDaoImpl;
 import net.proselyte.springsecurityapp.dao.UserDao;
 import net.proselyte.springsecurityapp.model.Documents.Document;
 import net.proselyte.springsecurityapp.model.Users.Librarian;

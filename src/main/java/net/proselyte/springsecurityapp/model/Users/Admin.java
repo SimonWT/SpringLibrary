@@ -9,6 +9,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 import java.io.IOException;
+import java.util.List;
 
 @Entity
 @Component
@@ -46,5 +47,7 @@ public class Admin extends User{
         this.userService = userService;
     }
 
-
+    public LogWriter getLog() {
+        return log;
+    }
 }
