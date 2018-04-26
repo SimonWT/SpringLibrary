@@ -82,6 +82,7 @@ public class TestCases_23_04 {
         admin.setPassword("$2a$11$KaBxQDYikh.EWsYw5Bo0B.6G7FYWZN2rVdelaZWT6.zDHXwlJCju6");
         admin.setConfirmPassword("$2a$11$KaBxQDYikh.EWsYw5Bo0B.6G7FYWZN2rVdelaZWT6.zDHXwlJCju6");
         admin.userService = userService;
+        admin.getLog().clean();
 
         l1 = new Librarian();
         l1.setName("Eugenia");
@@ -98,6 +99,7 @@ public class TestCases_23_04 {
         userService.save(l1);
         l1.historyService = historyService;
         l1.setPrivilege(1);
+        l1.queueService = queueService;
 
         l2 = new Librarian();
         l2.setName("Luie");
@@ -114,6 +116,7 @@ public class TestCases_23_04 {
         userService.save(l2);
         l2.historyService = historyService;
         l2.setPrivilege(2);
+        l2.queueService = queueService;
 
         l3 = new Librarian();
         l3.setName("Ramon");
@@ -130,6 +133,7 @@ public class TestCases_23_04 {
         userService.save(l3);
         l3.historyService = historyService;
         l3.setPrivilege(3);
+        l3.queueService = queueService;
 
         p1 = new Professor();
         p1.setName("Sergey");
@@ -266,29 +270,26 @@ public class TestCases_23_04 {
     @Test
     public void testCase2(){
         int oldLibrariansAmount = userService.getAllLibrarians().size();
-        try {
+
             admin.addLibrarian(l1);
             admin.addLibrarian(l2);
             admin.addLibrarian(l3);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+
         assertEquals(3, userService.getAllLibrarians().size() - oldLibrariansAmount);
     }
 
     @Test
     public void testCase3(){
         int oldDocAmount = documentService.getAllDocuments().size();
-        try {
             admin.addLibrarian(l1);
             admin.addLibrarian(l2);
             admin.addLibrarian(l3);
             l1.addDoc(d1, 3);
             l1.addDoc(d2, 3);
             l1.addDoc(d3, 3);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+
         l1.checkSysytem();
         assertEquals(0, documentService.getAllDocuments().size() - oldDocAmount);
 
@@ -298,7 +299,6 @@ public class TestCases_23_04 {
     public void testCase4(){
         int oldDocAmount = documentService.getAllDocuments().size();
         int oldPatronsAmount = userService.getAllPatrons().size();
-        try {
             admin.addLibrarian(l1);
             admin.addLibrarian(l2);
             admin.addLibrarian(l3);
@@ -312,9 +312,7 @@ public class TestCases_23_04 {
             l2.addPatron(p2);
             l2.addPatron(p3);
             l2.addPatron(v);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
         l2.checkSysytem();
         assertEquals(5, userService.getAllPatrons().size() - oldPatronsAmount);
         assertEquals(3, documentService.getAllDocuments().size() - oldDocAmount);
@@ -322,7 +320,6 @@ public class TestCases_23_04 {
 
     @Test
     public void testCase5(){
-        try {
             admin.addLibrarian(l1);
             admin.addLibrarian(l2);
             admin.addLibrarian(l3);
@@ -337,17 +334,17 @@ public class TestCases_23_04 {
             l2.addPatron(p3);
             l2.addPatron(v);
 
+            l2.checkSysytem();
+
             l3.removeDoc(d1, 1);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
         l2.checkSysytem();
         assertEquals(2, d1.getCopies());
     }
 
     @Test
     public void testCase6(){
-         try {
+
             admin.addLibrarian(l1);
             admin.addLibrarian(l2);
             admin.addLibrarian(l3);
@@ -361,6 +358,7 @@ public class TestCases_23_04 {
             l2.addPatron(p2);
             l2.addPatron(p3);
             l2.addPatron(v);
+            l2.checkSysytem();
 
             Date d = new Date();
             p1.checkout(d3, d);
@@ -370,16 +368,13 @@ public class TestCases_23_04 {
             p3.checkout(d3, d);
 
             l1.outstandingRequest(d3, d);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         assertTrue(!d3.queue.isEmpty());
     }
 
     @Test
     public void testCase7(){
-        try {
+
             admin.addLibrarian(l1);
             admin.addLibrarian(l2);
             admin.addLibrarian(l3);
@@ -393,6 +388,7 @@ public class TestCases_23_04 {
             l2.addPatron(p2);
             l2.addPatron(p3);
             l2.addPatron(v);
+            l2.checkSysytem();
 
             Date d = new Date();
             p1.checkout(d3, d);
@@ -403,94 +399,134 @@ public class TestCases_23_04 {
 
             l3.outstandingRequest(d3, d);
 
+            p1 = (Professor) (userService.findByUsername(p1.getUsername()));
+            p2 = (Professor) (userService.findByUsername(p2.getUsername()));
+            s = (Student) (userService.findByUsername(s.getUsername()));
+
             assertTrue(d3.queue.isEmpty());
+            assertEquals("You must return document The Art of Computer Programming", p1.getNotification());
+            assertEquals("You must return document The Art of Computer Programming", p2.getNotification());
+            assertEquals("You must return document The Art of Computer Programming", s.getNotification());
             assertEquals("You was removed from waiting list of document The Art of Computer Programming", v.getNotification());
             assertEquals("You was removed from waiting list of document The Art of Computer Programming", p3.getNotification());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
 
     }
 
     @Test
     public void testCase8(){
-        try {
-            admin.addLibrarian(l1);
-            admin.addLibrarian(l2);
-            admin.addLibrarian(l3);
+        admin.addLibrarian(l1);
+        admin.addLibrarian(l2);
+        admin.addLibrarian(l3);
 
-            l2.addDoc(d1, 3);
-            l2.addDoc(d2, 3);
-            l2.addDoc(d3, 3);
+        l2.addDoc(d1, 3);
+        l2.addDoc(d2, 3);
+        l2.addDoc(d3, 3);
 
-            l2.addPatron(s);
-            l2.addPatron(p1);
-            l2.addPatron(p2);
-            l2.addPatron(p3);
-            l2.addPatron(v);
+        l2.addPatron(s);
+        l2.addPatron(p1);
+        l2.addPatron(p2);
+        l2.addPatron(p3);
+        l2.addPatron(v);
+        l2.checkSysytem();
 
-            Date d = new Date();
-            p1.checkout(d3, d);
-            p2.checkout(d3, d);
-            s.checkout(d3, d);
-            v.checkout(d3, d);
-            p3.checkout(d3, d);
+        Date d = new Date();
+        p1.checkout(d3, d);
+        p2.checkout(d3, d);
+        s.checkout(d3, d);
+        v.checkout(d3, d);
+        p3.checkout(d3, d);
 
-            l1.outstandingRequest(d3, d);
+        l1.outstandingRequest(d3, d);
 
-            BufferedWriter bw = new BufferedWriter(new FileWriter("out.txt"));
-            List <String> s = admin.getLog().read();
-            for (int i = 0; i < s.size(); i++){
-                bw.write(s.get(i) + "\n");
-            }
-            bw.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        List <String> log = admin.getLog().read();
+        assertTrue(log.get(0).contains("(Admin) dfghjkl,fgllhjkxx[ 0 ] :  created  Librarian [ 1111 , dfghjkl,fghjkxx ] "));
+        assertTrue(log.get(1).contains("(Admin) dfghjkl,fgllhjkxx[ 0 ] :  created  Librarian [ 2222 , dfghjkl,fghjkzxx ]"));
+        assertTrue(log.get(2).contains("(Admin) dfghjkl,fgllhjkxx[ 0 ] :  created  Librarian [ 3333 , dfghjkl,fghjzzkxx ] "));
+
+        assertTrue(log.get(3).contains("(Librarian) dfghjkl,fghjkzxx[ 2222 ] :  added 3 copies of doc  Book [ " + d1.getId() + " , Introduction to Algorithms ]"));
+        assertTrue(log.get(4).contains("(Librarian) dfghjkl,fghjkzxx[ 2222 ] :  added 3 copies of doc  Book [ " + d2.getId() + " , Algorithms + Data Structures = Programs ]"));
+        assertTrue(log.get(5).contains("(Librarian) dfghjkl,fghjkzxx[ 2222 ] :  added 3 copies of doc  Book [ " + d3.getId() + " , The Art of Computer Programming ]"));
+
+        assertTrue(log.get(6).contains("(Librarian) dfghjkl,fghjkzxx[ 2222 ] :  added user  Student [ 1101 , dfghjkl,fghjkaq ] "));
+        assertTrue(log.get(7).contains("(Librarian) dfghjkl,fghjkzxx[ 2222 ] :  added user  Professor [ 1010 , dfghjkl,fghjk ]"));
+        assertTrue(log.get(8).contains("(Librarian) dfghjkl,fghjkzxx[ 2222 ] :  added user  Professor [ 1011 , dfghjkl,fghjks ]"));
+        assertTrue(log.get(9).contains("(Librarian) dfghjkl,fghjkzxx[ 2222 ] :  added user  Professor [ 1100 , dfghjkl,fghjka ]"));
+        assertTrue(log.get(10).contains("(Librarian) dfghjkl,fghjkzxx[ 2222 ] :  added user  VisitingProfessor [ 1110 , dfghjkl,fghjkaqppee ]"));
+
+        assertTrue(log.get(11).contains("(Librarian) dfghjkl,fghjkzxx[ 2222 ] :  checked system information"));
+
+        assertTrue(log.get(12).contains("(Professor) dfghjkl,fghjk[ 1010 ] :  check out  Book [ " + d3.getId() + " , The Art of Computer Programming ]"));
+        assertTrue(log.get(13).contains("(Professor) dfghjkl,fghjks[ 1011 ] :  check out  Book [ " + d3.getId() + " , The Art of Computer Programming ]"));
+        assertTrue(log.get(14).contains("(Student) dfghjkl,fghjkaq[ 1101 ] :  check out  Book [ " + d3.getId() + " , The Art of Computer Programming ]"));
+
+        assertTrue(log.get(15).contains("(Librarian) dfghjkl,fghjkxx[ 1111 ] :  placed an outstanding request on  Book [ " + d3.getId() + " , The Art of Computer Programming ]  request was denied"));
     }
 
 
     @Test
     public void testCase9(){
-        try {
-            admin.addLibrarian(l1);
-            admin.addLibrarian(l2);
-            admin.addLibrarian(l3);
+        admin.addLibrarian(l1);
+        admin.addLibrarian(l2);
+        admin.addLibrarian(l3);
 
-            l2.addDoc(d1, 3);
-            l2.addDoc(d2, 3);
-            l2.addDoc(d3, 3);
+        l2.addDoc(d1, 3);
+        l2.addDoc(d2, 3);
+        l2.addDoc(d3, 3);
 
-            l2.addPatron(s);
-            l2.addPatron(p1);
-            l2.addPatron(p2);
-            l2.addPatron(p3);
-            l2.addPatron(v);
+        l2.addPatron(s);
+        l2.addPatron(p1);
+        l2.addPatron(p2);
+        l2.addPatron(p3);
+        l2.addPatron(v);
+        l2.checkSysytem();
 
-            Date d = new Date();
-            p1.checkout(d3, d);
-            p2.checkout(d3, d);
-            s.checkout(d3, d);
-            v.checkout(d3, d);
-            p3.checkout(d3, d);
+        Date d = new Date();
+        p1.checkout(d3, d);
+        p2.checkout(d3, d);
+        s.checkout(d3, d);
+        v.checkout(d3, d);
+        p3.checkout(d3, d);
 
-            l3.outstandingRequest(d3, d);
+        l3.outstandingRequest(d3, d);
 
-            BufferedWriter bw = new BufferedWriter(new FileWriter("out.txt"));
-            List <String> s = admin.getLog().read();
-            for (int i = 0; i < s.size(); i++){
-                bw.write(s.get(i) + "\n");
-            }
-            bw.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        List <String> log = admin.getLog().read();
+        assertTrue(log.get(0).contains("(Admin) dfghjkl,fgllhjkxx[ 0 ] :  created  Librarian [ 1111 , dfghjkl,fghjkxx ] "));
+        assertTrue(log.get(1).contains("(Admin) dfghjkl,fgllhjkxx[ 0 ] :  created  Librarian [ 2222 , dfghjkl,fghjkzxx ]"));
+        assertTrue(log.get(2).contains("(Admin) dfghjkl,fgllhjkxx[ 0 ] :  created  Librarian [ 3333 , dfghjkl,fghjzzkxx ] "));
+
+        assertTrue(log.get(3).contains("(Librarian) dfghjkl,fghjkzxx[ 2222 ] :  added 3 copies of doc  Book [ " + d1.getId() + " , Introduction to Algorithms ]"));
+        assertTrue(log.get(4).contains("(Librarian) dfghjkl,fghjkzxx[ 2222 ] :  added 3 copies of doc  Book [ " + d2.getId() + " , Algorithms + Data Structures = Programs ]"));
+        assertTrue(log.get(5).contains("(Librarian) dfghjkl,fghjkzxx[ 2222 ] :  added 3 copies of doc  Book [ " + d3.getId() + " , The Art of Computer Programming ]"));
+
+        assertTrue(log.get(6).contains("(Librarian) dfghjkl,fghjkzxx[ 2222 ] :  added user  Student [ 1101 , dfghjkl,fghjkaq ] "));
+        assertTrue(log.get(7).contains("(Librarian) dfghjkl,fghjkzxx[ 2222 ] :  added user  Professor [ 1010 , dfghjkl,fghjk ]"));
+        assertTrue(log.get(8).contains("(Librarian) dfghjkl,fghjkzxx[ 2222 ] :  added user  Professor [ 1011 , dfghjkl,fghjks ]"));
+        assertTrue(log.get(9).contains("(Librarian) dfghjkl,fghjkzxx[ 2222 ] :  added user  Professor [ 1100 , dfghjkl,fghjka ]"));
+        assertTrue(log.get(10).contains("(Librarian) dfghjkl,fghjkzxx[ 2222 ] :  added user  VisitingProfessor [ 1110 , dfghjkl,fghjkaqppee ]"));
+
+        assertTrue(log.get(11).contains("(Librarian) dfghjkl,fghjkzxx[ 2222 ] :  checked system information"));
+
+        assertTrue(log.get(12).contains("(Professor) dfghjkl,fghjk[ 1010 ] :  check out  Book [ " + d3.getId() + " , The Art of Computer Programming ]"));
+        assertTrue(log.get(13).contains("(Professor) dfghjkl,fghjks[ 1011 ] :  check out  Book [ " + d3.getId() + " , The Art of Computer Programming ]"));
+        assertTrue(log.get(14).contains("(Student) dfghjkl,fghjkaq[ 1101 ] :  check out  Book [ " + d3.getId() + " , The Art of Computer Programming ]"));
+
+        assertTrue(log.get(15).contains("(Librarian) dfghjkl,fghjzzkxx[ 3333 ] :  placed an outstanding request on  Book [ " + d3.getId() + " , The Art of Computer Programming ]"));
+
+        assertTrue(log.get(16).contains("(Librarian) dfghjkl,fghjzzkxx[ 3333 ] :  waiting list delted  Book [ " + d3.getId() + " , The Art of Computer Programming ]  "));
+
+        assertTrue(log.get(17).contains("(Librarian) dfghjkl,fghjzzkxx[ 3333 ] :  user Veronika Rama notified about removing from waiting list for  Book [ " + d3.getId() + " , The Art of Computer Programming ]"));
+        assertTrue(log.get(18).contains("(Librarian) dfghjkl,fghjzzkxx[ 3333 ] :  user Elvira Espindola notified about removing from waiting list for  Book [ " + d3.getId() + " , The Art of Computer Programming ]"));
+
+        assertTrue(log.get(19).contains("(Librarian) dfghjkl,fghjzzkxx[ 3333 ] :  user Andrey Velo notified to return document  Book [ " + d3.getId() + " , The Art of Computer Programming ] "));
+        assertTrue(log.get(20).contains("(Librarian) dfghjkl,fghjzzkxx[ 3333 ] :  user Sergey Afonso notified to return document  Book [ " + d3.getId() + " , The Art of Computer Programming ]"));
+        assertTrue(log.get(21).contains("(Librarian) dfghjkl,fghjzzkxx[ 3333 ] :  user Nadia Teixeira notified to return document  Book [ " + d3.getId() + " , The Art of Computer Programming ] "));
     }
 
 
     @Test
     public void testCase10(){
-        try {
+
             admin.addLibrarian(l1);
             admin.addLibrarian(l2);
             admin.addLibrarian(l3);
@@ -508,15 +544,13 @@ public class TestCases_23_04 {
             List<Document> searchRes = v.searchByFullTitle("Introduction to Algorithms");
             assertEquals(1, searchRes.size());
             assertEquals("Introduction to Algorithms", searchRes.get(0).getTitle());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
     }
 
 
     @Test
     public void testCase11(){
-        try {
+
             admin.addLibrarian(l1);
             admin.addLibrarian(l2);
             admin.addLibrarian(l3);
@@ -535,14 +569,12 @@ public class TestCases_23_04 {
             assertEquals(2, searchRes.size());
             assertEquals("Introduction to Algorithms", searchRes.get(0).getTitle());
             assertEquals("Algorithms + Data Structures = Programs", searchRes.get(1).getTitle());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
     }
 
     @Test
     public void testCase12(){
-        try {
+
             admin.addLibrarian(l1);
             admin.addLibrarian(l2);
             admin.addLibrarian(l3);
@@ -562,14 +594,12 @@ public class TestCases_23_04 {
             assertEquals("Introduction to Algorithms", searchRes.get(0).getTitle());
             assertEquals("Algorithms + Data Structures = Programs", searchRes.get(1).getTitle());
             assertEquals("The Art of Computer Programming", searchRes.get(2).getTitle());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
     }
 
     @Test
     public void testCase13(){
-        try {
+
             admin.addLibrarian(l1);
             admin.addLibrarian(l2);
             admin.addLibrarian(l3);
@@ -586,14 +616,12 @@ public class TestCases_23_04 {
 
             List<Document> searchRes = v.searchByPartTitle("Algorithms AND Programming");
             assertEquals(0, searchRes.size());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
     }
 
     @Test
     public void testCase14(){
-        try {
+
             admin.addLibrarian(l1);
             admin.addLibrarian(l2);
             admin.addLibrarian(l3);
@@ -613,9 +641,7 @@ public class TestCases_23_04 {
             assertEquals("Introduction to Algorithms", searchRes.get(0).getTitle());
             assertEquals("Algorithms + Data Structures = Programs", searchRes.get(1).getTitle());
             assertEquals("The Art of Computer Programming", searchRes.get(2).getTitle());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
     }
 
 }

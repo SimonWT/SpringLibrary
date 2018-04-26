@@ -451,6 +451,8 @@ public class UserController {
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public String user(Model model) { return "user"; }
+    @RequestMapping(value = "/All_doc", method = RequestMethod.GET)
+    public String documents(Model model) { return "All_doc"; }
 
 
     @RequestMapping(value = "/mydoc", method = RequestMethod.GET)

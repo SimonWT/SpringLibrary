@@ -32,6 +32,11 @@ public class DocumentServiceImpl implements DocumentService {
     }
 
     @Override
+    public Document getDocumentByTitle(String title) {
+        return docDao.getDocumentByTitle(title);
+    }
+
+    @Override
     public void update(Document document) {
         docDao.save(document);
     }

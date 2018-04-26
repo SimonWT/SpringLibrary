@@ -56,7 +56,7 @@
             </tr>
             </thead>
             <tbody>
-           
+
             <c:forEach items="${documentsAnswerListByAuthor}" var="document">
                 <tr>
                     <td>${document.title}</td>

@@ -32,7 +32,7 @@ public class LogWriter {
             File file = new File("src\\main\\java\\net\\proselyte\\springsecurityapp\\log.txt");
 
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, true));
-            bufferedWriter.write(data);
+            bufferedWriter.write(data + "\n");
             bufferedWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -47,14 +47,13 @@ public class LogWriter {
             File file = new File("src\\main\\java\\net\\proselyte\\springsecurityapp\\log.txt");
 
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, true));
-            bufferedWriter.write(data+addition);
+            bufferedWriter.write(data+addition + "\n");
             bufferedWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
-
 
     public List<String> read(){
         List<String> result= new LinkedList<>();
@@ -65,6 +64,19 @@ public class LogWriter {
         result = readLines(file);
 
         return result;
+    }
+
+    public void clean(){
+
+        try {
+            File file = new File("src\\main\\java\\net\\proselyte\\springsecurityapp\\log.txt");
+
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
+            bufferedWriter.write("");
+            bufferedWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private static String readUsingFiles(String fileName) throws IOException {
@@ -87,7 +99,7 @@ public class LogWriter {
 
     private String info(User user, String action, Document document, User userOP) {
         String time = "[" + (new Date(System.currentTimeMillis())).toString().substring(4, 19) + "]";
-        String userS = " (" + user.getType() + ") " + user.getUsername() +"[ "+user.getId()+" ] "+ ": ";
+        String userS = " (" + getStringUserType(user) + ") " + user.getUsername() +"[ "+user.getId()+" ] "+ ": ";
         String userOps = " ";
         String docS = "";
         if (document != null){
@@ -101,7 +113,7 @@ public class LogWriter {
 
             userOps = " " + getStringUserType(userOP) + " [ " + userOP.getId() + " , " + userOP.getUsername() + " ] ";
         }
-        return time + userS +" "+ action +" " + docS + userOps + "\n";
+        return time + userS +" "+ action +" " + docS + userOps;
     }
 
     private String getStringUserType(User user){
@@ -114,6 +126,7 @@ public class LogWriter {
         else if (user instanceof VisitingProfessor) type = "VisitingProfessor";
         else if (user instanceof Faculty) type = "Faculty";
         else if (user instanceof Patron) type = "Patron";
+        else if (user instanceof Admin) type = "Admin";
         return type;
     }
 
