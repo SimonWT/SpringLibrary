@@ -50,18 +50,16 @@
                     Add new Librarian</a>
                 <a href="/Logs" style = ""><i class="fa fa-history" aria-hidden="true"></i>
                     Logs</a>
+                <a href = "/listOfLibrarians"><i class = "fa fa-users"></i>Admins</a>
             </div>
         </c:when>
-
         <c:otherwise>
-
                 <form:form method="POST">
-                     <input type="search" class = "t" id="search" placeholder="Search..." />
-                    <button name="full"   style = "float:left; margin-top:2%; border:none;border-radius: 10px;" type="submit">Full Search</button></tr>
-                    <button name="part" type="submit" style = "float:left;margin-top:2%;border-radius: 10px; border:none;">By Title</button></tr>
-
-
-
+                     <input type="search" class = "t" id="search" style = "float:top" placeholder="Search..." />
+                    <div class = "col">
+                    <button name="full"   style = "float:top; border:none;border-radius: 10px;" type="submit">Full Search</button>
+                    <button name="part" type="submit" style = "border-radius: 10px; float:bottom; border:none;">By Title</button>
+                    </div>
                 </form:form>
                     <script>
                         $("form#command button[name=full]").click(function(e){
