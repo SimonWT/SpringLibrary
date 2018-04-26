@@ -32,7 +32,7 @@
     function d()
     {document.getElementById('info').innerHTML = document.getElementById('Description').innerHTML;}
 </script>
-<div style = "text-align: center;font-size:2vw; margin-top:2%; text-decoration: underline chocolate "><p>Your searching topic:  >>>>>>>>></p></div>
+<div style = "text-align: center;font-size:2vw; margin-top:2%; text-decoration: underline chocolate "><p></p></div>
 <div class = "search">
 
     <div class = "groups">
