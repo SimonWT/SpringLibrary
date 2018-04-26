@@ -67,6 +67,8 @@ public class TestCases_23_04 {
 
     DateFormat format;
 
+    LogWriter log = new LogWriter();
+
     @Before
     public void createItems() throws IOException {
         format = new SimpleDateFormat("dd MMM", Locale.ENGLISH);
@@ -388,10 +390,9 @@ public class TestCases_23_04 {
             s.checkout(d3, d);
             v.checkout(d3, d);
             p3.checkout(d3, d);
-
-            System.out.println(historyService.getHistoryByIdAndDocId(p1.getId(), d3.getId()).getReturnDate());
+            log.clean();
+            
             l3.outstandingRequest(d3, d);
-            System.out.println(historyService.getHistoryByIdAndDocId(p1.getId(), d3.getId()).getReturnDate());
 
             assertTrue(d3.queue.isEmpty());
             assertEquals("You was removed from waiting list of document The Art of Computer Programming", v.getNotification());

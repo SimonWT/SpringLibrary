@@ -99,7 +99,7 @@ public class LogWriter {
 
     private String info(User user, String action, Document document, User userOP) {
         String time = "[" + (new Date(System.currentTimeMillis())).toString().substring(4, 19) + "]";
-        String userS = " (" + user.getType() + ") " + user.getUsername() +"[ "+user.getId()+" ] "+ ": ";
+        String userS = " (" + getStringUserType(user) + ") " + user.getUsername() +"[ "+user.getId()+" ] "+ ": ";
         String userOps = " ";
         String docS = "";
         if (document != null){
@@ -126,6 +126,7 @@ public class LogWriter {
         else if (user instanceof VisitingProfessor) type = "VisitingProfessor";
         else if (user instanceof Faculty) type = "Faculty";
         else if (user instanceof Patron) type = "Patron";
+        else if (user instanceof Admin) type = "Admin";
         return type;
     }
 
