@@ -4,3 +4,8 @@
 [Apr 26 20:19:56] (Professor) dfghjkl,fghjk[ 1010 ] :  check out  Book [ 438 , The Art of Computer Programming ]
 [Apr 26 20:19:56] (Professor) dfghjkl,fghjks[ 1011 ] :  check out  Book [ 438 , The Art of Computer Programming ]
 [Apr 26 20:19:56] (Student) dfghjkl,fghjkaq[ 1101 ] :  check out  Book [ 438 , The Art of Computer Programming ]
+[Apr 27 00:49:30] (Admin) admin[ 3221 ] :  delete  Librarian [ 3715 , qqqqqqqqq ] 
+[Apr 27 00:53:47] (Admin) admin[ 3221 ] :  delete  Librarian [ 3713 , bbbbbbbbbbbbb ] 
+[Apr 27 00:55:09] (Admin) admin[ 3221 ] :  edit  Librarian [ 3711 , Igor'an ] 
+[Apr 27 00:55:19] (Admin) admin[ 3221 ] :  edit  Librarian [ 3712 , aaaaaaaaaaaaaaa ] 
+[Apr 27 00:56:06] (Admin) admin[ 3221 ] :  register  Librarian [ 3718 , qqqqqqqqqqqqqqqq ] 
