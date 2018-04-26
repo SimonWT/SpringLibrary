@@ -32,7 +32,7 @@ import java.util.Locale;
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {jp.class,UserServiceImpl.class,DocumentServiceImpl.class,HistoryServiceImpl.class, BCryptPasswordEncoder.class}, loader = AnnotationConfigContextLoader.class)
+@ContextConfiguration(classes = {jp.class,UserServiceImpl.class,DocumentServiceImpl.class,HistoryServiceImpl.class, QueueServiceImpl.class, BCryptPasswordEncoder.class}, loader = AnnotationConfigContextLoader.class)
 @Transactional
 @WebAppConfiguration
 public class TestCases_23_04 {
@@ -45,6 +45,9 @@ public class TestCases_23_04 {
 
     @Autowired
     protected HistoryServiceImpl historyService;
+
+    @Autowired
+    protected QueueServiceImpl queueService;
 
     @Resource
     private UserDao userRepository;
@@ -62,7 +65,8 @@ public class TestCases_23_04 {
 
     @Before
     public void createItems() throws IOException {
-
+        admin = new Admin();
+        l = new Librarian();
     }
 
     @Test
@@ -72,7 +76,7 @@ public class TestCases_23_04 {
 
     @Test
     public void testCase1(){
-
+        admin.addLibrarian(l);
     }
 
 

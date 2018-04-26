@@ -12,12 +12,14 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.PriorityQueue;
 
-@Service
+
 @EnableScheduling
+@Service
 public class QueueServiceImpl implements QueueService {
 
     @Autowired
