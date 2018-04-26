@@ -21,6 +21,7 @@ public interface QueueDao extends JpaRepository<Queue, Long> {
 
 
     void deleteByUserId(Long userId);
+    void deleteAllByDocId(Long docId);
     void deleteByUserIdAndDocId(Long userId, Long docId);
 
 }
