@@ -62,10 +62,8 @@ public class Patron extends User {
     @Transient
     private LogWriter log = new LogWriter();
 
-    @Transient
+    @Column(name = "notifications")
     private String notification;
-
-
 
     public Patron(){};
 
