@@ -41,7 +41,11 @@
 <br>
 
 <div style = "font-size:20px; text-align:center">
-    <a href="/queueLib/${docId}">outstanding request</a></div>
+    <c:choose>
+        <c:when test="${user.type=='Librarian' && user.privilege >=2 }">
+            <a href="/queueLib/${docId}">outstanding request</a></div>
+        </c:when>
+    </c:choose>
 
 </div>
 

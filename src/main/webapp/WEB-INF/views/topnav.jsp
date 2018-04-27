@@ -56,11 +56,12 @@
             </div>
         </c:when>
         <c:otherwise>
+
                 <form:form method="POST">
                      <input type="search" class = "t" id="search" style = "float:top" placeholder="Search..." />
                     <div class = "col">
                     <button name="full"   style = "float:top; border:none;border-radius: 10px;" type="submit">Full Search</button>
-                    <button name="part" type="submit" style = "border-radius: 10px; float:bottom; border:none;">By Title</button>
+                    <button name="part" type="submit" style = "border-radius: 10px; float:bottom; border:none;">Part Search</button>
                     </div>
                 </form:form>
                     <script>

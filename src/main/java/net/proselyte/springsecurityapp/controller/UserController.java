@@ -476,7 +476,7 @@ public class UserController {
                 Document document = documentService.getDocumentById(history.getDocId());
 
                 int status = history.getStatus();
-                if(status == 0 || status == 2 || status == 3){
+                if(status == 0 || status == 2 /*|| status == 3 */){
                     openHistories.add(history);
                     document.setStatus(status);
                     history.setDocument(document);
@@ -574,13 +574,22 @@ public class UserController {
             ((Patron) user).setQueueService(queueService);
             Queue queue = new Queue(new Date(System.currentTimeMillis()), docId, userId);
             queueService.save(queue);
+
+            List<History> historyList = historyService.getListHistoriesByIdAndDocId(userId, docId);
+            History history = null;
+            if(historyList.size()!=0) history = historyList.get(historyList.size() - 1);
+            if (history != null){ history.setStatus(3); historyService.updateHistory(history);}
+            else {
+               historyService.save(new History(docId, userId, new Date(System.currentTimeMillis()), null, 0, 3));
+            }
+
             log.write(getCurrentUser(), " added to queue " , documentService.getDocumentById(docId),
                     null);
         }
 
         //Status ==0 - Success
 
-        return "redirect:/listOfBooksForPatron";
+        return "redirect:/viewQueue/"+docId;
     }
 
 
@@ -786,7 +795,7 @@ public class UserController {
 
 
     @RequestMapping("/queueLib/{docId}")
-    public String outstandingRequest(@PathVariable Long docId, Model model) throws IOException, SQLException {
+    public ModelAndView outstandingRequest(@PathVariable Long docId, Model model) throws IOException, SQLException {
 
         List<History> histories0 = historyService.getListHistoriesByDocIdAndStatus(docId, 0);
         List<History> histories2 = historyService.getListHistoriesByDocIdAndStatus(docId, 2);
@@ -794,6 +803,9 @@ public class UserController {
             try {
                 notificationService.sendReturnQuery(userService.getUserById(histories0.get(i).getUserId()), documentService.getDocumentById(histories0.get(i).getDocId()));
                 histories0.get(i).setReturnDate(new Date(System.currentTimeMillis()));
+                this.log.write(getCurrentUser(), "user " + userService.getUserById(histories0.get(i).getUserId()).getName() +
+                        " " + userService.getUserById(histories0.get(i).getUserId()).getSurname() +
+                        " notified to return document", documentService.getDocumentById(docId), null);
             } catch (MailException e) {
                 //catch error
                 logger.info("Error Sending Email:" + e.getMessage());
@@ -801,7 +813,11 @@ public class UserController {
         }
         for (int i = 0; i < histories2.size(); i++) {
             try {
-                notificationService.sendReturnQuery(userService.getUserById(histories2.get(i).getUserId()), documentService.getDocumentById(histories2.get(i).getDocId()));
+                notificationService.sendReturnQuery(userService.getUserById(histories2.get(i).getUserId()),
+                        documentService.getDocumentById(histories2.get(i).getDocId()));
+                this.log.write(getCurrentUser(), "user " + userService.getUserById(histories0.get(i).getUserId()).getName() +
+                        " " + userService.getUserById(histories0.get(i).getUserId()).getSurname() +
+                        " notified to return document", documentService.getDocumentById(docId), null);
                 histories2.get(i).setReturnDate(new Date(System.currentTimeMillis()));
             } catch (MailException e) {
                 //catch error
@@ -819,15 +835,58 @@ public class UserController {
         Statement stmt=conn.createStatement();
         stmt.executeUpdate(query1);
 
-        return "redirect:/listOfAllDocuments";
+        String query2="DELETE FROM history WHERE doc_id=" + docId+" AND status=" + 3;
+
+        stmt.executeUpdate(query2);
+
+
+
+        log.write(getCurrentUser(), "waiting list delted", documentService.getDocumentById(docId), null);
+
+        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.findByUsername(currentUser);
+        ModelAndView mav = new ModelAndView();
+
+        Map<String, String> userData = new HashMap<>();
+        userData.put("username", user.getUsername());
+        userData.put("name", user.getName());
+        userData.put("surname", user.getSurname());
+        userData.put("phone", user.getPhone());
+        userData.put("email", user.getEmail());
+        userData.put("type", user.getType());
+        mav.setViewName("listOfAllDocuments");
+
+        mav.addObject("user", userData);
+
+        log.write(getCurrentUser(), "placed an outstanding request on" ,
+                documentService.getDocumentById(docId), null);
+
+
+        return mav;
     }
 
 
     @RequestMapping(value = "/listOfAllDocuments", method = RequestMethod.GET)
-    public String listOfAllDocuments(ModelMap model) {
+    public ModelAndView listOfAllDocuments(ModelMap model) {
+
         List<Document> documents = documentService.getAllDocuments();
+        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.findByUsername(currentUser);
+        ModelAndView mav = new ModelAndView();
+
+        Map<String, String> userData = new HashMap<>();
+        userData.put("username", user.getUsername());
+        userData.put("name", user.getName());
+        userData.put("surname", user.getSurname());
+        userData.put("phone", user.getPhone());
+        userData.put("email", user.getEmail());
+        userData.put("type", user.getType());
+        mav.setViewName("listOfAllDocuments");
+
+        mav.addObject("user", userData);
         model.put("documents", documents);
-        return "listOfAllDocuments";
+
+        return mav;
     }
 
     @RequestMapping(value = "/viewQueue/{docId}", method = RequestMethod.GET)
@@ -845,6 +904,7 @@ public class UserController {
         userData.put("phone", user.getPhone());
         userData.put("email", user.getEmail());
         userData.put("type", user.getType());
+        if(user instanceof Librarian) userData.put("privilege", ((Librarian) user).getPrivilege()+"");
 
         mav.setViewName("viewQueue");
 
