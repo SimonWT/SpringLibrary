@@ -88,7 +88,7 @@ public class NotificationService {
         mail.setTo(user.getEmail());
         mail.setFrom("innodeeplib@gmail.com");
         mail.setSubject("Deep Library");
-        mail.setText("Please return the" + document.getTitle() + " which is written by" + document.getAuthors());
+        mail.setText("Please return the " + document.getTitle() + " which is written by " + document.getAuthors());
         javaMailSender.send(mail);
     }
 
