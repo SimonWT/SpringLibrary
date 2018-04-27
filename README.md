@@ -66,9 +66,15 @@ Press "OK"
   1. **View - > Tool Windows -> Maven Project - > click on "Spring SecurityApp Maven Webapp" -> Plugins -> jetty -> jetty:run**
   2. At Web-browser put in address line "[localhost:8080](http://localhost:8080)"
   3. Some account for **Sing In**:
-    *Account of Librarian:
-      + username: DamskiyUgodnik
+    *Account of Admin:
+      + username: admin
       + password: adminadmin
+     *Account of Librarian_3:
+      + username: Igor'an
+      + password: hellohello
+    *Account of Librarian_2:
+      + username: bbbbbbbbbbbbb
+      + password: bbbbbbbbbbbbb
     * Account of Patron:
       + username: i.vakhula_user
       + password: useruser
