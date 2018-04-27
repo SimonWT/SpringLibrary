@@ -311,7 +311,7 @@ public class Patron extends User {
         List<Document> documents = documentService.getAllDocuments();
         for (int i = 0; i < documents.size(); i++) {
             Document document = documents.get(i);
-            if (document.getKeys().contains(searchString)) {
+            if (document.getKeys()!=null && document.getKeys().contains(searchString)) {
                 documentsAnswerListBySearchString.add(document);
             }
         }
