@@ -16,7 +16,7 @@
 
 ![alt text](documentation_screenshoots/Lofin.PNG "Description goes here")
 [all documentation](/Documentation.md) you can find there.
-
+ 
 ### **How to install our project on your PC** 
 
 + Install:

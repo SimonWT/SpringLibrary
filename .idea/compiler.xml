@@ -11,6 +11,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="SpringLibraryClone" target="1.8" />
+      <module name="springmvcdemo" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

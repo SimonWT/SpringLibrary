@@ -57,11 +57,9 @@
         </c:when>
         <c:otherwise>
                 <form:form method="POST">
-                     <input type="search" class = "t" id="search" style = "float:top" placeholder="Search..." />
-                    <div class = "col">
-                    <button name="full"   style = "float:top; border:none;border-radius: 10px;" type="submit">Full Search</button>
-                    <button name="part" type="submit" style = "border-radius: 10px; float:bottom; border:none;">By Title</button>
-                    </div>
+                     <input type="search" class = "t" id="search" style = "" placeholder="Search..." />
+                    <button name="full"   style = "margin-top:1.8%;float:left;border:none;border-radius: 10px;" type="submit">Full Search</button>
+                    <button name="part" type="submit" style = "border-radius: 10px; margin-top:1.8%;float:left;border:none;">By Title</button>
                 </form:form>
                     <script>
                         $("form#command button[name=full]").click(function(e){
