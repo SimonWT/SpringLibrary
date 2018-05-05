@@ -71,6 +71,20 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void update(User user) {
+        
+        Set<Role> roles = new HashSet<>();
+        if (user instanceof Admin) {
+            roles.add(roleDao.getOne(2L));
+        } else if (user instanceof Librarian){
+            if (((Librarian) user).getPrivilege() == 1)
+                roles.add(roleDao.getOne(3L));
+            else if (((Librarian) user).getPrivilege() == 2)
+                roles.add(roleDao.getOne(4L));
+            else if (((Librarian) user).getPrivilege() == 3)
+                roles.add(roleDao.getOne(5L));
+        } else
+            roles.add(roleDao.getOne(1L));
+        user.setRoles(roles);
         userDao.save(user);
     }
 
