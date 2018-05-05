@@ -380,7 +380,8 @@ public class UserController {
     public String editLibrarian(@ModelAttribute("userForm") Librarian userForm, BindingResult bindingResult, Model model) throws IOException {
 
        // userService.delete(userService.findByUsername(userForm.getUsername()).getId());
-        userService.delete(userForm.getId());
+       //userService.delete(userForm.getId());
+        
         userService.update(userForm);
         userForm.setType(userForm.getTypeString());
 
