@@ -2,7 +2,7 @@
 
  **DeepLib** 
  ====================
-#### Innovation in Libraray Managment System
+#### Innovation in Library Managment System
 
 ------------------------------
 ### There are 4 contributors in our Team (DeepLib Team)
